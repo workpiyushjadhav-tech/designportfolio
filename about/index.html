@@ -281,8 +281,6 @@
     .hero-photo-stack {
       position: relative; height: 480px;
       opacity: 0; animation: fadeSlideUp .8s .3s cubic-bezier(.34,1.2,.64,1) forwards;
-      }
-  }
     }
     .photo-card {
       position: absolute;
@@ -359,12 +357,6 @@
       background-size: 200% 100%;
       animation: shimmer 2.5s infinite;
     }
-    @media (max-width: 767px) {
-    .img-placeholder.shimmer { animation: none; background-size: 100% 100%; }
-    }
-    .photo-card--main { animation: none; }
-    .photo-card--secondary { animation: none; }
-    .photo-card--accent { animation: none; }
 
     /* ════════════════════════════════
        §2 — STORY / TIMELINE SECTION
@@ -657,6 +649,10 @@
       .footer-inner { flex-direction: column; text-align: center; }
       #cursor, #cursor-ring { display: none; }
       body { cursor: auto; }
+      .photo-card--main,
+      .photo-card--secondary,
+      .photo-card--accent { animation: none; }
+      .img-placeholder.shimmer { animation: none; background-size: 100% 100%; }
     }
     @media (max-width: 479px) {
       .hero-actions { flex-direction: column; }
@@ -678,17 +674,18 @@
 <!-- ── NAVBAR ── -->
 <nav id="navbar" aria-label="Main navigation">
   <div id="navbar-inner">
-    <a href="/home" class="nav-logo">
+    <a href="portfolio-landing.html" class="nav-logo">
       <div class="nav-logo-mark">
         <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
       </div>
       <span class="nav-logo-name">Piyush Jadhav</span>
     </a>
     <ul class="nav-links">
-      <li><a href="/case-studies">Case Studies</a></li>
-      <li><a href="/about" class="active">About Me</a></li>
+      <li><a href="case-studies.html">Case Studies</a></li>
+      <li><a href="about.html" class="active">About Me</a></li>
+      <li><a href="portfolio-landing.html#contact">Contact</a></li>
     </ul>
-    <a href="/home#contact" class="nav-cta">Let's Talk →</a>
+    <a href="portfolio-landing.html#contact" class="nav-cta">Let's Talk →</a>
     <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
@@ -696,9 +693,10 @@
 </nav>
 <div id="mobile-menu" aria-hidden="true">
   <ul>
-    <li><a href="/home#work" onclick="closeMobile()">Case Studies</a></li>
-    <li><a href="/about" onclick="closeMobile()">About Me</a></li>
-    <li><a href="/home#contact" onclick="closeMobile()">Let's Talk →</a></li>
+    <li><a href="portfolio-landing.html#work"    onclick="closeMobile()">Case Studies</a></li>
+    <li><a href="about.html"                     onclick="closeMobile()">About Me</a></li>
+    <li><a href="portfolio-landing.html#contact" onclick="closeMobile()">Contact</a></li>
+    <li><a href="portfolio-landing.html#contact" onclick="closeMobile()">Let's Talk →</a></li>
   </ul>
 </div>
 
@@ -724,11 +722,11 @@
             I spent nearly a decade understanding people before I ever opened Figma. That foundation shapes every pixel I place and every pattern I question.
           </p>
           <div class="hero-actions">
-            <a href="/home#work" class="btn-primary">
+            <a href="portfolio-landing.html#work" class="btn-primary">
               See my work <span class="arrow">↗</span>
             </a>
             <!-- Change href to your actual resume PDF -->
-            <a href="assets/Resume.pdf" class="btn-ghost" target="_blank" rel="noopener">
+            <a href="resume.pdf" class="btn-ghost" target="_blank" rel="noopener">
               Download resume
             </a>
           </div>
@@ -739,7 +737,7 @@
 
           <!-- Main portrait — replace .img-placeholder with <img src="your-photo.jpg" alt="Piyush Jadhav"> -->
           <div class="photo-card photo-card--main">
-            <div class="img-placeholder shimmer" style="background: linear-gradient(145deg,#c8d6ff,#8aa8ff);">
+            <div class="img-placeholder" style="background: linear-gradient(145deg,#c8d6ff,#8aa8ff);">
               <span class="img-placeholder-icon">🙂</span>
               <span class="img-placeholder-label">Your portrait</span>
             </div>
@@ -747,8 +745,8 @@
           </div>
 
           <!-- Secondary candid — replace with <img src="candid.jpg" alt="At work"> -->
-          <div class="photo-card photo-card--secondary">
-            <div class="img-placeholder shimmer" style="background: linear-gradient(145deg,#ffd6c8,#ffaa88);">
+        <div class="photo-card photo-card--secondary">
+            <div class="img-placeholder" style="background: linear-gradient(145deg,#ffd6c8,#ffaa88);">
               <span class="img-placeholder-icon">✏️</span>
               <span class="img-placeholder-label">At work</span>
             </div>
@@ -756,14 +754,14 @@
           </div>
 
           <!-- Accent / fun photo — replace with <img src="fun.jpg" alt="Off duty"> -->
-          <div class="photo-card photo-card--accent">
-            <div class="img-placeholder shimmer" style="background: linear-gradient(145deg,#c8ffe8,#7bdbb4);">
+          
+       <div class="photo-card photo-card--accent">
+            <div class="img-placeholder" style="background: linear-gradient(145deg,#c8ffe8,#7bdbb4);">
               <span class="img-placeholder-icon">🌿</span>
               <span class="img-placeholder-label">Off duty</span>
             </div>
             <span class="photo-tag">Off duty</span>
           </div>
-
         </div><!-- /hero-photo-stack -->
 
       </div><!-- /hero-cols -->
@@ -1029,7 +1027,7 @@
         <!-- Edit to your email -->
         <a href="mailto:hello@piyushjadhav.com" class="btn-primary">Say hello ↗</a>
         <!-- Edit to your resume path -->
-        <a href="assets/Resume.pdf" class="btn-ghost" target="_blank" rel="noopener">View resume</a>
+        <a href="resume.pdf" class="btn-ghost" target="_blank" rel="noopener">View resume</a>
       </div>
     </div>
   </div>
