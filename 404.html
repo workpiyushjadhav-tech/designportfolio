@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found · Piyush Jadhav</title>
+  <meta name="description" content="This page doesn't exist — but great design does.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+    /* ── Design Tokens ── */
+    :root {
+      --accent:        #1E5EFF;
+      --accent-dark:   #0A40CC;
+      --accent-muted:  #EEF3FF;
+      --accent-warm:   #FF6B35;
+      --accent-teal:   #00C9A7;
+
+      --ink-900: #0D0F11;
+      --ink-700: #3F4552;
+      --ink-500: #6B7280;
+      --ink-300: #BFC4CF;
+      --ink-100: #F0F2F5;
+      --ink-050: #F8F9FB;
+      --white:   #FFFFFF;
+
+      --font-display: 'Epilogue', sans-serif;
+      --font-body:    'Inter', sans-serif;
+
+      --sp-4:   4px;  --sp-6:   6px;  --sp-8:   8px;
+      --sp-12: 12px;  --sp-16: 16px;  --sp-20: 20px;
+      --sp-24: 24px;  --sp-32: 32px;  --sp-40: 40px;
+      --sp-48: 48px;  --sp-64: 64px;  --sp-80: 80px;
+      --sp-120: 120px;
+
+      --r-sm:  8px;  --r-md: 16px;  --r-lg: 24px;
+      --r-xl:  40px; --r-2xl: 48px;
+
+      --shadow-nav:  0 1px 2px rgba(0,0,0,.06), 0 4px 24px rgba(0,0,0,.10);
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--ink-700);
+      overflow-x: hidden;
+      cursor: none;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Custom Cursor ── */
+    #cursor {
+      position: fixed;
+      width: 12px; height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width .2s, height .2s, background .2s, opacity .2s;
+      mix-blend-mode: multiply;
+    }
+    #cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width .35s cubic-bezier(.25,.46,.45,.94),
+                  height .35s cubic-bezier(.25,.46,.45,.94),
+                  border-color .2s, opacity .2s;
+      opacity: 0.5;
+    }
+    body.cursor-hover #cursor { width: 20px; height: 20px; background: var(--accent-warm); }
+    body.cursor-hover #cursor-ring { width: 56px; height: 56px; border-color: var(--accent-warm); opacity: .3; }
+
+    /* ── Utility ── */
+    .container { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 var(--sp-40); }
+    .label {
+      font-family: var(--font-display);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* ── NAVBAR ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100; padding: 0 var(--sp-20) var(--sp-20);
+      pointer-events: none;
+    }
+    #navbar-inner {
+      pointer-events: all;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px; padding: 0 var(--sp-40);
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom-left-radius: var(--r-lg);
+      border-bottom-right-radius: var(--r-lg);
+      box-shadow: var(--shadow-nav);
+      transition: background .3s ease, box-shadow .3s ease;
+    }
+    #navbar-inner.scrolled {
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 2px 32px rgba(0,0,0,.13);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: var(--sp-12);
+      text-decoration: none; color: var(--ink-900);
+    }
+    .nav-logo-mark {
+      width: 34px; height: 34px;
+      background: var(--ink-900); border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: transform .2s cubic-bezier(.34,1.56,.64,1), background .2s;
+    }
+    .nav-logo-mark:hover { transform: rotate(-8deg) scale(1.08); background: var(--accent); }
+    .nav-logo-mark svg { width: 18px; height: 18px; fill: white; }
+    .nav-logo-name {
+      font-family: var(--font-display);
+      font-size: 17px; font-weight: 700; letter-spacing: -.01em;
+    }
+    .nav-links { display: flex; gap: var(--sp-32); list-style: none; }
+    .nav-links a {
+      font-family: var(--font-display);
+      font-size: 14px; font-weight: 600;
+      color: var(--ink-700); text-decoration: none;
+      letter-spacing: -.01em; transition: color .2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 2px; background: var(--accent); border-radius: 2px;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1);
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 700;
+      color: var(--accent); background: var(--accent-muted);
+      border: 1.5px solid var(--accent);
+      padding: 8px 18px; border-radius: var(--r-md);
+      text-decoration: none;
+      transition: background .2s, color .2s, transform .15s, box-shadow .2s;
+    }
+    .nav-cta:hover {
+      background: var(--accent); color: white;
+      transform: translateY(-1px); box-shadow: 0 6px 20px rgba(30,94,255,.3);
+    }
+    .nav-cta:active { transform: translateY(0); }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--ink-900); border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    #mobile-menu {
+      display: none; position: fixed;
+      top: 0; left: 0; right: 0; z-index: 99;
+      padding-top: 88px;
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(20px);
+      transform: translateY(-110%);
+      transition: transform .35s cubic-bezier(.32,0,.67,0);
+    }
+    #mobile-menu.open {
+      transform: translateY(0);
+      transition: transform .35s cubic-bezier(.33,1,.68,1);
+    }
+    #mobile-menu ul {
+      list-style: none; padding: var(--sp-24) var(--sp-20) var(--sp-40);
+      display: flex; flex-direction: column; gap: var(--sp-4);
+    }
+    #mobile-menu a {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 700;
+      color: var(--ink-900); text-decoration: none;
+      padding: var(--sp-12) 0;
+      border-bottom: 1px solid var(--ink-100);
+      transition: color .2s, padding-left .2s;
+    }
+    #mobile-menu a:hover { color: var(--accent); padding-left: 8px; }
+
+    /* ── 404 HERO ── */
+    .page-404 {
+      flex: 1;
+      display: flex; align-items: center; justify-content: center;
+      padding: 140px var(--sp-40) var(--sp-80);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background large 404 text */
+    .page-404::before {
+      content: '404';
+      position: absolute;
+      font-family: var(--font-display);
+      font-size: clamp(160px, 28vw, 320px);
+      font-weight: 900;
+      letter-spacing: -.06em;
+      color: var(--ink-100);
+      line-height: 1;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+
+    .error-inner {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center;
+      gap: var(--sp-24);
+      max-width: 560px;
+    }
+
+    .error-label {
+      display: block;
+      opacity: 0;
+      animation: fadeSlideUp .6s .1s cubic-bezier(.34,1.2,.64,1) forwards;
+    }
+
+    .error-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 900; letter-spacing: -.04em;
+      color: var(--ink-900); line-height: 1.05;
+      opacity: 0;
+      animation: fadeSlideUp .7s .2s cubic-bezier(.34,1.2,.64,1) forwards;
+    }
+
+    .error-sub {
+      font-size: 16px; color: var(--ink-500); line-height: 1.7;
+      max-width: 420px;
+      opacity: 0;
+      animation: fadeSlideUp .7s .32s cubic-bezier(.34,1.2,.64,1) forwards;
+    }
+
+    .error-actions {
+      display: flex; gap: var(--sp-16); flex-wrap: wrap; justify-content: center;
+      margin-top: var(--sp-8);
+      opacity: 0;
+      animation: fadeSlideUp .7s .44s cubic-bezier(.34,1.2,.64,1) forwards;
+    }
+
+    /* Primary button */
+    .btn-primary {
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      background: var(--accent); color: white;
+      border: 1.5px solid var(--accent);
+      padding: 13px 28px; border-radius: var(--r-md);
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: background .2s, transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
+    }
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(30,94,255,.35);
+    }
+    .btn-primary:active { transform: translateY(0); box-shadow: none; }
+
+    /* Ghost button */
+    .btn-ghost {
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--ink-700);
+      background: transparent;
+      border: 1.5px solid var(--ink-300);
+      padding: 13px 28px; border-radius: var(--r-md);
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: border-color .2s, color .2s, transform .2s cubic-bezier(.34,1.56,.64,1);
+    }
+    .btn-ghost:hover {
+      border-color: var(--ink-700); color: var(--ink-900);
+      transform: translateY(-2px);
+    }
+    .btn-ghost:active { transform: translateY(0); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink-900);
+      padding: var(--sp-40) 0;
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--sp-24); flex-wrap: wrap;
+    }
+    .footer-left {
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,.4);
+    }
+    .footer-links { display: flex; gap: var(--sp-24); }
+    .footer-links a {
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,.4); text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: white; }
+
+    /* ── KEYFRAMES ── */
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 767px) {
+      :root { --sp-120: 64px; }
+      #navbar { padding: 0; }
+      #navbar-inner { border-radius: 0; }
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      #mobile-menu { display: block; }
+      #cursor, #cursor-ring { display: none; }
+      body { cursor: auto; }
+      .page-404 { padding-top: 120px; }
+      .error-actions { flex-direction: column; align-items: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .error-label, .error-title, .error-sub, .error-actions { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ── NAVBAR ── -->
+<nav id="navbar" aria-label="Main navigation">
+  <div id="navbar-inner">
+    <a href="portfolio-landing.html" class="nav-logo">
+      <div class="nav-logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <span class="nav-logo-name">Piyush Jadhav</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="case-studies.html">Case Studies</a></li>
+      <li><a href="about.html">About Me</a></li>
+      <li><a href="portfolio-landing.html#contact">Contact</a></li>
+    </ul>
+    <a href="portfolio-landing.html#contact" class="nav-cta">Let's Talk →</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="mobile-menu" aria-hidden="true">
+  <ul>
+    <li><a href="case-studies.html"              onclick="closeMobile()">Case Studies</a></li>
+    <li><a href="about.html"                     onclick="closeMobile()">About Me</a></li>
+    <li><a href="portfolio-landing.html#contact" onclick="closeMobile()">Contact</a></li>
+    <li><a href="portfolio-landing.html#contact" onclick="closeMobile()">Let's Talk →</a></li>
+  </ul>
+</div>
+
+<!-- ── 404 ── -->
+<main class="page-404" aria-labelledby="error-title">
+  <div class="error-inner">
+    <span class="label error-label">Error 404</span>
+    <h1 class="error-title" id="error-title">This page took a wrong turn.</h1>
+    <p class="error-sub">The page you're looking for doesn't exist or may have moved. Let's get you back on track.</p>
+    <div class="error-actions">
+      <a href="portfolio-landing.html" class="btn-primary">← Back to Home</a>
+      <a href="case-studies.html" class="btn-ghost">View Case Studies</a>
+    </div>
+  </div>
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <span class="footer-left">© 2026 Piyush Jadhav. Designed & built with ♥</span>
+      <div class="footer-links">
+        <a href="https://www.linkedin.com/in/piyushjadhavdesign/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://dribbble.com/piyushjadhav"    target="_blank" rel="noopener">Dribbble</a>
+        <a href="https://twitter.com/piyushjadhav"     target="_blank" rel="noopener">Twitter</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Custom cursor ── */
+const cur  = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = -100, my = -100, rx = -100, ry = -100;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animCursor() {
+  const lagX = rx + (mx - rx) * .15;
+  const lagY = ry + (my - ry) * .15;
+  rx = lagX; ry = lagY;
+  if (cur)  cur.style.cssText  += `left:${mx}px;top:${my}px;`;
+  if (ring) ring.style.cssText += `left:${lagX}px;top:${lagY}px;`;
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+
+/* ── Navbar scroll ── */
+const navInner = document.getElementById('navbar-inner');
+window.addEventListener('scroll', () => {
+  navInner.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+/* ── Hamburger ── */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open', open);
+  mobileMenu.setAttribute('aria-hidden', String(!open));
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+function closeMobile() {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  mobileMenu.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+</script>
+</body>
+</html>
