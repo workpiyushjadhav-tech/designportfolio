@@ -290,7 +290,7 @@
       transition: transform .4s cubic-bezier(.34,1.36,.64,1), box-shadow .3s, z-index 0s;
       cursor: pointer;
     }
-    .photo-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,.22); z-index: 10; }
+    .photo-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,.22); z-index: 10; transform: rotate(0deg) scale(1.06) translateY(-8px); }
 
     /* Individual card placements */
     .photo-card--main {
@@ -356,6 +356,9 @@
         rgba(255,255,255,.04) 60%);
       background-size: 200% 100%;
       animation: shimmer 2.5s infinite;
+    }
+    @media (max-width: 767px) {
+    .img-placeholder.shimmer { animation: none; background-size: 100% 100%; }
     }
 
     /* ════════════════════════════════
