@@ -281,6 +281,13 @@
     .hero-photo-stack {
       position: relative; height: 480px;
       opacity: 0; animation: fadeSlideUp .8s .3s cubic-bezier(.34,1.2,.64,1) forwards;
+      }
+      @media (max-width: 1023px) {
+      .hero-photo-stack { display: flex; justify-content: center; align-items: center; }
+      .photo-card--main { left: 50%; transform: translateX(-60%) rotate(-3deg); }
+      .photo-card--secondary { left: 50%; transform: translateX(10%) rotate(4deg); bottom: 20px; right: auto; }
+      .photo-card--accent { left: 50%; transform: translateX(20%) rotate(6deg); top: 30px; right: auto; }
+}
     }
     .photo-card {
       position: absolute;
