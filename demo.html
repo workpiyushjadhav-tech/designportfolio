@@ -7,7 +7,7 @@
   <meta name="description" content="UX Design Case Study: Culinarr — QR-based group ordering platform for UK food halls.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     /* ── Reset & base ───────────────────────────────────────── */
@@ -52,7 +52,7 @@
       cursor: none;
     }
 
-    /* ── Custom cursor ───────────────────────────────────── */
+    /* ── Custom cursor ─────────────────────────────────────── */
     #cursor {
       position: fixed; width: 12px; height: 12px;
       background: var(--accent); border-radius: 50%;
@@ -74,42 +74,52 @@
     body.cursor-hover #cursor { width: 20px; height: 20px; background: var(--accent-warm); }
     body.cursor-hover #cursor-ring { width: 56px; height: 56px; border-color: var(--accent-warm); opacity: .3; }
 
-    /* ── Utility ─────────────────────────────────────────── */
+    /* ── Utility ────────────────────────────────────────────── */
     .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 0 var(--sp-24); }
+
+    /* ── Consistent pill / label tokens ─────────────────────── */
     .label {
       font-family: var(--font-display);
       font-size: 11px; font-weight: 700;
       letter-spacing: .12em; text-transform: uppercase;
       color: var(--accent);
     }
+    /* Single pill style used throughout */
     .tag-pill {
-      display: inline-block;
+      display: inline-flex; align-items: center;
       background: var(--accent-muted);
       color: var(--accent);
-      font-size: 11px; font-weight: 600;
-      letter-spacing: .06em; text-transform: uppercase;
-      padding: 4px 10px; border-radius: 100px;
+      font-family: var(--font-display);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 100px;
+      border: 1px solid rgba(227,30,8,.18);
+      white-space: nowrap;
     }
 
-    /* ── NAVBAR ────────────────────────────────────────────── */
+    /* ════════════════════════════════════════════════════════
+       TOP NAVBAR — from index.html
+    ════════════════════════════════════════════════════════ */
     #navbar {
       position: fixed; top: 0; left: 0; right: 0;
-      z-index: 100; padding: 0 var(--sp-20) var(--sp-20);
+      z-index: 200; padding: 0 var(--sp-20) var(--sp-20);
       pointer-events: none;
     }
     #navbar-inner {
       pointer-events: all;
       display: flex; align-items: center; justify-content: space-between;
       height: 68px; padding: 0 var(--sp-40);
-      background: rgba(255,255,255,.70);
+      background: rgba(255,255,255,.72);
       backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
       border-bottom-left-radius: var(--r-lg);
       border-bottom-right-radius: var(--r-lg);
       box-shadow: var(--shadow-nav);
       transition: background .3s, box-shadow .3s;
     }
-    #navbar-inner.scrolled { background: rgba(255,255,255,.94); box-shadow: 0 2px 32px rgba(0,0,0,.13); }
-
+    #navbar-inner.scrolled {
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 2px 32px rgba(0,0,0,.13);
+    }
     .nav-logo {
       display: flex; align-items: center; gap: var(--sp-12);
       text-decoration: none; color: var(--ink-900);
@@ -123,12 +133,11 @@
     .nav-logo-mark:hover { transform: rotate(-8deg) scale(1.08); background: var(--accent); }
     .nav-logo-mark svg { width: 18px; height: 18px; fill: white; }
     .nav-logo-name { font-family: var(--font-display); font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
-
-    .nav-links { display: flex; gap: var(--sp-24); list-style: none; }
+    .nav-links { display: flex; gap: var(--sp-32); list-style: none; }
     .nav-links a {
-      font-family: var(--font-display); font-size: 13px; font-weight: 600;
-      color: var(--ink-700); text-decoration: none; letter-spacing: -.01em;
-      position: relative; transition: color .2s;
+      font-family: var(--font-display); font-size: 14px; font-weight: 600;
+      color: var(--ink-700); text-decoration: none;
+      letter-spacing: -.01em; transition: color .2s; position: relative;
     }
     .nav-links a::after {
       content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
@@ -137,8 +146,8 @@
       transition: transform .25s cubic-bezier(.34,1.56,.64,1);
     }
     .nav-links a:hover { color: var(--accent); }
-    .nav-links a:hover::after { transform: scaleX(1); }
-
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+    .nav-links a.active { color: var(--accent); }
     .nav-cta {
       font-family: var(--font-display); font-size: 13px; font-weight: 700;
       color: var(--accent); background: var(--accent-muted);
@@ -147,26 +156,107 @@
       transition: background .2s, color .2s, transform .15s, box-shadow .2s;
     }
     .nav-cta:hover { background: var(--accent); color: white; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(227,30,8,.3); }
-
-    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
-    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--ink-900); border-radius: 2px; transition: transform .3s, opacity .3s; }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--ink-900); border-radius: 2px; transition: transform .3s, opacity .3s;
+    }
     .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
     #mobile-menu {
-      display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 99;
-      padding-top: 88px; background: rgba(255,255,255,.97); backdrop-filter: blur(20px);
-      transform: translateY(-110%); transition: transform .35s cubic-bezier(.32,0,.67,0);
+      display: none; position: fixed;
+      top: 0; left: 0; right: 0; z-index: 190;
+      padding-top: 88px;
+      background: rgba(255,255,255,.97); backdrop-filter: blur(20px);
+      transform: translateY(-110%);
+      transition: transform .35s cubic-bezier(.32,0,.67,0);
     }
-    #mobile-menu.open { transform: translateY(0); transition: transform .35s cubic-bezier(.33,1,.68,1); }
-    #mobile-menu ul { list-style: none; padding: var(--sp-24) var(--sp-20) var(--sp-40); display: flex; flex-direction: column; gap: var(--sp-4); }
+    #mobile-menu.open {
+      transform: translateY(0);
+      transition: transform .35s cubic-bezier(.33,1,.68,1);
+    }
+    #mobile-menu ul {
+      list-style: none; padding: var(--sp-24) var(--sp-20) var(--sp-40);
+      display: flex; flex-direction: column; gap: var(--sp-4);
+    }
     #mobile-menu a {
-      display: block; font-family: var(--font-display); font-size: 22px; font-weight: 700;
+      display: block; font-family: var(--font-display);
+      font-size: 22px; font-weight: 700;
       color: var(--ink-900); text-decoration: none;
-      padding: var(--sp-12) 0; border-bottom: 1px solid var(--ink-100); transition: color .2s;
+      padding: var(--sp-12) 0; border-bottom: 1px solid var(--ink-100);
+      transition: color .2s, padding-left .2s;
     }
-    #mobile-menu a:hover { color: var(--accent); }
+    #mobile-menu a:hover { color: var(--accent); padding-left: 8px; }
+
+    /* ════════════════════════════════════════════════════════
+       SIDE STEPPER NAV
+    ════════════════════════════════════════════════════════ */
+    #side-stepper {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 150;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: flex-end;
+    }
+    .stepper-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 4px 0;
+    }
+    .stepper-label {
+      font-family: var(--font-display);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--ink-500);
+      background: rgba(255,255,255,.9);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ink-100);
+      padding: 5px 12px; border-radius: 100px;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(8px);
+      transition: opacity .2s, transform .2s, color .2s, border-color .2s, background .2s;
+      pointer-events: none;
+    }
+    .stepper-item:hover .stepper-label,
+    .stepper-item.active .stepper-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .stepper-item.active .stepper-label {
+      color: var(--accent);
+      border-color: rgba(227,30,8,.3);
+      background: var(--accent-muted);
+    }
+    .stepper-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--ink-300);
+    border: 1.5px solid transparent;
+    transition: background .25s, transform .35s cubic-bezier(.34,1.56,.64,1), border-color .25s, width .25s, height .25s, opacity .3s;
+    flex-shrink: 0;
+    }
+    .stepper-item:hover .stepper-dot {
+      background: var(--accent-warm);
+      transform: scale(1.3);
+    }
+    .stepper-item.active .stepper-dot {
+      background: var(--accent);
+      transform: scale(1.25);
+      border-color: rgba(227,30,8,.25);
+      box-shadow: 0 0 0 3px rgba(227,30,8,.15);
+    }
+
 
     /* ── HERO ──────────────────────────────────────────────── */
     #hero {
@@ -283,13 +373,13 @@
     }
 
     /* ── SECTION HEADING ─────────────────────────────────── */
-    .section-heading { display: flex; flex-direction: column; gap: var(--sp-16); margin-bottom: var(--sp-40); }
+    .section-heading { display: flex; flex-direction: column; gap: var(--sp-12); margin-bottom: var(--sp-48); }
     .section-heading h2 {
-      font-family: var(--font-display); font-size: clamp(24px, 4vw, 40px);
-      font-weight: 800; line-height: 1.2; letter-spacing: -.03em; color: var(--ink-900);
+      font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 44px);
+      font-weight: 800; line-height: 1.18; letter-spacing: -.035em; color: var(--ink-900);
     }
     .section-heading h2 strong { color: var(--accent); font-weight: 800; }
-    .section-heading p { font-size: 17px; line-height: 1.7; color: var(--ink-500); max-width: 620px; }
+    .section-heading p { font-size: 17px; line-height: 1.72; color: var(--ink-500); max-width: 640px; margin-top: var(--sp-4); }
 
     /* ── PROSE ───────────────────────────────────────────── */
     .prose { font-size: 17px; line-height: 1.75; color: var(--ink-700); }
@@ -364,42 +454,59 @@
     .carousel-wrap {
       position: relative; overflow: hidden;
       border-radius: var(--r-xl); border: 1.5px solid var(--ink-100);
+      box-shadow: var(--shadow-card);
     }
-    .carousel-track { display: flex; transition: transform .5s cubic-bezier(.32,0,.67,0); }
+    .carousel-track { display: flex; transition: transform .52s cubic-bezier(.32,0,.67,0); }
     .carousel-slide { flex: 0 0 100%; width: 100%; }
     .carousel-slide-inner {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 0; min-height: 440px;
+      gap: 0; min-height: 500px;
     }
     .carousel-text {
-      padding: var(--sp-40); display: flex; flex-direction: column;
-      justify-content: center; gap: var(--sp-20);
+      padding: var(--sp-48) var(--sp-40); display: flex; flex-direction: column;
+      justify-content: center; gap: var(--sp-24);
       border-right: 1.5px solid var(--ink-100);
+      background: var(--white);
     }
     .carousel-number {
-      font-family: var(--font-display); font-size: 11px; font-weight: 700;
-      letter-spacing: .1em; text-transform: uppercase; color: var(--accent);
+      display: inline-flex; align-items: center; gap: var(--sp-8);
+      font-family: var(--font-display); font-size: 11px; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent); background: var(--accent-muted);
+      padding: 4px 12px; border-radius: 100px; width: fit-content;
+      border: 1px solid rgba(227,30,8,.18);
     }
     .carousel-slide-title {
-      font-family: var(--font-display); font-size: 20px; font-weight: 800;
-      color: var(--ink-900); letter-spacing: -.02em; line-height: 1.3;
+      font-family: var(--font-display); font-size: 22px; font-weight: 800;
+      color: var(--ink-900); letter-spacing: -.025em; line-height: 1.28;
     }
-    .carousel-slide-body { font-size: 15px; line-height: 1.7; color: var(--ink-500); }
-    .carousel-slide-body ul { margin-top: var(--sp-8); margin-left: var(--sp-16); display: flex; flex-direction: column; gap: var(--sp-6); }
-    .carousel-slide-body li { line-height: 1.55; }
-    .carousel-slide-body strong { font-weight: 600; color: var(--ink-700); }
-    .carousel-img { background: var(--ink-050); display: flex; align-items: center; justify-content: center; }
+    .carousel-slide-body { font-size: 15px; line-height: 1.72; color: var(--ink-500); }
+    .carousel-slide-body p { margin-bottom: var(--sp-12); }
+    .carousel-slide-body ul { margin-top: var(--sp-8); margin-left: 0; display: flex; flex-direction: column; gap: var(--sp-8); list-style: none; }
+    .carousel-slide-body li { line-height: 1.55; display: flex; gap: var(--sp-8); align-items: flex-start; }
+    .carousel-slide-body li span, .carousel-slide-body li > * { flex-shrink: 1; min-width: 0; word-break: break-word; }
+    .carousel-slide-body strong { font-weight: 700; color: var(--ink-700); display: inline; }
+    .carousel-img {
+      background: var(--ink-050); display: flex; align-items: stretch; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .carousel-img .img-ph {
+      border-radius: 0; border: none; background: transparent; width: 100%;
+      min-height: 100%; flex: 1;
+    }
+    /* Progress bar style dots control */
     .carousel-controls {
       display: flex; align-items: center; justify-content: space-between;
       padding: var(--sp-16) var(--sp-24);
-      background: var(--ink-050); border-top: 1.5px solid var(--ink-100);
+      background: var(--white); border-top: 1.5px solid var(--ink-100);
     }
-    .carousel-dots { display: flex; gap: var(--sp-8); }
+    .carousel-dots { display: flex; gap: var(--sp-8); align-items: center; }
     .carousel-dot {
-      width: 8px; height: 8px; border-radius: 50%; background: var(--ink-300);
-      cursor: pointer; transition: background .2s, transform .2s; border: none;
+      width: 24px; height: 4px; border-radius: 2px; background: var(--ink-100);
+      cursor: pointer; transition: background .2s, width .25s cubic-bezier(.34,1.56,.64,1); border: none;
     }
-    .carousel-dot.active { background: var(--accent); transform: scale(1.25); }
+    .carousel-dot.active { background: var(--accent); width: 40px; }
+    .carousel-dot:hover:not(.active) { background: var(--ink-300); }
     .carousel-arrows { display: flex; gap: var(--sp-8); }
     .carousel-arrow {
       width: 36px; height: 36px; border-radius: 50%;
@@ -411,6 +518,82 @@
     .carousel-arrow:hover svg { stroke: white; }
     .carousel-arrow:active { transform: scale(.93); }
     .carousel-arrow svg { width: 16px; height: 16px; stroke: var(--ink-500); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke .2s; }
+
+    /* ── QUOTE CARDS (lola2 style) ───────────────────────── */
+    .quotes-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--sp-20); margin-top: var(--sp-40);
+    }
+    .quote-card {
+      background: var(--white); border: 1.5px solid var(--ink-100);
+      border-radius: var(--r-xl); padding: var(--sp-32);
+      box-shadow: var(--shadow-card); display: flex; flex-direction: column;
+      gap: var(--sp-16); position: relative; overflow: hidden;
+    }
+    .quote-card::before {
+      content: '"'; position: absolute; top: -10px; left: 20px;
+      font-family: var(--font-display); font-size: 120px; font-weight: 900;
+      color: var(--accent); opacity: .06; line-height: 1; pointer-events: none;
+    }
+    .quote-card-text {
+      font-family: var(--font-display); font-size: 18px; font-weight: 500;
+      line-height: 1.65; color: var(--ink-900); position: relative; z-index: 1;
+    }
+    .quote-card-text em { font-style: normal; color: var(--accent); font-weight: 700; }
+    .quote-card-source {
+      font-family: var(--font-display); font-size: 10px; font-weight: 800;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--ink-500);
+    }
+
+    /* ── STICKY NOTES / SWOT GRID (lola/lola2 style) ────── */
+    .sticky-notes-grid {
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: var(--r-xl);
+      padding: var(--sp-32);
+      box-sizing: border-box;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--sp-20);
+      margin-top: var(--sp-24);
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+    }
+    .sticky-note {
+      border-radius: var(--r-lg); padding: var(--sp-24) var(--sp-20);
+      display: flex; flex-direction: column; gap: var(--sp-12);
+      position: relative; overflow: hidden;
+      box-sizing: border-box;
+      min-width: 0; /* critical: prevents grid blowout */
+      box-shadow: 0 2px 8px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+      transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
+    }
+    .sticky-note:hover {
+      transform: translateY(-3px) rotate(-.4deg);
+      box-shadow: 0 8px 28px rgba(0,0,0,.12);
+    }
+    .sticky-note--yellow { background: #FFF9C4; border: 1.5px solid #F9E44A; }
+    .sticky-note--orange { background: #FFE8D6; border: 1.5px solid #FFAB6E; }
+    .sticky-note--green  { background: #D4F0D4; border: 1.5px solid #6DC96D; }
+    .sticky-note--red    { background: #FFE0E0; border: 1.5px solid #FF8A8A; }
+    .sticky-note--blue   { background: #DDF0FF; border: 1.5px solid #74C0FF; }
+    .sticky-note-label {
+      font-family: var(--font-display); font-size: 11px; font-weight: 800;
+      letter-spacing: .1em; text-transform: uppercase;
+    }
+    .sticky-note--yellow .sticky-note-label { color: #A0880A; }
+    .sticky-note--orange .sticky-note-label { color: #B05A00; }
+    .sticky-note--green  .sticky-note-label { color: #1E6A1E; }
+    .sticky-note--red    .sticky-note-label { color: #B91C1C; }
+    .sticky-note--blue   .sticky-note-label { color: #1B5FAF; }
+    .sticky-note ul { list-style: none; display: flex; flex-direction: column; gap: var(--sp-8); margin: 0; padding: 0; }
+    .sticky-note li {
+      font-size: 13px; line-height: 1.55; color: var(--ink-700);
+      display: flex; gap: var(--sp-8); align-items: flex-start;
+      word-break: break-word;
+    }
+    .sticky-note li::before { content: '—'; flex-shrink: 0; opacity: .5; }
 
     /* ── HMW BANNER ─────────────────────────────────────── */
     .hmw-banner {
@@ -564,8 +747,25 @@
       font-family: var(--font-display); font-size: 20px; font-weight: 800;
       color: var(--accent); min-width: 48px; text-align: right;
     }
-    .sus-bar-wrap { grid-column: 1 / -1; height: 6px; background: var(--ink-100); border-radius: 100px; overflow: hidden; margin-top: -var(--sp-8); }
+    .sus-bar-wrap { grid-column: 1 / -1; height: 6px; background: var(--ink-100); border-radius: 100px; overflow: hidden; }
     .sus-bar { height: 100%; background: var(--accent); border-radius: 100px; transition: width .8s cubic-bezier(.22,1,.36,1); }
+
+    /* ── TASK COMPLETION ROW ─────────────────────────────── */
+    .task-row {
+      display: grid; grid-template-columns: 80px 1fr;
+      gap: var(--sp-16); align-items: flex-start;
+      padding: var(--sp-20) 0; border-bottom: 1px solid var(--ink-100);
+    }
+    .task-row:last-child { border-bottom: none; }
+    .task-pct {
+      font-family: var(--font-display); font-size: 22px; font-weight: 800;
+      letter-spacing: -.02em; line-height: 1;
+    }
+    .task-pct--high { color: #16A34A; }
+    .task-pct--mid  { color: #D97706; }
+    .task-pct--low  { color: #DC2626; }
+    .task-text { font-size: 15px; line-height: 1.65; color: var(--ink-700); padding-top: 3px; }
+    .task-text strong { font-weight: 600; color: var(--ink-900); }
 
     /* ── FEATURE GRID ────────────────────────────────────── */
     .feature-grid {
@@ -609,18 +809,97 @@
     .decision-title { font-family: var(--font-display); font-size: 15px; font-weight: 800; color: var(--ink-900); }
     .decision-body { font-size: 13px; line-height: 1.6; color: var(--ink-500); }
 
+    /* ── DIRECTIONS EXPLORED (vertical stack + image) ────── */
+    .direction-item {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 0;
+      background: var(--white);
+      border: 1.5px solid var(--ink-100);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      margin-top: var(--sp-24);
+    }
+    .direction-text {
+      padding: var(--sp-32);
+      display: flex; flex-direction: column; gap: var(--sp-12);
+      justify-content: center;
+      border-right: 1.5px solid var(--ink-100);
+    }
+    .direction-img {
+      background: var(--ink-050);
+      display: flex; flex-direction: column;
+      gap: var(--sp-8);
+      padding: var(--sp-16);
+      align-items: center; justify-content: center;
+    }
+    .direction-img .img-ph { flex: 1; min-height: 0; width: 100%; }
+    .direction-img .img-ph + .img-ph { margin-top: var(--sp-8); }
+
+    /* ── ACCESSIBILITY AUDIT ─────────────────────────────── */
+
+    .audit-stack {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-16);
+      margin-top: var(--sp-24);
+    }
+    .audit-card {
+      background: var(--white); border: 1.5px solid var(--ink-100);
+      border-radius: var(--r-xl); padding: var(--sp-32);
+      box-shadow: var(--shadow-card);
+      display: flex; flex-direction: column;
+      min-width: 0;
+    }
+    .audit-card.card--blue { background: var(--accent-muted); border-color: rgba(227,30,8,.18); }
+    .audit-card .label { margin-bottom: var(--sp-16); display: block; }
+    .audit-row { display: flex; justify-content: space-between; align-items: center; font-size: 15px; padding: var(--sp-10) 0; border-bottom: 1px solid var(--ink-100); gap: var(--sp-16); }
+    .audit-row:last-child { border-bottom: none; }
+    .audit-row-label { color: var(--ink-700); line-height: 1.5; flex: 1; word-break: break-word; }
+    .audit-row-val { font-weight: 700; color: #16A34A; white-space: nowrap; flex-shrink: 0; }
+    .audit-feature-row { display: flex; gap: var(--sp-10); align-items: flex-start; font-size: 15px; padding: var(--sp-10) 0; border-bottom: 1px solid var(--ink-100); line-height: 1.55; color: var(--ink-700); }
+    .audit-feature-row:last-child { border-bottom: none; }
+    .audit-arrow { color: var(--accent); flex-shrink: 0; margin-top: 1px; }
+
+    /* ── REFLECTION CARDS ────────────────────────────────── */
+    .reflection-stack { display: flex; flex-direction: column; gap: var(--sp-20); margin-top: var(--sp-48); }
+    .reflection-card {
+      background: var(--white); border: 1.5px solid var(--ink-100);
+      border-radius: var(--r-xl); padding: var(--sp-32);
+      box-shadow: var(--shadow-card); width: 100%;
+    }
+    .reflection-card.card--blue { background: var(--accent-muted); border-color: rgba(227,30,8,.18); }
+    .refl-pointer { display: flex; gap: var(--sp-8); font-size: 15px; color: var(--ink-700); line-height: 1.65; padding: var(--sp-10) 0; border-bottom: 1px solid var(--ink-100); flex-direction: column; }
+    .refl-pointer:last-child { border-bottom: none; }
+    .refl-pointer-head { display: flex; gap: var(--sp-8); align-items: flex-start; }
+    .refl-pointer-head strong { color: var(--ink-900); }
+    .refl-icon { color: var(--accent); flex-shrink: 0; }
+
     /* ── FOOTER ──────────────────────────────────────────── */
-    #footer { background: var(--ink-900); padding: var(--sp-80) var(--sp-20); }
-    .footer-inner { max-width: 700px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--sp-32); }
-    .footer-eyebrow { font-family: var(--font-display); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.45); }
-    .footer-headline { font-family: var(--font-display); font-size: clamp(32px, 5vw, 52px); font-weight: 800; letter-spacing: -.03em; color: white; line-height: 1.1; }
-    .footer-btns { display: flex; gap: var(--sp-16); flex-wrap: wrap; justify-content: center; }
-    .footer-btn-primary { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--ink-900); background: white; border: none; padding: 13px 28px; border-radius: var(--r-md); text-decoration: none; transition: background .2s, transform .18s; cursor: pointer; }
-    .footer-btn-primary:hover { background: var(--ink-050); transform: translateY(-2px); }
-    .footer-btn-secondary { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: rgba(255,255,255,.8); background: rgba(255,255,255,.1); border: 1.5px solid rgba(255,255,255,.2); padding: 13px 28px; border-radius: var(--r-md); text-decoration: none; transition: background .2s, transform .18s; }
-    .footer-btn-secondary:hover { background: rgba(255,255,255,.18); transform: translateY(-2px); }
-    .footer-email { display: flex; align-items: center; gap: var(--sp-8); font-size: 14px; color: rgba(255,255,255,.45); }
-    .footer-copy { font-size: 12px; color: rgba(255,255,255,.25); margin-top: var(--sp-8); }
+    footer {
+      background: var(--ink-900);
+      padding: var(--sp-40) 0;
+    }
+    .footer-inner {
+      max-width: 1140px; margin: 0 auto;
+      padding: 0 var(--sp-40);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--sp-24); flex-wrap: wrap;
+    }
+    .footer-left {
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,.4);
+    }
+    .footer-links { display: flex; gap: var(--sp-24); }
+    .footer-links a {
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,.4); text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: white; }
 
     /* ── APPEAR ANIMATIONS ────────────────────────────────── */
     .appear {
@@ -640,7 +919,15 @@
     .stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: 400ms; }
 
     /* ── RESPONSIVE ──────────────────────────────────────── */
-    @media (max-width: 1024px) { :root { --sp-120: 80px; } }
+    @media (max-width: 1100px) {
+      #side-stepper { right: 12px; }
+    }
+    @media (max-width: 1024px) {
+      :root { --sp-120: 80px; }
+      #side-stepper { display: none; }
+      #mobile-stepper { display: block; }
+      body { padding-bottom: 72px; }
+    }
     @media (max-width: 768px) {
       .nav-links, .nav-cta { display: none; }
       .nav-hamburger { display: flex; }
@@ -654,11 +941,14 @@
       .two-col { grid-template-columns: 1fr; }
       .metrics-row { grid-template-columns: 1fr 1fr; }
       .carousel-slide-inner { grid-template-columns: 1fr; min-height: unset; }
-      .carousel-img { min-height: 220px; }
-      .carousel-text { border-right: none; border-bottom: 1.5px solid var(--ink-100); }
+      .carousel-img { min-height: 240px; }
+      .carousel-text { border-right: none; border-bottom: 1.5px solid var(--ink-100); padding: var(--sp-32) var(--sp-24); }
       .persona-card { grid-template-columns: 1fr; }
       .persona-avatar { border-right: none; border-bottom: 1.5px solid var(--ink-100); min-height: 180px; }
       .persona-goals-pains { grid-template-columns: 1fr; }
+      .quotes-grid { grid-template-columns: 1fr; }
+      .sticky-notes-grid { grid-template-columns: 1fr 1fr; }
+      .sticky-note:hover { transform: none; }
       .feature-grid { grid-template-columns: 1fr 1fr; }
       .decision-grid { grid-template-columns: 1fr; }
       .iter-images { grid-template-columns: 1fr; }
@@ -667,16 +957,23 @@
       .emotion-stage { flex: 1 1 calc(33% - 8px); }
       .compare-table { font-size: 12px; }
       .compare-table th, .compare-table td { padding: var(--sp-12); }
+      .direction-item { grid-template-columns: 1fr; }
+      .direction-text { border-right: none; border-bottom: 1.5px solid var(--ink-100); }
+      .direction-img { flex-direction: row; min-height: 180px; gap: var(--sp-12); }
       #cursor, #cursor-ring { display: none; }
       body { cursor: auto; }
-    }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+      @media (max-width: 640px) {.audit-stack { grid-template-columns: 1fr; }}}
     @media (max-width: 480px) {
       .card { padding: var(--sp-24) var(--sp-20); }
       .metrics-row { grid-template-columns: 1fr; }
       .feature-grid { grid-template-columns: 1fr; }
       .project-meta { grid-template-columns: 1fr; }
+      @media (max-width: 540px) {.sticky-notes-grid { grid-template-columns: 1fr; }}
       .meta-item { border-right: none !important; border-bottom: 1px solid var(--ink-100); }
       .meta-item:last-child { border-bottom: none; }
+      .footer-inner { padding: 0 var(--sp-20); }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
@@ -689,47 +986,77 @@
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  NAVBAR                                                    -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<nav id="navbar" role="navigation" aria-label="Main navigation">
+<!-- ══════════════════════════════════════════════════════════
+     TOP NAVBAR — from index.html
+══════════════════════════════════════════════════════════ -->
+<nav id="navbar" aria-label="Main navigation">
   <div id="navbar-inner">
-    <a href="/home" class="nav-logo" aria-label="Piyush Jadhav — Home">
+    <a href="/" class="nav-logo">
       <div class="nav-logo-mark" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
       </div>
       <span class="nav-logo-name">Piyush Jadhav</span>
     </a>
-    <ul class="nav-links" role="list">
-      <li><a href="#problem">Problem</a></li>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#define">Define</a></li>
-      <li><a href="#ideation">Ideation</a></li>
-      <li><a href="#design">Design</a></li>
-      <li><a href="#testing">Testing</a></li>
+    <ul class="nav-links">
+      <li><a href="/case-studies" class="active">Case Studies</a></li>
+      <li><a href="/about">About Me</a></li>
     </ul>
-    <a href="https://tinyurl.com/culinarrprototype" target="_blank" rel="noopener" class="nav-cta" aria-label="View Culinarr prototype">View Prototype →</a>
-    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+    <a href="#contact" class="nav-cta">Let's Talk →</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
-<div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+<div id="mobile-menu" aria-hidden="true">
   <ul>
-    <li><a href="#problem"  class="mobile-link">Problem</a></li>
-    <li><a href="#research" class="mobile-link">Research</a></li>
-    <li><a href="#define"   class="mobile-link">Define</a></li>
-    <li><a href="#ideation" class="mobile-link">Ideation</a></li>
-    <li><a href="#design"   class="mobile-link">Design</a></li>
-    <li><a href="#testing"  class="mobile-link">Testing</a></li>
-    <li><a href="https://tinyurl.com/culinarrprototype" class="mobile-link" style="color:var(--accent)" target="_blank" rel="noopener">View Prototype →</a></li>
+    <li><a href="/case-studies">Case Studies</a></li>
+    <li><a href="/about">About Me</a></li>
+    <li><a href="#contact" style="color:var(--accent);">Let's Talk →</a></li>
   </ul>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  HERO                                                      -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════
+     SIDE STEPPER — desktop
+══════════════════════════════════════════════════════════ -->
+<nav id="side-stepper" aria-label="Section navigation">
+  <div class="stepper-item active" data-section="hero">
+    <span class="stepper-label">Overview</span>
+    <div class="stepper-dot"></div>
+  </div>
+  <div class="stepper-item" data-section="problem">
+    <span class="stepper-label">Problem</span>
+    <div class="stepper-dot"></div>
+  </div>
+  <div class="stepper-item" data-section="research">
+    <span class="stepper-label">Research</span>
+    <div class="stepper-dot"></div>
+  </div>
+  <div class="stepper-item" data-section="define">
+    <span class="stepper-label">Define</span>
+    <div class="stepper-dot"></div>
+  </div>
+  <div class="stepper-item" data-section="ideation">
+    <span class="stepper-label">Ideation</span>
+    <div class="stepper-dot"></div>
+  </div>
+  <div class="stepper-item" data-section="design">
+    <span class="stepper-label">Design</span>
+    <div class="stepper-dot"></div>
+  </div>
+  <div class="stepper-item" data-section="testing">
+    <span class="stepper-label">Testing</span>
+    <div class="stepper-dot"></div>
+  </div>
+  <div class="stepper-item" data-section="reflection">
+    <span class="stepper-label">Reflection</span>
+    <div class="stepper-dot"></div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════ -->
 <section id="hero" aria-labelledby="hero-headline">
   <div class="hero-inner">
 
@@ -767,8 +1094,7 @@
       </div>
     </div>
 
-    <!-- Hero image placeholder -->
-    <div class="hero-image-block appear" role="img" aria-label="Insert: Culinarr hero mockup — phone screens showing group session and menu">
+    <div class="hero-image-block appear" role="img" aria-label="Insert: Culinarr hero mockup">
       <span class="placeholder-icon">📱</span>
       <span class="placeholder-label">Insert: Hero Mockup — Group Session + Menu Screens</span>
     </div>
@@ -776,9 +1102,9 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  LEAD OUTCOME BANNER                                       -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════
+     LEAD OUTCOME BANNER
+══════════════════════════════════════════════════════════ -->
 <section id="problem-banner" aria-labelledby="outcome-heading">
   <div class="problem-inner appear">
     <span class="label">Lead Outcome</span>
@@ -794,9 +1120,9 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  PROBLEM                                                   -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════
+     PROBLEM
+══════════════════════════════════════════════════════════ -->
 <section class="section section--grey" id="problem" aria-labelledby="problem-heading">
   <div class="content-col">
 
@@ -816,7 +1142,6 @@
       <cite>That product didn't exist. So we designed it.</cite>
     </div>
 
-    <!-- Market context metrics -->
     <div class="metrics-row stagger appear">
       <div class="metric-card">
         <div class="metric-num">84</div>
@@ -836,7 +1161,6 @@
       </div>
     </div>
 
-    <!-- Why existing solutions fail -->
     <div class="appear" style="margin-top:var(--sp-48);">
       <div class="sub-heading" style="margin-bottom:var(--sp-16);">Why existing solutions don't solve it</div>
       <div class="compare-table-wrap">
@@ -894,9 +1218,9 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  RESEARCH                                                  -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════
+     RESEARCH
+══════════════════════════════════════════════════════════ -->
 <section class="section section--white" id="research" aria-labelledby="research-heading">
   <div class="content-col">
 
@@ -906,11 +1230,9 @@
       <p>Secondary research structured across food hall culture, group dining behaviour, QR adoption, real-time tracking expectations, and payment splitting psychology.</p>
     </div>
 
-    <!-- Research carousel -->
     <div class="carousel-wrap appear" id="res-carousel" role="region" aria-label="Research findings">
       <div class="carousel-track" id="res-track">
 
-        <!-- Slide 1: Food hall growth -->
         <div class="carousel-slide" role="group" aria-label="Finding 1 of 5" aria-hidden="false">
           <div class="carousel-slide-inner">
             <div class="carousel-text">
@@ -927,7 +1249,7 @@
               </div>
             </div>
             <div class="carousel-img">
-              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Food hall growth chart or venue photo">
+              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Food hall growth chart">
                 <span class="ph-icon">🏢</span>
                 <span class="ph-text">Insert: UK Food Hall Growth Visual</span>
               </div>
@@ -935,7 +1257,6 @@
           </div>
         </div>
 
-        <!-- Slide 2: Group dining behaviour -->
         <div class="carousel-slide" role="group" aria-label="Finding 2 of 5" aria-hidden="true">
           <div class="carousel-slide-inner">
             <div class="carousel-text">
@@ -952,7 +1273,7 @@
               </div>
             </div>
             <div class="carousel-img">
-              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Affinity map or behavioural research visual">
+              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Behavioural research visual">
                 <span class="ph-icon">🧠</span>
                 <span class="ph-text">Insert: Behavioural Research Visual</span>
               </div>
@@ -960,7 +1281,6 @@
           </div>
         </div>
 
-        <!-- Slide 3: QR adoption -->
         <div class="carousel-slide" role="group" aria-label="Finding 3 of 5" aria-hidden="true">
           <div class="carousel-slide-inner">
             <div class="carousel-text">
@@ -985,7 +1305,6 @@
           </div>
         </div>
 
-        <!-- Slide 4: Food hall QR audit -->
         <div class="carousel-slide" role="group" aria-label="Finding 4 of 5" aria-hidden="true">
           <div class="carousel-slide-inner">
             <div class="carousel-text">
@@ -1002,7 +1321,7 @@
               </div>
             </div>
             <div class="carousel-img">
-              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Food hall audit map or table screenshot">
+              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Food hall audit map">
                 <span class="ph-icon">🗺️</span>
                 <span class="ph-text">Insert: Food Hall Audit Visual</span>
               </div>
@@ -1010,7 +1329,6 @@
           </div>
         </div>
 
-        <!-- Slide 5: Payment psychology -->
         <div class="carousel-slide" role="group" aria-label="Finding 5 of 5" aria-hidden="true">
           <div class="carousel-slide-inner">
             <div class="carousel-text">
@@ -1027,7 +1345,7 @@
               </div>
             </div>
             <div class="carousel-img">
-              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Payment psychology research visual">
+              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Payment psychology visual">
                 <span class="ph-icon">💳</span>
                 <span class="ph-text">Insert: Payment Psychology Visual</span>
               </div>
@@ -1035,7 +1353,7 @@
           </div>
         </div>
 
-      </div><!-- /carousel-track -->
+      </div>
       <div class="carousel-controls">
         <div class="carousel-dots" role="tablist" aria-label="Slide navigation">
           <button class="carousel-dot active" data-idx="0" role="tab" aria-selected="true"  aria-label="Finding 1"></button>
@@ -1053,20 +1371,88 @@
           </button>
         </div>
       </div>
-    </div><!-- /carousel-wrap -->
+    </div>
 
-    <!-- Review mining insight -->
     <div class="highlight-quote appear" style="margin-top:var(--sp-48);">
       <p>Review mining across TripAdvisor, Google, Reddit, and Facebook surfaced real user language: <em>"sometimes wish you could order directly from your table"</em> and the consistent absence of acknowledgement, wait time visibility, and table coordination — "even when group features exist, they fail at discoverability."</p>
       <cite>Content analysis: 20+ reviews across 9 UK food hall venues</cite>
     </div>
 
+    <!-- Quote cards — lola2 style -->
+    <div class="section-heading appear" style="margin-top:var(--sp-64);">
+      <span class="label">What People Are Saying</span>
+      <h2>Real words from real diners — unfiltered.</h2>
+    </div>
+    <div class="quotes-grid appear stagger">
+      <div class="quote-card">
+        <p class="quote-card-text">"I always end up being the one who pays for everyone and then has to <em>chase people for days</em> just to get my money back."</p>
+        <span class="quote-card-source">TripAdvisor review · Food hall diner</span>
+      </div>
+      <div class="quote-card">
+        <p class="quote-card-text">"The hardest part isn't the food — it's <em>coordinating six people</em> across four different queues while your food gets cold."</p>
+        <span class="quote-card-source">Reddit r/unitedkingdom · group dining thread</span>
+      </div>
+      <div class="quote-card">
+        <p class="quote-card-text">"I have dietary restrictions. I spend half the dinner <em>reading ingredient lists</em> off my phone because the boards don't list allergens clearly."</p>
+        <span class="quote-card-source">Google review · Altrincham Market House</span>
+      </div>
+      <div class="quote-card">
+        <p class="quote-card-text">"We ended up splitting equally which felt really unfair — someone ordered two mains and cocktails while I just had a salad."</p>
+        <span class="quote-card-source">Facebook group · Manchester Food Scene</span>
+      </div>
+    </div>
+
+    <!-- Competitive SWOT — sticky notes style -->
+    <div class="section-heading appear" style="margin-top:var(--sp-64);">
+      <span class="label">Competitive Landscape</span>
+      <h2>What competitors get right — and what they miss.</h2>
+      <p>Analysis across me&amp;u, Uber Eats, Just Eat, and Revel Systems to identify design opportunities.</p>
+    </div>
+    <div class="sticky-notes-grid appear stagger">
+      <div class="sticky-note sticky-note--yellow">
+        <div class="sticky-note-label">Strengths (Competitors)</div>
+        <ul>
+          <li>me&amp;u enables table ordering without a dedicated app download</li>
+          <li>Uber Eats has best-in-class live order tracking UX</li>
+          <li>Just Eat has well-tested dietary filter patterns</li>
+          <li>Existing QR ordering reduces perceived wait time by 25%</li>
+        </ul>
+      </div>
+      <div class="sticky-note sticky-note--orange">
+        <div class="sticky-note-label">Weaknesses (Competitors)</div>
+        <ul>
+          <li>No multi-vendor group session without pre-setup</li>
+          <li>Account creation required by all major platforms</li>
+          <li>Payment is always post-meal or host-led — never individual at order time</li>
+          <li>Dietary filtering is per-vendor, never cross-hall</li>
+        </ul>
+      </div>
+      <div class="sticky-note sticky-note--green">
+        <div class="sticky-note-label">Opportunities (Culinarr)</div>
+        <ul>
+          <li>Guest checkout — no account, no friction at entry point</li>
+          <li>Cross-vendor dietary filter at session level</li>
+          <li>Transparent itemised payment as the default, not toggle</li>
+          <li>Group session via QR scan — zero pre-planning by host</li>
+        </ul>
+      </div>
+      <div class="sticky-note sticky-note--red">
+        <div class="sticky-note-label">Risks &amp; Threats</div>
+        <ul>
+          <li>me&amp;u could add group session to existing product</li>
+          <li>Noisy food hall environment tests usability harder than lab</li>
+          <li>Low digital literacy in older diner segment not tested</li>
+          <li>Venue operators may be slow to adopt new ordering platform</li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  DEFINE                                                    -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════
+     DEFINE
+══════════════════════════════════════════════════════════ -->
 <section class="section section--grey" id="define" aria-labelledby="define-heading">
   <div class="content-col">
 
@@ -1076,7 +1462,6 @@
       <p>Seven themes emerged from coded review data. The journey map changed the entire product priority order.</p>
     </div>
 
-    <!-- Emotion arc -->
     <div class="appear">
       <div class="sub-heading">Host's Emotional Journey</div>
       <div class="emotion-arc" role="img" aria-label="Emotional journey: Confident to Frustrated">
@@ -1109,14 +1494,12 @@
       <p style="font-size:14px;color:var(--ink-500);margin-top:var(--sp-12);line-height:1.6;">The deepest trough is at the <strong style="color:var(--ink-900)">ordering stage</strong>, not payment — which changed the entire product priority order. Solving coordination first, payment second.</p>
     </div>
 
-    <!-- Personas -->
     <div style="margin-top:var(--sp-64);">
       <div class="section-heading appear">
         <span class="label">Personas</span>
         <h2>Two people, one problem, different stakes.</h2>
       </div>
 
-      <!-- Persona 1: Sam -->
       <div class="persona-card appear">
         <div class="persona-avatar">
           <div class="img-ph img-ph--tall" style="border:none;border-radius:0;background:linear-gradient(145deg,#ffd6c8,#ffaa88);" role="img" aria-label="Insert: Sam persona photo">
@@ -1153,7 +1536,6 @@
         </div>
       </div>
 
-      <!-- Persona 2: Zara -->
       <div class="persona-card appear" style="margin-top:var(--sp-24);">
         <div class="persona-avatar">
           <div class="img-ph img-ph--tall" style="border:none;border-radius:0;background:linear-gradient(145deg,#c8d6ff,#8aa8ff);" role="img" aria-label="Insert: Zara persona photo">
@@ -1191,7 +1573,6 @@
       </div>
     </div>
 
-    <!-- Image placeholder for affinity/journey map -->
     <div style="margin-top:var(--sp-48);" class="appear">
       <div class="sub-heading" style="margin-bottom:var(--sp-16);">Journey Map &amp; Affinity Diagram</div>
       <div class="img-ph img-ph--wide" role="img" aria-label="Insert: Customer journey map with emotion arc">
@@ -1203,9 +1584,9 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  HMW BANNER                                                -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════
+     HMW BANNER
+══════════════════════════════════════════════════════════ -->
 <div style="padding: var(--sp-64) var(--sp-20);" class="section--white">
   <div class="content-col">
     <div class="hmw-banner appear" role="complementary" aria-label="How Might We statement">
@@ -1215,9 +1596,9 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  IDEATION                                                  -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════
+     IDEATION
+══════════════════════════════════════════════════════════ -->
 <section class="section section--grey" id="ideation" aria-labelledby="ideation-heading">
   <div class="content-col">
 
@@ -1227,7 +1608,6 @@
       <p>Three participants allocated £100 each against 20 features priced £3–£14. Total feature cost was £140 — a deliberate £40 shortfall to force genuine trade-offs.</p>
     </div>
 
-    <!-- Feature grid — top results -->
     <div class="appear">
       <div class="sub-heading" style="margin-bottom:var(--sp-8);">Top-scored features (3/3 unanimous)</div>
       <div class="feature-grid">
@@ -1264,13 +1644,11 @@
       </div>
     </div>
 
-    <!-- Key insight callout -->
     <div class="highlight-quote appear" style="margin-top:var(--sp-40);">
       <p>Feature 9 (Join session) scored <em>0/3</em> — directly challenging its Must Have classification. Participants either assumed joining was implicit in Feature 8 (Start session), or genuinely don't value the join mechanics independently. This shaped how minimal the join flow became in the final design.</p>
       <cite>Buy a Feature debrief insight</cite>
     </div>
 
-    <!-- Payment split decision -->
     <div style="margin-top:var(--sp-64);" class="appear">
       <div class="section-heading">
         <span class="label">Key Design Decision</span>
@@ -1301,17 +1679,160 @@
       </div>
     </div>
 
-    <!-- Sketches placeholder -->
+    <!-- Design principles / must-haves sticky notes -->
+    <div class="section-heading appear" style="margin-top:var(--sp-64);">
+      <span class="label">MoSCoW Priorities</span>
+      <h2>Mapping what must exist before anything else.</h2>
+    </div>
+    <div class="sticky-notes-grid appear stagger">
+      <div class="sticky-note sticky-note--green">
+        <div class="sticky-note-label">Must Have</div>
+        <ul>
+          <li>QR scan → group session, no account required</li>
+          <li>Unified menu with photos, descriptions, prices</li>
+          <li>Special instructions per item</li>
+          <li>Individual itemised payment at checkout</li>
+        </ul>
+      </div>
+      <div class="sticky-note sticky-note--blue">
+        <div class="sticky-note-label">Should Have</div>
+        <ul>
+          <li>Live order tracking per item per vendor</li>
+          <li>Dietary filter across all vendors simultaneously</li>
+          <li>Equal split toggle (not default) at payment</li>
+          <li>Apple Pay / Google Pay support</li>
+        </ul>
+      </div>
+      <div class="sticky-note sticky-note--yellow">
+        <div class="sticky-note-label">Could Have</div>
+        <ul>
+          <li>Late joiner via WhatsApp/link share</li>
+          <li>OpenDyslexic accessibility font mode</li>
+          <li>Session timer display for kitchen context</li>
+          <li>Reorder from previous sessions</li>
+        </ul>
+      </div>
+      <div class="sticky-note sticky-note--orange">
+        <div class="sticky-note-label">Won't Have (This Iteration)</div>
+        <ul>
+          <li>Multi-round ordering within same session</li>
+          <li>Social sharing / group review post-meal</li>
+          <li>Loyalty or rewards mechanic</li>
+          <li>Operator-facing dashboard or analytics</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Crazy 8s — carousel -->
     <div style="margin-top:var(--sp-48);" class="appear">
-      <div class="sub-heading" style="margin-bottom:var(--sp-16);">Crazy 8s &amp; Early Sketches</div>
-      <div class="two-col">
-        <div class="img-ph" role="img" aria-label="Insert: Paper sketch — session join flow Option A">
-          <span class="ph-icon">✏️</span>
-          <span class="ph-text">Insert: Sketch — Pop-up Join Flow (Option A)</span>
+      <div class="sub-heading" style="margin-bottom:var(--sp-24);">Crazy 8s &amp; Early Sketches</div>
+      <div class="carousel-wrap" id="sketch-carousel" role="region" aria-label="Early sketches">
+        <div class="carousel-track" id="sketch-track">
+
+          <div class="carousel-slide" role="group" aria-label="Sketch 1 of 4" aria-hidden="false">
+            <div class="carousel-slide-inner">
+              <div class="carousel-text">
+                <span class="carousel-number">Sketch 01</span>
+                <h3 class="carousel-slide-title">Pop-up Join Flow — Option A</h3>
+                <div class="carousel-slide-body">
+                  <p>Modal overlay that surfaces join mechanics inline after host creates the session. Explored for speed — minimal taps from QR scan to being in the session.</p>
+                  <ul>
+                    <li>No dedicated join screen — reduces perceived complexity</li>
+                    <li>Risk: modal may be dismissed before reading</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="carousel-img">
+                <div class="img-ph img-ph--sq" style="border:none;border-radius:0;" role="img" aria-label="Insert: Crazy 8 sketch — pop-up join flow option A">
+                  <span class="ph-icon">✏️</span>
+                  <span class="ph-text">Insert: Sketch — Pop-up Join Flow (A)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-slide" role="group" aria-label="Sketch 2 of 4" aria-hidden="true">
+            <div class="carousel-slide-inner">
+              <div class="carousel-text">
+                <span class="carousel-number">Sketch 02</span>
+                <h3 class="carousel-slide-title">Independent Session Screen — Option B</h3>
+                <div class="carousel-slide-body">
+                  <p>Dedicated full-screen join flow with 4-digit code entry. Gives guests a moment to name themselves before entering the shared session.</p>
+                  <ul>
+                    <li>Clearer mental model for "joining" vs "hosting"</li>
+                    <li>Risk: extra screen may feel slow for walk-in groups</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="carousel-img">
+                <div class="img-ph img-ph--sq" style="border:none;border-radius:0;" role="img" aria-label="Insert: Crazy 8 sketch — independent session screen option B">
+                  <span class="ph-icon">✏️</span>
+                  <span class="ph-text">Insert: Sketch — Independent Session (B)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-slide" role="group" aria-label="Sketch 3 of 4" aria-hidden="true">
+            <div class="carousel-slide-inner">
+              <div class="carousel-text">
+                <span class="carousel-number">Sketch 03</span>
+                <h3 class="carousel-slide-title">Menu Browsing — Multi-vendor Layout</h3>
+                <div class="carousel-slide-body">
+                  <p>Early sketches of unified menu layout exploring tab navigation between vendors vs. a scrollable single list grouped by cuisine type.</p>
+                  <ul>
+                    <li>Tabs = faster vendor switching, harder dietary filtering</li>
+                    <li>Single scroll = better dietary UX, longer page</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="carousel-img">
+                <div class="img-ph img-ph--sq" style="border:none;border-radius:0;" role="img" aria-label="Insert: Crazy 8 sketch — menu layout exploration">
+                  <span class="ph-icon">✏️</span>
+                  <span class="ph-text">Insert: Sketch — Menu Layout Exploration</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="carousel-slide" role="group" aria-label="Sketch 4 of 4" aria-hidden="true">
+            <div class="carousel-slide-inner">
+              <div class="carousel-text">
+                <span class="carousel-number">Sketch 04</span>
+                <h3 class="carousel-slide-title">Payment Split — Interaction Concepts</h3>
+                <div class="carousel-slide-body">
+                  <p>Explored how to surface split options without creating decision fatigue. Three concepts: all-upfront chooser, per-item toggle, and post-order summary.</p>
+                  <ul>
+                    <li>Per-item toggle felt granular but slow</li>
+                    <li>Post-order summary chosen — least intrusive path</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="carousel-img">
+                <div class="img-ph img-ph--sq" style="border:none;border-radius:0;" role="img" aria-label="Insert: Crazy 8 sketch — payment split concepts">
+                  <span class="ph-icon">✏️</span>
+                  <span class="ph-text">Insert: Sketch — Payment Split Concepts</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div class="img-ph" role="img" aria-label="Insert: Paper sketch — independent session screen Option B">
-          <span class="ph-icon">✏️</span>
-          <span class="ph-text">Insert: Sketch — Independent Session Screen (Option B)</span>
+        <div class="carousel-controls">
+          <div class="carousel-dots" role="tablist" aria-label="Sketch navigation">
+            <button class="carousel-dot active" data-idx="0" role="tab" aria-selected="true"  aria-label="Sketch 1"></button>
+            <button class="carousel-dot"        data-idx="1" role="tab" aria-selected="false" aria-label="Sketch 2"></button>
+            <button class="carousel-dot"        data-idx="2" role="tab" aria-selected="false" aria-label="Sketch 3"></button>
+            <button class="carousel-dot"        data-idx="3" role="tab" aria-selected="false" aria-label="Sketch 4"></button>
+          </div>
+          <div class="carousel-arrows">
+            <button class="carousel-arrow" id="sketch-prev" aria-label="Previous sketch">
+              <svg viewBox="0 0 16 16"><polyline points="10,3 5,8 10,13"/></svg>
+            </button>
+            <button class="carousel-arrow" id="sketch-next" aria-label="Next sketch">
+              <svg viewBox="0 0 16 16"><polyline points="6,3 11,8 6,13"/></svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -1319,9 +1840,9 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  DESIGN                                                    -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════
+     DESIGN
+══════════════════════════════════════════════════════════ -->
 <section class="section section--white" id="design" aria-labelledby="design-heading">
   <div class="content-col">
 
@@ -1331,7 +1852,6 @@
       <p>The most visually complex challenge was making a burger menu, a sushi menu, and a cocktail menu feel like they belong in the same product without looking like a generic aggregator.</p>
     </div>
 
-    <!-- Dual user journey -->
     <div class="appear">
       <div class="sub-heading" style="margin-bottom:var(--sp-16);">The Dual User Journey</div>
       <div class="two-col" style="gap:var(--sp-16);">
@@ -1352,7 +1872,6 @@
       </div>
     </div>
 
-    <!-- Key design decision callout -->
     <div class="highlight-quote appear">
       <p>Guests have full autonomy over what they order but <em>zero control over submission timing.</em> That stays with the host. This prevents accidental early submission while letting everyone browse and add at their own pace.</p>
     </div>
@@ -1363,7 +1882,6 @@
       <div class="carousel-wrap appear" id="sol-carousel" role="region" aria-label="Design screens">
         <div class="carousel-track" id="sol-track">
 
-          <!-- Slide 1: Host session flow -->
           <div class="carousel-slide" role="group" aria-label="Screen 1 of 4" aria-hidden="false">
             <div class="carousel-slide-inner">
               <div class="carousel-text">
@@ -1372,7 +1890,7 @@
                 <div class="carousel-slide-body">
                   <p>One tap to create a session after QR scan. The host gets a 4-digit room code, a scannable QR, and a shareable link — whichever works for the group's situation.</p>
                   <ul>
-                    <li><strong>No account creation</strong> — guest checkout from the start</li>
+                    <li><span><strong>No account creation</strong> — guest checkout from the start</span></li>
                     <li>Auto table number detection from QR metadata</li>
                     <li>Session closes when host submits — guests can't accidentally submit</li>
                   </ul>
@@ -1387,7 +1905,6 @@
             </div>
           </div>
 
-          <!-- Slide 2: Unified menu -->
           <div class="carousel-slide" role="group" aria-label="Screen 2 of 4" aria-hidden="true">
             <div class="carousel-slide-inner">
               <div class="carousel-text">
@@ -1396,7 +1913,7 @@
                 <div class="carousel-slide-body">
                   <p>One component system across every vendor. Variety comes from photos and the vendor's colour header strip — the structure stays identical.</p>
                   <ul>
-                    <li><strong>Cross-vendor dietary filter</strong> — not per-vendor silo</li>
+                    <li><span><strong>Cross-vendor dietary filter</strong> — not per-vendor silo</span></li>
                     <li>Dietary tags include text labels alongside icons (WCAG 1.4.1)</li>
                     <li>OpenDyslexic font mode for users with dyslexia (Zara persona)</li>
                     <li>Estimated prep time shown before ordering</li>
@@ -1404,7 +1921,7 @@
                 </div>
               </div>
               <div class="carousel-img">
-                <div class="img-ph img-ph--screen" style="border:none;border-radius:0;" role="img" aria-label="Insert: Unified menu screen with dietary filters">
+                <div class="img-ph img-ph--screen" style="border:none;border-radius:0;" role="img" aria-label="Insert: Unified menu screen">
                   <span class="ph-icon">🍽️</span>
                   <span class="ph-text">Insert: Unified Menu Screen</span>
                 </div>
@@ -1412,7 +1929,6 @@
             </div>
           </div>
 
-          <!-- Slide 3: Payment -->
           <div class="carousel-slide" role="group" aria-label="Screen 3 of 4" aria-hidden="true">
             <div class="carousel-slide-inner">
               <div class="carousel-text">
@@ -1424,7 +1940,7 @@
                     <li>Real-time "remaining table balance" shows how much of the group total has been settled</li>
                     <li>Apple Pay / Google Pay supported</li>
                     <li>One person's failed payment never affects another's confirmed order</li>
-                    <li><strong>"Need help?" button</strong> alerts venue staff — shifts responsibility from host to operator</li>
+                    <li><span><strong>"Need help?" button</strong> alerts venue staff — shifts responsibility from host to operator</span></li>
                   </ul>
                 </div>
               </div>
@@ -1437,7 +1953,6 @@
             </div>
           </div>
 
-          <!-- Slide 4: Order tracking -->
           <div class="carousel-slide" role="group" aria-label="Screen 4 of 4" aria-hidden="true">
             <div class="carousel-slide-inner">
               <div class="carousel-text">
@@ -1449,7 +1964,7 @@
                     <li>Each item tracked: Received → Preparing → Ready</li>
                     <li>Notification when all group items are ready</li>
                     <li>Scored highest in Q5 (functions well integrated) on SUS</li>
-                    <li><strong>Absent from every existing competitor</strong> in this context</li>
+                    <li><span><strong>Absent from every existing competitor</strong> in this context</span></li>
                   </ul>
                 </div>
               </div>
@@ -1462,7 +1977,7 @@
             </div>
           </div>
 
-        </div><!-- /sol-track -->
+        </div>
         <div class="carousel-controls">
           <div class="carousel-dots" role="tablist" aria-label="Screen navigation">
             <button class="carousel-dot active" data-idx="0" role="tab" aria-selected="true"  aria-label="Screen 1"></button>
@@ -1480,27 +1995,45 @@
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- UI exploration note -->
-      <div class="two-col appear" style="margin-top:var(--sp-32);">
-        <div class="card">
-          <div class="label" style="margin-bottom:var(--sp-8);">Direction Explored → Rejected</div>
-          <div class="sub-heading">Neobrutalism</div>
-          <p style="font-size:14px;color:var(--ink-500);margin-top:var(--sp-8);line-height:1.65;">High visual energy, bold contrast. Rejected: didn't match accessibility requirements. Heavy outlines made dietary tags harder to scan. Read as trendy rather than trustworthy — a problem for a product handling payment.</p>
+    <!-- Directions explored — vertical stack with image placeholder -->
+    <div style="margin-top:var(--sp-48);" class="appear">
+      <div class="sub-heading" style="margin-bottom:var(--sp-8);">UI Directions Explored</div>
+
+      <div class="direction-item">
+        <div class="direction-text">
+          <span class="decision-label decision-label--rejected" style="width:fit-content;">Explored → Rejected</span>
+          <div class="decision-title" style="font-size:17px;">Neobrutalism</div>
+          <p style="font-size:14px;color:var(--ink-500);line-height:1.65;">High visual energy, bold contrast. Rejected: didn't match accessibility requirements. Heavy outlines made dietary tags harder to scan. Read as trendy rather than trustworthy — a problem for a product handling payment.</p>
         </div>
-        <div class="card">
-          <div class="label" style="margin-bottom:var(--sp-8);">Direction Explored → Retained (Modified)</div>
-          <div class="sub-heading">Mesh Grid Background</div>
-          <p style="font-size:14px;color:var(--ink-500);margin-top:var(--sp-8);line-height:1.65;">Explored as an onboarding background treatment. Retained in modified form after testing various solid and textured alternatives — provides depth without competing with content hierarchy.</p>
+        <div class="direction-img">
+          <div class="img-ph" style="aspect-ratio:9/16;min-height:0;" role="img" aria-label="Insert: Neobrutalism direction screen 1">
+            <span class="ph-icon">📱</span>
+            <span class="ph-text">Screen 1</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="direction-item">
+        <div class="direction-text">
+          <span class="decision-label decision-label--selected" style="width:fit-content;">Explored → Retained (Modified)</span>
+          <div class="decision-title" style="font-size:17px;">Mesh Grid Background</div>
+          <p style="font-size:14px;color:var(--ink-500);line-height:1.65;">Explored as an onboarding background treatment. Retained in modified form after testing various solid and textured alternatives — provides depth without competing with content hierarchy.</p>
+        </div>
+        <div class="direction-img">
+          <div class="img-ph" style="aspect-ratio:9/16;min-height:0;" role="img" aria-label="Insert: Mesh grid direction screen 1">
+            <span class="ph-icon">📱</span>
+            <span class="ph-text">Screen 1</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Final prototype placeholder -->
     <div style="margin-top:var(--sp-48);" class="appear">
       <div class="card" style="text-align:center;padding:var(--sp-40);">
         <p class="sub-heading" style="margin-bottom:var(--sp-20);">Final Design — Hi-Fi Prototype</p>
-        <div class="img-ph img-ph--wide" style="margin-bottom:var(--sp-24);" role="img" aria-label="Insert: Final hi-fi prototype screens or walkthrough video">
+        <div class="img-ph img-ph--wide" style="margin-bottom:var(--sp-24);" role="img" aria-label="Insert: Final hi-fi prototype screens">
           <span class="ph-icon">🎬</span>
           <span class="ph-text">Insert: Final Prototype Walkthrough / Key Screens</span>
         </div>
@@ -1514,9 +2047,9 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  TESTING                                                   -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════
+     TESTING
+══════════════════════════════════════════════════════════ -->
 <section class="section section--grey" id="testing" aria-labelledby="testing-heading">
   <div class="content-col">
 
@@ -1526,7 +2059,6 @@
       <p>5 participants, in-person, controlled environment. Tasks covered all four core flows. SUS questionnaire post-task.</p>
     </div>
 
-    <!-- Success criteria metrics -->
     <div class="metrics-row stagger appear">
       <div class="metric-card">
         <div class="metric-num">84%</div>
@@ -1546,37 +2078,33 @@
       </div>
     </div>
 
-    <!-- Task completion breakdown -->
+    <!-- Task completion — text-bold style like SUS -->
     <div style="margin-top:var(--sp-48);">
       <div class="section-heading appear">
         <span class="label">Task Completion</span>
         <h2>100% on the two highest-stakes flows.</h2>
       </div>
 
-      <div class="iter-card appear">
-        <div class="iter-body">
-          <ul>
-            <li>
-              <span class="iter-badge iter-badge--fix">100%</span>
-              <span><strong>Scan QR to create/join group session</strong> — every participant completed without assistance. Zero-friction onboarding validated.</span>
-            </li>
-            <li>
-              <span class="iter-badge iter-badge--fix">80%</span>
-              <span><strong>Browse menu and place order</strong> — P5 failed; consistent menu structure worked for 4/5.</span>
-            </li>
-            <li>
-              <span class="iter-badge iter-badge--issue">60%</span>
-              <span><strong>Set dietary filters</strong> — P3 and P5 failed; dietary filter discoverability is the consistent failure point and the primary iteration target.</span>
-            </li>
-            <li>
-              <span class="iter-badge iter-badge--fix">100%</span>
-              <span><strong>Choose split method and pay (per-item)</strong> — every participant completed. Payment flow validated.</span>
-            </li>
-            <li>
-              <span class="iter-badge iter-badge--fix">80%</span>
-              <span><strong>Track order status</strong> — P3 failed; overall tracking UI well-received across 4/5 participants.</span>
-            </li>
-          </ul>
+      <div class="card appear">
+        <div class="task-row">
+          <div class="task-pct task-pct--high">100%</div>
+          <div class="task-text"><strong>Scan QR to create/join group session</strong> — every participant completed without assistance. Zero-friction onboarding validated.</div>
+        </div>
+        <div class="task-row">
+          <div class="task-pct task-pct--high">80%</div>
+          <div class="task-text"><strong>Browse menu and place order</strong> — P5 failed; consistent menu structure worked for 4/5.</div>
+        </div>
+        <div class="task-row">
+          <div class="task-pct task-pct--low">60%</div>
+          <div class="task-text"><strong>Set dietary filters</strong> — P3 and P5 failed; dietary filter discoverability is the consistent failure point and the primary iteration target.</div>
+        </div>
+        <div class="task-row">
+          <div class="task-pct task-pct--high">100%</div>
+          <div class="task-text"><strong>Choose split method and pay (per-item)</strong> — every participant completed. Payment flow validated.</div>
+        </div>
+        <div class="task-row">
+          <div class="task-pct task-pct--mid">80%</div>
+          <div class="task-text"><strong>Track order status</strong> — P3 failed; overall tracking UI well-received across 4/5 participants.</div>
         </div>
       </div>
     </div>
@@ -1618,9 +2146,33 @@
       <div class="highlight-quote appear">
         <p>Q4 at 1.6 is the best individual result: virtually nobody felt they'd need help to use it again — <em>critical for a product used in a noisy, time-pressured social setting.</em> Q5 at 4.6 means multi-vendor, multi-user flows were perceived as coherent, not fragmented.</p>
       </div>
+
+      <!-- Testing participant quotes — lola2 style -->
+      <div class="section-heading appear" style="margin-top:var(--sp-64);">
+        <span class="label">Participant Voices</span>
+        <h2>What testers said in their own words.</h2>
+      </div>
+      <div class="quotes-grid appear stagger">
+        <div class="quote-card">
+          <p class="quote-card-text">"I'd use this every time I go to a food hall. The <em>only thing I needed help with</em> was the dietary filter — everything else was obvious."</p>
+          <span class="quote-card-source">P2 — Usability session debrief</span>
+        </div>
+        <div class="quote-card">
+          <p class="quote-card-text">"The payment screen was actually the <em>easiest part</em>. I just paid for my stuff and I was done. No awkward conversations."</p>
+          <span class="quote-card-source">P4 — Post-session interview</span>
+        </div>
+        <div class="quote-card">
+          <p class="quote-card-text">"I spent 40 seconds looking for the filter before I asked. Once I found it I <em>used it immediately</em> — it's just not where I expected it."</p>
+          <span class="quote-card-source">P3 — Dietary filter failure (key iteration driver)</span>
+        </div>
+        <div class="quote-card">
+          <p class="quote-card-text">"What if someone already paid but then we want to switch to equal split? That could get complicated."</p>
+          <span class="quote-card-source">P3 — <em style="font-style:normal;color:var(--accent);">Edge case that drove Iteration 02</em></span>
+        </div>
+      </div>
     </div>
 
-    <!-- Iteration based on findings -->
+    <!-- Design iteration -->
     <div style="margin-top:var(--sp-48);">
       <div class="section-heading appear">
         <span class="label">Design Iteration</span>
@@ -1647,7 +2199,7 @@
         <div class="iter-images">
           <div class="iter-img-cell">
             <span class="iter-img-label iter-img-label--before">Before</span>
-            <div class="img-ph" role="img" aria-label="Insert: Before — icon-only dietary filter in secondary position">
+            <div class="img-ph" role="img" aria-label="Insert: Before — icon-only dietary filter">
               <span class="ph-icon">📷</span>
               <span class="ph-text">Insert: Before — Icon-only Filter</span>
             </div>
@@ -1680,30 +2232,37 @@
           </ul>
         </div>
       </div>
-
     </div>
 
-    <!-- Accessibility audit -->
+    <!-- Accessibility audit — vertical stack, larger font -->
     <div style="margin-top:var(--sp-48);" class="appear">
-      <div class="sub-heading" style="margin-bottom:var(--sp-16);">WCAG 1.4.1 Accessibility Audit</div>
-      <div class="two-col" style="margin-top:0;">
-        <div class="card card--blue">
-          <div class="label" style="margin-bottom:var(--sp-12);">All Colour Contrast Ratios — Pass</div>
-          <div style="display:flex;flex-direction:column;gap:var(--sp-8);">
-            <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="color:var(--ink-700);">#E31E08 (Primary red) vs white</span><span style="font-weight:700;color:#16A34A;">4.71:1 ✓</span></div>
-            <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="color:var(--ink-700);">#1B1B1B (Body text) vs white</span><span style="font-weight:700;color:#16A34A;">17.22:1 ✓</span></div>
-            <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="color:var(--ink-700);">#4A4A4A (Secondary text) vs white</span><span style="font-weight:700;color:#16A34A;">8.86:1 ✓</span></div>
-            <div style="display:flex;justify-content:space-between;font-size:13px;"><span style="color:var(--ink-700);">#6B7280 (Muted text) vs white</span><span style="font-weight:700;color:#16A34A;">4.83:1 ✓</span></div>
+      <div class="sub-heading" style="margin-bottom:var(--sp-20);">WCAG 1.4.1 Accessibility Audit</div>
+      <div class="audit-stack">
+        <div class="audit-card card--blue">
+          <span class="label">All Colour Contrast Ratios — Pass</span>
+          <div class="audit-row">
+            <span class="audit-row-label">#E31E08 (Primary red) vs white</span>
+            <span class="audit-row-val">4.71:1 ✓</span>
+          </div>
+          <div class="audit-row">
+            <span class="audit-row-label">#1B1B1B (Body text) vs white</span>
+            <span class="audit-row-val">17.22:1 ✓</span>
+          </div>
+          <div class="audit-row">
+            <span class="audit-row-label">#4A4A4A (Secondary text) vs white</span>
+            <span class="audit-row-val">8.86:1 ✓</span>
+          </div>
+          <div class="audit-row">
+            <span class="audit-row-label">#6B7280 (Muted text) vs white</span>
+            <span class="audit-row-val">4.83:1 ✓</span>
           </div>
         </div>
-        <div class="card">
-          <div class="label" style="margin-bottom:var(--sp-12);">Accessibility Features Built</div>
-          <div style="display:flex;flex-direction:column;gap:var(--sp-8);">
-            <div style="font-size:13px;color:var(--ink-700);display:flex;gap:8px;"><span style="color:var(--accent);">→</span>Dietary tags: text labels + icons (not icons alone)</div>
-            <div style="font-size:13px;color:var(--ink-700);display:flex;gap:8px;"><span style="color:var(--accent);">→</span>OpenDyslexic font mode (Zara persona)</div>
-            <div style="font-size:13px;color:var(--ink-700);display:flex;gap:8px;"><span style="color:var(--accent);">→</span>Text size adjustment in accessibility settings</div>
-            <div style="font-size:13px;color:var(--ink-700);display:flex;gap:8px;"><span style="color:var(--accent);">→</span>Contrast adjustment toggle</div>
-          </div>
+        <div class="audit-card">
+          <span class="label">Accessibility Features Built</span>
+          <div class="audit-feature-row"><span class="audit-arrow">→</span>Dietary tags: text labels + icons (not icons alone)</div>
+          <div class="audit-feature-row"><span class="audit-arrow">→</span>OpenDyslexic font mode (Zara persona)</div>
+          <div class="audit-feature-row"><span class="audit-arrow">→</span>Text size adjustment in accessibility settings</div>
+          <div class="audit-feature-row"><span class="audit-arrow">→</span>Contrast adjustment toggle</div>
         </div>
       </div>
     </div>
@@ -1711,9 +2270,9 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  REFLECTION                                                -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════
+     REFLECTION
+══════════════════════════════════════════════════════════ -->
 <section class="section section--white" id="reflection" aria-labelledby="refl-heading">
   <div class="content-col">
 
@@ -1734,22 +2293,40 @@
       </p>
     </div>
 
-    <!-- Open questions -->
-    <div class="two-col appear" style="margin-top:var(--sp-48);">
-      <div class="card">
-        <div class="label" style="margin-bottom:var(--sp-12);">Open Questions</div>
-        <div style="display:flex;flex-direction:column;gap:var(--sp-12);">
-          <div style="font-size:14px;color:var(--ink-700);display:flex;gap:8px;line-height:1.6;"><span style="color:var(--accent);flex-shrink:0;">?</span>Current prototype supports a single order round — second round of drinks mid-session is architecturally supported but out of scope for this iteration.</div>
-          <div style="font-size:14px;color:var(--ink-700);display:flex;gap:8px;line-height:1.6;"><span style="color:var(--accent);flex-shrink:0;">?</span>Accessibility testing not conducted with assistive technology users despite dyslexia being a primary design driver.</div>
-          <div style="font-size:14px;color:var(--ink-700);display:flex;gap:8px;line-height:1.6;"><span style="color:var(--accent);flex-shrink:0;">?</span>The experience under real food hall conditions — noise, poor signal, time pressure, group social dynamics — remains untested.</div>
+    <!-- Vertically stacked reflection cards, full width -->
+    <div class="reflection-stack appear">
+      <div class="reflection-card">
+        <div class="label" style="margin-bottom:var(--sp-16);">Open Questions</div>
+        <div class="refl-pointer">
+          <div class="refl-pointer-head"><span class="refl-icon">?</span><span>Current prototype supports a single order round — second round of drinks mid-session is architecturally supported but out of scope for this iteration.</span></div>
+        </div>
+        <div class="refl-pointer">
+          <div class="refl-pointer-head"><span class="refl-icon">?</span><span>Accessibility testing not conducted with assistive technology users despite dyslexia being a primary design driver.</span></div>
+        </div>
+        <div class="refl-pointer">
+          <div class="refl-pointer-head"><span class="refl-icon">?</span><span>The experience under real food hall conditions — noise, poor signal, time pressure, group social dynamics — remains untested.</span></div>
         </div>
       </div>
-      <div class="card card--blue">
-        <div class="label" style="margin-bottom:var(--sp-12);">Business Metrics (Post-Launch)</div>
-        <div style="display:flex;flex-direction:column;gap:var(--sp-12);">
-          <div style="font-size:14px;color:var(--ink-700);display:flex;gap:8px;line-height:1.6;"><span style="color:var(--accent);flex-shrink:0;">→</span><strong>Table turnover rate:</strong> Did groups spend less time ordering and paying? Benchmark: me&amp;u's 30% AOV increase.</div>
-          <div style="font-size:14px;color:var(--ink-700);display:flex;gap:8px;line-height:1.6;"><span style="color:var(--accent);flex-shrink:0;">→</span><strong>Avg ticket size per head:</strong> Deloitte's ~20% spending increase with digital tableside ordering sets the baseline expectation.</div>
-          <div style="font-size:14px;color:var(--ink-700);display:flex;gap:8px;line-height:1.6;"><span style="color:var(--accent);flex-shrink:0;">→</span><strong>Cart abandonment rate:</strong> Tracking abandonment by screen and split method would reveal exactly what to fix next.</div>
+
+      <div class="reflection-card card--blue">
+        <div class="label" style="margin-bottom:var(--sp-16);">Business Metrics (Post-Launch)</div>
+        <div class="refl-pointer">
+          <div class="refl-pointer-head">
+            <span class="refl-icon">→</span>
+            <span><strong>Table turnover rate:</strong> Did groups spend less time ordering and paying? Benchmark: me&amp;u's 30% AOV increase.</span>
+          </div>
+        </div>
+        <div class="refl-pointer">
+          <div class="refl-pointer-head">
+            <span class="refl-icon">→</span>
+            <span><strong>Avg ticket size per head:</strong>  Deloitte's ~20% spending increase with digital tableside ordering sets the baseline expectation. </span>
+          </div>
+        </div>
+        <div class="refl-pointer">
+          <div class="refl-pointer-head">
+            <span class="refl-icon">→</span>
+            <span><strong>Cart abandonment rate:</strong> Tracking abandonment by screen and split method would reveal exactly what to fix next. </span>
+          </div>
         </div>
       </div>
     </div>
@@ -1757,9 +2334,9 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  WHAT THIS POINTS TO                                       -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════
+     WHAT THIS POINTS TO
+══════════════════════════════════════════════════════════ -->
 <section class="section section--grey" aria-labelledby="closing-heading">
   <div class="content-col">
     <div class="section-heading appear">
@@ -1792,28 +2369,52 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  FOOTER                                                    -->
-<!-- ══════════════════════════════════════════════════════════ -->
-<footer id="footer" role="contentinfo">
-  <div class="footer-inner">
-    <p class="footer-eyebrow">Like what you see?</p>
-    <h2 class="footer-headline">Let's Connect</h2>
-    <div class="footer-btns">
-      <a href="resume.pdf" class="footer-btn-primary" target="_blank" rel="noopener" aria-label="Download resume">Resume</a>
-      <a href="https://linkedin.com/in/piyushjadhav" target="_blank" rel="noopener noreferrer" class="footer-btn-secondary" aria-label="Visit LinkedIn profile">LinkedIn</a>
+<!-- ══════════════════════════════════════════════════════════
+     CONTACT — from index.html style
+══════════════════════════════════════════════════════════ -->
+<section id="contact" style="background:var(--ink-050);padding:var(--sp-80) var(--sp-20);" aria-labelledby="contact-title">
+  <div class="content-col">
+    <div class="appear" style="display:flex;align-items:center;justify-content:space-between;gap:var(--sp-40);flex-wrap:wrap;">
+      <div>
+        <span class="label" style="display:block;margin-bottom:var(--sp-16);">Let's Connect</span>
+        <h2 style="font-family:var(--font-display);font-size:clamp(28px,4vw,42px);font-weight:900;letter-spacing:-.04em;color:var(--ink-900);line-height:1;margin-top:0;" id="contact-title">Got a project in mind?</h2>
+        <p style="font-size:16px;color:var(--ink-500);margin-top:var(--sp-12);line-height:1.65;">Whether it's a full product build or just a conversation — I'm always happy to chat design.</p>
+      </div>
+      <div style="display:flex;gap:var(--sp-16);flex-wrap:wrap;">
+        <a href="https://calendly.com/piyushjadhav" target="_blank" rel="noopener"
+           style="font-family:var(--font-display);font-size:14px;font-weight:700;background:var(--ink-900);color:white;padding:14px 28px;border-radius:var(--r-md);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background .2s,transform .15s,box-shadow .2s;"
+           onmouseover="this.style.background='var(--accent)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(227,30,8,.35)';"
+           onmouseout="this.style.background='var(--ink-900)';this.style.transform='';this.style.boxShadow='';">
+          Book a Meeting ↗
+        </a>
+        <a href="assets/Resume.pdf" target="_blank" rel="noopener"
+           style="font-family:var(--font-display);font-size:14px;font-weight:600;color:var(--ink-700);background:none;border:1.5px solid var(--ink-300);padding:14px 24px;border-radius:var(--r-md);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,color .2s,transform .15s;"
+           onmouseover="this.style.borderColor='var(--ink-700)';this.style.color='var(--ink-900)';this.style.transform='translateY(-2px)';"
+           onmouseout="this.style.borderColor='var(--ink-300)';this.style.color='var(--ink-700)';this.style.transform='';">
+          View Resume
+        </a>
+      </div>
     </div>
-    <p class="footer-email" aria-label="Email address">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><rect x="2" y="4" width="12" height="9" rx="1.5"/><polyline points="2,4 8,9 14,4"/></svg>
-      piyush.jadhav@email.com
-    </p>
-    <p class="footer-copy">© 2026 Piyush Jadhav &nbsp;·&nbsp; UX/Visual Designer</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     FOOTER — from index.html
+══════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-left">© 2026 Piyush Jadhav. Designed &amp; built with ♥</span>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/piyushjadhavdesign/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://dribbble.com/piyushjadhav"    target="_blank" rel="noopener">Dribbble</a>
+      <a href="https://twitter.com/piyushjadhav"     target="_blank" rel="noopener">Twitter</a>
+    </div>
   </div>
 </footer>
 
-<!-- ══════════════════════════════════════════════════════════ -->
-<!--  JAVASCRIPT                                                -->
-<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════════════ -->
 <script>
 (function() {
   'use strict';
@@ -1831,7 +2432,7 @@
     requestAnimationFrame(animCursor);
   }
   animCursor();
-  document.querySelectorAll('a,button,.metric-card,.feature-item,.decision-item,.emotion-stage,.persona-card,.iter-card').forEach(function(el) {
+  document.querySelectorAll('a,button,.metric-card,.feature-item,.decision-item,.emotion-stage,.persona-card,.iter-card,.direction-item').forEach(function(el) {
     el.addEventListener('mouseenter', function() { document.body.classList.add('cursor-hover'); });
     el.addEventListener('mouseleave', function() { document.body.classList.remove('cursor-hover'); });
   });
@@ -1848,13 +2449,15 @@
   hamburger.addEventListener('click', function() {
     var open = hamburger.classList.toggle('open');
     mobileMenu.classList.toggle('open', open);
-    hamburger.setAttribute('aria-expanded', open.toString());
+    mobileMenu.setAttribute('aria-hidden', String(!open));
+    hamburger.setAttribute('aria-expanded', String(open));
     document.body.style.overflow = open ? 'hidden' : '';
   });
-  document.querySelectorAll('.mobile-link').forEach(function(link) {
+  document.querySelectorAll('#mobile-menu a').forEach(function(link) {
     link.addEventListener('click', function() {
       hamburger.classList.remove('open');
       mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
       hamburger.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
     });
@@ -1869,10 +2472,78 @@
       }
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.appear, .stagger').forEach(function(el) { io.observe(el); });
 
-  document.querySelectorAll('.appear, .stagger').forEach(function(el) {
-    io.observe(el);
+/* ── Side stepper — section tracking ────────────────── */
+var sections = ['hero','problem','research','define','ideation','design','testing','reflection'];
+var stepperItems = document.querySelectorAll('.stepper-item');
+
+function setActiveSection(id) {
+  var activeIndex = sections.indexOf(id);
+  stepperItems.forEach(function(item, i) {
+    var isActive = item.dataset.section === id;
+    var diff = Math.abs(i - activeIndex);
+    item.classList.toggle('active', isActive);
+
+    var dot = item.querySelector('.stepper-dot');
+    if (isActive) {
+      dot.style.transform = 'scale(1.25) translateX(3px)';
+      dot.style.opacity = '1';
+    } else if (diff === 1) {
+      dot.style.transform = 'scale(1.0) translateX(1.5px)';
+      dot.style.opacity = '0.6';
+    } else {
+      dot.style.transform = 'scale(0.85) translateX(0)';
+      dot.style.opacity = '0.35';
+    }
   });
+}
+
+var sectionEls = sections.map(function(id) {
+  return document.getElementById(id);
+}).filter(Boolean);
+
+function getActiveSection() {
+  var scrollY = window.scrollY;
+  var windowH = window.innerHeight;
+  var current = sectionEls[0];
+
+  sectionEls.forEach(function(el) {
+    var rect = el.getBoundingClientRect();
+    var top = rect.top + scrollY;
+    if (scrollY >= top - windowH * 0.4) {
+      current = el;
+    }
+  });
+
+  return current ? current.id : sections[0];
+}
+
+window.addEventListener('scroll', function() {
+  setActiveSection(getActiveSection());
+}, { passive: true });
+
+/* Set initial state */
+setActiveSection(getActiveSection());
+
+/* Stepper click navigation */
+function stepperClick(item) {
+  var target = document.getElementById(item.dataset.section);
+  if (!target) return;
+  var top = target.getBoundingClientRect().top + window.scrollY - 88;
+  window.scrollTo({ top: top, behavior: 'smooth' });
+}
+stepperItems.forEach(function(item) {
+  item.addEventListener('click', function() {
+    stepperClick(item);
+    setActiveSection(item.dataset.section);
+  });
+  item.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stepperClick(item); }
+  });
+  item.setAttribute('tabindex', '0');
+  item.setAttribute('role', 'button');
+});
 
   /* ── Carousel factory ───────────────────────────────── */
   function initCarousel(trackId, prevId, nextId, dotSelector) {
@@ -1880,36 +2551,32 @@
     var prevBtn = document.getElementById(prevId);
     var nextBtn = document.getElementById(nextId);
     if (!track || !prevBtn || !nextBtn) return;
-
-    var dots     = document.querySelectorAll(dotSelector);
-    var slides   = track.querySelectorAll('.carousel-slide');
-    var total    = slides.length;
-    var current  = 0;
-    var isAnimating = false;
+    var dots    = document.querySelectorAll(dotSelector);
+    var slides  = track.querySelectorAll('.carousel-slide');
+    var total   = slides.length;
+    var current = 0;
+    var isAnim  = false;
 
     function goTo(idx) {
-      if (isAnimating) return;
-      isAnimating = true;
+      if (isAnim) return;
+      isAnim = true;
       current = (idx + total) % total;
       track.style.transform = 'translateX(-' + (current * 100) + '%)';
       dots.forEach(function(d, i) {
         var active = i === current;
         d.classList.toggle('active', active);
-        d.setAttribute('aria-selected', active.toString());
+        d.setAttribute('aria-selected', String(active));
       });
-      slides.forEach(function(s, i) {
-        s.setAttribute('aria-hidden', (i !== current).toString());
-      });
-      setTimeout(function() { isAnimating = false; }, 520);
+      slides.forEach(function(s, i) { s.setAttribute('aria-hidden', String(i !== current)); });
+      setTimeout(function() { isAnim = false; }, 520);
     }
 
-    slides.forEach(function(s, i) { s.setAttribute('aria-hidden', (i !== 0).toString()); });
+    slides.forEach(function(s, i) { s.setAttribute('aria-hidden', String(i !== 0)); });
     prevBtn.addEventListener('click', function() { goTo(current - 1); });
     nextBtn.addEventListener('click', function() { goTo(current + 1); });
     dots.forEach(function(dot) {
       dot.addEventListener('click', function() { goTo(parseInt(dot.getAttribute('data-idx'), 10)); });
     });
-
     [prevBtn, nextBtn].concat(Array.from(dots)).forEach(function(el) {
       el.addEventListener('keydown', function(e) {
         if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
@@ -1917,7 +2584,7 @@
       });
     });
 
-    /* touch/swipe support */
+    /* touch/swipe */
     var startX = 0;
     track.parentElement.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
     track.parentElement.addEventListener('touchend', function(e) {
@@ -1926,8 +2593,9 @@
     }, { passive: true });
   }
 
-  initCarousel('res-track', 'res-prev', 'res-next', '#res-carousel .carousel-dot');
-  initCarousel('sol-track', 'sol-prev', 'sol-next', '#sol-carousel .carousel-dot');
+  initCarousel('res-track',    'res-prev',    'res-next',    '#res-carousel .carousel-dot');
+  initCarousel('sol-track',    'sol-prev',    'sol-next',    '#sol-carousel .carousel-dot');
+  initCarousel('sketch-track', 'sketch-prev', 'sketch-next', '#sketch-carousel .carousel-dot');
 
   /* ── Smooth scroll for anchor links ─────────────────── */
   document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
