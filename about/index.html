@@ -137,8 +137,15 @@
       transition: background .2s, color .2s, transform .15s, box-shadow .2s;
     }
     .nav-cta:hover { background: var(--accent); color: white; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(30,94,255,.3); }
-    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
-    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--ink-900); border-radius: 2px; transition: transform .3s, opacity .3s; }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--ink-900); border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
     .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -605,12 +612,13 @@
     /* ════════════════════════════════
        §5 — CONTACT CTA
     ════════════════════════════════ */
-    #contact { padding: var(--sp-80) 0; background: var(--white); }
+    #contact { padding: var(--sp-80) 0; background: var(--ink-050); }
     .contact-inner {
       display: flex; align-items: center; justify-content: space-between;
       gap: var(--sp-40); flex-wrap: wrap;
     }
-    .contact-left .section-title { text-align: left; font-size: clamp(28px, 4vw, 42px); }
+    .contact-left .label { display: block; margin-bottom: var(--sp-16); }
+    .contact-left .section-title { text-align: left; margin-top: 0; }
     .contact-sub { font-size: 16px; color: var(--ink-500); margin-top: var(--sp-12); }
     .contact-actions { display: flex; gap: var(--sp-16); flex-wrap: wrap; }
 
@@ -645,7 +653,10 @@
       .hero-sub { max-width: 100%; }
       .story-sidebar { grid-template-columns: 1fr; }
       .values-grid { grid-template-columns: 1fr; }
-      .contact-inner { flex-direction: column; align-items: flex-start; }
+      .contact-inner { flex-direction: column; }
+      .contact-left .section-title { text-align: left; }
+      .contact-sub { text-align: left; }
+      .contact-actions { justify-content: flex-start; }
       .footer-inner { flex-direction: column; text-align: center; }
       #cursor, #cursor-ring { display: none; }
       body { cursor: auto; }
@@ -1017,7 +1028,7 @@
     <div class="contact-inner reveal">
       <div class="contact-left">
         <span class="label">Let's Connect</span>
-        <h2 class="section-title contact-title" id="contact-title" style="font-size:clamp(28px,4vw,42px);">
+        <h2 class="section-title" id="contact-title" style="text-align:left;">
           Got a project in mind?
         </h2>
         <p class="contact-sub">Whether it's a full product build or just a conversation — I'm always happy to chat design.</p>
