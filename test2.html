@@ -276,14 +276,14 @@
       position: relative; overflow: hidden;
     }
     #hero::before {
-      content: '';
+      content: ''; z-index: 0;
       position: absolute; inset: 0;
       background:
         radial-gradient(ellipse 70% 55% at 60% -10%, rgba(227,30,8,.08) 0%, transparent 70%),
         linear-gradient(180deg, var(--ink-050) 0%, var(--white) 100%);
     }
     #hero::after {
-      content: '';
+      content: ''; z-index: 0;
       position: absolute; inset: 0;
       background-image:
         linear-gradient(rgba(227,30,8,.04) 1px, transparent 1px),
