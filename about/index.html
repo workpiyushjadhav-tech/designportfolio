@@ -656,7 +656,8 @@
       .contact-inner { flex-direction: column; }
       .contact-left .section-title { text-align: left; }
       .contact-sub { text-align: left; }
-      .contact-actions { justify-content: flex-start; }
+      .contact-actions { justify-content: flex-start; flex-direction: column; width: 100%; }
+      .contact-actions .btn-primary, .contact-actions .btn-ghost { justify-content: center; width: 100%; }
       .footer-inner { flex-direction: column; text-align: center; }
       #cursor, #cursor-ring { display: none; }
       body { cursor: auto; }
@@ -668,7 +669,6 @@
     @media (max-width: 479px) {
       .hero-actions { flex-direction: column; }
       .btn-primary, .btn-ghost { justify-content: center; width: 100%; }
-      .contact-actions { flex-direction: column; }
     }
 
     @media (prefers-reduced-motion: reduce) {
