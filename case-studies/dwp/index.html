@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UK Bereavement Support Redesign — Piyush Jadhav</title>
+  <meta name="description" content="UX Design Case Study: Redesigning UK Bereavement Financial Support — a three-layer service model for DWP, HMRC, and local councils.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+    :root {
+      --accent:       #1B4FD8;
+      --accent-dark:  #1340B0;
+      --accent-muted: #EEF3FF;
+      --accent-warm:  #3B82F6;
+      --accent-teal:  #0EA5E9;
+
+      --ink-900: #0D0F11;
+      --ink-700: #3F4552;
+      --ink-500: #6B7280;
+      --ink-300: #BFC4CF;
+      --ink-100: #F0F2F5;
+      --ink-050: #F8F9FB;
+      --white:   #FFFFFF;
+
+      --font-display: 'Epilogue', sans-serif;
+      --font-body:    'Inter', sans-serif;
+
+      --sp-4:  4px;  --sp-6:  6px;  --sp-8:  8px;  --sp-12: 12px;
+      --sp-16: 16px; --sp-20: 20px; --sp-24: 24px; --sp-32: 32px;
+      --sp-40: 40px; --sp-48: 48px; --sp-64: 64px;
+      --sp-80: 80px; --sp-120: 120px;
+
+      --r-sm:  8px; --r-md: 16px; --r-lg: 24px; --r-xl: 40px; --r-2xl: 48px;
+
+      --shadow-card: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.08);
+      --shadow-nav:  0 1px 2px rgba(0,0,0,.06), 0 4px 24px rgba(0,0,0,.10);
+    }
+
+    body {
+      font-family: var(--font-body); background: var(--white); color: var(--ink-700); overflow-x: hidden; cursor: none;
+    }
+
+    #cursor {
+      position: fixed; width: 12px; height: 12px;
+      background: var(--accent); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: width .2s, height .2s, background .2s;
+      mix-blend-mode: multiply;
+    }
+    #cursor-ring {
+      position: fixed; width: 36px; height: 36px;
+      border: 1.5px solid var(--accent); border-radius: 50%;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: width .35s cubic-bezier(.25,.46,.45,.94),
+                  height .35s cubic-bezier(.25,.46,.45,.94),
+                  border-color .2s;
+      opacity: .5;
+    }
+    body.cursor-hover #cursor { width: 20px; height: 20px; background: var(--accent-warm); }
+    body.cursor-hover #cursor-ring { width: 56px; height: 56px; border-color: var(--accent-warm); opacity: .3; }
+
+    .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 0 var(--sp-24); }
+
+    .label {
+      font-family: var(--font-display);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent);
+    }
+    .tag-pill {
+      display: inline-flex; align-items: center;
+      background: var(--accent-muted);
+      color: var(--accent);
+      font-family: var(--font-display);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 100px;
+      border: 1px solid rgba(27,79,216,.18);
+      white-space: nowrap;
+    }
+
+    /* NAVBAR */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 200; padding: 0 var(--sp-20) var(--sp-20);
+      pointer-events: none;
+    }
+    #navbar-inner {
+      pointer-events: all;
+      width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px; padding: 0 var(--sp-40);
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom-left-radius: var(--r-lg);
+      border-bottom-right-radius: var(--r-lg);
+      box-shadow: var(--shadow-nav);
+      transition: background .3s, box-shadow .3s;
+    }
+    #navbar-inner.scrolled {
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 2px 32px rgba(0,0,0,.13);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: var(--sp-12);
+      text-decoration: none; color: var(--ink-900);
+    }
+    .nav-logo-mark {
+      width: 34px; height: 34px;
+      background: var(--ink-900); border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      transition: transform .2s cubic-bezier(.34,1.56,.64,1), background .2s;
+    }
+    .nav-logo-mark:hover { transform: rotate(-8deg) scale(1.08); background: var(--accent); }
+    .nav-logo-mark svg { width: 18px; height: 18px; fill: white; }
+    .nav-logo-name { font-family: var(--font-display); font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
+    .nav-links { display: flex; gap: var(--sp-32); list-style: none; }
+    .nav-links a {
+      font-family: var(--font-display); font-size: 14px; font-weight: 600;
+      color: var(--ink-700); text-decoration: none;
+      letter-spacing: -.01em; transition: color .2s; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 2px; background: var(--accent); border-radius: 2px;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .25s cubic-bezier(.34,1.56,.64,1);
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+    .nav-links a.active { color: var(--accent); }
+    .nav-cta {
+      font-family: var(--font-display); font-size: 13px; font-weight: 700;
+      color: var(--accent); background: var(--accent-muted);
+      border: 1.5px solid var(--accent);
+      padding: 8px 18px; border-radius: var(--r-md); text-decoration: none;
+      transition: background .2s, color .2s, transform .15s, box-shadow .2s;
+    }
+    .nav-cta:hover { background: var(--accent); color: white; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(27,79,216,.3); }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--ink-900); border-radius: 2px; transition: transform .3s, opacity .3s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    #mobile-menu {
+      display: none; position: fixed;
+      top: 0; left: 0; right: 0; z-index: 190;
+      padding-top: 88px;
+      background: rgba(255,255,255,.97); backdrop-filter: blur(20px);
+      transform: translateY(-110%);
+      transition: transform .35s cubic-bezier(.32,0,.67,0);
+    }
+    #mobile-menu.open {
+      transform: translateY(0);
+      transition: transform .35s cubic-bezier(.33,1,.68,1);
+    }
+    #mobile-menu ul {
+      list-style: none; padding: var(--sp-24) var(--sp-20) var(--sp-40);
+      display: flex; flex-direction: column; gap: var(--sp-4);
+    }
+    #mobile-menu a {
+      display: block; font-family: var(--font-display);
+      font-size: 22px; font-weight: 700;
+      color: var(--ink-900); text-decoration: none;
+      padding: var(--sp-12) 0; border-bottom: 1px solid var(--ink-100);
+      transition: color .2s, padding-left .2s;
+    }
+    #mobile-menu a:hover { color: var(--accent); padding-left: 8px; }
+
+    /* SIDE STEPPER */
+    #side-stepper {
+      position: fixed; right: 20px; top: 50%;
+      transform: translateY(-50%); z-index: 150;
+      display: flex; flex-direction: column; gap: 6px; align-items: flex-end;
+    }
+    .stepper-item {
+      display: flex; align-items: center; gap: 10px;
+      cursor: pointer; padding: 4px 0;
+    }
+    .stepper-label {
+      font-family: var(--font-display);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--ink-500);
+      background: rgba(255,255,255,.9);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--ink-100);
+      padding: 5px 12px; border-radius: 100px;
+      white-space: nowrap; opacity: 1;
+      transform: translateX(8px);
+      transition: opacity .2s, transform .2s, color .2s, border-color .2s, background .2s;
+      pointer-events: none;
+    }
+    .stepper-item:hover .stepper-label,
+    .stepper-item.active .stepper-label { opacity: 1; transform: translateX(0); }
+    .stepper-item.active .stepper-label {
+      color: var(--accent); border-color: rgba(27,79,216,.3); background: var(--accent-muted);
+    }
+    .stepper-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--ink-300); border: 1.5px solid transparent;
+      transition: background .25s, transform .35s cubic-bezier(.34,1.56,.64,1), border-color .25s, width .25s, height .25s, opacity .3s;
+      flex-shrink: 0;
+    }
+    .stepper-item:hover .stepper-dot { background: var(--accent-warm); transform: scale(1.3); }
+    .stepper-item.active .stepper-dot {
+      background: var(--accent); transform: scale(1.25);
+      border-color: rgba(27,79,216,.25); box-shadow: 0 0 0 3px rgba(27,79,216,.15);
+    }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 120px var(--sp-20) 0; position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 55% at 60% -10%, rgba(27,79,216,.07) 0%, transparent 70%),
+        linear-gradient(180deg, var(--ink-050) 0%, var(--white) 100%);
+    }
+    #hero::after {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(27,79,216,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(27,79,216,.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 20%, transparent 70%);
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 900px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: var(--sp-40);
+    }
+    .hero-eyebrow { display: flex; align-items: center; gap: var(--sp-16); flex-wrap: wrap; }
+    .hero-divider { width: 32px; height: 2px; background: var(--accent); border-radius: 2px; }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5.5vw, 60px);
+      font-weight: 800; line-height: 1.12; letter-spacing: -.03em; color: var(--ink-900);
+    }
+    .hero-headline em { font-style: normal; color: var(--accent); }
+    .hero-sub { font-size: 18px; line-height: 1.65; color: var(--ink-500); max-width: 560px; }
+
+    .project-meta {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; border: 1.5px solid var(--ink-100); border-radius: var(--r-xl);
+      overflow: hidden; background: var(--white); box-shadow: var(--shadow-card);
+    }
+    .meta-item { padding: var(--sp-24); border-right: 1px solid var(--ink-100); }
+    .meta-item:last-child { border-right: none; }
+    .meta-key {
+      font-family: var(--font-display); font-size: 10px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--sp-8);
+    }
+    .meta-val { font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--ink-900); line-height: 1.4; }
+
+    .hero-image-block {
+      width: 100%; border-radius: var(--r-xl); overflow: hidden;
+      background: var(--ink-100); aspect-ratio: 16/7;
+      display: flex; align-items: center; justify-content: center;
+      border: 1.5px dashed var(--ink-300);
+      flex-direction: column; gap: var(--sp-12); margin-bottom: var(--sp-64);
+    }
+    .placeholder-icon { font-size: 32px; opacity: .35; }
+    .placeholder-label {
+      font-family: var(--font-display); font-size: 13px; font-weight: 600;
+      color: var(--ink-300); letter-spacing: .02em;
+    }
+
+    /* SECTION */
+    .section { padding: var(--sp-80) var(--sp-20); width: 100%; }
+    .section--grey  { background: var(--ink-050); }
+    .section--white { background: var(--white); }
+    .content-col { max-width: 900px; margin: 0 auto; }
+
+    #problem-banner { background: var(--white); padding: var(--sp-80) var(--sp-20); }
+    .problem-inner {
+      max-width: 720px; margin: 0 auto;
+      text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--sp-20);
+    }
+    .problem-headline {
+      font-family: var(--font-display); font-size: clamp(20px, 3.5vw, 32px);
+      font-weight: 700; line-height: 1.4; color: var(--ink-900); letter-spacing: -.02em;
+    }
+
+    .section-heading { display: flex; flex-direction: column; gap: var(--sp-12); margin-bottom: var(--sp-48); }
+    .section-heading h2 {
+      font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 44px);
+      font-weight: 800; line-height: 1.18; letter-spacing: -.035em; color: var(--ink-900);
+    }
+    .section-heading h2 strong { color: var(--accent); font-weight: 800; }
+    .section-heading p { font-size: 17px; line-height: 1.72; color: var(--ink-500); max-width: 640px; margin-top: var(--sp-4); }
+
+    .prose { font-size: 17px; line-height: 1.75; color: var(--ink-700); }
+    .prose p + p { margin-top: var(--sp-20); }
+    .prose ul { margin-top: var(--sp-16); margin-left: var(--sp-20); display: flex; flex-direction: column; gap: var(--sp-8); }
+    .prose ul li { line-height: 1.65; }
+    .prose strong { font-weight: 600; color: var(--ink-900); }
+
+    .card {
+      background: var(--white); border: 1.5px solid var(--ink-100);
+      border-radius: var(--r-xl); padding: var(--sp-32); box-shadow: var(--shadow-card);
+    }
+    .card--blue { background: var(--accent-muted); border-color: rgba(27,79,216,.18); }
+    .card--dark { background: var(--ink-900); border-color: transparent; }
+
+    .highlight-quote {
+      background: var(--ink-050); border-left: 4px solid var(--accent);
+      border-radius: 0 var(--r-md) var(--r-md) 0;
+      padding: var(--sp-24) var(--sp-32); margin: var(--sp-40) 0;
+    }
+    .highlight-quote p {
+      font-family: var(--font-display); font-size: 18px; font-weight: 600;
+      line-height: 1.6; color: var(--ink-900);
+    }
+    .highlight-quote p em { color: var(--accent); font-style: normal; }
+    .highlight-quote cite { display: block; margin-top: var(--sp-12); font-size: 13px; color: var(--ink-500); font-style: normal; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-24); margin-top: var(--sp-32); }
+    .sub-heading { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--ink-900); margin-bottom: var(--sp-12); }
+
+    .img-ph {
+      width: 100%; border-radius: var(--r-lg);
+      background: var(--ink-100); border: 1.5px dashed var(--ink-300);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: var(--sp-8); color: var(--ink-300); min-height: 200px; padding: var(--sp-32);
+    }
+    .img-ph .ph-icon { font-size: 28px; opacity: .45; }
+    .img-ph .ph-text {
+      font-family: var(--font-display); font-size: 12px; font-weight: 600;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .img-ph--tall  { aspect-ratio: 3/4;  min-height: 0; }
+    .img-ph--wide  { aspect-ratio: 16/9; min-height: 0; }
+    .img-ph--sq    { aspect-ratio: 1/1;  min-height: 0; }
+    .img-ph--short { aspect-ratio: 21/9; min-height: 0; }
+    .img-ph--screen { aspect-ratio: 9/16; min-height: 0; }
+
+    .metrics-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: var(--sp-16); margin-top: var(--sp-40);
+    }
+    .metric-card {
+      background: var(--white); border: 1.5px solid var(--ink-100);
+      border-radius: var(--r-xl); padding: var(--sp-32) var(--sp-24);
+      text-align: center; box-shadow: var(--shadow-card);
+      transition: transform .25s cubic-bezier(.34,1.36,.64,1), box-shadow .25s;
+    }
+    .metric-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.12); }
+    .metric-num {
+      font-family: var(--font-display); font-size: 42px; font-weight: 800;
+      letter-spacing: -.03em; color: var(--accent); line-height: 1; margin-bottom: var(--sp-8);
+    }
+    .metric-label { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--ink-500); line-height: 1.45; }
+
+    /* DATA TABLE */
+    .data-table-wrap {
+      margin-top: var(--sp-32); border-radius: var(--r-xl);
+      border: 1.5px solid var(--ink-100); overflow: hidden; box-shadow: var(--shadow-card);
+    }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .data-table th {
+      font-family: var(--font-display); font-size: 11px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink-500); background: var(--ink-050);
+      padding: var(--sp-16) var(--sp-20); border-bottom: 1.5px solid var(--ink-100); text-align: left;
+    }
+    .data-table th.highlight { background: var(--accent-muted); color: var(--accent); }
+    .data-table td {
+      padding: var(--sp-16) var(--sp-20);
+      border-bottom: 1px solid var(--ink-100);
+      vertical-align: middle; line-height: 1.55; color: var(--ink-700);
+    }
+    .data-table td.col-num {
+      font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--accent);
+    }
+    .data-table td.col-highlight { background: rgba(27,79,216,.04); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: var(--ink-050); }
+    .data-table tr:hover td.col-highlight { background: rgba(27,79,216,.07); }
+
+    /* CAROUSEL */
+    .carousel-wrap {
+      position: relative; overflow: hidden;
+      border-radius: var(--r-xl); border: 1.5px solid var(--ink-100); box-shadow: var(--shadow-card);
+    }
+    .carousel-track { display: flex; transition: transform .52s cubic-bezier(.32,0,.67,0); }
+    .carousel-slide { flex: 0 0 100%; width: 100%; }
+    .carousel-slide-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0; min-height: 500px;
+    }
+    .carousel-text {
+      padding: var(--sp-48) var(--sp-40); display: flex; flex-direction: column;
+      justify-content: center; gap: var(--sp-24);
+      border-right: 1.5px solid var(--ink-100); background: var(--white);
+    }
+    .carousel-number {
+      display: inline-flex; align-items: center; gap: var(--sp-8);
+      font-family: var(--font-display); font-size: 11px; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent); background: var(--accent-muted);
+      padding: 4px 12px; border-radius: 100px; width: fit-content;
+      border: 1px solid rgba(27,79,216,.18);
+    }
+    .carousel-slide-title {
+      font-family: var(--font-display); font-size: 22px; font-weight: 800;
+      color: var(--ink-900); letter-spacing: -.025em; line-height: 1.28;
+    }
+    .carousel-slide-body { font-size: 15px; line-height: 1.72; color: var(--ink-500); }
+    .carousel-slide-body p { margin-bottom: var(--sp-12); }
+    .carousel-slide-body ul { margin-top: var(--sp-8); margin-left: 0; display: flex; flex-direction: column; gap: var(--sp-8); list-style: none; }
+    .carousel-slide-body li { line-height: 1.55; display: flex; gap: var(--sp-8); align-items: flex-start; }
+    .carousel-slide-body li span, .carousel-slide-body li > * { flex-shrink: 1; min-width: 0; word-break: break-word; }
+    .carousel-slide-body strong { font-weight: 700; color: var(--ink-700); display: inline; }
+    .carousel-img {
+      background: var(--ink-050); display: flex; align-items: stretch; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .carousel-img .img-ph {
+      border-radius: 0; border: none; background: transparent; width: 100%; min-height: 100%; flex: 1;
+    }
+    .carousel-controls {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: var(--sp-16) var(--sp-24);
+      background: var(--white); border-top: 1.5px solid var(--ink-100);
+    }
+    .carousel-dots { display: flex; gap: var(--sp-8); align-items: center; }
+    .carousel-dot {
+      width: 24px; height: 4px; border-radius: 2px; background: var(--ink-100);
+      cursor: pointer; transition: background .2s, width .25s cubic-bezier(.34,1.56,.64,1); border: none;
+    }
+    .carousel-dot.active { background: var(--accent); width: 40px; }
+    .carousel-dot:hover:not(.active) { background: var(--ink-300); }
+    .carousel-arrows { display: flex; gap: var(--sp-8); }
+    .carousel-arrow {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1.5px solid var(--ink-300); background: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: border-color .2s, background .2s, transform .15s;
+    }
+    .carousel-arrow:hover { border-color: var(--accent); background: var(--accent); }
+    .carousel-arrow:hover svg { stroke: white; }
+    .carousel-arrow:active { transform: scale(.93); }
+    .carousel-arrow svg { width: 16px; height: 16px; stroke: var(--ink-500); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke .2s; }
+
+    /* QUOTE CARDS */
+    .quotes-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-20); margin-top: var(--sp-40);
+    }
+    .quote-card {
+      background: var(--white); border: 1.5px solid var(--ink-100);
+      border-radius: var(--r-xl); padding: var(--sp-32); box-shadow: var(--shadow-card);
+      display: flex; flex-direction: column; gap: var(--sp-16); position: relative; overflow: hidden;
+    }
+    .quote-card::before {
+      content: '"'; position: absolute; top: -10px; left: 20px;
+      font-family: var(--font-display); font-size: 120px; font-weight: 900;
+      color: var(--accent); opacity: .06; line-height: 1; pointer-events: none;
+    }
+    .quote-card-text {
+      font-family: var(--font-display); font-size: 18px; font-weight: 500;
+      line-height: 1.65; color: var(--ink-900); position: relative; z-index: 1;
+    }
+    .quote-card-text em { font-style: normal; color: var(--accent); font-weight: 700; }
+    .quote-card-source {
+      font-family: var(--font-display); font-size: 10px; font-weight: 800;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--ink-500);
+    }
+
+    /* STICKY NOTES */
+    .sticky-notes-grid {
+      background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-radius: var(--r-xl);
+      padding: var(--sp-32); box-sizing: border-box;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-20);
+      margin-top: var(--sp-24); width: 100%; max-width: 100%; overflow: hidden;
+    }
+    .sticky-note {
+      border-radius: var(--r-lg); padding: var(--sp-24) var(--sp-20);
+      display: flex; flex-direction: column; gap: var(--sp-12);
+      position: relative; overflow: hidden; box-sizing: border-box; min-width: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+      transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
+    }
+    .sticky-note:hover { transform: translateY(-3px) rotate(-.4deg); box-shadow: 0 8px 28px rgba(0,0,0,.12); }
+    .sticky-note--yellow { background: #FFF9C4; border: 1.5px solid #F9E44A; }
+    .sticky-note--orange { background: #FFE8D6; border: 1.5px solid #FFAB6E; }
+    .sticky-note--green  { background: #D4F0D4; border: 1.5px solid #6DC96D; }
+    .sticky-note--red    { background: #FFE0E0; border: 1.5px solid #FF8A8A; }
+    .sticky-note--blue   { background: #DDF0FF; border: 1.5px solid #74C0FF; }
+    .sticky-note-label {
+      font-family: var(--font-display); font-size: 11px; font-weight: 800;
+      letter-spacing: .1em; text-transform: uppercase;
+    }
+    .sticky-note--yellow .sticky-note-label { color: #A0880A; }
+    .sticky-note--orange .sticky-note-label { color: #B05A00; }
+    .sticky-note--green  .sticky-note-label { color: #1E6A1E; }
+    .sticky-note--red    .sticky-note-label { color: #B91C1C; }
+    .sticky-note--blue   .sticky-note-label { color: #1B5FAF; }
+    .sticky-note ul { list-style: none; display: flex; flex-direction: column; gap: var(--sp-8); margin: 0; padding: 0; }
+    .sticky-note li { font-size: 13px; line-height: 1.55; color: var(--ink-700); display: flex; gap: var(--sp-8); align-items: flex-start; word-break: break-word; }
+    .sticky-note li::before { content: '—'; flex-shrink: 0; opacity: .5; }
+
+    /* HMW BANNER */
+    .hmw-banner {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      border-radius: var(--r-2xl); padding: var(--sp-64) var(--sp-40);
+      text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--sp-20);
+    }
+    .hmw-label {
+      font-family: var(--font-display); font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.7);
+    }
+    .hmw-text {
+      font-family: var(--font-display); font-size: clamp(20px, 3.5vw, 32px);
+      font-weight: 800; color: white; line-height: 1.35; letter-spacing: -.02em; max-width: 620px;
+    }
+
+    /* PERSONA CARD */
+    .persona-card {
+      display: grid; grid-template-columns: 240px 1fr; gap: 0; background: var(--white);
+      border: 1.5px solid var(--ink-100); border-radius: var(--r-xl);
+      overflow: hidden; box-shadow: var(--shadow-card);
+    }
+    .persona-avatar {
+      background: var(--ink-100); border-right: 1.5px solid var(--ink-100);
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+      padding-top: var(--sp-32); gap: 0;
+    }
+    .persona-info { padding: var(--sp-32); display: flex; flex-direction: column; gap: var(--sp-16); }
+    .persona-name { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--ink-900); letter-spacing: -.02em; }
+    .persona-role { font-size: 14px; color: var(--ink-500); }
+    .persona-quote {
+      background: var(--accent-muted); border-radius: var(--r-md);
+      padding: var(--sp-16) var(--sp-20); font-family: var(--font-display);
+      font-size: 15px; font-weight: 600; color: var(--ink-900); line-height: 1.55;
+      border-left: 3px solid var(--accent);
+    }
+    .persona-goals-pains { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-16); }
+    .pgp-box { display: flex; flex-direction: column; gap: var(--sp-8); }
+    .pgp-box h4 {
+      font-family: var(--font-display); font-size: 11px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--accent);
+    }
+    .pgp-box ul { list-style: none; display: flex; flex-direction: column; gap: var(--sp-6); }
+    .pgp-box li { font-size: 13px; line-height: 1.5; color: var(--ink-700); display: flex; gap: var(--sp-8); }
+    .pgp-box li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+
+    /* EMOTION ARC */
+    .emotion-arc {
+      display: flex; align-items: flex-end; gap: 0;
+      border: 1.5px solid var(--ink-100); border-radius: var(--r-xl);
+      overflow: hidden; background: var(--white); box-shadow: var(--shadow-card); margin-top: var(--sp-24);
+    }
+    .emotion-stage {
+      flex: 1; padding: var(--sp-20) var(--sp-16);
+      display: flex; flex-direction: column; gap: var(--sp-8);
+      border-right: 1px solid var(--ink-100); transition: background .2s; cursor: default;
+    }
+    .emotion-stage:last-child { border-right: none; }
+    .emotion-stage:hover { background: var(--ink-050); }
+    .emotion-emoji { font-size: 22px; text-align: center; }
+    .emotion-name { font-family: var(--font-display); font-size: 12px; font-weight: 800; color: var(--ink-900); text-align: center; letter-spacing: -.01em; }
+    .emotion-feel {
+      font-family: var(--font-display); font-size: 10px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase; text-align: center;
+      padding: 3px 8px; border-radius: 100px;
+    }
+    .emotion-feel--neg { background: #FEE2E2; color: #B91C1C; }
+    .emotion-feel--pos { background: #D1FAE5; color: #065F46; }
+    .emotion-feel--mid { background: #FEF3C7; color: #92400E; }
+
+    /* ITERATION CARD */
+    .iter-card {
+      background: var(--white); border: 1.5px solid var(--ink-100);
+      border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-card); margin-top: var(--sp-24);
+    }
+    .iter-header { padding: var(--sp-24) var(--sp-32); border-bottom: 1.5px solid var(--ink-100); display: flex; align-items: center; gap: var(--sp-16); }
+    .iter-num {
+      width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: white;
+      font-family: var(--font-display); font-size: 15px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .iter-title { font-family: var(--font-display); font-size: 17px; font-weight: 800; color: var(--ink-900); letter-spacing: -.02em; line-height: 1.35; }
+    .iter-body { padding: var(--sp-24) var(--sp-32); }
+    .iter-body ul { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .iter-body li {
+      font-size: 15px; line-height: 1.65; color: var(--ink-700);
+      display: flex; flex-direction: column; gap: var(--sp-8);
+      padding: var(--sp-20) 0; border-bottom: 1px solid var(--ink-100);
+    }
+    .iter-body li:last-child { border-bottom: none; }
+    .iter-badge {
+      font-family: var(--font-display); font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; 
+      white-space: nowrap; padding: 4px 8px; border-radius: 6px; flex-shrink: 0; margin-top: 3px; display: inline-block; width: fit-content;
+    }
+    .iter-badge--issue   { background: #FEE2E2; color: #B91C1C; }
+    .iter-badge--fix     { background: #D1FAE5; color: #065F46; }
+    .iter-badge--insight { background: #EEF3FF; color: #1B4FD8; }
+
+    /* DECISION CARD */
+    .decision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-16); margin-top: var(--sp-24); }
+    .decision-item {
+      padding: var(--sp-24); border-radius: var(--r-lg);
+      background: var(--ink-050); border: 1.5px solid var(--ink-100);
+      display: flex; flex-direction: column; gap: var(--sp-8);
+    }
+    .decision-label {
+      font-family: var(--font-display); font-size: 10px; font-weight: 800;
+      letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px;
+      border-radius: 6px; width: fit-content;
+    }
+    .decision-label--rejected { background: #FEE2E2; color: #B91C1C; }
+    .decision-label--selected { background: #D1FAE5; color: #065F46; }
+    .decision-title { font-family: var(--font-display); font-size: 15px; font-weight: 800; color: var(--ink-900); }
+    .decision-body { font-size: 13px; line-height: 1.6; color: var(--ink-500); }
+
+    /* SOLUTION LAYER CARD */
+    .layer-card {
+      background: var(--white); border: 1.5px solid var(--ink-100);
+      border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-card);
+      margin-top: var(--sp-24); display: grid; grid-template-columns: 280px 1fr;
+    }
+    .layer-num-col {
+      background: var(--accent); padding: var(--sp-40);
+      display: flex; flex-direction: column; justify-content: center; gap: var(--sp-16);
+    }
+    .layer-num {
+      font-family: var(--font-display); font-size: 64px; font-weight: 900;
+      color: rgba(255,255,255,.2); line-height: 1; letter-spacing: -.04em;
+    }
+    .layer-title { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: white; line-height: 1.3; letter-spacing: -.02em; }
+    .layer-subtitle { font-size: 13px; color: rgba(255,255,255,.7); line-height: 1.6; }
+    .layer-body { padding: var(--sp-40); display: flex; flex-direction: column; gap: var(--sp-16); justify-content: center; }
+    .layer-body p { font-size: 15px; line-height: 1.7; color: var(--ink-700); }
+    .layer-body ul { list-style: none; display: flex; flex-direction: column; gap: var(--sp-8); }
+    .layer-body li { font-size: 14px; line-height: 1.6; color: var(--ink-700); display: flex; gap: var(--sp-8); align-items: flex-start; }
+    .layer-body li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+
+    /* TASK COMPLETION ROW */
+    .task-row {
+      display: grid; grid-template-columns: 80px 1fr; gap: var(--sp-16);
+      align-items: flex-start; padding: var(--sp-20) 0; border-bottom: 1px solid var(--ink-100);
+    }
+    .task-row:last-child { border-bottom: none; }
+    .task-pct {
+      font-family: var(--font-display); font-size: 22px; font-weight: 800;
+      letter-spacing: -.02em; line-height: 1;
+    }
+    .task-pct--high { color: #16A34A; }
+    .task-pct--mid  { color: #D97706; }
+    .task-pct--low  { color: #DC2626; }
+    .task-text { font-size: 15px; line-height: 1.65; color: var(--ink-700); padding-top: 3px; }
+    .task-text strong { font-weight: 600; color: var(--ink-900); }
+
+    /* REFLECTION */
+    .reflection-stack { display: flex; flex-direction: column; gap: var(--sp-20); margin-top: var(--sp-48); }
+    .reflection-card {
+      background: var(--white); border: 1.5px solid var(--ink-100);
+      border-radius: var(--r-xl); padding: var(--sp-40); box-shadow: var(--shadow-card); width: 100%;
+    }
+    .reflection-card.card--blue { background: var(--accent-muted); border-color: rgba(27,79,216,.18); }
+    .refl-pointer { display: flex; gap: var(--sp-16); font-size: 15px; color: var(--ink-700); line-height: 1.65; padding: var(--sp-16) 0; border-bottom: 1px solid var(--ink-100); flex-direction: column; }
+    .refl-pointer:last-child { border-bottom: none; }
+    .refl-pointer-head { display: flex; gap: var(--sp-8); align-items: flex-start; }
+    .refl-pointer-head strong { color: var(--ink-900); }
+    .refl-icon { color: var(--accent); flex-shrink: 0; }
+
+    /* FEATURE GRID */
+    .feature-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-12); margin-top: var(--sp-24);
+    }
+    .feature-item {
+      padding: var(--sp-20); background: var(--white);
+      border: 1.5px solid var(--ink-100); border-radius: var(--r-lg);
+      display: flex; flex-direction: column; gap: var(--sp-8);
+      transition: border-color .2s, transform .2s, box-shadow .2s; cursor: default;
+    }
+    .feature-item:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(27,79,216,.1); }
+    .feature-name { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--ink-900); }
+    .feature-desc { font-size: 12px; color: var(--ink-500); line-height: 1.6; }
+
+    /* SECTION DIVIDER */
+    .section-divider {
+      display: flex; align-items: center; gap: var(--sp-20);
+      padding: var(--sp-48) var(--sp-20); max-width: 900px; margin: 0 auto;
+    }
+    .section-divider-line { flex: 1; height: 1px; background: var(--ink-100); }
+    .section-divider-label {
+      font-family: var(--font-display); font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--ink-300); white-space: nowrap;
+    }
+
+    /* APPEAR */
+    .appear {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
+    }
+    .appear.visible { opacity: 1; transform: none; }
+    .stagger > * {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1);
+    }
+    .stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay: 0ms; }
+    .stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay: 80ms; }
+    .stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay: 160ms; }
+    .stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: 240ms; }
+    .stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: 320ms; }
+    .stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: 400ms; }
+
+    /* FOOTER */
+    footer { background: var(--ink-900); padding: var(--sp-40) 0; }
+    .footer-inner {
+      max-width: 1140px; margin: 0 auto; padding: 0 var(--sp-40);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--sp-24); flex-wrap: wrap;
+    }
+    .footer-left { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: rgba(255,255,255,.4); }
+    .footer-links { display: flex; gap: var(--sp-24); }
+    .footer-links a {
+      font-family: var(--font-display); font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,.4); text-decoration: none; transition: color .2s;
+    }
+    .footer-links a:hover { color: white; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) { #side-stepper { right: 12px; } }
+    @media (max-width: 1024px) { :root { --sp-120: 80px; } #side-stepper { display: none; } }
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      #mobile-menu { display: block; }
+      #navbar-inner { padding: 0 var(--sp-20); border-radius: 0; }
+      #navbar { padding: 0; }
+      .project-meta { grid-template-columns: 1fr 1fr; }
+      .meta-item:nth-child(2) { border-right: none; }
+      .two-col { grid-template-columns: 1fr; }
+      .metrics-row { grid-template-columns: 1fr 1fr; }
+      .carousel-slide-inner { grid-template-columns: 1fr; min-height: unset; }
+      .carousel-img { min-height: 240px; }
+      .carousel-text { border-right: none; border-bottom: 1.5px solid var(--ink-100); padding: var(--sp-32) var(--sp-24); }
+      .persona-card { grid-template-columns: 1fr; }
+      .persona-avatar { border-right: none; border-bottom: 1.5px solid var(--ink-100); min-height: 180px; }
+      .persona-goals-pains { grid-template-columns: 1fr; }
+      .quotes-grid { grid-template-columns: 1fr; }
+      .sticky-notes-grid { grid-template-columns: 1fr 1fr; }
+      .decision-grid { grid-template-columns: 1fr; }
+      .layer-card { grid-template-columns: 1fr; }
+      .layer-num-col { padding: var(--sp-32) var(--sp-32) var(--sp-24); }
+      .layer-num { font-size: 48px; }
+      .emotion-arc { flex-wrap: wrap; }
+      .emotion-stage { flex: 1 1 calc(33% - 8px); }
+      #cursor, #cursor-ring { display: none; }
+      body { cursor: auto; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+      .feature-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .card { padding: var(--sp-24) var(--sp-20); }
+      .metrics-row { grid-template-columns: 1fr; }
+      .project-meta { grid-template-columns: 1fr; }
+      .meta-item { border-right: none !important; border-bottom: 1px solid var(--ink-100); }
+      .meta-item:last-child { border-bottom: none; }
+      .sticky-notes-grid { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .footer-inner { padding: 0 var(--sp-20); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .appear, .stagger > * { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar" aria-label="Main navigation">
+  <div id="navbar-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <span class="nav-logo-name">Piyush Jadhav</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/case-studies" class="active">Case Studies</a></li>
+      <li><a href="/about">About Me</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Let's Talk →</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="mobile-menu" aria-hidden="true">
+  <ul>
+    <li><a href="/case-studies">Case Studies</a></li>
+    <li><a href="/about">About Me</a></li>
+    <li><a href="#contact" style="color:var(--accent);">Let's Talk →</a></li>
+  </ul>
+</div>
+
+<!-- SIDE STEPPER -->
+<nav id="side-stepper" aria-label="Section navigation">
+  <div class="stepper-item active" data-section="hero">
+    <span class="stepper-label">Overview</span>
+    <div class="stepper-dot"></div>
+  </div>
+  <div class="stepper-item" data-section="problem">
+    <span class="stepper-label">Problem</span>
+    <div class="stepper-dot"></div>
+  </div>
+  <div class="stepper-item" data-section="research">
+    <span class="stepper-label">Research</span>
+    <div class="stepper-dot"></div>
+  </div>
+  <div class="stepper-item" data-section="define">
+    <span class="stepper-label">Define</span>
+    <div class="stepper-dot"></div>
+  </div>
+  <div class="stepper-item" data-section="hmw">
+    <span class="stepper-label">HMW</span>
+    <div class="stepper-dot"></div>
+  </div>
+  <div class="stepper-item" data-section="design">
+    <span class="stepper-label">Solution</span>
+    <div class="stepper-dot"></div>
+  </div>
+  <div class="stepper-item" data-section="testing">
+    <span class="stepper-label">Evaluation</span>
+    <div class="stepper-dot"></div>
+  </div>
+  <div class="stepper-item" data-section="reflection">
+    <span class="stepper-label">Reflection</span>
+    <div class="stepper-dot"></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" aria-labelledby="hero-headline">
+  <div class="hero-inner">
+
+    <div class="hero-eyebrow stagger">
+      <span class="tag-pill">DWP · UK Public Sector</span>
+      <div class="hero-divider" aria-hidden="true"></div>
+      <span class="label">Service Design · Team of 4 · 5 Sprints</span>
+      <span class="tag-pill" style="background:#F0F2F5;color:var(--ink-500);border-color:var(--ink-300);">⏱ 4 min read</span>
+    </div>
+
+    <h1 class="hero-headline appear" id="hero-headline">
+      Redesigning UK bereavement support —<br>the system that <em>reaches you</em>, not the other way around
+    </h1>
+
+    <p class="hero-sub appear">
+      A three-layer service model that proactively reaches bereaved people with the right financial entitlements, at the right time — without requiring them to navigate four government departments in a state of acute grief.
+    </p>
+
+    <div class="project-meta appear stagger">
+      <div class="meta-item">
+        <div class="meta-key">Role</div>
+        <div class="meta-val">Researcher · UX Designer</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-key">Team</div>
+        <div class="meta-val">4 · 5 One-Week Sprints</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-key">Methods</div>
+        <div class="meta-val">Double Diamond · Thematic Analysis · Content Analysis · Journey Mapping</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-key">Domain</div>
+        <div class="meta-val">UK Public Sector · Service Design</div>
+      </div>
+    </div>
+
+    <div class="hero-image-block appear" role="img" aria-label="Insert: Bereavement service model hero visual">
+      <span class="placeholder-icon">🏛️</span>
+      <span class="placeholder-label">Insert: Three-Layer Service Model Overview</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- LEAD OUTCOME BANNER -->
+<section id="problem-banner" aria-labelledby="outcome-heading">
+  <div class="problem-inner appear">
+    <span class="label">Core Problem</span>
+    <h2 class="problem-headline" id="outcome-heading">
+      The Bereavement Support Payment carries a <em>strict 3-month application deadline</em> from the date of death — yet there is no proactive government communication about this deadline. Discovery is left entirely to the individual at the precise moment when cognitive and emotional capacity is lowest.
+    </h2>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section section--grey" id="problem" aria-labelledby="problem-heading">
+  <div class="content-col">
+
+    <div class="section-heading appear">
+      <span class="label">The Problem</span>
+      <h2 id="problem-heading">This is not a digital problem. It is a <strong>systemic coordination failure.</strong></h2>
+      <p>When someone in the UK loses a partner or family member, they become eligible for financial entitlements across DWP, HMRC, local councils, and the NHS. No single authoritative service tells them what they qualify for.</p>
+    </div>
+
+    <div class="prose appear">
+      <p>The UK bereavement financial support landscape spans at least four government departments — each with separate eligibility criteria, separate application routes, and separate deadlines. The Tell Us Once infrastructure exists at death registration but goes underused. Registrars, GPs, and funeral directors are high-trust points of contact who currently lack the tools to signpost accurately.</p>
+      <p>Secondary research surfaced nine findings that directly shaped the problem statement. A large majority of users are unaware of available support before actively needing it. High satisfaction scores in existing data reflect only successful users — those who never accessed the service are entirely invisible in the data.</p>
+    </div>
+
+    <div class="highlight-quote appear">
+      <p>Users switch between websites, helplines, and offline services with little continuity across channels. Vulnerable groups — digitally excluded, low-literacy, disabled — face the greatest barriers <em>at the worst possible moment.</em></p>
+      <cite>Secondary research synthesis — UK bereavement service landscape</cite>
+    </div>
+
+    <div class="metrics-row stagger appear">
+      <div class="metric-card">
+        <div class="metric-num">4+</div>
+        <div class="metric-label">Government departments with separate eligibility criteria, routes, and deadlines</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">90</div>
+        <div class="metric-label">Day BSP application deadline — communicated at zero formal touchpoints</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">0</div>
+        <div class="metric-label">Single authoritative services telling bereaved people what they qualify for</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-num">9</div>
+        <div class="metric-label">Research findings shaping the problem statement from secondary research</div>
+      </div>
+    </div>
+
+    <div class="appear" style="margin-top:var(--sp-48);">
+      <div class="sub-heading" style="margin-bottom:var(--sp-16);">The brief</div>
+      <div class="card">
+        <p style="font-size:17px;line-height:1.75;color:var(--ink-700);">Redesign the service so bereaved people receive the right information, at the right time, without having to navigate a fragmented system in a state of acute grief. The service should initiate contact rather than waiting for users to find it.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="section section--white" id="research" aria-labelledby="research-heading">
+  <div class="content-col">
+
+    <div class="section-heading appear">
+      <span class="label">Research &amp; Discovery</span>
+      <h2 id="research-heading">An ethical pivot that produced <strong>15,631 coded sentences.</strong></h2>
+      <p>Recruiting recently bereaved participants within a 5-week window raised significant ethical concerns. Rather than proceed with methodologically compromised interviews, the team proposed a large-scale content analysis of Reddit bereavement communities.</p>
+    </div>
+
+    <div class="highlight-quote appear">
+      <p>636 unique posts · 3,362 total rows · 15,631 coded sentences · 41 unique codes · 8 themes. Thematic analysis followed <em>Braun &amp; Clarke's (2006) six-phase method.</em></p>
+      <cite>Communities: r/UKPersonalFinance, r/LegalAdviceUK, r/bereavement</cite>
+    </div>
+
+    <!-- The unique finding card -->
+    <div class="card card--blue appear" style="margin-bottom:var(--sp-48);">
+      <div class="label" style="margin-bottom:var(--sp-16);">The Unique Finding</div>
+      <p style="font-family:var(--font-display);font-size:22px;font-weight:700;line-height:1.45;color:var(--ink-900);letter-spacing:-.02em;">The dominant keyword across all communities was <span style="color:var(--accent);">"advice"</span> — not "information," not "forms," not "benefits."</p>
+      <p style="font-size:15px;line-height:1.7;color:var(--ink-700);margin-top:var(--sp-16);">Users were not seeking information passively. They were turning to peer communities because official sources had failed to provide direction. The system had information; it lacked guidance.</p>
+    </div>
+
+    <!-- 8 themes table -->
+    <div class="section-heading appear">
+      <span class="label">8 Themes from Thematic Analysis</span>
+      <h2>Frequency is not always a proxy for significance.</h2>
+      <p>The smallest theme — Lack of Proactive Information — was the most strategically significant. Users had largely stopped expecting the system to reach out. They had already internalised the failure.</p>
+    </div>
+
+    <div class="data-table-wrap appear">
+      <table class="data-table" aria-label="Thematic analysis findings">
+        <thead>
+          <tr>
+            <th>Theme</th>
+            <th class="highlight">Coded Sentences</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Estate Administration &amp; Uncertainty About Where To Start</td>
+            <td class="col-num col-highlight">9,026</td>
+          </tr>
+          <tr>
+            <td>Will and Estate &amp; Financial Hardship</td>
+            <td class="col-num col-highlight">4,108</td>
+          </tr>
+          <tr>
+            <td>Negative Service Experience &amp; Overwhelmed By Process</td>
+            <td class="col-num col-highlight">390</td>
+          </tr>
+          <tr>
+            <td>DWP Interaction &amp; Process Described As Nightmare</td>
+            <td class="col-num col-highlight">343</td>
+          </tr>
+          <tr>
+            <td>Information Hard To Find</td>
+            <td class="col-num col-highlight">111</td>
+          </tr>
+          <tr>
+            <td>Feeling Ignored &amp; Unable To Reach Services</td>
+            <td class="col-num col-highlight">109</td>
+          </tr>
+          <tr>
+            <td>Death Registration Process &amp; Coroner Involvement</td>
+            <td class="col-num col-highlight">47</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--ink-900);">Lack of Proactive Information <span style="font-weight:400;font-size:12px;color:var(--accent);">(smallest — most strategically significant)</span></td>
+            <td class="col-num col-highlight" style="color:var(--accent);">41</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Carousel: Research Areas -->
+    <div class="carousel-wrap appear" id="res-carousel" role="region" aria-label="Research findings" style="margin-top:var(--sp-48);">
+      <div class="carousel-track" id="res-track">
+
+        <div class="carousel-slide" role="group" aria-label="Finding 1 of 3" aria-hidden="false">
+          <div class="carousel-slide-inner">
+            <div class="carousel-text">
+              <span class="carousel-number">Method 01</span>
+              <h3 class="carousel-slide-title">Ethical Pivot — Large-Scale Content Analysis</h3>
+              <div class="carousel-slide-body">
+                <p>Recruiting recently bereaved participants within a 5-week window raised significant ethical concerns. Rather than proceed with methodologically compromised interviews, I proposed and led an alternative: Reddit content analysis at scale.</p>
+                <ul>
+                  <li>636 unique posts · r/UKPersonalFinance, r/LegalAdviceUK, r/bereavement</li>
+                  <li>15,631 coded sentences · 41 unique codes · 8 themes</li>
+                  <li>Thematic analysis: Braun &amp; Clarke (2006) six-phase method</li>
+                  <li><strong>More data than interviews could have produced in five weeks — fewer ethical risks</strong></li>
+                </ul>
+              </div>
+            </div>
+            <div class="carousel-img">
+              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Content analysis methodology visual">
+                <span class="ph-icon">📊</span>
+                <span class="ph-text">Insert: Content Analysis Visual</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-slide" role="group" aria-label="Finding 2 of 3" aria-hidden="true">
+          <div class="carousel-slide-inner">
+            <div class="carousel-text">
+              <span class="carousel-number">Method 02</span>
+              <h3 class="carousel-slide-title">Contextual Mapping — The Clarifying Artefact</h3>
+              <div class="carousel-slide-body">
+                <p>Tracing every bereavement touchpoint before a user could reach BSP revealed no single "start here" point — and the 90-day BSP deadline communicated at zero formal touchpoints.</p>
+                <ul>
+                  <li>Eligibility rules scattered across at least four agencies</li>
+                  <li>BSP 90-day deadline surfaced at <strong>zero formal touchpoints</strong></li>
+                  <li>Map made systemic failure visible on one surface for the first time</li>
+                  <li>Directly generated the three-layer solution structure</li>
+                </ul>
+              </div>
+            </div>
+            <div class="carousel-img">
+              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Contextual mapping artefact">
+                <span class="ph-icon">🗺️</span>
+                <span class="ph-text">Insert: Contextual Map Visual</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-slide" role="group" aria-label="Finding 3 of 3" aria-hidden="true">
+          <div class="carousel-slide-inner">
+            <div class="carousel-text">
+              <span class="carousel-number">Method 03</span>
+              <h3 class="carousel-slide-title">Competitor Analysis + Analogous Inspiration</h3>
+              <div class="carousel-slide-body">
+                <p>Reviewed bereavement service models across four countries and six analogous services. One pattern was consistent across every high-performing service.</p>
+                <ul>
+                  <li><strong>Macmillan Cancer Support</strong> — staging complexity into clear phases</li>
+                  <li><strong>NHS Symptom Checker</strong> — question-based, personalised next steps</li>
+                  <li><strong>e-Estonia</strong> — enter-once, no repeated context</li>
+                  <li><strong>Common pattern:</strong> the service initiates contact — it doesn't wait to be found</li>
+                </ul>
+              </div>
+            </div>
+            <div class="carousel-img">
+              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Competitor analysis visual">
+                <span class="ph-icon">🌍</span>
+                <span class="ph-text">Insert: Competitor Analysis Visual</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="carousel-controls">
+        <div class="carousel-dots" role="tablist" aria-label="Slide navigation">
+          <button class="carousel-dot active" data-idx="0" role="tab" aria-selected="true"  aria-label="Finding 1"></button>
+          <button class="carousel-dot"        data-idx="1" role="tab" aria-selected="false" aria-label="Finding 2"></button>
+          <button class="carousel-dot"        data-idx="2" role="tab" aria-selected="false" aria-label="Finding 3"></button>
+        </div>
+        <div class="carousel-arrows">
+          <button class="carousel-arrow" id="res-prev" aria-label="Previous finding">
+            <svg viewBox="0 0 16 16"><polyline points="10,3 5,8 10,13"/></svg>
+          </button>
+          <button class="carousel-arrow" id="res-next" aria-label="Next finding">
+            <svg viewBox="0 0 16 16"><polyline points="6,3 11,8 6,13"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DEFINE -->
+<section class="section section--grey" id="define" aria-labelledby="define-heading">
+  <div class="content-col">
+
+    <div class="section-heading appear">
+      <span class="label">Define — Synthesis</span>
+      <h2 id="define-heading">Sarah's journey map exposed the failure across <strong>three distinct phases.</strong></h2>
+      <p>Journey mapping with two primary personas — James and Sarah — surfaced specific system failure points that the thematic analysis had only hinted at.</p>
+    </div>
+
+    <div class="appear">
+      <div class="sub-heading">Sarah Clarke's Emotional Journey — Widowed, Two Children</div>
+      <div class="emotion-arc" role="img" aria-label="Emotional journey: Acute Shock through Slow Resolution">
+        <div class="emotion-stage">
+          <div class="emotion-emoji">😶</div>
+          <div class="emotion-name">Acute Shock</div>
+          <div class="emotion-feel emotion-feel--neg">Numb</div>
+        </div>
+        <div class="emotion-stage">
+          <div class="emotion-emoji">😰</div>
+          <div class="emotion-name">Administration</div>
+          <div class="emotion-feel emotion-feel--neg">Overwhelmed</div>
+        </div>
+        <div class="emotion-stage">
+          <div class="emotion-emoji">😤</div>
+          <div class="emotion-name">DWP Contact</div>
+          <div class="emotion-feel emotion-feel--neg">Frustrated</div>
+        </div>
+        <div class="emotion-stage">
+          <div class="emotion-emoji">😔</div>
+          <div class="emotion-name">BSP Payment</div>
+          <div class="emotion-feel emotion-feel--mid">Resigned</div>
+        </div>
+        <div class="emotion-stage">
+          <div class="emotion-emoji">😞</div>
+          <div class="emotion-name">Slow Resolution</div>
+          <div class="emotion-feel emotion-feel--mid">Depleted</div>
+        </div>
+      </div>
+      <p style="font-size:14px;color:var(--ink-500);margin-top:var(--sp-12);line-height:1.6;">Key failure points: no proactive signposting at death registration, a 35-minute DWP hold requiring documents she didn't have to hand, BSP payment arriving with no notification, and discovering the council tax single occupancy discount three months late — <strong style="color:var(--ink-900);">missing the full backdating window.</strong></p>
+    </div>
+
+    <!-- Personas -->
+    <div style="margin-top:var(--sp-64);">
+      <div class="section-heading appear">
+        <span class="label">Personas</span>
+        <h2>Two people, one broken system, different stakes.</h2>
+      </div>
+
+      <div class="persona-card appear">
+        <div class="persona-avatar">
+          <div class="img-ph img-ph--tall" style="border:none;border-radius:0;background:linear-gradient(145deg,#c8d6ff,#8aa8ff);" role="img" aria-label="Insert: James persona photo">
+            <span class="ph-icon">👤</span>
+            <span class="ph-text">James's photo</span>
+          </div>
+        </div>
+        <div class="persona-info">
+          <div>
+            <div class="persona-name">James Mitchell, 18</div>
+            <div class="persona-role">Orphaned first-year university student · Computer Science · Works part-time at Tesco</div>
+          </div>
+          <div class="persona-quote">"I just want one place that tells me what to do step by step, not ten pages telling me everything at once."</div>
+          <div class="persona-goals-pains">
+            <div class="pgp-box">
+              <h4>Goals</h4>
+              <ul>
+                <li>A single step-by-step system</li>
+                <li>Plain-English explanations</li>
+                <li>Clear "do this now / do this later" prioritisation</li>
+                <li>Progress tracking he can return to</li>
+              </ul>
+            </div>
+            <div class="pgp-box">
+              <h4>Pain Points</h4>
+              <ul>
+                <li>Opens multiple GOV.UK pages — doesn't know what to do first</li>
+                <li>Avoids calling organisations — feels overwhelming</li>
+                <li>Alone, managing grief alongside urgent admin</li>
+                <li>No one to ask — no family safety net</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="persona-card appear" style="margin-top:var(--sp-24);">
+        <div class="persona-avatar">
+          <div class="img-ph img-ph--tall" style="border:none;border-radius:0;background:linear-gradient(145deg,#ffd6c8,#ffaa88);" role="img" aria-label="Insert: Sarah persona photo">
+            <span class="ph-icon">👤</span>
+            <span class="ph-text">Sarah's photo</span>
+          </div>
+        </div>
+        <div class="persona-info">
+          <div>
+            <div class="persona-name">Sarah Clarke, 35</div>
+            <div class="persona-role">Widowed mother of two young children · Outstanding mortgage · Household budget halved overnight</div>
+          </div>
+          <div class="persona-quote">"I don't even know what I don't know. I just need someone to tell me what I'm supposed to do next."</div>
+          <div class="persona-goals-pains">
+            <div class="pgp-box">
+              <h4>Goals</h4>
+              <ul>
+                <li>A clear starting point — not ten options</li>
+                <li>Plain language, deadline reminders</li>
+                <li>Confirmation she's doing things right</li>
+                <li>Access without needing to be digitally expert</li>
+              </ul>
+            </div>
+            <div class="pgp-box">
+              <h4>Pain Points</h4>
+              <ul>
+                <li>Screenshots pages, starts forms then stops — unsure of eligibility</li>
+                <li>Late-night searches during children's sleep</li>
+                <li>BSP payment arrived with no notification</li>
+                <li>Council tax discount discovered three months late</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:var(--sp-48);" class="appear">
+      <div class="sub-heading" style="margin-bottom:var(--sp-16);">Journey Map &amp; Affinity Diagram</div>
+      <div class="img-ph img-ph--wide" role="img" aria-label="Insert: Customer journey map with emotion arc across three phases">
+        <span class="ph-icon">🗺️</span>
+        <span class="ph-text">Insert: Customer Journey Map — Acute Shock / Administration / Slow Resolution</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HMW + IDEATION -->
+<section id="hmw" style="padding: var(--sp-64) var(--sp-20); background:var(--white);" aria-labelledby="hmw-heading">
+  <div class="content-col">
+
+    <div class="section-heading appear">
+      <span class="label">From Research to Direction</span>
+      <h2 id="hmw-heading">Five research methods. One conclusion: <strong>the system needs to reach people, not the other way around.</strong></h2>
+      <p>The contextual map — tracing every touchpoint before BSP — was the clarifying moment. The 90-day deadline appeared at zero formal touchpoints. That single finding generated the solution structure.</p>
+    </div>
+
+    <div class="hmw-banner appear" role="complementary" aria-label="How Might We statement">
+      <span class="hmw-label">How Might We</span>
+      <p class="hmw-text">How might we ensure bereaved people receive the right information — without needing to search for it — communicated in a way understandable even under acute grief?</p>
+    </div>
+
+    <!-- Key design decision -->
+    <div style="margin-top:var(--sp-48);" class="appear">
+      <div class="section-heading">
+        <span class="label">Key Design Decision</span>
+        <h2>One product vs. three layers.</h2>
+        <p>Bereaved people are not a homogeneous user group. No single solution serves the full population. The power of the model is in complementarity.</p>
+      </div>
+      <div class="decision-grid">
+        <div class="decision-item">
+          <span class="decision-label decision-label--rejected">Considered → Insufficient</span>
+          <div class="decision-title">Single GOV.UK page redesign</div>
+          <div class="decision-body">Improves discoverability for confident users — misses those who never reach GOV.UK. Survivorship bias baked in.</div>
+        </div>
+        <div class="decision-item">
+          <span class="decision-label decision-label--rejected">Considered → Insufficient</span>
+          <div class="decision-title">Phone helpline improvement</div>
+          <div class="decision-body">High-trust channel but reactive. Still requires bereaved people to know to call. Doesn't address the zero-touchpoint problem.</div>
+        </div>
+        <div class="decision-item">
+          <span class="decision-label decision-label--rejected">Considered → Insufficient</span>
+          <div class="decision-title">Intermediary-only tool</div>
+          <div class="decision-body">Force multiplier but incomplete — registrars see only one moment. Users between touchpoints still have no support.</div>
+        </div>
+        <div class="decision-item" style="border-color:rgba(27,79,216,.3);background:var(--accent-muted);">
+          <span class="decision-label decision-label--selected">Selected</span>
+          <div class="decision-title">Three-layer service model</div>
+          <div class="decision-body">Proactive letter + digital triage tool + intermediary dashboard. Complementary layers serve different users at different moments.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DESIGN -->
+<section class="section section--white" id="design" aria-labelledby="design-heading">
+  <div class="content-col">
+
+    <div class="section-heading appear">
+      <span class="label">The Solution</span>
+      <h2 id="design-heading">A three-layer service model — because bereaved people are <strong>not one persona.</strong></h2>
+      <p>The solution architecture emerged from the contextual map, not from assumption. Resisting the urge to design one product was the right call.</p>
+    </div>
+
+    <!-- Layer 1 -->
+    <div class="layer-card appear">
+      <div class="layer-num-col">
+        <div class="layer-num">01</div>
+        <div class="layer-title">Proactive Notification Letter</div>
+        <div class="layer-subtitle">Triggered at death registration via Tell Us Once integration. The system reaches out — you don't have to find it.</div>
+      </div>
+      <div class="layer-body">
+        <p>An automated, personalised letter (and SMS where a number is held) arrives within 5–10 working days of death registration. Lists 3–5 entitlements by name with pre-calculated deadlines and a single contact route per entitlement.</p>
+        <ul>
+          <li>No navigation required — the system delivers the information</li>
+          <li>Letter format passes a junk mail disambiguation test: immediately legible as official, personalised, and time-sensitive</li>
+          <li>Delivery options include BSL, translated, and large print formats</li>
+          <li>Built on existing Tell Us Once infrastructure — not new government infrastructure</li>
+          <li>Pre-calculated BSP 90-day deadline shown clearly in the letter</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Layer 2 -->
+    <div class="layer-card appear">
+      <div class="layer-num-col">
+        <div class="layer-num">02</div>
+        <div class="layer-title">Five-Question Digital Triage Tool</div>
+        <div class="layer-subtitle">Accessible from GOV.UK. No account required. Five questions. One personalised checklist with deadline countdown.</div>
+      </div>
+      <div class="layer-body">
+        <p>Five questions covering: relationship to deceased, NI contribution status, dependent children, current benefit status, and date of death (to auto-calculate deadlines). Output: a ranked personalised checklist with deadline countdown and one-click paths to begin each claim.</p>
+        <ul>
+          <li>Progressive disclosure — no information shown before it's needed</li>
+          <li>No dead ends — every path leads to an action or a human contact</li>
+          <li>Channel agnostic — printable, saveable, usable via phone relay</li>
+          <li>Auto-calculates BSP deadline from date of death field</li>
+          <li>Designed for use under acute cognitive and emotional distress</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Layer 3 -->
+    <div class="layer-card appear">
+      <div class="layer-num-col">
+        <div class="layer-num">03</div>
+        <div class="layer-title">Intermediary-First Dashboard</div>
+        <div class="layer-subtitle">For registrars, GPs, funeral directors, and Citizens Advice workers. One trained registrar serves everyone who registers a death in their office.</div>
+      </div>
+      <div class="layer-body">
+        <p>A lightweight dashboard for trusted professionals. Input: client type + date of death. Output: accurate entitlement matrix with deadline indicators, flagging when BSP deadline is within 30 days.</p>
+        <ul>
+          <li>Bereaved people have high-trust relationships with these professionals at the point of contact</li>
+          <li>Equipping intermediaries is a force multiplier</li>
+          <li>Flags when BSP 30-day deadline warning threshold is crossed</li>
+          <li>Accurate across all four government departments — not per-agency</li>
+          <li>Requires no new government infrastructure — a layer on existing professional touchpoints</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:var(--sp-48);" class="appear">
+      <div class="sub-heading" style="margin-bottom:var(--sp-16);">Service Architecture — Key Screens</div>
+      <div class="two-col" style="gap:var(--sp-16);">
+        <div class="img-ph img-ph--wide" role="img" aria-label="Insert: Layer 1 notification letter mockup">
+          <span class="ph-icon">✉️</span>
+          <span class="ph-text">Insert: Layer 1 — Proactive Notification Letter</span>
+        </div>
+        <div class="img-ph img-ph--wide" role="img" aria-label="Insert: Layer 2 digital triage tool screen">
+          <span class="ph-icon">📱</span>
+          <span class="ph-text">Insert: Layer 2 — Five-Question Triage Tool</span>
+        </div>
+      </div>
+      <div style="margin-top:var(--sp-16);">
+        <div class="img-ph img-ph--wide" role="img" aria-label="Insert: Layer 3 intermediary dashboard screen">
+          <span class="ph-icon">🖥️</span>
+          <span class="ph-text">Insert: Layer 3 — Intermediary Dashboard</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-quote appear">
+      <p>The design principles were consistent across all three layers: the service initiates contact rather than waiting for users to find it. <em>No dead ends. No navigation without direction. No deadline without a clear path to act on it.</em></p>
+    </div>
+
+  </div>
+</section>
+
+<!-- TESTING / EVALUATION -->
+<section class="section section--grey" id="testing" aria-labelledby="testing-heading">
+  <div class="content-col">
+
+    <div class="section-heading appear">
+      <span class="label">Evaluation</span>
+      <h2 id="testing-heading">The research base is solid. <strong>The prototype needs real-world testing.</strong></h2>
+      <p>What was validated — and what honestly wasn't.</p>
+    </div>
+
+    <!-- What was validated — FIRST -->
+    <div class="card appear" style="margin-bottom:var(--sp-32);">
+      <div class="label" style="margin-bottom:var(--sp-16);">What the Research Validates</div>
+      <div class="task-row">
+        <div class="task-pct task-pct--high">✓</div>
+        <div class="task-text"><strong>Problem statement</strong> — grounded in 15,631 coded sentences across four communities. Eight themes, 41 codes, Braun &amp; Clarke six-phase method.</div>
+      </div>
+      <div class="task-row">
+        <div class="task-pct task-pct--high">✓</div>
+        <div class="task-text"><strong>Solution direction</strong> — competitor analysis across four countries and analogous inspiration from six sectors all converge on a proactive-reach model.</div>
+      </div>
+      <div class="task-row">
+        <div class="task-pct task-pct--high">✓</div>
+        <div class="task-text"><strong>Tell Us Once integration feasibility</strong> — infrastructure exists and is underused. Layer 1 builds on what's already there, not new government infrastructure.</div>
+      </div>
+      <div class="task-row">
+        <div class="task-pct task-pct--mid">⚠</div>
+        <div class="task-text"><strong>Live usability testing</strong> — not conducted. The two unknowns below remain open. Required before any deployment.</div>
+      </div>
+    </div>
+
+    <!-- Gaps — clearly named, after strengths -->
+    <div class="section-heading appear">
+      <span class="label">Honest Gaps</span>
+      <h2>Two things only real testing can answer.</h2>
+    </div>
+
+    <div class="iter-card appear">
+      <div class="iter-header">
+        <div class="iter-num">01</div>
+        <div class="iter-title">Does the Layer 1 letter actually get read?</div>
+      </div>
+      <div class="iter-body">
+        <ul>
+          <li>
+            <span class="iter-badge iter-badge--issue">Risk</span>
+            Older bereaved spouses — the most likely recipients — are least likely to recognise an unfamiliar DWP letter as relevant. Open rate is entirely unknown.
+          </li>
+          <li>
+            <span class="iter-badge iter-badge--insight">Next Step</span>
+            Service testing with participants aged 60+, low digital literacy, and those who were not primary account holders in their household.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="iter-card appear">
+      <div class="iter-header">
+        <div class="iter-num">02</div>
+        <div class="iter-title">Do five questions cover eligibility edge cases?</div>
+      </div>
+      <div class="iter-body">
+        <ul>
+          <li>
+            <span class="iter-badge iter-badge--issue">Risk</span>
+            Cohabiting but unmarried partners, overseas deaths, and complex legacy benefit situations were not fully mapped through the question flow.
+          </li>
+          <li>
+            <span class="iter-badge iter-badge--insight">Next Step</span>
+            A dedicated sprint testing the triage tool specifically against non-standard relationship statuses and mixed legacy benefit profiles.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- REFLECTION -->
+<section class="section section--white" id="reflection" aria-labelledby="refl-heading">
+  <div class="content-col">
+
+    <div class="section-heading appear">
+      <span class="label">Reflection</span>
+      <h2 id="refl-heading">What worked, what didn't.</h2>
+    </div>
+
+    <div class="reflection-stack appear">
+      <div class="reflection-card card--blue">
+        <div class="label" style="margin-bottom:var(--sp-16);">What Worked</div>
+        <div class="refl-pointer">
+          <div class="refl-pointer-head"><span class="refl-icon">✓</span><span><strong>The ethical pivot.</strong> I proposed and led the Reddit content analysis strategy when interviews weren't feasible. It produced 15,631 coded sentences — more data than interviews would have in five weeks, with fewer ethical risks. The decision to pivot is the one I'm most proud of in this project.</span></div>
+        </div>
+        <div class="refl-pointer">
+          <div class="refl-pointer-head"><span class="refl-icon">✓</span><span><strong>Solution emerging from the map, not assumption.</strong> Before the contextual mapping exercise, I would have proposed a single GOV.UK page redesign. The map changed that — it made visible that the 90-day deadline existed at zero formal touchpoints, and that no one layer could serve the full population.</span></div>
+        </div>
+        <div class="refl-pointer">
+          <div class="refl-pointer-head"><span class="refl-icon">✓</span><span><strong>Building on existing infrastructure.</strong> Using Tell Us Once as the trigger for Layer 1 meant the solution was viable inside real government constraints, not just conceptually interesting.</span></div>
+        </div>
+      </div>
+
+      <div class="reflection-card">
+        <div class="label" style="margin-bottom:var(--sp-16);">What Didn't / What's Unresolved</div>
+        <div class="refl-pointer">
+          <div class="refl-pointer-head"><span class="refl-icon">✕</span><span><strong>No live testing.</strong> The prototype was never put in front of a real bereaved person. That's the most significant gap in this project — and one that research extrapolation cannot resolve.</span></div>
+        </div>
+        <div class="refl-pointer">
+          <div class="refl-pointer-head"><span class="refl-icon">✕</span><span><strong>Frequency ≠ significance.</strong> The "Lack of Proactive Information" theme had just 41 coded sentences — the smallest. I almost missed it. Users had stopped asking for proactive information because they'd given up expecting it. That required interpretive work beyond a frequency count.</span></div>
+        </div>
+        <div class="refl-pointer">
+          <div class="refl-pointer-head"><span class="refl-icon">?</span><span><strong>Eligibility edge cases.</strong> The five-question triage tool works for the standard BSP profile. Cohabiting but unmarried partners and overseas deaths remain unresolved. A known gap for a future sprint.</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- END / CONTACT -->
+<section class="section section--grey" id="end" aria-labelledby="end-of-casestudy">
+  <div class="section-divider">
+    <div class="section-divider-line"></div>
+    <span class="section-divider-label">End of Case Study</span>
+    <div class="section-divider-line"></div>
+  </div>
+</section>
+
+<section id="contact" style="background:var(--white);padding:var(--sp-80) var(--sp-20);" aria-labelledby="contact-title">
+  <div class="content-col">
+    <div class="appear" style="display:flex;align-items:center;justify-content:space-between;gap:var(--sp-40);flex-wrap:wrap;">
+      <div>
+        <span class="label" style="display:block;margin-bottom:var(--sp-16);">Open to Opportunities</span>
+        <h2 style="font-family:var(--font-display);font-size:clamp(28px,4vw,42px);font-weight:900;letter-spacing:-.04em;color:var(--ink-900);line-height:1;margin-top:0;" id="contact-title">Let's talk design.</h2>
+        <p style="font-size:16px;color:var(--ink-500);margin-top:var(--sp-12);line-height:1.65;">Open to roles in service design, product design, and UX research — particularly in public sector, healthcare, and complex system domains.</p>
+      </div>
+      <div style="display:flex;gap:var(--sp-16);flex-wrap:wrap;">
+        <a href="https://calendly.com/piyushjadhav" target="_blank" rel="noopener"
+           style="font-family:var(--font-display);font-size:14px;font-weight:700;background:var(--ink-900);color:white;padding:14px 28px;border-radius:var(--r-md);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background .2s,transform .15s,box-shadow .2s;"
+           onmouseover="this.style.background='var(--accent)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(27,79,216,.35)';"
+           onmouseout="this.style.background='var(--ink-900)';this.style.transform='';this.style.boxShadow='';">
+          Book a Chat ↗
+        </a>
+        <a href="assets/Resume.pdf" target="_blank" rel="noopener"
+           style="font-family:var(--font-display);font-size:14px;font-weight:600;color:var(--ink-700);background:none;border:1.5px solid var(--ink-300);padding:14px 24px;border-radius:var(--r-md);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,color .2s,transform .15s;"
+           onmouseover="this.style.borderColor='var(--ink-700)';this.style.color='var(--ink-900)';this.style.transform='translateY(-2px)';"
+           onmouseout="this.style.borderColor='var(--ink-300)';this.style.color='var(--ink-700)';this.style.transform='';">
+          View Resume
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-left">© 2026 Piyush Jadhav. Designed &amp; built with ♥</span>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/piyushjadhavdesign/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://dribbble.com/piyushjadhav"    target="_blank" rel="noopener">Dribbble</a>
+      <a href="https://twitter.com/piyushjadhav"     target="_blank" rel="noopener">Twitter</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  /* Custom cursor */
+  var cur  = document.getElementById('cursor');
+  var ring = document.getElementById('cursor-ring');
+  var mx = -100, my = -100, rx = -100, ry = -100;
+  document.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; });
+  function animCursor() {
+    rx += (mx - rx) * .15;
+    ry += (my - ry) * .15;
+    if (cur)  cur.style.cssText  += 'left:' + mx + 'px;top:' + my + 'px;';
+    if (ring) ring.style.cssText += 'left:' + rx + 'px;top:' + ry + 'px;';
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+  document.querySelectorAll('a,button,.metric-card,.feature-item,.decision-item,.emotion-stage,.persona-card,.iter-card,.layer-card').forEach(function(el) {
+    el.addEventListener('mouseenter', function() { document.body.classList.add('cursor-hover'); });
+    el.addEventListener('mouseleave', function() { document.body.classList.remove('cursor-hover'); });
+  });
+
+  /* Navbar scroll */
+  var navbar = document.getElementById('navbar-inner');
+  window.addEventListener('scroll', function() {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  /* Hamburger */
+  var hamburger  = document.getElementById('hamburger');
+  var mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', function() {
+    var open = hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open', open);
+    mobileMenu.setAttribute('aria-hidden', String(!open));
+    hamburger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  document.querySelectorAll('#mobile-menu a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* Intersection Observer */
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.appear, .stagger').forEach(function(el) { io.observe(el); });
+
+  /* Side stepper */
+  var sections = ['hero','problem','research','define','hmw','design','testing','reflection'];
+  var stepperItems = document.querySelectorAll('.stepper-item');
+
+  function setActiveSection(id) {
+    var cappedId = (sections.indexOf(id) === -1) ? 'reflection' : id;
+    var activeIndex = sections.indexOf(cappedId);
+    stepperItems.forEach(function(item, i) {
+      var isActive = item.dataset.section === cappedId;
+      var diff = Math.abs(i - activeIndex);
+      item.classList.toggle('active', isActive);
+      var dot = item.querySelector('.stepper-dot');
+      if (isActive) { dot.style.transform = 'scale(1.25) translateX(3px)'; dot.style.opacity = '1'; }
+      else if (diff === 1) { dot.style.transform = 'scale(1.0) translateX(1.5px)'; dot.style.opacity = '0.6'; }
+      else { dot.style.transform = 'scale(0.85) translateX(0)'; dot.style.opacity = '0.35'; }
+    });
+  }
+
+  var sectionEls = sections.map(function(id) { return document.getElementById(id); }).filter(Boolean);
+
+  function getActiveSection() {
+    var scrollY = window.scrollY;
+    var windowH = window.innerHeight;
+    var current = sectionEls[0];
+    sectionEls.forEach(function(el) {
+      var elTop = el.getBoundingClientRect().top + scrollY;
+      if (scrollY + windowH * 0.4 >= elTop) { current = el; }
+    });
+    return current ? current.id : sections[0];
+  }
+
+  window.addEventListener('scroll', function() { setActiveSection(getActiveSection()); }, { passive: true });
+  setActiveSection(getActiveSection());
+
+  function stepperClick(item) {
+    var target = document.getElementById(item.dataset.section);
+    if (!target) return;
+    var top = target.getBoundingClientRect().top + window.scrollY - 88;
+    window.scrollTo({ top: top, behavior: 'smooth' });
+  }
+  stepperItems.forEach(function(item) {
+    item.addEventListener('click', function() { stepperClick(item); setActiveSection(item.dataset.section); });
+    item.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stepperClick(item); } });
+    item.setAttribute('tabindex', '0');
+    item.setAttribute('role', 'button');
+  });
+
+  /* Carousel factory */
+  function initCarousel(trackId, prevId, nextId, dotSelector) {
+    var track   = document.getElementById(trackId);
+    var prevBtn = document.getElementById(prevId);
+    var nextBtn = document.getElementById(nextId);
+    if (!track || !prevBtn || !nextBtn) return;
+    var dots   = document.querySelectorAll(dotSelector);
+    var slides = track.querySelectorAll('.carousel-slide');
+    var total  = slides.length;
+    var current = 0, isAnim = false;
+
+    function goTo(idx) {
+      if (isAnim) return;
+      isAnim = true;
+      current = (idx + total) % total;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      dots.forEach(function(d, i) {
+        var active = i === current;
+        d.classList.toggle('active', active);
+        d.setAttribute('aria-selected', String(active));
+      });
+      slides.forEach(function(s, i) { s.setAttribute('aria-hidden', String(i !== current)); });
+      setTimeout(function() { isAnim = false; }, 520);
+    }
+
+    slides.forEach(function(s, i) { s.setAttribute('aria-hidden', String(i !== 0)); });
+    prevBtn.addEventListener('click', function() { goTo(current - 1); });
+    nextBtn.addEventListener('click', function() { goTo(current + 1); });
+    dots.forEach(function(dot) {
+      dot.addEventListener('click', function() { goTo(parseInt(dot.getAttribute('data-idx'), 10)); });
+    });
+    [prevBtn, nextBtn].concat(Array.from(dots)).forEach(function(el) {
+      el.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+      });
+    });
+    var startX = 0;
+    track.parentElement.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+    track.parentElement.addEventListener('touchend', function(e) {
+      var delta = e.changedTouches[0].clientX - startX;
+      if (Math.abs(delta) > 50) goTo(delta < 0 ? current + 1 : current - 1);
+    }, { passive: true });
+  }
+
+  initCarousel('res-track', 'res-prev', 'res-next', '#res-carousel .carousel-dot');
+
+  /* Smooth scroll anchor links */
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      var top = target.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    });
+  });
+
+  /* Hero stagger on load */
+  window.addEventListener('load', function() {
+    document.querySelectorAll('.appear, .stagger').forEach(function(el) {
+      if (el.getBoundingClientRect().top < window.innerHeight) { el.classList.add('visible'); }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
