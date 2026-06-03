@@ -669,16 +669,14 @@
 
     /* REFLECTION */
     .reflection-stack { display: flex; flex-direction: column; gap: var(--sp-20); margin-top: var(--sp-48); }
-    .reflection-card {
-      background: var(--white); border: 1.5px solid var(--ink-100);
-      border-radius: var(--r-xl); padding: var(--sp-40); box-shadow: var(--shadow-card); width: 100%;
-    }
+    .reflection-card { background: var(--white); border: 1.5px solid var(--ink-100); border-radius: var(--r-xl); padding: var(--sp-40); box-shadow: var(--shadow-card); width: 100%;    }
     .reflection-card.card--blue { background: var(--accent-muted); border-color: rgba(27,79,216,.18); }
     .refl-pointer { display: flex; gap: var(--sp-16); font-size: 15px; color: var(--ink-700); line-height: 1.65; padding: var(--sp-16) 0; border-bottom: 1px solid var(--ink-100); flex-direction: column; }
     .refl-pointer:last-child { border-bottom: none; }
     .refl-pointer-head { display: flex; gap: var(--sp-8); align-items: flex-start; }
     .refl-pointer-head strong { color: var(--ink-900); }
     .refl-icon { color: var(--accent); flex-shrink: 0; }
+    .reflection-card .refl-pointer:last-of-type {  border-bottom: none;  padding-bottom: 0;}
 
     /* FEATURE GRID */
     .feature-grid {
