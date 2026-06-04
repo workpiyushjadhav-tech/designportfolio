@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
@@ -223,7 +224,8 @@
     .refl-pointer:last-child { border-bottom: none; }
     .refl-pointer-head { display: flex; gap: var(--sp-8); align-items: flex-start; }
     .refl-pointer-head strong { color: var(--ink-900); }
-    .refl-icon { color: var(--accent); flex-shrink: 0; }
+    .refl-icon { color: var(--accent); flex-shrink: 0; font-size: 16px; line-height: 1.65; }
+    .refl-icon--cross { color: #DC2626; }
     .reflection-card .refl-pointer:last-of-type {  border-bottom: none;  padding-bottom: 0;}
 
     /* SECTION DIVIDER */
@@ -690,16 +692,16 @@
     <div class="reflection-stack appear">
       <div class="reflection-card card--blue">
         <div class="label" style="margin-bottom:var(--sp-16);">What Worked</div>
-        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon">✓</span><span><strong>AI-assisted filtering at scale.</strong> Processing 25,000+ comments manually would have taken weeks. Using AI to filter into 160 actionable insights before human thematic coding handled a data volume no small team could manage line-by-line in 6 weeks - while keeping all codes and themes human-defined.</span></div></div>
-        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon">✓</span><span><strong>Predictive forecasting going beyond the brief.</strong> The original challenge asked how to integrate two existing views. Predictive forecasting moved the answer from "better integration" to a fundamentally different mental model - proactive rather than reactive. The research supported the ambition.</span></div></div>
-        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon">✓</span><span><strong>Navisworks as a benchmark anchor.</strong> Rather than designing a resolution tracking system from scratch, identifying that a direct competitor already used a tested status model gave us a concrete gap to articulate and a pattern to build from.</span></div></div>
+        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></span><span><strong>AI-assisted filtering at scale.</strong> Processing 25,000+ comments manually would have taken weeks. Using AI to filter into 160 actionable insights before human thematic coding handled a data volume no small team could manage line-by-line in 6 weeks - while keeping all codes and themes human-defined.</span></div></div>
+        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></span><span><strong>Predictive forecasting going beyond the brief.</strong> The original challenge asked how to integrate two existing views. Predictive forecasting moved the answer from "better integration" to a fundamentally different mental model - proactive rather than reactive. The research supported the ambition.</span></div></div>
+        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></span><span><strong>Navisworks as a benchmark anchor.</strong> Rather than designing a resolution tracking system from scratch, identifying that a direct competitor already used a tested status model gave us a concrete gap to articulate and a pattern to build from.</span></div></div>
       </div>
 
       <div class="reflection-card">
         <div class="label" style="margin-bottom:var(--sp-16);">What Didn't / What's Unresolved</div>
-        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon">✕</span><span><strong>No end-user testing.</strong> The prototype was never tested with a real BIM Manager or Engineer on a real project. For a domain this technically specific, that's the gap that matters most. Stakeholder interviews helped - they don't replace it.</span></div></div>
-        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon">✕</span><span><strong>Public data as a proxy.</strong> Reddit and YouTube comments surface frustration loudly. They don't surface satisfaction or expertise. The findings needed validation against a broader, more representative user base.</span></div></div>
-        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon">?</span><span><strong>Role-based view logic unresolved.</strong> BIM Managers, Engineers, and Architects have different needs when reviewing clashes and changes. The prototype addressed integration - the permission model and role-based view logic would require a further sprint to resolve properly.</span></div></div>
+        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-x-lg"></i></span><span><strong>No end-user testing.</strong> The prototype was never tested with a real BIM Manager or Engineer on a real project. For a domain this technically specific, that's the gap that matters most. Stakeholder interviews helped - they don't replace it.</span></div></div>
+        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-x-lg"></i></span><span><strong>Public data as a proxy.</strong> Reddit and YouTube comments surface frustration loudly. They don't surface satisfaction or expertise. The findings needed validation against a broader, more representative user base.</span></div></div>
+        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-question-lg"></i></span><span><strong>Role-based view logic unresolved.</strong> BIM Managers, Engineers, and Architects have different needs when reviewing clashes and changes. The prototype addressed integration - the permission model and role-based view logic would require a further sprint to resolve properly.</span></div></div>
       </div>
     </div>
 
