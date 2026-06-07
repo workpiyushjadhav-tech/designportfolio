@@ -87,7 +87,8 @@
     .meta-item:last-child { border-right:none; }
     .meta-key { font-family:var(--font-display); font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:var(--sp-8); }
     .meta-val { font-family:var(--font-display); font-size:14px; font-weight:600; color:var(--ink-900); line-height:1.4; }
-    .hero-image-block { width:100%; border-radius:var(--r-xl); overflow:hidden; aspect-ratio:16/7; margin-bottom:var(--sp-64); }    
+    .hero-image-block { width:100%; border-radius:var(--r-xl); overflow:hidden; aspect-ratio:16/7; margin-bottom:var(--sp-64); }
+    .hero-image-block img {  width: 100%;  height: 100%;  object-fit: cover;  display: block;  position: absolute;  inset: 0;}
     .placeholder-icon { font-size:32px; opacity:.35; }
     .placeholder-label { font-family:var(--font-display); font-size:13px; font-weight:600; color:var(--ink-300); letter-spacing:.02em; }
     .proto-btn { display:inline-flex; align-items:center; gap:var(--sp-8); font-family:var(--font-display); font-size:14px; font-weight:700; color:var(--accent); background:var(--white); border:1.5px solid var(--accent); padding:12px 24px; border-radius:var(--r-md); text-decoration:none; cursor:pointer; transition:background .2s,color .2s,transform .18s,box-shadow .18s; box-shadow:0 0 0 0 rgba(227,30,8,0); width:fit-content; }
@@ -440,8 +441,8 @@
       <div class="meta-item"><div class="meta-key">Tools</div><div class="meta-val">Figma · FigJam · MoSCoW · Buy a Feature</div></div>
       <div class="meta-item"><div class="meta-key">Output</div><div class="meta-val">13 screens · 4 flows · Usability tested</div></div>
     </div>
-    <div class="hero-image-block appear" role="img" aria-label="Home Page">
-      <img src="/assets/img/01-home.png" alt="Home page" style="width:100%;height:100%;object-fit:cover;display:block;">
+    <div class="hero-image-block appear" role="img" aria-label="Home Page" style="position:relative;">
+      <img src="/assets/img/culinarr/home.png" alt="Home page" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;">
     </div>
   </div>
 </section>
