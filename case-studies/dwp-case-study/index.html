@@ -398,12 +398,13 @@
     .carousel-track { display: flex; transition: transform .52s cubic-bezier(.32,0,.67,0); }
     .carousel-slide { flex: 0 0 100%; width: 100%; }
     .carousel-slide-inner {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0; min-height: 500px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0; height: 500px;
     }
     .carousel-text {
       padding: var(--sp-48) var(--sp-40); display: flex; flex-direction: column;
       justify-content: center; gap: var(--sp-24);
       border-right: 1.5px solid var(--ink-100); background: var(--white);
+      overflow-y: auto; height: 100%;
     }
     .carousel-number {
       display: inline-flex; align-items: center; gap: var(--sp-8);
@@ -427,7 +428,7 @@
     .carousel-slide-body strong { font-weight:700; color:var(--ink-700); display:inline; }
     .carousel-img {
       background: var(--ink-050); display: flex; align-items: stretch; justify-content: center;
-      overflow: hidden; position: relative;
+      overflow: hidden; position: relative; height: 100%;
     }
     .carousel-img .img-ph {
       border-radius: 0; border: none; background: transparent; width: 100%; min-height: 100%; flex: 1;
@@ -759,9 +760,9 @@
       .meta-item:nth-child(2) { border-right: none; }
       .two-col { grid-template-columns: 1fr; }
       .metrics-row { grid-template-columns: 1fr 1fr; }
-      .carousel-slide-inner { grid-template-columns: 1fr; min-height: unset; }
-      .carousel-img { min-height: 240px; }
-      .carousel-text { border-right: none; border-bottom: 1.5px solid var(--ink-100); padding: var(--sp-32) var(--sp-24); }
+      .carousel-slide-inner { grid-template-columns: 1fr; min-height: auto; }
+      .carousel-img { min-height: 240px; height: 240px }
+      .carousel-text { border-right: none; border-bottom: 1.5px solid var(--ink-100); padding: var(--sp-32) var(--sp-24); height: auto; overflow-y: visible; }
       .persona-card { grid-template-columns: 1fr; }
       .persona-avatar { border-right: none; border-bottom: 1.5px solid var(--ink-100); min-height: 180px; }
       .persona-goals-pains { grid-template-columns: 1fr; }
