@@ -535,11 +535,8 @@
       border: 1.5px solid var(--ink-100); border-radius: var(--r-xl);
       overflow: hidden; box-shadow: var(--shadow-card);
     }
-    .persona-avatar {
-      background: var(--ink-100); border-right: 1.5px solid var(--ink-100);
-      display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
-      padding-top: var(--sp-32); gap: 0;
-    }
+    .persona-avatar { background: var(--ink-100); border-right: 1.5px solid var(--ink-100); display: flex; flex-direction: column; align-items: stretch; justify-content: stretch;  padding: 0; gap: 0; min-height: 320px; }
+    .persona-avatar .img-ph { flex: 1; min-height: 100%; width: 100%;  border-radius: 0; border: none; padding: 0;}
     .persona-info { padding: var(--sp-32); display: flex; flex-direction: column; gap: var(--sp-16); }
     .persona-name { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--ink-900); letter-spacing: -.02em; }
     .persona-role { font-size: 14px; color: var(--ink-500); }
