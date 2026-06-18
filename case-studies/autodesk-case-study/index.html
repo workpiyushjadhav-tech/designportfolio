@@ -42,6 +42,12 @@
     .label { font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
     .tag-pill { display:inline-flex; align-items:center; background:var(--accent-muted); color:var(--accent); font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:5px 12px; border-radius:100px; border:1px solid rgba(27,106,222,.18); white-space:nowrap; }
 
+    /* NDA BANNER */
+    .nda-banner { background: #FFF7ED; border: 1.5px solid #FED7AA; border-radius: var(--r-lg); padding: var(--sp-16) var(--sp-24); display: flex; align-items: flex-start; gap: var(--sp-12); margin-bottom: var(--sp-32); }
+    .nda-icon { font-size: 18px; flex-shrink: 0; line-height: 1.5; }
+    .nda-text { font-size: 14px; line-height: 1.65; color: #92400E; }
+    .nda-text strong { font-weight: 600; color: #78350F; }
+
     /* NAVBAR */
     #navbar { position:fixed; top:0; left:0; right:0; z-index:200; padding:0 var(--sp-20) var(--sp-20); pointer-events:none; }
     #navbar-inner { pointer-events:all; width:100%; display:flex; align-items:center; justify-content:space-between; height:68px; padding:0 var(--sp-40); background:rgba(255,255,255,.72); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom-left-radius:var(--r-lg); border-bottom-right-radius:var(--r-lg); box-shadow:var(--shadow-nav); transition:background .3s,box-shadow .3s; }
@@ -96,7 +102,7 @@
     .meta-key { font-family:var(--font-display); font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:var(--sp-8); }
     .meta-val { font-family:var(--font-display); font-size:14px; font-weight:600; color:var(--ink-900); line-height:1.4; }
     .hero-image-block { width:100%; border-radius:var(--r-xl); overflow:hidden; aspect-ratio:16/7; margin-bottom:var(--sp-64); }
-    .hero-image-block img {  width: 100%;  height: 100%;  object-fit: cover;  display: block;  position: absolute;  inset: 0;}
+    .hero-image-block img { width:100%; height:100%; object-fit:cover; display:block; position:absolute; inset:0; }
     .placeholder-icon { font-size:32px; opacity:.35; }
     .placeholder-label { font-family:var(--font-display); font-size:13px; font-weight:600; color:var(--ink-300); letter-spacing:.02em; }
 
@@ -132,7 +138,7 @@
     .metric-label { font-family:var(--font-display); font-size:13px; font-weight:600; color:var(--ink-500); line-height:1.45; }
 
     /* CAROUSEL */
-    .carousel-wrap { position:relative; overflow:hidden; isolation: isolate; border-radius:var(--r-xl); border:1.5px solid var(--ink-100); box-shadow:var(--shadow-card); }
+    .carousel-wrap { position:relative; overflow:hidden; isolation:isolate; border-radius:var(--r-xl); border:1.5px solid var(--ink-100); box-shadow:var(--shadow-card); }
     .carousel-track { display:flex; transition:transform .52s cubic-bezier(.32,0,.67,0); }
     .carousel-slide { flex:0 0 100%; width:100%; }
     .carousel-slide-inner { display:grid; grid-template-columns:1fr 1fr; gap:0; min-height:500px; }
@@ -142,10 +148,10 @@
     .carousel-slide-body { font-size:15px; line-height:1.72; color:var(--ink-500); }
     .carousel-slide-body p { margin-bottom:var(--sp-12); }
     .carousel-slide-body ul { margin-top:var(--sp-8); margin-left:0; display:flex; flex-direction:column; gap:var(--sp-8); list-style:none; }
-    .carousel-slide-body li {  line-height: 1.55;  padding-left: var(--sp-16);  position: relative;  word-break: break-word;}
-    .carousel-slide-body li::before { content: '–'; position: absolute; left: 0; color: var(--accent); font-weight: 700;}
-    .carousel-slide-body li strong {font-weight: 700;  color: var(--ink-700);}
-    .carousel-slide-body li span, .carousel-slide-body li > * { flex-shrink: 1; min-width: 0; word-break: break-word; }
+    .carousel-slide-body li { line-height:1.55; padding-left:var(--sp-16); position:relative; word-break:break-word; }
+    .carousel-slide-body li::before { content:'–'; position:absolute; left:0; color:var(--accent); font-weight:700; }
+    .carousel-slide-body li strong { font-weight:700; color:var(--ink-700); }
+    .carousel-slide-body li span, .carousel-slide-body li > * { flex-shrink:1; min-width:0; word-break:break-word; }
     .carousel-slide-body strong { font-weight:700; color:var(--ink-700); display:inline; }
     .carousel-img { background:var(--ink-050); display:flex; align-items:stretch; justify-content:center; overflow:hidden; }
     .carousel-img .img-ph { border-radius:0; border:none; background:transparent; width:100%; min-height:100%; flex:1; }
@@ -186,15 +192,6 @@
     .contribution-body strong { color:var(--ink-900); font-weight:600; }
     .contribution-img { border-top:1.5px solid var(--ink-100); padding:var(--sp-16); background:var(--ink-050); }
 
-    /* DECISION */
-    .decision-grid { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-16); margin-top:var(--sp-24); }
-    .decision-item { padding:var(--sp-24); border-radius:var(--r-lg); background:var(--ink-050); border:1.5px solid var(--ink-100); display:flex; flex-direction:column; gap:var(--sp-8); }
-    .decision-label { font-family:var(--font-display); font-size:10px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; padding:3px 8px; border-radius:6px; width:fit-content; }
-    .decision-label--rejected { background:#FEE2E2; color:#B91C1C; }
-    .decision-label--selected { background:#D1FAE5; color:#065F46; }
-    .decision-title { font-family:var(--font-display); font-size:15px; font-weight:800; color:var(--ink-900); }
-    .decision-body { font-size:13px; line-height:1.6; color:var(--ink-500); }
-
     /* ITER / EVALUATION */
     .iter-card { background:var(--white); border:1.5px solid var(--ink-100); border-radius:var(--r-xl); overflow:hidden; box-shadow:var(--shadow-card); margin-top:var(--sp-24); }
     .iter-header { padding:var(--sp-24) var(--sp-32); border-bottom:1.5px solid var(--ink-100); display:flex; align-items:center; gap:var(--sp-16); }
@@ -218,16 +215,16 @@
     .task-text strong { font-weight:600; color:var(--ink-900); }
 
     /* REFLECTION */
-    .reflection-stack { display: flex; flex-direction: column; gap: var(--sp-20); margin-top: var(--sp-48); }
-    .reflection-card { background: var(--white); border: 1.5px solid var(--ink-100); border-radius: var(--r-xl); padding: var(--sp-40); box-shadow: var(--shadow-card); width: 100%; }
-    .reflection-card.card--blue { background: var(--accent-muted); border-color: rgba(27,79,216,.18); }
-    .refl-pointer { display: flex; gap: var(--sp-16); font-size: 15px; color: var(--ink-700); line-height: 1.65; padding: var(--sp-16) 0; border-bottom: 1px solid var(--ink-100); flex-direction: column; }
-    .refl-pointer:last-child { border-bottom: none; }
-    .refl-pointer-head { display: flex; gap: var(--sp-8); align-items: flex-start; }
-    .refl-pointer-head strong { color: var(--ink-900); }
-    .refl-icon { color: var(--accent); flex-shrink: 0; font-size: 16px; line-height: 1.65; }
-    .refl-icon--cross { color: #DC2626; }
-    .reflection-card .refl-pointer:last-of-type {  border-bottom: none;  padding-bottom: 0;}
+    .reflection-stack { display:flex; flex-direction:column; gap:var(--sp-20); margin-top:var(--sp-48); }
+    .reflection-card { background:var(--white); border:1.5px solid var(--ink-100); border-radius:var(--r-xl); padding:var(--sp-40); box-shadow:var(--shadow-card); width:100%; }
+    .reflection-card.card--blue { background:var(--accent-muted); border-color:rgba(27,79,216,.18); }
+    .refl-pointer { display:flex; gap:var(--sp-16); font-size:15px; color:var(--ink-700); line-height:1.65; padding:var(--sp-16) 0; border-bottom:1px solid var(--ink-100); flex-direction:column; }
+    .refl-pointer:last-child { border-bottom:none; }
+    .refl-pointer-head { display:flex; gap:var(--sp-8); align-items:flex-start; }
+    .refl-pointer-head strong { color:var(--ink-900); }
+    .refl-icon { color:var(--accent); flex-shrink:0; font-size:16px; line-height:1.65; }
+    .refl-icon--cross { color:#DC2626; }
+    .reflection-card .refl-pointer:last-of-type { border-bottom:none; padding-bottom:0; }
 
     /* SECTION DIVIDER */
     .section-divider { display:flex; align-items:center; gap:var(--sp-20); padding:var(--sp-48) var(--sp-20); max-width:900px; margin:0 auto; }
@@ -251,50 +248,40 @@
     .stagger.visible>*:nth-child(3) { opacity:1; transform:none; transition-delay:160ms; }
     .stagger.visible>*:nth-child(4) { opacity:1; transform:none; transition-delay:240ms; }
 
-    /* Carousel placeholder fix - anchors content to fill slide evenly */
-    .carousel-slide-inner { min-height: 480px; align-items: stretch;}
+    .carousel-slide-inner { min-height:480px; align-items:stretch; }
+    .carousel-img { min-height:280px; align-items:center; justify-content:center; }
+    .carousel-img .img-ph { position:absolute; inset:0; min-height:unset; height:100%; border-radius:0; border:none; background:transparent; }
+    .carousel-img { position:relative; }
+    .carousel-wrap { touch-action:pan-y; user-select:none; -webkit-user-select:none; }
 
-    .carousel-img {min-height: 280px;align-items: center;justify-content: center;}
-    .carousel-img .img-ph {  position: absolute;  inset: 0;  min-height: unset;  height: 100%;  border-radius: 0;  border: none;  background: transparent;}
+    @media (max-width:768px) {
+      .carousel-slide-inner { grid-template-columns:1fr; min-height:unset; }
+      .carousel-img { min-height:220px; position:relative; }
+      .carousel-img .img-ph { position:relative; inset:unset; height:220px; min-height:unset; }
+      .carousel-text { border-right:none; border-bottom:1.5px solid var(--ink-100); padding:var(--sp-32) var(--sp-24); }
+      .carousel-arrow { width:44px; height:44px; }
+      .carousel-dot { height:6px; min-width:28px; }
+    }
 
-    /* Required so the img container can use position:absolute child */
-    .carousel-img {  position: relative;}
-
-    /* Touch friendliness */ 
-    .carousel-wrap {  touch-action: pan-y;  user-select: none;  -webkit-user-select: none;}
-
-    /* Mobile: stack layout, fix placeholder height */
-    @media (max-width: 768px) {  .carousel-slide-inner {grid-template-columns: 1fr; min-height: unset;}
-    .carousel-img {min-height: 220px; position: relative;}
-    .carousel-img .img-ph {position: relative; inset: unset; height: 220px; min-height: unset;}
-    .carousel-text { border-right: none; border-bottom: 1.5px solid var(--ink-100); padding: var(--sp-32) var(--sp-24);}
-
-    /* Larger tap targets on mobile */  
-    .carousel-arrow { width: 44px; height: 44px;}
-    .carousel-dot {height: 6px; min-width: 28px;}}
-
-      /* CASE NAV */
+    /* CASE NAV */
     .case-nav { display:flex; gap:var(--sp-32); flex-wrap:wrap; }
     .case-nav-btn--next { align-items:flex-end; text-align:right; }
     .case-nav-btn--prev { align-items:flex-start; text-align:left; }
     .case-nav-btn { flex:1 1 200px; display:flex; flex-direction:column; gap:var(--sp-6); text-decoration:none; cursor:pointer; transition:opacity .2s; justify-content:flex-end; }
     .case-nav-label { font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); }
     .case-nav-title { font-family:var(--font-display); font-size:17px; font-weight:800; color:var(--ink-900); line-height:1.3; margin-top:auto; }
-    .case-nav-btn:hover:not(.disabled) { opacity: .6; }
+    .case-nav-btn:hover:not(.disabled) { opacity:.6; }
     .case-nav-btn.disabled { opacity:.35; cursor:not-allowed; pointer-events:none; }
-    .case-nav { display:flex; gap:var(--sp-32); flex-wrap:wrap; }
 
     /* DEEPER DIVE CTA */
-    .deeper-dive-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-32); flex-wrap: wrap; }
-    .deeper-dive-text { font-size: 16px; color: var(--ink-500); line-height: 1.65; max-width: 560px; margin: 0; }
-    .deeper-dive-btn { font-family: var(--font-display); font-size: 14px; font-weight: 700; background: var(--ink-900); color: white; padding: 14px 28px; border-radius: var(--r-md); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; transition: background .2s, transform .15s, box-shadow .2s; flex-shrink: 0;    }
-    .deeper-dive-btn:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,106,222,.35); }
-    @media (max-width: 600px) {
-      .deeper-dive-inner { flex-direction: column; align-items: flex-start; }
-      .deeper-dive-btn { align-self: center;}
+    .deeper-dive-inner { display:flex; align-items:center; justify-content:space-between; gap:var(--sp-32); flex-wrap:wrap; }
+    .deeper-dive-text { font-size:16px; color:var(--ink-500); line-height:1.65; max-width:560px; margin:0; }
+    .deeper-dive-btn { font-family:var(--font-display); font-size:14px; font-weight:700; background:var(--ink-900); color:white; padding:14px 28px; border-radius:var(--r-md); text-decoration:none; display:inline-flex; align-items:center; gap:8px; white-space:nowrap; transition:background .2s,transform .15s,box-shadow .2s; flex-shrink:0; }
+    .deeper-dive-btn:hover { background:var(--accent); transform:translateY(-2px); box-shadow:0 8px 24px rgba(27,106,222,.35); }
+    @media (max-width:600px) {
+      .deeper-dive-inner { flex-direction:column; align-items:flex-start; }
+      .deeper-dive-btn { align-self:center; }
     }
-
-    
 
     /* RESPONSIVE */
     @media (max-width:1024px) { #side-stepper { display:none; } }
@@ -307,7 +294,6 @@
       .carousel-slide-inner { grid-template-columns:1fr; min-height:unset; }
       .carousel-img { min-height:240px; }
       .carousel-text { border-right:none; border-bottom:1.5px solid var(--ink-100); padding:var(--sp-32) var(--sp-24); }
-      .decision-grid { grid-template-columns:1fr; }
       #cursor,#cursor-ring { display:none; } body { cursor:auto; }
       .footer-inner { flex-direction:column; text-align:center; }
       .footer-links { justify-content:center; }
@@ -323,6 +309,7 @@
       .project-meta { grid-template-columns:1fr; }
       .meta-item { border-right:none !important; border-bottom:1px solid var(--ink-100); }
       .meta-item:last-child { border-bottom:none; }
+      .nda-banner { flex-direction:column; }
     }
     @media (prefers-reduced-motion:reduce) {
       *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
@@ -347,7 +334,7 @@
       <li><a href="/case-studies" class="active">Case Studies</a></li>
       <li><a href="/about">About Me</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">Let's Talk </a>
+    <a href="#contact" class="nav-cta">Let's Talk</a>
     <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -358,7 +345,7 @@
   <ul>
     <li><a href="/case-studies">Case Studies</a></li>
     <li><a href="/about">About Me</a></li>
-    <li><a href="#contact" style="color:var(--accent);">Let's Talk </a></li>
+    <li><a href="#contact" style="color:var(--accent);">Let's Talk</a></li>
   </ul>
 </div>
 
@@ -381,10 +368,16 @@
       <span class="label">Industry Project · MSc UX · University of Lancashire</span>
       <span class="tag-pill" style="background:#F0F2F5;color:var(--ink-500);border-color:var(--ink-300);">⏱ 4 min read</span>
     </div>
+
+    <div class="nda-banner appear">
+      <span class="nda-icon">🔒</span>
+      <p class="nda-text"><strong>NDA applies to this project.</strong> Specific design artefacts, proprietary platform details, and internal research data cannot be shared publicly. What is shown here is a high-level overview of the process, methods, and outcomes using generalised content only.</p>
+    </div>
+
     <h1 class="hero-headline appear" id="hero-headline">
       Two workflows. One platform.<br><em>No way to connect them.</em>
     </h1>
-    <p class="hero-sub appear">Investigating how Clash and Change Analysis - two deeply interdependent workflows - could be integrated inside Autodesk Construction Cloud to reduce manual cross-referencing, cognitive load, and missed regressions.</p>
+    <p class="hero-sub appear">A 6-week industry project with Autodesk. The problem space was new territory: large-scale construction coordination using BIM software. We got up to speed quickly, defined a clear scope from a live brief, and designed a platform-level solution connecting two workflows that users needed together but the product kept apart.</p>
     <div class="project-meta appear stagger">
       <div class="meta-item"><div class="meta-key">Role</div><div class="meta-val">Team Lead · Thematic Analysis · IA</div></div>
       <div class="meta-item"><div class="meta-key">Duration</div><div class="meta-val">6 Weeks · Agile Scrum</div></div>
@@ -404,7 +397,7 @@
     <div class="section-heading appear">
       <span class="label">The Problem</span>
       <h2 id="problem-heading">Two forms of analysis. <strong>Completely separate places.</strong></h2>
-      <p>Autodesk Construction Cloud has Change Analysis and Clash Analysis - both critical to BIM workflows. In the application, they are hosted in entirely different parts of the platform. In users' real work, they are inseparable.</p>
+      <p>Autodesk Construction Cloud has Change Analysis and Clash Analysis, both critical to BIM workflows. In the application, they are hosted in entirely different parts of the platform. In users' real work, they are inseparable.</p>
     </div>
 
     <div class="two-col appear">
@@ -416,12 +409,12 @@
       <div class="card">
         <div class="label" style="margin-bottom:var(--sp-12);">Clash Analysis</div>
         <div class="sub-heading">Where objects overlap in space</div>
-        <p style="font-size:14px;color:var(--ink-500);line-height:1.7;margin-top:var(--sp-8);">Identifies when model objects physically overlap - conflicts that must be resolved before a building can be constructed. Every clash has a cause. That cause is almost always a change.</p>
+        <p style="font-size:14px;color:var(--ink-500);line-height:1.7;margin-top:var(--sp-8);">Identifies when model objects physically overlap, conflicts that must be resolved before a building can be constructed. Every clash has a cause. That cause is almost always a change.</p>
       </div>
     </div>
 
     <div class="highlight-quote appear">
-      <p>When a clash is found, users need to trace it back to the change that introduced it. To resolve a clash, users need to record the change made - and verify it didn't introduce new problems. <em>Neither workflow currently supports the other.</em></p>
+      <p>When a clash is found, users need to trace it back to the change that introduced it. To resolve a clash, users need to record the change made and verify it did not introduce new problems. <em>Neither workflow currently supports the other.</em></p>
       <cite>Project brief - Autodesk Construction Cloud</cite>
     </div>
 
@@ -439,7 +432,7 @@
     <div class="section-heading appear">
       <span class="label">Research &amp; Discovery</span>
       <h2 id="research-heading">Large-scale analysis. <strong>Two themes rose above everything else.</strong></h2>
-      <p>Three research phases across a 6-week Agile sprint - Discovery, Ideation, Evaluation - working directly with Autodesk's worldwide experts and customer base.</p>
+      <p>Three research phases across a 6-week Agile sprint — Discovery, Ideation, Evaluation — working directly with Autodesk's worldwide experts and customer base.</p>
     </div>
 
     <div class="carousel-wrap appear" id="res-carousel" role="region" aria-label="Research methods">
@@ -453,9 +446,9 @@
               <div class="carousel-slide-body">
                 <p>Nielsen's 10 heuristics applied to existing ACC workflows. Alongside this, over 25,000 comments from Reddit, YouTube, and Autodesk forums were collected and filtered using AI-assisted coding.</p>
                 <ul>
-                  <li>AI assisted in deciding which data to code - all codes and themes were human-defined</li>
+                  <li>AI assisted in deciding which data to code. All codes and themes were human-defined.</li>
                   <li>160 actionable insights generated before thematic synthesis</li>
-                  <li>Heuristic finding: <strong>"An inconsistent UI and limited user feedback makes it hard for users to connect model changes with clashes, track them over time, and move smoothly between workflows"</strong></li>
+                  <li>Key finding: <strong>Users struggled to connect what changed in the model with what broke. The interface gave them too little feedback and too much friction when moving between the two workflows.</strong></li>
                 </ul>
               </div>
             </div>
@@ -493,12 +486,12 @@
               <span class="carousel-number">Method 03</span>
               <h3 class="carousel-slide-title">Benchmark Analysis + Analogous Inspiration</h3>
               <div class="carousel-slide-body">
-                <p>Competitor platforms investigated directly and indirectly related to the problem space. Key benchmark finding from Navisworks - a direct competitor.</p>
+                <p>Competitor platforms investigated directly and indirectly related to the problem space. A key finding came from a market-leading platform in the same space.</p>
                 <ul>
-                  <li>Navisworks uses a <strong>Clash Status Lifecycle: New  Active  Resolved</strong></li>
-                  <li>ACC had no equivalent status model - clashes had no tracked resolution state</li>
+                  <li>A leading platform in this space tracks clashes through a clear status progression: <strong>New → Active → Resolved</strong></li>
+                  <li>This gives teams a shared view of what has been dealt with and what still needs attention</li>
+                  <li>The platform we were studying had no equivalent. Clashes were detected but never formally tracked to resolution. That gap became a direct design target.</li>
                   <li>Analogous Inspiration surfaced useful patterns from outside the BIM field</li>
-                  <li>These insights provided a concrete design pattern to build from rather than starting from scratch</li>
                 </ul>
               </div>
             </div>
@@ -523,7 +516,7 @@
     </div>
 
     <div class="highlight-quote appear" style="margin-top:var(--sp-48);">
-      <p>The problem wasn't that ACC had too little data. It had too much - <em>siloed in the wrong places.</em> The solution wasn't to add more. It was to create continuity between what already existed.</p>
+      <p>The problem was not that ACC had too little data. It had too much, <em>siloed in the wrong places.</em> The solution was not to add more. It was to create continuity between what already existed.</p>
     </div>
 
     <div style="margin-top:var(--sp-48);" class="appear">
@@ -561,27 +554,27 @@
 
     <div class="hmw-banner appear">
       <span class="hmw-label">Problem Statement</span>
-      <p class="hmw-text">Users face a critical visibility gap because systems treat user-initiated modifications as disconnected data silos. Because there is no functional bridge between "what changed" and "what broke," stakeholders cannot establish causality for new issues.</p>
+      <p class="hmw-text">When something breaks in a construction model, teams have no structured way to find out what caused it. Changes and clashes live in separate places. Connecting them is manual, slow, and easy to get wrong.</p>
     </div>
 
     <div style="margin-top:var(--sp-48);" class="appear">
       <div class="sub-heading" style="margin-bottom:var(--sp-16);">Key HMW Directions</div>
-      <div class="decision-grid">
-        <div class="decision-item" style="border-color:rgba(27,106,222,.2);background:var(--accent-muted);">
-          <div class="decision-title">Connect clash to change</div>
-          <div class="decision-body">HMW trace a detected clash back to the specific change that introduced it - in a single workflow, not across two separate tools?</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-16);">
+        <div style="padding:var(--sp-24);border-radius:var(--r-lg);background:var(--accent-muted);border:1.5px solid rgba(27,106,222,.2);">
+          <div style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--ink-900);margin-bottom:var(--sp-8);">Connect clash to change</div>
+          <div style="font-size:13px;line-height:1.6;color:var(--ink-500);">HMW trace a detected clash back to the specific change that introduced it, in a single workflow rather than across two separate tools?</div>
         </div>
-        <div class="decision-item" style="border-color:rgba(27,106,222,.2);background:var(--accent-muted);">
-          <div class="decision-title">Reduce cognitive overhead</div>
-          <div class="decision-body">HMW reduce the cognitive overhead of navigating large volumes of clash data without sufficient contextual control?</div>
+        <div style="padding:var(--sp-24);border-radius:var(--r-lg);background:var(--accent-muted);border:1.5px solid rgba(27,106,222,.2);">
+          <div style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--ink-900);margin-bottom:var(--sp-8);">Reduce cognitive overhead</div>
+          <div style="font-size:13px;line-height:1.6;color:var(--ink-500);">HMW reduce the effort of navigating large volumes of clash data without sufficient contextual control?</div>
         </div>
-        <div class="decision-item" style="border-color:rgba(27,106,222,.2);background:var(--accent-muted);">
-          <div class="decision-title">Proactive over reactive</div>
-          <div class="decision-body">HMW move teams from a reactive stance - discovering clashes after they occur - to a proactive one?</div>
+        <div style="padding:var(--sp-24);border-radius:var(--r-lg);background:var(--accent-muted);border:1.5px solid rgba(27,106,222,.2);">
+          <div style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--ink-900);margin-bottom:var(--sp-8);">Proactive over reactive</div>
+          <div style="font-size:13px;line-height:1.6;color:var(--ink-500);">HMW move teams from a reactive stance, discovering clashes after they occur, to a proactive one?</div>
         </div>
-        <div class="decision-item" style="border-color:rgba(27,106,222,.2);background:var(--accent-muted);">
-          <div class="decision-title">Create an audit trail</div>
-          <div class="decision-body">HMW record how clashes were resolved - and surface that history when similar conflicts arise in future model iterations?</div>
+        <div style="padding:var(--sp-24);border-radius:var(--r-lg);background:var(--accent-muted);border:1.5px solid rgba(27,106,222,.2);">
+          <div style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--ink-900);margin-bottom:var(--sp-8);">Create an audit trail</div>
+          <div style="font-size:13px;line-height:1.6;color:var(--ink-500);">HMW record how clashes were resolved and surface that history when similar conflicts arise in future model iterations?</div>
         </div>
       </div>
     </div>
@@ -604,7 +597,7 @@
       </div>
       <div class="contribution-body">
         <p>One of the core friction points identified during research was <strong>cognitive overhead</strong>: navigating large volumes of clash data without sufficient contextual control. Users were forced to manually sift through dense lists.</p>
-        <p style="margin-top:var(--sp-16);">The proposed solution introduced an <strong>object and filter-based interaction model</strong> - allowing users to isolate, group, and prioritise clashes based on relevant parameters such as discipline, severity, or model element type. This gave project stakeholders greater agency over what they were reviewing, reducing noise and enabling more focused decision-making during clash review sessions.</p>
+        <p style="margin-top:var(--sp-16);">The proposed solution introduced an <strong>object and filter-based interaction model</strong>, allowing users to isolate, group, and prioritise clashes based on relevant parameters such as discipline, severity, or model element type. This gave project stakeholders greater agency over what they were reviewing, reducing noise and enabling more focused decision-making during clash review sessions.</p>
       </div>
       <div class="contribution-img">
         <div class="img-ph img-ph--wide" role="img" aria-label="Insert: Generalised filter-based interface concept"><span class="ph-icon">🗂️</span><span class="ph-text">Insert: Filter-Based Interface Concept (Generalised)</span></div>
@@ -626,7 +619,7 @@
     </div>
 
     <div class="highlight-quote appear">
-      <p>The unified principle across both contributions: connect <em>"what changed"</em> to <em>"what broke"</em> - in a single workflow, not across two separate tools.</p>
+      <p>The unified principle across both contributions: connect <em>what changed</em> to <em>what broke</em>, in a single workflow rather than across two separate tools.</p>
     </div>
   </div>
 </section>
@@ -637,26 +630,30 @@
     <div class="section-heading appear">
       <span class="label">Evaluation</span>
       <h2 id="eval-heading">The research direction is well-grounded. <strong>The prototype needs real-world testing.</strong></h2>
-      <p>Three limitations identified - named honestly, each pointing to a concrete next step.</p>
+      <p>Three limitations identified, named honestly, each pointing to a concrete next step.</p>
     </div>
 
     <div class="card appear" style="margin-bottom:var(--sp-32);">
       <div class="label" style="margin-bottom:var(--sp-16);">What the Research Validates</div>
       <div class="task-row">
         <div class="task-pct task-pct--high">✓</div>
-        <div class="task-text"><strong>Problem direction</strong> - Workflow Challenges and Visibility Gaps were dominant across all five themes, consistent across 25,000+ comments from multiple independent sources.</div>
+        <div class="task-text"><strong>Problem direction</strong> — Workflow Challenges and Visibility Gaps were dominant across all five themes, consistent across 25,000+ comments from multiple independent sources.</div>
       </div>
       <div class="task-row">
         <div class="task-pct task-pct--high">✓</div>
-        <div class="task-text"><strong>Benchmark pattern</strong> - Navisworks' Clash Status Lifecycle (New  Active  Resolved) is a tested, deployed model that confirms the design direction has precedent in the market.</div>
+        <div class="task-text"><strong>Benchmark pattern</strong> — A Clash Status Lifecycle (New → Active → Resolved) is a tested, deployed model that confirms the design direction has precedent in the market.</div>
       </div>
       <div class="task-row">
         <div class="task-pct task-pct--high">✓</div>
-        <div class="task-text"><strong>Stakeholder alignment</strong> - Expert interviews with Autodesk contacts were used to cross-reference publicly available data and validate the problem framing.</div>
+        <div class="task-text"><strong>Stakeholder alignment</strong> — Expert interviews with Autodesk contacts were used to cross-reference publicly available data and validate the problem framing.</div>
+      </div>
+      <div class="task-row">
+        <div class="task-pct task-pct--high">✓</div>
+        <div class="task-text"><strong>Stakeholder reception</strong> — The prototype and research findings were presented to Autodesk contacts at the end of the sprint. The predictive forecasting direction stood out as the most ambitious contribution, taking the brief beyond simple integration toward a genuinely different way of working. Feedback at each sprint gate was used to refine decisions before moving forward.</div>
       </div>
       <div class="task-row">
         <div class="task-pct task-pct--mid">⚠</div>
-        <div class="task-text"><strong>End-user testing</strong> - Not conducted. The prototype was not tested with real BIM Managers or Engineers. Required before any deployment decision.</div>
+        <div class="task-text"><strong>End-user testing</strong> — Not conducted. The prototype was not tested with real BIM Managers or Engineers. Required before any deployment decision.</div>
       </div>
     </div>
 
@@ -674,7 +671,7 @@
       <div class="iter-header"><div class="iter-num">02</div><div class="iter-title">No end-user testing</div></div>
       <div class="iter-body">
         <ul>
-          <li><span class="iter-badge iter-badge--issue">Gap</span>The prototype was not tested with real BIM Managers or Engineers. Given the domain complexity - high-stakes construction workflows - this is a significant gap that stakeholder interviews cannot substitute for.</li>
+          <li><span class="iter-badge iter-badge--issue">Gap</span>The prototype was not tested with real BIM Managers or Engineers. Given the domain complexity — high-stakes construction workflows — this is a significant gap that stakeholder interviews cannot substitute for.</li>
           <li><span class="iter-badge iter-badge--insight">Next Step</span>Task-based usability study with BIM Managers and Engineers using the integrated prototype in a real project context.</li>
         </ul>
       </div>
@@ -703,16 +700,16 @@
     <div class="reflection-stack appear">
       <div class="reflection-card card--blue">
         <div class="label" style="margin-bottom:var(--sp-16);">What Worked</div>
-        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>AI-assisted filtering at scale.</strong> Processing 25,000+ comments manually would have taken weeks. Using AI to filter into 160 actionable insights before human thematic coding handled a data volume no small team could manage line-by-line in 6 weeks - while keeping all codes and themes human-defined.</span></div></div>
-        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>Predictive forecasting going beyond the brief.</strong> The original challenge asked how to integrate two existing views. Predictive forecasting moved the answer from "better integration" to a fundamentally different mental model - proactive rather than reactive. The research supported the ambition.</span></div></div>
-        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>Navisworks as a benchmark anchor.</strong> Rather than designing a resolution tracking system from scratch, identifying that a direct competitor already used a tested status model gave us a concrete gap to articulate and a pattern to build from.</span></div></div>
+        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>AI-assisted filtering at scale.</strong> Processing 25,000+ comments manually would have taken weeks. Using AI to filter into 160 actionable insights before human thematic coding handled a data volume no small team could manage line by line in 6 weeks, while keeping all codes and themes human-defined.</span></div></div>
+        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>Predictive forecasting going beyond the brief.</strong> The original challenge asked how to integrate two existing views. Predictive forecasting moved the answer from better integration to a fundamentally different mental model — proactive rather than reactive. The research supported the ambition.</span></div></div>
+        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>Benchmark as a design anchor.</strong> Rather than designing a resolution tracking system from scratch, identifying that a market-leading competitor already used a tested status model gave us a concrete gap to articulate and a pattern to build from.</span></div></div>
       </div>
 
       <div class="reflection-card">
         <div class="label" style="margin-bottom:var(--sp-16);">What Didn't / What's Unresolved</div>
-        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-x-lg"></i></span><span><strong>No end-user testing.</strong> The prototype was never tested with a real BIM Manager or Engineer on a real project. For a domain this technically specific, that's the gap that matters most. Stakeholder interviews helped - they don't replace it.</span></div></div>
+        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-x-lg"></i></span><span><strong>No end-user testing.</strong> The prototype was never tested with a real BIM Manager or Engineer on a real project. For a domain this technically specific, that's the gap that matters most. Stakeholder interviews helped but they don't replace it.</span></div></div>
         <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-x-lg"></i></span><span><strong>Public data as a proxy.</strong> Reddit and YouTube comments surface frustration loudly. They don't surface satisfaction or expertise. The findings needed validation against a broader, more representative user base.</span></div></div>
-        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-question-lg"></i></span><span><strong>Role-based view logic unresolved.</strong> BIM Managers, Engineers, and Architects have different needs when reviewing clashes and changes. The prototype addressed integration - the permission model and role-based view logic would require a further sprint to resolve properly.</span></div></div>
+        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-question-lg"></i></span><span><strong>Role-based view logic unresolved.</strong> BIM Managers, Engineers, and Architects have different needs when reviewing clashes and changes. The prototype addressed integration but the permission model and role-based view logic would require a further sprint to resolve properly.</span></div></div>
       </div>
     </div>
 
@@ -723,7 +720,7 @@
 </section>
 
 <!-- END -->
-<section class="section section--white" id="end" style="padding-bottom:var(--sp-12); padding-top: var(--sp-12);">
+<section class="section section--white" id="end" style="padding-bottom:var(--sp-12);padding-top:var(--sp-12);">
   <div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-label">End of Case Study</span><div class="section-divider-line"></div></div>
 </section>
 
@@ -739,23 +736,18 @@
     </div>
   </div>
 </section>
-  
-<section class="section section--white" style="padding-top:var(--sp-40); padding-bottom:var(--sp-40);">
+
+<section class="section section--white" style="padding-top:var(--sp-40);padding-bottom:var(--sp-40);">
   <div class="content-col">
     <div class="case-nav">
-
-      <!-- PREVIOUS: set href="#" and remove disabled attr to enable -->
       <a class="case-nav-btn case-nav-btn--prev" href="../dwp-case-study/index.html">
         <span class="case-nav-label">← Previous</span>
         <span class="case-nav-title">Culinarr - Designing a Shared Dining Experience for Groups</span>
       </a>
-
-      <!-- NEXT: set href="#" and remove disabled attr to enable -->
-      <a class="case-nav-btn case-nav-btn--next disabled" aria-disabled="true" >
-        <span class="case-nav-label">Next </span>
+      <a class="case-nav-btn case-nav-btn--next disabled" aria-disabled="true">
+        <span class="case-nav-label">Next</span>
         <span class="case-nav-title"></span>
       </a>
-
     </div>
   </div>
 </section>
@@ -766,7 +758,7 @@
       <div>
         <span class="label" style="display:block;margin-bottom:var(--sp-16);">Open to Opportunities</span>
         <h2 style="font-family:var(--font-display);font-size:clamp(28px,4vw,42px);font-weight:900;letter-spacing:-.04em;color:var(--ink-900);line-height:1;margin-top:0;" id="contact-title">Let's talk design.</h2>
-        <p style="font-size:16px;color:var(--ink-500);margin-top:var(--sp-12);line-height:1.65;">Open to roles in product design, service design, and UX - B2B SaaS, complex workflows, and multi-user platforms.</p>
+        <p style="font-size:16px;color:var(--ink-500);margin-top:var(--sp-12);line-height:1.65;">Open to roles in product design, service design, and UX — B2B SaaS, complex workflows, and multi-user platforms.</p>
       </div>
       <div style="display:flex;gap:var(--sp-16);flex-wrap:wrap;">
         <a href="https://calendly.com/piyushjadhav" target="_blank" rel="noopener"
@@ -838,104 +830,47 @@
   function stepperClick(item){var target=document.getElementById(item.dataset.section);if(!target)return;var top=target.getBoundingClientRect().top+window.scrollY-88;window.scrollTo({top:top,behavior:'smooth'});}
   stepperItems.forEach(function(item){item.addEventListener('click',function(){stepperClick(item);setActiveSection(item.dataset.section);});item.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();stepperClick(item);}});item.setAttribute('tabindex','0');item.setAttribute('role','button');});
 
-  function initCarousel(trackId, prevId, nextId, dotSelector) {
-  var track   = document.getElementById(trackId);
-  var prevBtn = document.getElementById(prevId);
-  var nextBtn = document.getElementById(nextId);
-  if (!track || !prevBtn || !nextBtn) return;
-
-  var dots    = document.querySelectorAll(dotSelector);
-  var slides  = track.querySelectorAll('.carousel-slide');
-  var total   = slides.length;
-  var current = 0;
-  var isAnim  = false;
-
-  function goTo(idx) {
-    if (isAnim) return;
-    isAnim = true;
-    current = (idx + total) % total;
-    track.style.transform = 'translateX(-' + (current * 100) + '%)';
-    dots.forEach(function(d, i) {
-      var active = i === current;
-      d.classList.toggle('active', active);
-      d.setAttribute('aria-selected', String(active));
-    });
-    slides.forEach(function(s, i) {
-      s.setAttribute('aria-hidden', String(i !== current));
-    });
-    setTimeout(function() { isAnim = false; }, 520);
+  function initCarousel(trackId,prevId,nextId,dotSelector){
+    var track=document.getElementById(trackId);
+    var prevBtn=document.getElementById(prevId);
+    var nextBtn=document.getElementById(nextId);
+    if(!track||!prevBtn||!nextBtn)return;
+    var dots=document.querySelectorAll(dotSelector);
+    var slides=track.querySelectorAll('.carousel-slide');
+    var total=slides.length;
+    var current=0;
+    var isAnim=false;
+    function goTo(idx){
+      if(isAnim)return;
+      isAnim=true;
+      current=(idx+total)%total;
+      track.style.transform='translateX(-'+(current*100)+'%)';
+      dots.forEach(function(d,i){var active=i===current;d.classList.toggle('active',active);d.setAttribute('aria-selected',String(active));});
+      slides.forEach(function(s,i){s.setAttribute('aria-hidden',String(i!==current));});
+      setTimeout(function(){isAnim=false;},520);
+    }
+    slides.forEach(function(s,i){s.setAttribute('aria-hidden',String(i!==0));});
+    prevBtn.addEventListener('click',function(){goTo(current-1);});
+    nextBtn.addEventListener('click',function(){goTo(current+1);});
+    dots.forEach(function(dot){dot.addEventListener('click',function(){goTo(parseInt(dot.getAttribute('data-idx'),10));});});
+    var startX=0,startY=0,diffX=0,dragging=false,lockAxis=null;
+    track.parentElement.addEventListener('touchstart',function(e){startX=e.touches[0].clientX;startY=e.touches[0].clientY;diffX=0;dragging=true;lockAxis=null;},{passive:true});
+    track.parentElement.addEventListener('touchmove',function(e){
+      if(!dragging)return;
+      var dx=e.touches[0].clientX-startX;
+      var dy=e.touches[0].clientY-startY;
+      if(!lockAxis){lockAxis=Math.abs(dx)>Math.abs(dy)?'x':'y';}
+      if(lockAxis==='x'){e.preventDefault();diffX=dx;var offset=(current*-100)+(diffX/track.parentElement.offsetWidth*100);track.style.transition='none';track.style.transform='translateX('+offset+'%)';}
+    },{passive:false});
+    track.parentElement.addEventListener('touchend',function(){
+      if(!dragging)return;
+      dragging=false;
+      track.style.transition='';
+      if(lockAxis==='x'){var threshold=track.parentElement.offsetWidth*0.2;if(diffX<-threshold){goTo(current+1);}else if(diffX>threshold){goTo(current-1);}else{goTo(current);}}
+      lockAxis=null;
+    },{passive:true});
+    [prevBtn,nextBtn].forEach(function(btn){btn.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){e.preventDefault();goTo(current-1);}if(e.key==='ArrowRight'){e.preventDefault();goTo(current+1);}});});
   }
-
-  slides.forEach(function(s, i) { s.setAttribute('aria-hidden', String(i !== 0)); });
-  prevBtn.addEventListener('click', function() { goTo(current - 1); });
-  nextBtn.addEventListener('click', function() { goTo(current + 1); });
-  dots.forEach(function(dot) {
-    dot.addEventListener('click', function() {
-      goTo(parseInt(dot.getAttribute('data-idx'), 10));
-    });
-  });
-
-  /* ── Touch / swipe - reliable cross-device ── */
-  var startX   = 0;
-  var startY   = 0;
-  var diffX    = 0;
-  var dragging = false;
-  var lockAxis = null; /* 'x' | 'y' | null */
-
-  track.parentElement.addEventListener('touchstart', function(e) {
-    startX   = e.touches[0].clientX;
-    startY   = e.touches[0].clientY;
-    diffX    = 0;
-    dragging = true;
-    lockAxis = null;
-  }, { passive: true });
-
-  track.parentElement.addEventListener('touchmove', function(e) {
-    if (!dragging) return;
-    var dx = e.touches[0].clientX - startX;
-    var dy = e.touches[0].clientY - startY;
-
-    /* Lock axis on first meaningful move */
-    if (!lockAxis) {
-      lockAxis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
-    }
-
-    if (lockAxis === 'x') {
-      e.preventDefault(); /* block vertical scroll while swiping carousel */
-      diffX = dx;
-      /* Live drag feedback */
-      var offset = (current * -100) + (diffX / track.parentElement.offsetWidth * 100);
-      track.style.transition = 'none';
-      track.style.transform  = 'translateX(' + offset + '%)';
-    }
-  }, { passive: false }); /* passive:false needed to call preventDefault */
-
-  track.parentElement.addEventListener('touchend', function() {
-    if (!dragging) return;
-    dragging = false;
-    track.style.transition = ''; /* restore CSS transition */
-
-    if (lockAxis === 'x') {
-      var threshold = track.parentElement.offsetWidth * 0.2; /* 20% of width */
-      if (diffX < -threshold) {
-        goTo(current + 1);
-      } else if (diffX > threshold) {
-        goTo(current - 1);
-      } else {
-        goTo(current); /* snap back */
-      }
-    }
-    lockAxis = null;
-  }, { passive: true });
-
-  /* Keyboard support */
-  [prevBtn, nextBtn].forEach(function(btn) {
-    btn.addEventListener('keydown', function(e) {
-      if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
-      if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
-    });
-  });
-}
   initCarousel('res-track','res-prev','res-next','#res-carousel .carousel-dot');
 
   document.querySelectorAll('a[href^="#"]').forEach(function(anchor){anchor.addEventListener('click',function(e){var target=document.querySelector(this.getAttribute('href'));if(!target)return;e.preventDefault();window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY-80,behavior:'smooth'});});});
