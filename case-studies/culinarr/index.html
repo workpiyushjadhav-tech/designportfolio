@@ -350,10 +350,10 @@
       .meta-item:nth-child(2) { border-right:none; }
       .two-col { grid-template-columns:1fr; }
       .metrics-row { grid-template-columns:1fr 1fr; }
-      .carousel-slide-inner { min-height:unset; align-items:start; }
-      .carousel-img { height:auto; min-height:unset; }
-      .carousel-img img, .carousel-img .img-ph { position:static; inset:unset; height:auto; width:100%; display:block; object-fit:unset; }
-      .carousel-text { border-right:none; border-bottom:1.5px solid var(--ink-100); padding:var(--sp-32) var(--sp-24); }
+      .carousel-slide-inner { grid-template-columns:1fr; grid-template-rows:auto 320px; min-height:unset; }
+      .carousel-text { height:auto; max-height:320px; overflow-y:auto; border-right:none; border-bottom:1.5px solid var(--ink-100); padding:var(--sp-32) var(--sp-24); }
+      .carousel-img { height:100%; min-height:unset; position:relative; }
+      .carousel-img img, .carousel-img .img-ph { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; }
       .persona-card { grid-template-columns:1fr; }
       .persona-avatar { border-right:none; border-bottom:1.5px solid var(--ink-100); min-height:180px; }
       .persona-goals-pains { grid-template-columns:1fr; }
