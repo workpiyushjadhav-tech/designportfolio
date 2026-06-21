@@ -370,6 +370,9 @@
       #cursor,#cursor-ring { display:none; } body { cursor:auto; }
       .footer-inner { flex-direction:column; text-align:center; }
       .footer-links { justify-content:center; }
+      #sol-carousel .carousel-slide-inner { grid-template-rows:auto auto; }
+      #sol-carousel .carousel-img { height:auto; min-height:unset; }
+      #sol-carousel .carousel-img img { position:static; inset:unset; width:100%; height:auto; object-fit:unset; display:block; }
     }
     @media (max-width:540px) {
       .case-nav { flex-direction:column; gap:var(--sp-24); }
@@ -776,7 +779,7 @@
             </div>
           </div>
 
-          <div class="carousel-slide" role="group" aria-label="Screen 3 of 4" aria-hidden="true">
+          <div class="carousel-slide" id="sol-carousel" role="group" aria-label="Screen 3 of 4" aria-hidden="true">
             <div class="carousel-slide-inner">
               <div class="carousel-text">
                 <span class="carousel-number">Flow 03</span>
