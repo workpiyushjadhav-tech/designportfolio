@@ -350,8 +350,8 @@
       .meta-item:nth-child(2) { border-right:none; }
       .two-col { grid-template-columns:1fr; }
       .metrics-row { grid-template-columns:1fr 1fr; }
-      carousel-img { height:auto; aspect-ratio:1/1; min-height:unset; }
-      .carousel-img img, .carousel-img .img-ph { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; min-height:unset; }
+      .carousel-img { height:auto; min-height:unset; position:static; }
+      .carousel-img img, .carousel-img .img-ph { position:static; inset:unset; height:auto; object-fit:unset; width:100%; display:block; }
       .carousel-slide-inner { grid-template-columns:1fr; min-height:unset; }
       .carousel-text { border-right:none; border-bottom:1.5px solid var(--ink-100); padding:var(--sp-32) var(--sp-24); }
       .persona-card { grid-template-columns:1fr; }
