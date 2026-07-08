@@ -219,14 +219,14 @@
         radial-gradient(ellipse 60% 60% at 70% 30%, rgba(30,94,255,.07) 0%, transparent 70%),
         radial-gradient(ellipse 40% 50% at 20% 80%, rgba(255,107,53,.05) 0%, transparent 60%);
     }
-    /* dot grid */
+    /* dot grid 
     #hero::after {
       content: '';
       position: absolute; inset: 0;
       background-image: radial-gradient(circle, rgba(30,94,255,.1) 1px, transparent 1px);
       background-size: 32px 32px;
       mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 70%);
-    }
+    }*/
     .hero-inner {
       position: relative; z-index: 1;
       width: 100%; max-width: 1140px; margin: 0 auto;
@@ -1103,6 +1103,23 @@
     </div>
   </div>
 </footer>
+
+<script src="https://unpkg.com/interactive-dot-grid"></script>
+<script>
+  new InteractiveDotGrid.DotGrid({
+    container: document.getElementById('hero'),
+    spacing: 28,
+    dotMin: 1.5,
+    dotMax: 5,
+    radiusEffect: 160,
+    baseAlpha: 0,
+    maxAlpha: 0.35,
+    color: '30,94,255',
+    smoothing: 0.12,
+    zIndex: 0,
+  });
+</script>
+
 
 <script>
 /* ── Custom cursor ── */
