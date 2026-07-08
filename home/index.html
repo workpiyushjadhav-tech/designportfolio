@@ -664,6 +664,65 @@
     }
     .about-card-body { font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.6; }
 
+    /* ── About Photo & Info Card ── */
+    .about-photo-card {
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+    .about-photo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .about-info-card {
+      background: rgba(255,255,255,.97);
+      border-radius: var(--r-md);
+      padding: var(--sp-20) var(--sp-24);
+      box-shadow: var(--shadow-card);
+    }
+    .about-info-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-16);
+      padding: var(--sp-12) 0;
+      border-bottom: 1px solid var(--ink-100);
+    }
+    .about-info-row:last-child { border-bottom: none; }
+    .about-info-label {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-300);
+      flex-shrink: 0;
+    }
+    .about-info-value {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink-900);
+      text-align: right;
+    }
+    .about-info-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent-teal);
+    }
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent-teal);
+      flex-shrink: 0;
+      animation: pulse 2s infinite;
+    }
+    
     /* ── CONTACT STRIP ── */
     #contact {
       background: var(--ink-050);
@@ -975,10 +1034,9 @@
     <div class="about-inner">
       <div class="about-left reveal">
         <span class="label">About Me</span>
-        <h2 class="about-title" id="about-title">Designer. Researcher.<br><em style="font-style:italic;color:rgba(255,255,255,.45)">Former social worker.</em></h2>
+        <h2 class="about-title" id="about-title">Designer by craft.<br><em style="font-style:italic;color:rgba(255,255,255,.45)">Learner by habit.</em></h2>
         <div class="about-body">
-          <p>Before picking up Figma, I spent nearly a decade working with people in crisis — listening, problem-solving, and building trust under pressure. That background shapes every design decision I make.</p>
-          <p>I don't just design screens. I design for the human on the other side — their frustrations, their contexts, and what they actually need to succeed.</p>
+          <p>Fueled by a passion for continuous learning and great food, I love spending my late nights diving into UI/UX concepts to craft better digital experiences or binge-watch my favourite anime!.</p>
         </div>
         <div class="about-skills">
           <span class="skill-chip">Product Design</span>
@@ -998,20 +1056,24 @@
         </a>
       </div>
       <div class="about-right reveal" style="transition-delay: .15s">
-        <div class="about-card">
-          <div class="about-card-num">01 — Approach</div>
-          <div class="about-card-title">People First, Always</div>
-          <div class="about-card-body">Research isn't a phase — it's a practice. I interview, observe, and test continuously to make sure design decisions are grounded in real behavior, not assumptions.</div>
+        <div class="about-photo-card">
+          <img src="/assets/img/main-profile.jpeg" alt="Piyush Jadhav" class="about-photo-img">
         </div>
-        <div class="about-card">
-          <div class="about-card-num">02 — Process</div>
-          <div class="about-card-title">Think, Make, Test, Repeat</div>
-          <div class="about-card-body">I move fast in low fidelity and slow down where it matters. Prototypes get validated early, ideas get killed early, and the best solutions emerge from iteration — not perfection.</div>
-        </div>
-        <div class="about-card">
-          <div class="about-card-num">03 — Craft</div>
-          <div class="about-card-title">Pixel-level Intentionality</div>
-          <div class="about-card-body">Good UX is invisible. Great visual design amplifies it. I care about the 2px that separates "polished" from "almost there."</div>
+      
+        <div class="about-info-card">
+          <div class="about-info-row">
+            <span class="about-info-label">Based in</span>
+            <span class="about-info-value">Preston, Lancashire, UK</span>
+          </div>
+          <div class="about-info-row">
+            <span class="about-info-label">Background</span>
+            <span class="about-info-value">UI/UX → Product Designer</span>
+          </div>
+          <div class="about-info-row">
+            <span class="about-info-label">Status</span>
+            <span class="about-info-value about-info-status">
+            <span class="status-dot"></span>Open to work </span>
+          </div>
         </div>
       </div>
     </div>
