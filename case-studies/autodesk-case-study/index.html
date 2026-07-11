@@ -167,6 +167,21 @@
     .carousel-arrow:hover svg { stroke:white; }
     .carousel-arrow:active { transform:scale(.93); }
     .carousel-arrow svg { width:16px; height:16px; stroke:var(--ink-500); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; transition:stroke .2s; }
+
+    /* METHOD CARDS (stacked) */
+    .method-stack { display:flex; flex-direction:column; gap:var(--sp-24); margin-top:var(--sp-8); }
+    .method-card { background:var(--white); border:1.5px solid var(--ink-100); border-radius:var(--r-xl); overflow:hidden; box-shadow:var(--shadow-card); transition:transform .25s cubic-bezier(.34,1.36,.64,1),box-shadow .25s; }
+    .method-card:hover { transform:translateY(-3px); box-shadow:0 14px 40px rgba(0,0,0,.10); }
+    .method-header { padding:var(--sp-24) var(--sp-32); display:flex; align-items:center; gap:var(--sp-16); border-bottom:1.5px solid var(--ink-100); background:var(--accent-muted); }
+    .method-num { width:36px; height:36px; border-radius:50%; background:var(--accent); color:white; font-family:var(--font-display); font-size:15px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .method-title { font-family:var(--font-display); font-size:18px; font-weight:800; color:var(--ink-900); letter-spacing:-.02em; line-height:1.32; }
+    .method-body { padding:var(--sp-32); font-size:15px; line-height:1.72; color:var(--ink-700); }
+    .method-body p+p { margin-top:var(--sp-16); }
+    .method-body ul { margin-top:var(--sp-12); display:flex; flex-direction:column; gap:var(--sp-12); list-style:none; }
+    .method-body li { line-height:1.6; padding-left:var(--sp-16); position:relative; }
+    .method-body li::before { content:'–'; position:absolute; left:0; color:var(--accent); font-weight:700; }
+    .method-body li strong { font-weight:700; color:var(--ink-900); }
+    .method-img { border-top:1.5px solid var(--ink-100); padding:var(--sp-16); background:var(--ink-050); }
     
     /* THEME TABLE */
     .theme-table-wrap { margin-top:var(--sp-32); border-radius:var(--r-xl); border:1.5px solid var(--ink-100); overflow:hidden; box-shadow:var(--shadow-card); }
@@ -436,85 +451,66 @@
       <p>Three research phases across a 6-week Agile sprint — Discovery, Ideation, Evaluation — working directly with Autodesk's worldwide experts and customer base.</p>
     </div>
 
-    <div class="carousel-wrap appear" id="res-carousel" role="region" aria-label="Research methods">
-      <div class="carousel-track" id="res-track">
+    <div class="method-stack stagger">
 
-        <div class="carousel-slide" role="group" aria-label="Method 1 of 3" aria-hidden="false">
-          <div class="carousel-slide-inner">
-            <div class="carousel-text">
-              <span class="carousel-number">Method 01</span>
-              <h3 class="carousel-slide-title">Heuristic Evaluation + Large-Scale Content Analysis</h3>
-              <div class="carousel-slide-body">
-                <p>Nielsen's 10 heuristics applied to existing ACC workflows. Alongside this, over 25,000 comments from Reddit, YouTube, and Autodesk forums were collected and filtered using AI-assisted coding.</p>
-                <ul>
-                  <li>AI assisted in deciding which data to code. All codes and themes were human-defined.</li>
-                  <li>160 actionable insights generated before thematic synthesis</li>
-                  <li>Key finding: <strong>Users struggled to connect what changed in the model with what broke. The interface gave them too little feedback and too much friction when moving between the two workflows.</strong></li>
-                </ul>
-              </div>
-            </div>
-            <div class="carousel-img">
-              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Generalised research method visual"><span class="ph-icon">🔍</span><span class="ph-text">Insert: Research Method Visual</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="carousel-slide" role="group" aria-label="Method 2 of 3" aria-hidden="true">
-          <div class="carousel-slide-inner">
-            <div class="carousel-text">
-              <span class="carousel-number">Method 02</span>
-              <h3 class="carousel-slide-title">Thematic Analysis - Five Themes, Two Dominant</h3>
-              <div class="carousel-slide-body">
-                <p>Codes were grouped into five overarching themes. Two rose significantly above the others in frequency and impact.</p>
-                <ul>
-                  <li>Positives</li>
-                  <li>Pain Points and Frustrations</li>
-                  <li><strong>Workflow Challenges</strong> - dominant theme</li>
-                  <li><strong>Visibility Gaps</strong> - dominant theme</li>
-                  <li>Manual Workarounds</li>
-                </ul>
-              </div>
-            </div>
-            <div class="carousel-img">
-              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Generalised thematic analysis visual"><span class="ph-icon">📊</span><span class="ph-text">Insert: Thematic Analysis Visual</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="carousel-slide" role="group" aria-label="Method 3 of 3" aria-hidden="true">
-          <div class="carousel-slide-inner">
-            <div class="carousel-text">
-              <span class="carousel-number">Method 03</span>
-              <h3 class="carousel-slide-title">Benchmark Analysis + Analogous Inspiration</h3>
-              <div class="carousel-slide-body">
-                <p>Competitor platforms investigated directly and indirectly related to the problem space. A key finding came from a market-leading platform in the same space.</p>
-                <ul>
-                  <li>A leading platform in this space tracks clashes through a clear status progression: <strong>New → Active → Resolved</strong></li>
-                  <li>This gives teams a shared view of what has been dealt with and what still needs attention</li>
-                  <li>The platform we were studying had no equivalent. Clashes were detected but never formally tracked to resolution. That gap became a direct design target.</li>
-                  <li>Analogous Inspiration surfaced useful patterns from outside the BIM field</li>
-                </ul>
-              </div>
-            </div>
-            <div class="carousel-img">
-              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Generalised benchmark visual"><span class="ph-icon">🌍</span><span class="ph-text">Insert: Benchmark Analysis Visual</span></div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="carousel-controls">
-        <div class="carousel-dots" role="tablist" aria-label="Slide navigation">
-          <button class="carousel-dot active" data-idx="0" role="tab" aria-selected="true" aria-label="Method 1"></button>
-          <button class="carousel-dot" data-idx="1" role="tab" aria-selected="false" aria-label="Method 2"></button>
-          <button class="carousel-dot" data-idx="2" role="tab" aria-selected="false" aria-label="Method 3"></button>
-        </div>
-        <div class="carousel-arrows">
-          <button class="carousel-arrow" id="res-prev" aria-label="Previous method"><svg viewBox="0 0 16 16"><polyline points="10,3 5,8 10,13"/></svg></button>
-          <button class="carousel-arrow" id="res-next" aria-label="Next method"><svg viewBox="0 0 16 16"><polyline points="6,3 11,8 6,13"/></svg></button>
-        </div>
-      </div>
+  <div class="method-card">
+    <div class="method-header">
+      <div class="method-num">01</div>
+      <div class="method-title">Heuristic Evaluation + Large-Scale Content Analysis</div>
     </div>
+    <div class="method-body">
+      <p>Nielsen's 10 heuristics applied to existing ACC workflows. Alongside this, over 25,000 comments from Reddit, YouTube, and Autodesk forums were collected and filtered using AI-assisted coding.</p>
+      <ul>
+        <li>AI assisted in deciding which data to code. All codes and themes were human-defined.</li>
+        <li>160 actionable insights generated before thematic synthesis</li>
+        <li>Key finding: <strong>Users struggled to connect what changed in the model with what broke. The interface gave them too little feedback and too much friction when moving between the two workflows.</strong></li>
+      </ul>
+    </div>
+    <div class="method-img">
+      <img src="/assets/img/dwp_m2.png" alt="Contextual mapping artefact" class="carousel-image">
+    </div>
+  </div>
+
+  <div class="method-card">
+    <div class="method-header">
+      <div class="method-num">02</div>
+      <div class="method-title">Thematic Analysis - Five Themes, Two Dominant</div>
+    </div>
+    <div class="method-body">
+      <p>Codes were grouped into five overarching themes. Two rose significantly above the others in frequency and impact.</p>
+      <ul>
+        <li>Positives</li>
+        <li>Pain Points and Frustrations</li>
+        <li><strong>Workflow Challenges</strong> - dominant theme</li>
+        <li><strong>Visibility Gaps</strong> - dominant theme</li>
+        <li>Manual Workarounds</li>
+      </ul>
+    </div>
+    <div class="method-img">
+      <img src="/assets/img/dwp_m2.png" alt="Contextual mapping artefact" class="carousel-image">
+    </div>
+  </div>
+
+  <div class="method-card">
+    <div class="method-header">
+      <div class="method-num">03</div>
+      <div class="method-title">Benchmark Analysis + Analogous Inspiration</div>
+    </div>
+    <div class="method-body">
+      <p>Competitor platforms investigated directly and indirectly related to the problem space. A key finding came from a market-leading platform in the same space.</p>
+      <ul>
+        <li>A leading platform in this space tracks clashes through a clear status progression: <strong>New → Active → Resolved</strong></li>
+        <li>This gives teams a shared view of what has been dealt with and what still needs attention</li>
+        <li>The platform we were studying had no equivalent. Clashes were detected but never formally tracked to resolution. That gap became a direct design target.</li>
+        <li>Analogous Inspiration surfaced useful patterns from outside the BIM field</li>
+      </ul>
+    </div>
+    <div class="method-img">
+      <img src="/assets/img/dwp_m2.png" alt="Contextual mapping artefact" class="carousel-image">
+    </div>
+  </div>
+
+</div>
 
     <div class="highlight-quote appear" style="margin-top:var(--sp-48);">
       <p>The problem was not that ACC had too little data. It had too much, <em>siloed in the wrong places.</em> The solution was not to add more. It was to create continuity between what already existed.</p>
@@ -872,7 +868,7 @@
     },{passive:true});
     [prevBtn,nextBtn].forEach(function(btn){btn.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){e.preventDefault();goTo(current-1);}if(e.key==='ArrowRight'){e.preventDefault();goTo(current+1);}});});
   }
-  initCarousel('res-track','res-prev','res-next','#res-carousel .carousel-dot');
+  
 
   document.querySelectorAll('a[href^="#"]').forEach(function(anchor){anchor.addEventListener('click',function(e){var target=document.querySelector(this.getAttribute('href'));if(!target)return;e.preventDefault();window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY-80,behavior:'smooth'});});});
   window.addEventListener('load',function(){document.querySelectorAll('.appear,.stagger').forEach(function(el){if(el.getBoundingClientRect().top<window.innerHeight){el.classList.add('visible');}});});
