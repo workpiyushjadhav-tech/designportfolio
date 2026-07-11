@@ -126,7 +126,8 @@
     .highlight-quote cite { display:block; margin-top:var(--sp-12); font-size:13px; color:var(--ink-500); font-style:normal; }
     .two-col { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-24); margin-top:var(--sp-32); }
     .sub-heading { font-family:var(--font-display); font-size:15px; font-weight:700; color:var(--ink-900); margin-bottom:var(--sp-12); }
-    .img-ph { width:100%; border-radius:var(--r-lg); background:var(--ink-100); border:1.5px dashed var(--ink-300); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--sp-8); color:var(--ink-300); min-height:200px; padding:var(--sp-32); }
+    .img-ph { width:100%; border-radius:var(--r-lg); background:var(--ink-100); border:1.5px dashed var(--ink-300); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--sp-8); color:var(--ink-300); min-height:200px; padding:var(--sp-32); overflow:hidden; }
+    .img-ph img { width:100%; height:100%; object-fit:cover; display:block; }
     .img-ph .ph-icon { font-size:28px; opacity:.45; }
     .img-ph .ph-text { font-family:var(--font-display); font-size:12px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; }
     .img-ph--wide { aspect-ratio:16/9; min-height:0; }
@@ -167,6 +168,7 @@
     .carousel-arrow:hover svg { stroke:white; }
     .carousel-arrow:active { transform:scale(.93); }
     .carousel-arrow svg { width:16px; height:16px; stroke:var(--ink-500); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; transition:stroke .2s; }
+    .carousel-image { display:block; width:100%; height:auto; }
 
     /* METHOD CARDS (stacked) */
     .method-stack { display:flex; flex-direction:column; gap:var(--sp-24); margin-top:var(--sp-8); }
@@ -272,7 +274,7 @@
 
     @media (max-width:768px) {
       .carousel-slide-inner { grid-template-columns:1fr; min-height:unset; }
-      .carousel-img { min-height:220px; position:relative; }
+      .carousel-img { min-height:0; position:relative; }
       .carousel-img .img-ph { position:relative; inset:unset; height:220px; min-height:unset; }
       .carousel-text { border-right:none; border-bottom:1.5px solid var(--ink-100); padding:var(--sp-32) var(--sp-24); }
       .carousel-arrow { width:44px; height:44px; }
@@ -308,7 +310,6 @@
       .two-col { grid-template-columns:1fr; }
       .metrics-row { grid-template-columns:1fr; }
       .carousel-slide-inner { grid-template-columns:1fr; min-height:unset; }
-      .carousel-img { min-height:240px; }
       .carousel-text { border-right:none; border-bottom:1.5px solid var(--ink-100); padding:var(--sp-32) var(--sp-24); }
       #cursor,#cursor-ring { display:none; } body { cursor:auto; }
       .footer-inner { flex-direction:column; text-align:center; }
