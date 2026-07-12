@@ -139,7 +139,6 @@
     .metric-label { font-family:var(--font-display); font-size:13px; font-weight:600; color:var(--ink-500); line-height:1.45; }
 
     /* CAROUSEL */
-/* CAROUSEL */
     .carousel-wrap { position:relative; overflow:hidden; isolation: isolate; border-radius:var(--r-xl); border:1.5px solid var(--ink-100); box-shadow:var(--shadow-card); }
     .carousel-track { display:flex; transition:transform .52s cubic-bezier(.32,0,.67,0); }
     .carousel-slide { flex:0 0 100%; width:100%; }
@@ -170,7 +169,7 @@
     .carousel-arrow svg { width:16px; height:16px; stroke:var(--ink-500); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; transition:stroke .2s; }
     .carousel-image { display:block; width:100%; height:auto; }
 
-    /* METHOD CARDS (stacked) 
+    /* METHOD CARDS (stacked) */
     .method-stack { display:flex; flex-direction:column; gap:var(--sp-24); margin-top:var(--sp-8); }
     .method-card { background:var(--white); border:1.5px solid var(--ink-100); border-radius:var(--r-xl); overflow:hidden; box-shadow:var(--shadow-card); transition:transform .25s cubic-bezier(.34,1.36,.64,1),box-shadow .25s; }
     .method-card:hover { transform:translateY(-3px); box-shadow:0 14px 40px rgba(0,0,0,.10); }
@@ -183,7 +182,7 @@
     .method-body li { line-height:1.6; padding-left:var(--sp-16); position:relative; }
     .method-body li::before { content:'–'; position:absolute; left:0; color:var(--accent); font-weight:700; }
     .method-body li strong { font-weight:700; color:var(--ink-900); }
-    .method-img { border-top:1.5px solid var(--ink-100); padding:var(--sp-16); background:var(--ink-050); } */
+    .method-img { border-top:1.5px solid var(--ink-100); padding:var(--sp-16); background:var(--ink-050); }
     
     /* THEME TABLE */
     .theme-table-wrap { margin-top:var(--sp-32); border-radius:var(--r-xl); border:1.5px solid var(--ink-100); overflow:hidden; box-shadow:var(--shadow-card); }
@@ -332,9 +331,6 @@
       *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
       .appear,.stagger>* { opacity:1; transform:none; }
     }
-
-    .method-stack { display:flex; flex-direction:column; gap:var(--sp-24); margin-top:var(--sp-8); }
-  
   </style>
 </head>
 <body>
@@ -455,68 +451,66 @@
       <p>Three research phases across a 6-week Agile sprint — Discovery, Ideation, Evaluation — working directly with Autodesk's worldwide experts and customer base.</p>
     </div>
 
-    <div class="method-stack stagger"> 
+    <div class="method-stack stagger">
 
-  <div class="method-card">
-    <div class="method-header">
-      <div class="method-num">01</div>
-      <div class="method-title">Heuristic Evaluation + Large-Scale Content Analysis</div>
-    </div>
-    <div class="method-body">
-      <p>Nielsen's 10 heuristics applied to existing ACC workflows. Alongside this, over 25,000 comments from Reddit, YouTube, and Autodesk forums were collected and filtered using AI-assisted coding.</p>
-      <ul>
-        <li>AI assisted in deciding which data to code. All codes and themes were human-defined.</li>
-        <li>160 actionable insights generated before thematic synthesis</li>
-        <li>Key finding: <strong>Users struggled to connect what changed in the model with what broke. The interface gave them too little feedback and too much friction when moving between the two workflows.</strong></li>
-      </ul>
-    </div>
-    <div class="method-img">
-      <img src="/assets/img/dwp_m2.png" alt="Contextual mapping artefact" class="carousel-image">
-    </div>
-  </div>
+      <div class="method-card">
+        <div class="method-header">
+          <div class="method-num">01</div>
+          <div class="method-title">Heuristic Evaluation + Large-Scale Content Analysis</div>
+        </div>
+        <div class="method-body">
+          <p>Nielsen's 10 heuristics applied to existing ACC workflows. Alongside this, over 25,000 comments from Reddit, YouTube, and Autodesk forums were collected and filtered using AI-assisted coding.</p>
+          <ul>
+            <li>AI assisted in deciding which data to code. All codes and themes were human-defined.</li>
+            <li>160 actionable insights generated before thematic synthesis</li>
+            <li>Key finding: <strong>Users struggled to connect what changed in the model with what broke. The interface gave them too little feedback and too much friction when moving between the two workflows.</strong></li>
+          </ul>
+        </div>
+        <div class="method-img">
+          <img src="/assets/img/dwp_m2.png" alt="Contextual mapping artefact" class="carousel-image">
+        </div>
+      </div>
 
-  <div class="method-card">
-    <div class="method-header">
-      <div class="method-num">02</div>
-      <div class="method-title">Thematic Analysis - Five Themes, Two Dominant</div>
-    </div>
-    <div class="method-body">
-      <p>Codes were grouped into five overarching themes. Two rose significantly above the others in frequency and impact.</p>
-      <ul>
-        <li>Positives</li>
-        <li>Pain Points and Frustrations</li>
-        <li><strong>Workflow Challenges</strong> - dominant theme</li>
-        <li><strong>Visibility Gaps</strong> - dominant theme</li>
-        <li>Manual Workarounds</li>
-      </ul>
-    </div>
-    <div class="method-img">
-      <img src="/assets/img/dwp_m2.png" alt="Contextual mapping artefact" class="carousel-image">
-    </div>
-  </div>
+      <div class="method-card">
+        <div class="method-header">
+          <div class="method-num">02</div>
+          <div class="method-title">Thematic Analysis - Five Themes, Two Dominant</div>
+        </div>
+        <div class="method-body">
+          <p>Codes were grouped into five overarching themes. Two rose significantly above the others in frequency and impact.</p>
+          <ul>
+            <li>Positives</li>
+            <li>Pain Points and Frustrations</li>
+            <li><strong>Workflow Challenges</strong> - dominant theme</li>
+            <li><strong>Visibility Gaps</strong> - dominant theme</li>
+            <li>Manual Workarounds</li>
+          </ul>
+        </div>
+        <div class="method-img">
+          <img src="/assets/img/dwp_m2.png" alt="Contextual mapping artefact" class="carousel-image">
+        </div>
+      </div>
 
-  <div class="method-card">
-    <div class="method-header">
-      <div class="method-num">03</div>
-      <div class="method-title">Benchmark Analysis + Analogous Inspiration</div>
-    </div>
-    <div class="method-body">
-      <p>Competitor platforms investigated directly and indirectly related to the problem space. A key finding came from a market-leading platform in the same space.</p>
-      <ul>
-        <li>A leading platform in this space tracks clashes through a clear status progression: <strong>New → Active → Resolved</strong></li>
-        <li>This gives teams a shared view of what has been dealt with and what still needs attention</li>
-        <li>The platform we were studying had no equivalent. Clashes were detected but never formally tracked to resolution. That gap became a direct design target.</li>
-        <li>Analogous Inspiration surfaced useful patterns from outside the BIM field</li>
-      </ul>
-    </div>
-    <div class="method-img">
-      <img src="/assets/img/dwp_m2.png" alt="Contextual mapping artefact" class="carousel-image">
-    </div>
-  </div>
+      <div class="method-card">
+        <div class="method-header">
+          <div class="method-num">03</div>
+          <div class="method-title">Benchmark Analysis + Analogous Inspiration</div>
+        </div>
+        <div class="method-body">
+          <p>Competitor platforms investigated directly and indirectly related to the problem space. A key finding came from a market-leading platform in the same space.</p>
+          <ul>
+            <li>A leading platform in this space tracks clashes through a clear status progression: <strong>New → Active → Resolved</strong></li>
+            <li>This gives teams a shared view of what has been dealt with and what still needs attention</li>
+            <li>The platform we were studying had no equivalent. Clashes were detected but never formally tracked to resolution. That gap became a direct design target.</li>
+            <li>Analogous Inspiration surfaced useful patterns from outside the BIM field</li>
+          </ul>
+        </div>
+        <div class="method-img">
+          <img src="/assets/img/dwp_m2.png" alt="Contextual mapping artefact" class="carousel-image">
+        </div>
+      </div>
 
-</div>
-
-
+    </div>
 
     <div class="highlight-quote appear" style="margin-top:var(--sp-48);">
       <p>The problem was not that ACC had too little data. It had too much, <em>siloed in the wrong places.</em> The solution was not to add more. It was to create continuity between what already existed.</p>
