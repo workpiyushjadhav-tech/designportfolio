@@ -366,7 +366,7 @@
 
     /* DATA TABLE */
     .data-table-wrap {
-      margin-top: var(--sp-32); border-radius: var(--r-lg);
+      margin-top: var(--sp-32); border-radius: var(--r-xl);
       border: 1.5px solid var(--ink-100); overflow: hidden; box-shadow: var(--shadow-card);
     }
     .data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
@@ -419,6 +419,23 @@
     .carousel-arrow:hover svg{stroke:#fff;} 
     .carousel-arrow:active{transform:scale(.93);} 
     .carousel-arrow svg{width:16px;height:16px;stroke:var(--ink-500);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s;}
+
+    /* METHOD CARDS (stacked) */
+    .method-stack { display:flex; flex-direction:column; gap:var(--sp-24); margin-top:var(--sp-8); }
+    .method-card { background:var(--white); border:1.5px solid var(--ink-100); border-radius:var(--r-xl); overflow:hidden; box-shadow:var(--shadow-card); transition:transform .25s cubic-bezier(.34,1.36,.64,1),box-shadow .25s; }
+    .method-card:hover { transform:translateY(-3px); box-shadow:0 14px 40px rgba(0,0,0,.10); }
+    .method-header { padding:var(--sp-24) var(--sp-32); display:flex; align-items:center; gap:var(--sp-16); border-bottom:1.5px solid var(--ink-100); background:var(--accent-muted); }
+    .method-num { width:36px; height:36px; border-radius:50%; background:var(--accent); color:white; font-family:var(--font-display); font-size:15px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .method-title { font-family:var(--font-display); font-size:18px; font-weight:800; color:var(--ink-900); letter-spacing:-.02em; line-height:1.32; }
+    .method-body { padding:var(--sp-32); font-size:15px; line-height:1.72; color:var(--ink-700); }
+    .method-body p+p { margin-top:var(--sp-16); }
+    .method-body ul { margin-top:var(--sp-12); display:flex; flex-direction:column; gap:var(--sp-12); list-style:none; }
+    .method-body li { line-height:1.6; padding-left:var(--sp-16); position:relative; }
+    .method-body li::before { content:'–'; position:absolute; left:0; color:var(--accent); font-weight:700; }
+    .method-body li strong { font-weight:700; color:var(--ink-900); }
+    .method-img { border-top:1.5px solid var(--ink-100); padding:var(--sp-16); background:var(--ink-050); }
+    .method-img img { width:100%; height:auto; display:block; }
+
     /* QUOTE CARDS */
     .quotes-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-20); margin-top: var(--sp-40);
@@ -1043,89 +1060,66 @@
       </table>
     </div>
 
-    <!-- Carousel: Research Areas -->
-    <div class="carousel-wrap appear" id="res-carousel" role="region" aria-label="Research findings" style="margin-top:var(--sp-48);">
-      <div class="carousel-track" id="res-track">
+    <!-- Research Methods -->
+    <div class="method-stack stagger" style="margin-top:var(--sp-48);">
 
-        <div class="carousel-slide" role="group" aria-label="Finding 1 of 3" aria-hidden="false">
-          <div class="carousel-slide-inner">
-            <div class="carousel-text">
-              <span class="carousel-number">Method 01</span>
-              <h3 class="carousel-slide-title">Ethical Pivot - Large-Scale Content Analysis</h3>
-              <div class="carousel-slide-body">
-                <p>Recruiting recently bereaved participants within a 5-week window raised significant ethical concerns. Rather than proceed with methodologically compromised interviews, I proposed and led an alternative: Reddit content analysis at scale.</p>
-                <ul>
-                  <li>636 unique posts · r/UKPersonalFinance, r/LegalAdviceUK, r/bereavement</li>
-                  <li>15,631 coded sentences · 41 unique codes · 8 themes</li>
-                  <li>Thematic analysis: Braun &amp; Clarke (2006) six-phase method</li>
-                  <li><strong>More data than interviews could have produced in five weeks - fewer ethical risks</strong></li>
-                </ul>
-              </div>
-            </div>
-            <div class="carousel-img">
-              <img src="/assets/img/dwp_m1.png" alt="Content analysis methodology visual" class="carousel-image">
-            </div>
-          </div>
+      <div class="method-card">
+        <div class="method-header">
+          <div class="method-num">01</div>
+          <div class="method-title">Ethical Pivot - Large-Scale Content Analysis</div>
         </div>
-
-        <div class="carousel-slide" role="group" aria-label="Finding 2 of 3" aria-hidden="true">
-          <div class="carousel-slide-inner">
-            <div class="carousel-text">
-              <span class="carousel-number">Method 02</span>
-              <h3 class="carousel-slide-title">Contextual Mapping - The Clarifying Artefact</h3>
-              <div class="carousel-slide-body">
-                <p>Tracing every bereavement touchpoint before a user could reach BSP revealed no single "start here" point - and the 90-day BSP deadline communicated at zero formal touchpoints.</p>
-                <ul>
-                  <li>Eligibility rules scattered across at least four agencies</li>
-                  <li>BSP 90-day deadline surfaced at <strong>zero formal touchpoints</strong></li>
-                  <li>Map made systemic failure visible on one surface for the first time</li>
-                  <li>Directly generated the three-layer solution structure</li>
-                </ul>
-              </div>
-            </div>
-            <div class="carousel-img">
-              <img src="/assets/img/dwp_m2.png" alt="Contextual mapping artefact" class="carousel-image">
-            </div>
-          </div>
+        <div class="method-body">
+          <p>Recruiting recently bereaved participants within a 5-week window raised significant ethical concerns. Rather than proceed with methodologically compromised interviews, I proposed and led an alternative: Reddit content analysis at scale.</p>
+          <ul>
+            <li>636 unique posts · r/UKPersonalFinance, r/LegalAdviceUK, r/bereavement</li>
+            <li>15,631 coded sentences · 41 unique codes · 8 themes</li>
+            <li>Thematic analysis: Braun &amp; Clarke (2006) six-phase method</li>
+            <li><strong>More data than interviews could have produced in five weeks - fewer ethical risks</strong></li>
+          </ul>
         </div>
-
-        <div class="carousel-slide" role="group" aria-label="Finding 3 of 3" aria-hidden="true">
-          <div class="carousel-slide-inner">
-            <div class="carousel-text">
-              <span class="carousel-number">Method 03</span>
-              <h3 class="carousel-slide-title">Competitor Analysis + Analogous Inspiration</h3>
-              <div class="carousel-slide-body">
-                <p>Reviewed bereavement service models across four countries and six analogous services. One pattern was consistent across every high-performing service.</p>
-                <ul>
-                  <li><strong>Macmillan Cancer Support</strong> - staging complexity into clear phases</li>
-                  <li><strong>NHS Symptom Checker</strong> - question-based, personalised next steps</li>
-                  <li><strong>e-Estonia</strong> - enter-once, no repeated context</li>
-                  <li><strong>Common pattern:</strong> the service initiates contact - it doesn't wait to be found</li>
-                </ul>
-              </div>
-            </div>
-            <div class="carousel-img">
-              <img src="/assets/img/dwp_m3.png" alt="Competitor analysis visual" class="carousel-image">
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="carousel-controls">
-        <div class="carousel-dots" role="tablist" aria-label="Slide navigation">
-          <button class="carousel-dot active" data-idx="0" role="tab" aria-selected="true"  aria-label="Finding 1"></button>
-          <button class="carousel-dot"        data-idx="1" role="tab" aria-selected="false" aria-label="Finding 2"></button>
-          <button class="carousel-dot"        data-idx="2" role="tab" aria-selected="false" aria-label="Finding 3"></button>
-        </div>
-        <div class="carousel-arrows">
-          <button class="carousel-arrow" id="res-prev" aria-label="Previous finding">
-            <svg viewBox="0 0 16 16"><polyline points="10,3 5,8 10,13"/></svg>
-          </button>
-          <button class="carousel-arrow" id="res-next" aria-label="Next finding">
-            <svg viewBox="0 0 16 16"><polyline points="6,3 11,8 6,13"/></svg>
-          </button>
+        <div class="method-img">
+          <img src="/assets/img/dwp_m1.png" alt="Content analysis methodology visual" class="carousel-image">
         </div>
       </div>
+
+      <div class="method-card">
+        <div class="method-header">
+          <div class="method-num">02</div>
+          <div class="method-title">Contextual Mapping - The Clarifying Artefact</div>
+        </div>
+        <div class="method-body">
+          <p>Tracing every bereavement touchpoint before a user could reach BSP revealed no single "start here" point - and the 90-day BSP deadline communicated at zero formal touchpoints.</p>
+          <ul>
+            <li>Eligibility rules scattered across at least four agencies</li>
+            <li>BSP 90-day deadline surfaced at <strong>zero formal touchpoints</strong></li>
+            <li>Map made systemic failure visible on one surface for the first time</li>
+            <li>Directly generated the three-layer solution structure</li>
+          </ul>
+        </div>
+        <div class="method-img">
+          <img src="/assets/img/dwp_m2.png" alt="Contextual mapping artefact" class="carousel-image">
+        </div>
+      </div>
+
+      <div class="method-card">
+        <div class="method-header">
+          <div class="method-num">03</div>
+          <div class="method-title">Competitor Analysis + Analogous Inspiration</div>
+        </div>
+        <div class="method-body">
+          <p>Reviewed bereavement service models across four countries and six analogous services. One pattern was consistent across every high-performing service.</p>
+          <ul>
+            <li><strong>Macmillan Cancer Support</strong> - staging complexity into clear phases</li>
+            <li><strong>NHS Symptom Checker</strong> - question-based, personalised next steps</li>
+            <li><strong>e-Estonia</strong> - enter-once, no repeated context</li>
+            <li><strong>Common pattern:</strong> the service initiates contact - it doesn't wait to be found</li>
+          </ul>
+        </div>
+        <div class="method-img">
+          <img src="/assets/img/dwp_m3.png" alt="Competitor analysis visual" class="carousel-image">
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -1689,53 +1683,6 @@
     item.setAttribute('tabindex', '0');
     item.setAttribute('role', 'button');
   });
-
-  /* Carousel factory */
-  function initCarousel(trackId, prevId, nextId, dotSelector) {
-    var track   = document.getElementById(trackId);
-    var prevBtn = document.getElementById(prevId);
-    var nextBtn = document.getElementById(nextId);
-    if (!track || !prevBtn || !nextBtn) return;
-    var dots   = document.querySelectorAll(dotSelector);
-    var slides = track.querySelectorAll('.carousel-slide');
-    var total  = slides.length;
-    var current = 0, isAnim = false;
-
-    function goTo(idx) {
-      if (isAnim) return;
-      isAnim = true;
-      current = (idx + total) % total;
-      track.style.transform =  'translate3d(-' + (current * 100) + '%,0,0)';     
-      dots.forEach(function(d, i) {
-        var active = i === current;
-        d.classList.toggle('active', active);
-        d.setAttribute('aria-selected', String(active));
-      });
-      slides.forEach(function(s, i) { s.setAttribute('aria-hidden', String(i !== current)); });
-      track.addEventListener('transitionend', function handler() { isAnim = false; track.removeEventListener('transitionend', handler); });
-    }
-
-    slides.forEach(function(s, i) { s.setAttribute('aria-hidden', String(i !== 0)); });
-    prevBtn.addEventListener('click', function() { goTo(current - 1); });
-    nextBtn.addEventListener('click', function() { goTo(current + 1); });
-    dots.forEach(function(dot) {
-      dot.addEventListener('click', function() { goTo(parseInt(dot.getAttribute('data-idx'), 10)); });
-    });
-    [prevBtn, nextBtn].concat(Array.from(dots)).forEach(function(el) {
-      el.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
-        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
-      });
-    });
-    var startX = 0;
-    track.parentElement.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
-    track.parentElement.addEventListener('touchend', function(e) {
-      var delta = e.changedTouches[0].clientX - startX;
-      if (Math.abs(delta) > 50) goTo(delta < 0 ? current + 1 : current - 1);
-    }, { passive: true });
-  }
-
-  initCarousel('res-track', 'res-prev', 'res-next', '#res-carousel .carousel-dot');
 
   /* Smooth scroll anchor links */
   document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
