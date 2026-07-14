@@ -222,6 +222,10 @@
     .iter-badge--issue { background:#FEE2E2; color:#B91C1C; }
     .iter-badge--fix { background:#D1FAE5; color:#065F46; }
     .iter-badge--insight { background:#EEF3FF; color:#1E5EFF; }
+    .iter-image-item { display:block; grid-template-columns:unset; padding:var(--sp-20) 0; }
+    .iter-img-wrap { border-radius:var(--r-lg); overflow:hidden; border:1.5px solid var(--ink-100); background:var(--ink-050); }
+    .iter-img { width:100%; height:auto; display:block; }
+    .iter-img-caption { display:block; margin-top:var(--sp-8); font-size:12px; line-height:1.5; color:var(--ink-500); }
 
     /* TASK ROW */
     .task-row { display:grid; grid-template-columns:80px 1fr; gap:var(--sp-16); align-items:flex-start; padding:var(--sp-20) 0; border-bottom:1px solid var(--ink-100); }
@@ -668,7 +672,15 @@
       <div class="iter-header"><div class="iter-num">02</div><div class="iter-title">No end-user testing</div></div>
       <div class="iter-body">
         <ul>
-          <li><span class="iter-badge iter-badge--issue">Gap</span>The prototype was not tested with real BIM Managers or Engineers. Given the domain complexity — high-stakes construction workflows — this is a significant gap that stakeholder interviews cannot substitute for.</li>
+          <li><span class="iter-badge iter-badge--issue">Gap</span>The prototype was not tested with real BIM Managers or Engineers. But instead tested with a developer who worked on the project before, to get a formal, technical feedback on our ideas. Given the domain complexity (high-stakes construction workflows) — this is a significant gap that stakeholder interviews cannot substitute for.</li>
+
+          <li class="iter-image-item">
+            <div class="iter-img-wrap">
+              <img src="/assets/img/ad_bg.png" alt="Describe the image here" class="iter-img">
+            </div>
+            <span class="iter-img-caption">Your caption text goes here</span>
+          </li>
+
           <li><span class="iter-badge iter-badge--insight">Next Step</span>Task-based usability study with BIM Managers and Engineers using the integrated prototype in a real project context.</li>
         </ul>
       </div>
