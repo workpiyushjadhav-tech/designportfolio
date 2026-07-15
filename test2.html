@@ -3,24 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Culinarr — Piyush Jadhav</title>
-  <meta name="description" content="UX Design Case Study: Culinarr — QR-based group ordering platform for UK food halls.">
+  <title>UK Bereavement Support Redesign - Piyush Jadhav</title>
+  <meta name="description" content="UX Design Case Study: Redesigning UK Bereavement Financial Support - a three-layer service model for DWP, HMRC, and local councils.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <style>
-    /* ── Reset & base ───────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 
-    /* ── Design tokens ─────────────────────────────────────── */
     :root {
-      --accent:       #E31E08;
-      --accent-dark:  #B81506;
-      --accent-muted: #FEF2F1;
-      --accent-warm:  #FF6B35;
-      --accent-teal:  #00C9A7;
+      --accent:       #1B4FD8;
+      --accent-dark:  #1340B0;
+      --accent-muted: #EEF3FF;
+      --accent-warm:  #3B82F6;
+      --accent-teal:  #0EA5E9;
 
       --ink-900: #0D0F11;
       --ink-700: #3F4552;
@@ -44,25 +43,10 @@
       --shadow-nav:  0 1px 2px rgba(0,0,0,.06), 0 4px 24px rgba(0,0,0,.10);
     }
 
-    html, body {
-    overflow-x: hidden;
-    max-width: 100%;
-    }
-
-    #hero, #navbar, .hero-inner, .project-meta {
-    max-width: 100%;
-    overflow-x: hidden;
-    }
-
     body {
-      font-family: var(--font-body);
-      background: var(--white);
-      color: var(--ink-700);
-      overflow-x: hidden;
-      cursor: none;
+      font-family: var(--font-body); background: var(--white); color: var(--ink-700); overflow-x: hidden; cursor: none;
     }
 
-    /* ── Custom cursor ─────────────────────────────────────── */
     #cursor {
       position: fixed; width: 12px; height: 12px;
       background: var(--accent); border-radius: 50%;
@@ -84,32 +68,22 @@
     body.cursor-hover #cursor { width: 20px; height: 20px; background: var(--accent-warm); }
     body.cursor-hover #cursor-ring { width: 56px; height: 56px; border-color: var(--accent-warm); opacity: .3; }
 
-    /* ── Utility ────────────────────────────────────────────── */
     .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 0 var(--sp-24); }
 
-    /* ── Consistent pill / label tokens ─────────────────────── */
     .label {
-      font-family: var(--font-display);
-      font-size: 11px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase;
-      color: var(--accent);
+      font-family: var(--font-display); font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--accent);
     }
-    /* Single pill style used throughout */
     .tag-pill {
       display: inline-flex; align-items: center;
-      background: var(--accent-muted);
-      color: var(--accent);
-      font-family: var(--font-display);
-      font-size: 11px; font-weight: 700;
+      background: var(--accent-muted); color: var(--accent);
+      font-family: var(--font-display); font-size: 11px; font-weight: 700;
       letter-spacing: .08em; text-transform: uppercase;
       padding: 5px 12px; border-radius: 100px;
-      border: 1px solid rgba(227,30,8,.18);
-      white-space: nowrap;
+      border: 1px solid rgba(27,79,216,.18); white-space: nowrap;
     }
 
-    /* ════════════════════════════════════════════════════════
-       TOP NAVBAR — from index.html
-    ════════════════════════════════════════════════════════ */
+    /* NAVBAR */
     #navbar {
       position: fixed; top: 0; left: 0; right: 0;
       z-index: 200; padding: 0 var(--sp-20) var(--sp-20);
@@ -117,6 +91,7 @@
     }
     #navbar-inner {
       pointer-events: all;
+      width: 100%;
       display: flex; align-items: center; justify-content: space-between;
       height: 68px; padding: 0 var(--sp-40);
       background: rgba(255,255,255,.72);
@@ -165,7 +140,7 @@
       padding: 8px 18px; border-radius: var(--r-md); text-decoration: none;
       transition: background .2s, color .2s, transform .15s, box-shadow .2s;
     }
-    .nav-cta:hover { background: var(--accent); color: white; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(227,30,8,.3); }
+    .nav-cta:hover { background: var(--accent); color: white; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(27,79,216,.3); }
     .nav-hamburger {
       display: none; flex-direction: column; gap: 5px;
       cursor: pointer; background: none; border: none; padding: 4px;
@@ -202,26 +177,15 @@
     }
     #mobile-menu a:hover { color: var(--accent); padding-left: 8px; }
 
-    /* ════════════════════════════════════════════════════════
-       SIDE STEPPER NAV
-    ════════════════════════════════════════════════════════ */
+    /* SIDE STEPPER */
     #side-stepper {
-      position: fixed;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 150;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      align-items: flex-end;
+      position: fixed; right: 20px; top: 50%;
+      transform: translateY(-50%); z-index: 150;
+      display: flex; flex-direction: column; gap: 6px; align-items: flex-end;
     }
     .stepper-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-      padding: 4px 0;
+      display: flex; align-items: center; gap: 10px;
+      cursor: pointer; padding: 4px 0;
     }
     .stepper-label {
       font-family: var(--font-display);
@@ -232,149 +196,89 @@
       backdrop-filter: blur(8px);
       border: 1px solid var(--ink-100);
       padding: 5px 12px; border-radius: 100px;
-      white-space: nowrap;
-      opacity: 0;
+      white-space: nowrap; opacity: 1;
       transform: translateX(8px);
       transition: opacity .2s, transform .2s, color .2s, border-color .2s, background .2s;
       pointer-events: none;
     }
     .stepper-item:hover .stepper-label,
+    .stepper-item.active .stepper-label { opacity: 1; transform: translateX(0); }
     .stepper-item.active .stepper-label {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    .stepper-item.active .stepper-label {
-      color: var(--accent);
-      border-color: rgba(227,30,8,.3);
-      background: var(--accent-muted);
+      color: var(--accent); border-color: rgba(27,79,216,.3); background: var(--accent-muted);
     }
     .stepper-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--ink-300);
-    border: 1.5px solid transparent;
-    transition: background .25s, transform .35s cubic-bezier(.34,1.56,.64,1), border-color .25s, width .25s, height .25s, opacity .3s;
-    flex-shrink: 0;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--ink-300); border: 1.5px solid transparent;
+      transition: background .25s, transform .35s cubic-bezier(.34,1.56,.64,1), border-color .25s, width .25s, height .25s, opacity .3s;
+      flex-shrink: 0;
     }
-    .stepper-item:hover .stepper-dot {
-      background: var(--accent-warm);
-      transform: scale(1.3);
-    }
+    .stepper-item:hover .stepper-dot { background: var(--accent-warm); transform: scale(1.3); }
     .stepper-item.active .stepper-dot {
-      background: var(--accent);
-      transform: scale(1.25);
-      border-color: rgba(227,30,8,.25);
-      box-shadow: 0 0 0 3px rgba(227,30,8,.15);
+      background: var(--accent); transform: scale(1.25);
+      border-color: rgba(27,79,216,.25); box-shadow: 0 0 0 3px rgba(27,79,216,.15);
     }
 
-
-    /* ── HERO ──────────────────────────────────────────────── */
+    /* HERO */
     #hero {
-      min-height: 100vh;
-      display: flex; align-items: center;
-      padding: 120px var(--sp-20) 0;
-      position: relative; overflow: hidden;
+      min-height: 100vh; display: flex; align-items: center;
+      padding: 120px var(--sp-20) 0; position: relative; overflow: hidden;
     }
     #hero::before {
-      content: ''; z-index: 0;
-      position: absolute; inset: 0;
+      content: ''; position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 70% 55% at 60% -10%, rgba(227,30,8,.08) 0%, transparent 70%),
+        radial-gradient(ellipse 70% 55% at 60% -10%, rgba(27,79,216,.07) 0%, transparent 70%),
         linear-gradient(180deg, var(--ink-050) 0%, var(--white) 100%);
     }
     #hero::after {
-      content: ''; z-index: 0;
-      position: absolute; inset: 0;
+      content: ''; position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(227,30,8,.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(227,30,8,.04) 1px, transparent 1px);
+        linear-gradient(rgba(27,79,216,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(27,79,216,.04) 1px, transparent 1px);
       background-size: 40px 40px;
       mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 20%, transparent 70%);
-      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 20%, transparent 70%);
-      mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 20%, transparent 70%);
-}
     }
     .hero-inner {
       position: relative; z-index: 1;
-      width: 100%; max-width: 900px;
-      margin: 0 auto;
-      display: flex; flex-direction: column;
-      gap: var(--sp-40);
+      width: 100%; max-width: 900px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: var(--sp-40);
     }
     .hero-eyebrow { display: flex; align-items: center; gap: var(--sp-16); flex-wrap: wrap; }
     .hero-divider { width: 32px; height: 2px; background: var(--accent); border-radius: 2px; }
     .hero-headline {
       font-family: var(--font-display);
       font-size: clamp(32px, 5.5vw, 60px);
-      font-weight: 800; line-height: 1.12; letter-spacing: -.03em;
-      color: var(--ink-900);
+      font-weight: 800; line-height: 1.12; letter-spacing: -.03em; color: var(--ink-900);
     }
     .hero-headline em { font-style: normal; color: var(--accent); }
-    .hero-sub {
-      font-size: 18px; line-height: 1.65; color: var(--ink-500); max-width: 560px;
-    }
+    .hero-sub { font-size:18px; line-height:1.65; color:var(--ink-500); max-width:882px; }
 
-    /* project meta card */
     .project-meta {
       display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-      border: 1.5px solid var(--ink-100); border-radius: var(--r-xl);
+      gap: 0; border: 1.5px solid var(--ink-100); border-radius: var(--r-xl);
       overflow: hidden; background: var(--white); box-shadow: var(--shadow-card);
     }
-    .meta-item {
-      padding: var(--sp-24);
-      border-right: 1px solid var(--ink-100);
-    }
+    .meta-item { padding: var(--sp-24); border-right: 1px solid var(--ink-100); }
     .meta-item:last-child { border-right: none; }
     .meta-key {
       font-family: var(--font-display); font-size: 10px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase; color: var(--accent);
-      margin-bottom: var(--sp-8);
+      letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--sp-8);
     }
-    .meta-val {
-      font-family: var(--font-display); font-size: 14px; font-weight: 600;
-      color: var(--ink-900); line-height: 1.4;
-    }
+    .meta-val { font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--ink-900); line-height: 1.4; }
 
-    /* hero image placeholder */
-    .hero-image-block {
-      width: 100%; border-radius: var(--r-xl); overflow: hidden;
-      background: var(--ink-100); aspect-ratio: 16/7;
-      display: flex; align-items: center; justify-content: center;
-      border: 1.5px dashed var(--ink-300);
-      flex-direction: column; gap: var(--sp-12);
-      margin-bottom: var(--sp-64);
-    }
+    .hero-image-block { width:100%; border-radius:var(--r-xl); overflow:hidden; aspect-ratio:16/7; margin-bottom:var(--sp-64); position:relative;}
+    .hero-image-block img { width:100%; height:100%; object-fit:fill; display:block; }
     .placeholder-icon { font-size: 32px; opacity: .35; }
     .placeholder-label {
       font-family: var(--font-display); font-size: 13px; font-weight: 600;
       color: var(--ink-300); letter-spacing: .02em;
     }
 
-    /* view prototype button */
-    .proto-btn {
-      display: inline-flex; align-items: center; gap: var(--sp-8);
-      font-family: var(--font-display); font-size: 14px; font-weight: 700;
-      color: var(--accent); background: var(--white);
-      border: 1.5px solid var(--accent);
-      padding: 12px 24px; border-radius: var(--r-md); text-decoration: none;
-      cursor: pointer;
-      transition: background .2s, color .2s, transform .18s, box-shadow .18s;
-      box-shadow: 0 0 0 0 rgba(227,30,8,0); width: fit-content;
-    }
-    .proto-btn:hover {
-      background: var(--accent); color: white;
-      transform: translateY(-2px); box-shadow: 0 6px 24px rgba(227,30,8,.28);
-    }
-    .proto-btn svg { width: 16px; height: 16px; }
-
-    /* ── SECTION WRAPPER ──────────────────────────────────── */
+    /* SECTION */
     .section { padding: var(--sp-80) var(--sp-20); width: 100%; }
     .section--grey  { background: var(--ink-050); }
     .section--white { background: var(--white); }
     .content-col { max-width: 900px; margin: 0 auto; }
 
-    /* ── PROBLEM BANNER ──────────────────────────────────── */
     #problem-banner { background: var(--white); padding: var(--sp-80) var(--sp-20); }
     .problem-inner {
       max-width: 720px; margin: 0 auto;
@@ -385,7 +289,6 @@
       font-weight: 700; line-height: 1.4; color: var(--ink-900); letter-spacing: -.02em;
     }
 
-    /* ── SECTION HEADING ─────────────────────────────────── */
     .section-heading { display: flex; flex-direction: column; gap: var(--sp-12); margin-bottom: var(--sp-48); }
     .section-heading h2 {
       font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 44px);
@@ -394,23 +297,19 @@
     .section-heading h2 strong { color: var(--accent); font-weight: 800; }
     .section-heading p { font-size: 17px; line-height: 1.72; color: var(--ink-500); max-width: 640px; margin-top: var(--sp-4); }
 
-    /* ── PROSE ───────────────────────────────────────────── */
     .prose { font-size: 17px; line-height: 1.75; color: var(--ink-700); }
     .prose p + p { margin-top: var(--sp-20); }
     .prose ul { margin-top: var(--sp-16); margin-left: var(--sp-20); display: flex; flex-direction: column; gap: var(--sp-8); }
     .prose ul li { line-height: 1.65; }
     .prose strong { font-weight: 600; color: var(--ink-900); }
 
-    /* ── CARD ────────────────────────────────────────────── */
     .card {
       background: var(--white); border: 1.5px solid var(--ink-100);
-      border-radius: var(--r-xl); padding: var(--sp-32);
-      box-shadow: var(--shadow-card);
+      border-radius: var(--r-xl); padding: var(--sp-32); box-shadow: var(--shadow-card);
     }
-    .card--blue { background: var(--accent-muted); border-color: rgba(227,30,8,.18); }
+    .card--blue { background: var(--accent-muted); border-color: rgba(27,79,216,.18); }
     .card--dark { background: var(--ink-900); border-color: transparent; }
 
-    /* ── HIGHLIGHT QUOTE ─────────────────────────────────── */
     .highlight-quote {
       background: var(--ink-050); border-left: 4px solid var(--accent);
       border-radius: 0 var(--r-md) var(--r-md) 0;
@@ -423,11 +322,9 @@
     .highlight-quote p em { color: var(--accent); font-style: normal; }
     .highlight-quote cite { display: block; margin-top: var(--sp-12); font-size: 13px; color: var(--ink-500); font-style: normal; }
 
-    /* ── TWO-COL GRID ────────────────────────────────────── */
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-24); margin-top: var(--sp-32); }
     .sub-heading { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--ink-900); margin-bottom: var(--sp-12); }
 
-    /* ── IMAGE PLACEHOLDER ───────────────────────────────── */
     .img-ph {
       width: 100%; border-radius: var(--r-lg);
       background: var(--ink-100); border: 1.5px dashed var(--ink-300);
@@ -445,7 +342,6 @@
     .img-ph--short { aspect-ratio: 21/9; min-height: 0; }
     .img-ph--screen { aspect-ratio: 9/16; min-height: 0; }
 
-    /* ── METRICS ROW ─────────────────────────────────────── */
     .metrics-row {
       display: grid; grid-template-columns: repeat(4, 1fr);
       gap: var(--sp-16); margin-top: var(--sp-40);
@@ -463,85 +359,86 @@
     }
     .metric-label { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--ink-500); line-height: 1.45; }
 
-    /* ── CAROUSEL ────────────────────────────────────────── */
-    .carousel-wrap {
-      position: relative; overflow: hidden;
-      border-radius: var(--r-xl); border: 1.5px solid var(--ink-100);
-      box-shadow: var(--shadow-card);
+    /* DATA TABLE */
+    .data-table-wrap {
+      margin-top: var(--sp-32); border-radius: var(--r-xl);
+      border: 1.5px solid var(--ink-100); overflow: hidden; box-shadow: var(--shadow-card);
     }
-    .carousel-track { display: flex; transition: transform .52s cubic-bezier(.32,0,.67,0); }
-    .carousel-slide { flex: 0 0 100%; width: 100%; }
-    .carousel-slide-inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 0; min-height: 500px;
+    .data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .data-table th {
+      font-family: var(--font-display); font-size: 11px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink-500); background: var(--ink-050);
+      padding: var(--sp-16) var(--sp-20); border-bottom: 1.5px solid var(--ink-100); text-align: left;
     }
-    .carousel-text {
-      padding: var(--sp-48) var(--sp-40); display: flex; flex-direction: column;
-      justify-content: center; gap: var(--sp-24);
-      border-right: 1.5px solid var(--ink-100);
-      background: var(--white);
+    .data-table th.highlight { background: var(--accent-muted); color: var(--accent); }
+    .data-table td {
+      padding: var(--sp-16) var(--sp-20);
+      border-bottom: 1px solid var(--ink-100);
+      vertical-align: middle; line-height: 1.55; color: var(--ink-700);
     }
-    .carousel-number {
-      display: inline-flex; align-items: center; gap: var(--sp-8);
-      font-family: var(--font-display); font-size: 11px; font-weight: 800;
-      letter-spacing: .12em; text-transform: uppercase;
-      color: var(--accent); background: var(--accent-muted);
-      padding: 4px 12px; border-radius: 100px; width: fit-content;
-      border: 1px solid rgba(227,30,8,.18);
+    .data-table td.col-num {
+      font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--accent);
     }
-    .carousel-slide-title {
-      font-family: var(--font-display); font-size: 22px; font-weight: 800;
-      color: var(--ink-900); letter-spacing: -.025em; line-height: 1.28;
-    }
-    .carousel-slide-body { font-size: 15px; line-height: 1.72; color: var(--ink-500); }
-    .carousel-slide-body p { margin-bottom: var(--sp-12); }
-    .carousel-slide-body ul { margin-top: var(--sp-8); margin-left: 0; display: flex; flex-direction: column; gap: var(--sp-8); list-style: none; }
-    .carousel-slide-body li { line-height: 1.55; display: flex; gap: var(--sp-8); align-items: flex-start; }
-    .carousel-slide-body li span, .carousel-slide-body li > * { flex-shrink: 1; min-width: 0; word-break: break-word; }
-    .carousel-slide-body strong { font-weight: 700; color: var(--ink-700); display: inline; }
-    .carousel-img {
-      background: var(--ink-050); display: flex; align-items: stretch; justify-content: center;
-      overflow: hidden; position: relative;
-    }
-    .carousel-img .img-ph {
-      border-radius: 0; border: none; background: transparent; width: 100%;
-      min-height: 100%; flex: 1;
-    }
-    /* Progress bar style dots control */
-    .carousel-controls {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: var(--sp-16) var(--sp-24);
-      background: var(--white); border-top: 1.5px solid var(--ink-100);
-    }
-    .carousel-dots { display: flex; gap: var(--sp-8); align-items: center; }
-    .carousel-dot {
-      width: 24px; height: 4px; border-radius: 2px; background: var(--ink-100);
-      cursor: pointer; transition: background .2s, width .25s cubic-bezier(.34,1.56,.64,1); border: none;
-    }
-    .carousel-dot.active { background: var(--accent); width: 40px; }
-    .carousel-dot:hover:not(.active) { background: var(--ink-300); }
-    .carousel-arrows { display: flex; gap: var(--sp-8); }
-    .carousel-arrow {
-      width: 36px; height: 36px; border-radius: 50%;
-      border: 1.5px solid var(--ink-300); background: var(--white);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: border-color .2s, background .2s, transform .15s;
-    }
-    .carousel-arrow:hover { border-color: var(--accent); background: var(--accent); }
-    .carousel-arrow:hover svg { stroke: white; }
-    .carousel-arrow:active { transform: scale(.93); }
-    .carousel-arrow svg { width: 16px; height: 16px; stroke: var(--ink-500); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke .2s; }
+    .data-table td.col-highlight { background: rgba(27,79,216,.04); }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: var(--ink-050); }
+    .data-table tr:hover td.col-highlight { background: rgba(27,79,216,.07); }
 
-    /* ── QUOTE CARDS (lola2 style) ───────────────────────── */
+    /* CAROUSEL */
+    .carousel-wrap{position:relative;overflow:hidden;border-radius:var(--r-xl);border:1.5px solid var(--ink-100);box-shadow:var(--shadow-card);} 
+    .carousel-track{display:flex;transition:transform .52s cubic-bezier(.32,0,.67,0);will-change:transform;transform:translate3d(0,0,0);} 
+    .carousel-slide{flex:0 0 100%;min-width:100%;overflow:hidden;} 
+    .carousel-slide-inner{    display:grid;    grid-template-columns:1fr 1fr;    width:100%;    min-height:620px;}
+    .carousel-text{min-width:0;min-height:0;padding:var(--sp-48) var(--sp-40);display:flex;flex-direction:column;justify-content:center;gap:var(--sp-24);border-right:1.5px solid var(--ink-100);background:var(--white);overflow-y:auto;} 
+    .carousel-number{display:inline-flex;align-items:center;gap:var(--sp-8);font-family:var(--font-display);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:var(--accent-muted);padding:4px 12px;border-radius:100px;width:fit-content;border:1px solid rgba(27,79,216,.18);} 
+    .carousel-slide-title{font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--ink-900);letter-spacing:-.025em;line-height:1.28;} 
+    .carousel-slide-body{font-size:15px;line-height:1.72;color:var(--ink-500);} .carousel-slide-body p{margin-bottom:var(--sp-12);} 
+    .carousel-slide-body ul{margin-top:var(--sp-8);margin-left:0;display:flex;flex-direction:column;gap:var(--sp-8);list-style:none;} 
+    .carousel-slide-body li{line-height:1.55;padding-left:var(--sp-16);position:relative;word-break:break-word;} 
+    .carousel-slide-body li::before{content:"–";position:absolute;left:0;color:var(--accent);font-weight:700;} 
+    .carousel-slide-body li strong{font-weight:700;color:var(--ink-700);} 
+    .carousel-slide-body li span,.carousel-slide-body li>*{flex-shrink:1;min-width:0;word-break:break-word;} 
+    .carousel-slide-body strong{font-weight:700;color:var(--ink-700);display:inline;} 
+    .carousel-img{    display:flex;    align-items:stretch;    justify-content:center;    background:var(--white);    padding:16px;    height:100%;}
+    .carousel-image{ display:block; width:100%; height:100%; object-fit:cover;}
+    .carousel-img .img-ph{display:flex;align-items:center;justify-content:center;width:100%;height:100%;border:none;border-radius:0;background:transparent;} 
+    .carousel-controls{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-16) var(--sp-24);background:var(--white);border-top:1.5px solid var(--ink-100);} 
+    .carousel-dots{display:flex;gap:var(--sp-8);align-items:center;} 
+    .carousel-dot{width:24px;height:4px;border-radius:2px;background:var(--ink-100);cursor:pointer;transition:background .2s,width .25s cubic-bezier(.34,1.56,.64,1);border:none;} 
+    .carousel-dot.active{background:var(--accent);width:40px;} 
+    .carousel-dot:hover:not(.active){background:var(--ink-300);} 
+    .carousel-arrows{display:flex;gap:var(--sp-8);} 
+    .carousel-arrow{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--ink-300);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,background .2s,transform .15s;} 
+    .carousel-arrow:hover{border-color:var(--accent);background:var(--accent);} 
+    .carousel-arrow:hover svg{stroke:#fff;} 
+    .carousel-arrow:active{transform:scale(.93);} 
+    .carousel-arrow svg{width:16px;height:16px;stroke:var(--ink-500);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s;}
+
+    /* METHOD CARDS (stacked) */
+    .method-stack { display:flex; flex-direction:column; gap:var(--sp-24); margin-top:var(--sp-8); }
+    .method-card { background:var(--white); border:1.5px solid var(--ink-100); border-radius:var(--r-xl); overflow:hidden; box-shadow:var(--shadow-card); transition:transform .25s cubic-bezier(.34,1.36,.64,1),box-shadow .25s; }
+    .method-card:hover { transform:translateY(-3px); box-shadow:0 14px 40px rgba(0,0,0,.10); }
+    .method-header { padding:var(--sp-24) var(--sp-32); display:flex; align-items:center; gap:var(--sp-16); border-bottom:1.5px solid var(--ink-100); background:var(--accent-muted); }
+    .method-num { width:36px; height:36px; border-radius:50%; background:var(--accent); color:white; font-family:var(--font-display); font-size:15px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .method-title { font-family:var(--font-display); font-size:18px; font-weight:800; color:var(--ink-900); letter-spacing:-.02em; line-height:1.32; }
+    .method-body { padding:var(--sp-32); font-size:15px; line-height:1.72; color:var(--ink-700); }
+    .method-body p+p { margin-top:var(--sp-16); }
+    .method-body ul { margin-top:var(--sp-12); display:flex; flex-direction:column; gap:var(--sp-12); list-style:none; }
+    .method-body li { line-height:1.6; padding-left:var(--sp-16); position:relative; }
+    .method-body li::before { content:'–'; position:absolute; left:0; color:var(--accent); font-weight:700; }
+    .method-body li strong { font-weight:700; color:var(--ink-900); }
+    .method-img { border-top:1.5px solid var(--ink-100); padding:var(--sp-16); background:var(--ink-050); }
+    .method-img img { width:100%; height:auto; display:block; }
+
+    /* QUOTE CARDS */
     .quotes-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: var(--sp-20); margin-top: var(--sp-40);
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-20); margin-top: var(--sp-40);
     }
     .quote-card {
       background: var(--white); border: 1.5px solid var(--ink-100);
-      border-radius: var(--r-xl); padding: var(--sp-32);
-      box-shadow: var(--shadow-card); display: flex; flex-direction: column;
-      gap: var(--sp-16); position: relative; overflow: hidden;
+      border-radius: var(--r-xl); padding: var(--sp-32); box-shadow: var(--shadow-card);
+      display: flex; flex-direction: column; gap: var(--sp-16); position: relative; overflow: hidden;
     }
     .quote-card::before {
       content: '"'; position: absolute; top: -10px; left: 20px;
@@ -558,34 +455,21 @@
       letter-spacing: .14em; text-transform: uppercase; color: var(--ink-500);
     }
 
-    /* ── STICKY NOTES / SWOT GRID (lola/lola2 style) ────── */
+    /* STICKY NOTES */
     .sticky-notes-grid {
-      background: #ffffff;
-      border: 1px solid rgba(0,0,0,0.08);
-      border-radius: var(--r-xl);
-      padding: var(--sp-32);
-      box-sizing: border-box;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: var(--sp-20);
-      margin-top: var(--sp-24);
-      width: 100%;
-      max-width: 100%;
-      overflow: hidden;
+      background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-radius: var(--r-xl);
+      padding: var(--sp-32); box-sizing: border-box;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-20);
+      margin-top: var(--sp-24); width: 100%; max-width: 100%; overflow: hidden;
     }
     .sticky-note {
       border-radius: var(--r-lg); padding: var(--sp-24) var(--sp-20);
       display: flex; flex-direction: column; gap: var(--sp-12);
-      position: relative; overflow: hidden;
-      box-sizing: border-box;
-      min-width: 0; /* critical: prevents grid blowout */
+      position: relative; overflow: hidden; box-sizing: border-box; min-width: 0;
       box-shadow: 0 2px 8px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
       transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
     }
-    .sticky-note:hover {
-      transform: translateY(-3px) rotate(-.4deg);
-      box-shadow: 0 8px 28px rgba(0,0,0,.12);
-    }
+    .sticky-note:hover { transform: translateY(-3px) rotate(-.4deg); box-shadow: 0 8px 28px rgba(0,0,0,.12); }
     .sticky-note--yellow { background: #FFF9C4; border: 1.5px solid #F9E44A; }
     .sticky-note--orange { background: #FFE8D6; border: 1.5px solid #FFAB6E; }
     .sticky-note--green  { background: #D4F0D4; border: 1.5px solid #6DC96D; }
@@ -601,14 +485,10 @@
     .sticky-note--red    .sticky-note-label { color: #B91C1C; }
     .sticky-note--blue   .sticky-note-label { color: #1B5FAF; }
     .sticky-note ul { list-style: none; display: flex; flex-direction: column; gap: var(--sp-8); margin: 0; padding: 0; }
-    .sticky-note li {
-      font-size: 13px; line-height: 1.55; color: var(--ink-700);
-      display: flex; gap: var(--sp-8); align-items: flex-start;
-      word-break: break-word;
-    }
-    .sticky-note li::before { content: '—'; flex-shrink: 0; opacity: .5; }
+    .sticky-note li { font-size: 13px; line-height: 1.55; color: var(--ink-700); display: flex; gap: var(--sp-8); align-items: flex-start; word-break: break-word; }
+    .sticky-note li::before { content: '-'; flex-shrink: 0; opacity: .5; }
 
-    /* ── HMW BANNER ─────────────────────────────────────── */
+    /* HMW BANNER */
     .hmw-banner {
       background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
       border-radius: var(--r-2xl); padding: var(--sp-64) var(--sp-40);
@@ -623,18 +503,14 @@
       font-weight: 800; color: white; line-height: 1.35; letter-spacing: -.02em; max-width: 620px;
     }
 
-    /* ── PERSONA CARD ────────────────────────────────────── */
+    /* PERSONA CARD */
     .persona-card {
-      display: grid; grid-template-columns: 240px 1fr;
-      gap: 0; background: var(--white);
+      display: grid; grid-template-columns: 240px 1fr; gap: 0; background: var(--white);
       border: 1.5px solid var(--ink-100); border-radius: var(--r-xl);
       overflow: hidden; box-shadow: var(--shadow-card);
     }
-    .persona-avatar {
-      background: var(--ink-100); border-right: 1.5px solid var(--ink-100);
-      display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
-      padding-top: var(--sp-32); gap: 0;
-    }
+    .persona-avatar { background: var(--ink-100); border-right: 1.5px solid var(--ink-100); display: flex; flex-direction: column; align-items: stretch; justify-content: stretch;  padding: 0; gap: 0; min-height: 320px; }
+    .persona-avatar .img-ph { flex: 1; min-height: 100%; width: 100%;  border-radius: 0; border: none; padding: 0;}
     .persona-info { padding: var(--sp-32); display: flex; flex-direction: column; gap: var(--sp-16); }
     .persona-name { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--ink-900); letter-spacing: -.02em; }
     .persona-role { font-size: 14px; color: var(--ink-500); }
@@ -652,20 +528,18 @@
     }
     .pgp-box ul { list-style: none; display: flex; flex-direction: column; gap: var(--sp-6); }
     .pgp-box li { font-size: 13px; line-height: 1.5; color: var(--ink-700); display: flex; gap: var(--sp-8); }
-    .pgp-box li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+    .pgp-box li::before { content: ''; color: var(--accent); flex-shrink: 0; }
 
-    /* ── EMOTION ARC ─────────────────────────────────────── */
+    /* EMOTION ARC */
     .emotion-arc {
       display: flex; align-items: flex-end; gap: 0;
       border: 1.5px solid var(--ink-100); border-radius: var(--r-xl);
-      overflow: hidden; background: var(--white); box-shadow: var(--shadow-card);
-      margin-top: var(--sp-24);
+      overflow: hidden; background: var(--white); box-shadow: var(--shadow-card); margin-top: var(--sp-24);
     }
     .emotion-stage {
       flex: 1; padding: var(--sp-20) var(--sp-16);
       display: flex; flex-direction: column; gap: var(--sp-8);
-      border-right: 1px solid var(--ink-100); transition: background .2s;
-      cursor: default;
+      border-right: 1px solid var(--ink-100); transition: background .2s; cursor: default;
     }
     .emotion-stage:last-child { border-right: none; }
     .emotion-stage:hover { background: var(--ink-050); }
@@ -680,35 +554,7 @@
     .emotion-feel--pos { background: #D1FAE5; color: #065F46; }
     .emotion-feel--mid { background: #FEF3C7; color: #92400E; }
 
-    /* ── COMPARISON TABLE ────────────────────────────────── */
-    .compare-table-wrap {
-      margin-top: var(--sp-32); border-radius: var(--r-xl);
-      border: 1.5px solid var(--ink-100); overflow: hidden;
-      box-shadow: var(--shadow-card);
-    }
-    .compare-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    .compare-table th {
-      font-family: var(--font-display); font-size: 11px; font-weight: 700;
-      letter-spacing: .08em; text-transform: uppercase;
-      color: var(--ink-500); background: var(--ink-050);
-      padding: var(--sp-16) var(--sp-20); border-bottom: 1.5px solid var(--ink-100);
-      text-align: left;
-    }
-    .compare-table th.highlight { background: var(--accent-muted); color: var(--accent); }
-    .compare-table td {
-      padding: var(--sp-16) var(--sp-20);
-      border-bottom: 1px solid var(--ink-100);
-      vertical-align: middle; line-height: 1.55; color: var(--ink-700);
-    }
-    .compare-table td.highlight { background: rgba(227,30,8,.04); }
-    .compare-table tr:last-child td { border-bottom: none; }
-    .compare-table tr:hover td { background: var(--ink-050); }
-    .compare-table tr:hover td.highlight { background: rgba(227,30,8,.07); }
-    .check { color: #16A34A; }
-    .cross { color: #DC2626; }
-    .partial { color: #D97706; }
-
-    /* ── ITERATION CARD ──────────────────────────────────── */
+    /* ITERATION CARD */
     .iter-card {
       background: var(--white); border: 1.5px solid var(--ink-100);
       border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-card); margin-top: var(--sp-24);
@@ -724,88 +570,19 @@
     .iter-body ul { list-style: none; display: flex; flex-direction: column; gap: 0; }
     .iter-body li {
       font-size: 15px; line-height: 1.65; color: var(--ink-700);
-      display: grid; grid-template-columns: 52px 1fr; gap: var(--sp-16);
-      align-items: flex-start; padding: var(--sp-20) 0; border-bottom: 1px solid var(--ink-100);
+      display: flex; flex-direction: column; gap: var(--sp-8);
+      padding: var(--sp-20) 0; border-bottom: 1px solid var(--ink-100);
     }
     .iter-body li:last-child { border-bottom: none; }
     .iter-badge {
-      font-family: var(--font-display); font-size: 9px; font-weight: 800;
-      letter-spacing: .1em; text-transform: uppercase; white-space: nowrap;
-      padding: 4px 8px; border-radius: 6px; flex-shrink: 0; margin-top: 3px;
-      display: inline-block; width: fit-content;
+      font-family: var(--font-display); font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; 
+      white-space: nowrap; padding: 4px 8px; border-radius: 6px; flex-shrink: 0; margin-top: 3px; display: inline-block; width: fit-content;
     }
     .iter-badge--issue   { background: #FEE2E2; color: #B91C1C; }
     .iter-badge--fix     { background: #D1FAE5; color: #065F46; }
-    .iter-badge--insight { background: #EEF3FF; color: #1E5EFF; }
-    .iter-images { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1.5px solid var(--ink-100); }
-    .iter-img-cell { padding: var(--sp-16); display: flex; flex-direction: column; gap: var(--sp-8); }
-    .iter-img-cell:first-child { border-right: 1.5px solid var(--ink-100); }
-    .iter-img-label {
-      font-family: var(--font-display); font-size: 10px; font-weight: 800;
-      letter-spacing: .1em; text-transform: uppercase; text-align: center;
-      display: inline-block; padding: 4px 10px; border-radius: 6px; align-self: center;
-    }
-    .iter-img-label--before { color: #92400E; background: #FEF3C7; }
-    .iter-img-label--after  { color: #065F46; background: #D1FAE5; }
+    .iter-badge--insight { background: #EEF3FF; color: #1B4FD8; }
 
-    /* ── SUS TABLE ───────────────────────────────────────── */
-    .sus-row {
-      display: grid; grid-template-columns: 1fr auto;
-      gap: var(--sp-20); align-items: center;
-      padding: var(--sp-16) 0; border-bottom: 1px solid var(--ink-100);
-    }
-    .sus-row:last-child { border-bottom: none; }
-    .sus-label { font-size: 14px; color: var(--ink-700); line-height: 1.5; }
-    .sus-score {
-      font-family: var(--font-display); font-size: 20px; font-weight: 800;
-      color: var(--accent); min-width: 48px; text-align: right;
-    }
-    .sus-bar-wrap { grid-column: 1 / -1; height: 6px; background: var(--ink-100); border-radius: 100px; overflow: hidden; }
-    .sus-bar { height: 100%; background: var(--accent); border-radius: 100px; transition: width .8s cubic-bezier(.22,1,.36,1); }
-
-    /* ── TASK COMPLETION ROW ─────────────────────────────── */
-    .task-row {
-      display: grid; grid-template-columns: 80px 1fr;
-      gap: var(--sp-16); align-items: flex-start;
-      padding: var(--sp-20) 0; border-bottom: 1px solid var(--ink-100);
-    }
-    .task-row:last-child { border-bottom: none; }
-    .task-pct {
-      font-family: var(--font-display); font-size: 22px; font-weight: 800;
-      letter-spacing: -.02em; line-height: 1;
-    }
-    .task-pct--high { color: #16A34A; }
-    .task-pct--mid  { color: #D97706; }
-    .task-pct--low  { color: #DC2626; }
-    .task-text { font-size: 15px; line-height: 1.65; color: var(--ink-700); padding-top: 3px; }
-    .task-text strong { font-weight: 600; color: var(--ink-900); }
-
-    /* ── FEATURE GRID ────────────────────────────────────── */
-    .feature-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: var(--sp-12); margin-top: var(--sp-24);
-    }
-    .feature-item {
-      padding: var(--sp-20); background: var(--white);
-      border: 1.5px solid var(--ink-100); border-radius: var(--r-lg);
-      display: flex; flex-direction: column; gap: var(--sp-8);
-      transition: border-color .2s, transform .2s, box-shadow .2s;
-      cursor: default;
-    }
-    .feature-item:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(227,30,8,.1); }
-    .feature-score {
-      display: inline-flex; align-items: center; gap: 4px;
-      font-family: var(--font-display); font-size: 11px; font-weight: 800;
-      letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px;
-      border-radius: 6px; width: fit-content;
-    }
-    .feature-score--high { background: #D1FAE5; color: #065F46; }
-    .feature-score--mid  { background: #FEF3C7; color: #92400E; }
-    .feature-score--low  { background: #FEE2E2; color: #B91C1C; }
-    .feature-name { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--ink-900); }
-    .feature-price { font-size: 12px; color: var(--ink-500); }
-
-    /* ── DECISION CARD ───────────────────────────────────── */
+    /* DECISION CARD */
     .decision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-16); margin-top: var(--sp-24); }
     .decision-item {
       padding: var(--sp-24); border-radius: var(--r-lg);
@@ -822,114 +599,82 @@
     .decision-title { font-family: var(--font-display); font-size: 15px; font-weight: 800; color: var(--ink-900); }
     .decision-body { font-size: 13px; line-height: 1.6; color: var(--ink-500); }
 
-    /* ── DIRECTIONS EXPLORED (vertical stack + image) ────── */
-    .direction-item {
-      display: grid;
-      grid-template-columns: 1fr 320px;
-      gap: 0;
-      background: var(--white);
-      border: 1.5px solid var(--ink-100);
-      border-radius: var(--r-xl);
-      overflow: hidden;
-      box-shadow: var(--shadow-card);
-      margin-top: var(--sp-24);
-    }
-    .direction-text {
-      padding: var(--sp-32);
-      display: flex; flex-direction: column; gap: var(--sp-12);
-      justify-content: center;
-      border-right: 1.5px solid var(--ink-100);
-    }
-    .direction-img {
-      background: var(--ink-050);
-      display: flex; flex-direction: column;
-      gap: var(--sp-8);
-      padding: var(--sp-16);
-      align-items: center; justify-content: center;
-    }
-    .direction-img .img-ph { flex: 1; min-height: 0; width: 100%; }
-    .direction-img .img-ph + .img-ph { margin-top: var(--sp-8); }
-
-    /* ── ACCESSIBILITY AUDIT ─────────────────────────────── */
-
-    .audit-stack {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--sp-16);
-      margin-top: var(--sp-24);
-    }
-    .audit-card {
+    /* SOLUTION LAYER CARD */
+    .layer-card {
       background: var(--white); border: 1.5px solid var(--ink-100);
-      border-radius: var(--r-xl); padding: var(--sp-32);
-      box-shadow: var(--shadow-card);
-      display: flex; flex-direction: column;
-      min-width: 0;
+      border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-card);
+      margin-top: var(--sp-24); display: grid; grid-template-columns: 280px 1fr;
     }
-    .audit-card.card--blue { background: var(--accent-muted); border-color: rgba(227,30,8,.18); }
-    .audit-card .label { margin-bottom: var(--sp-16); display: block; }
-    .audit-row { display: flex; justify-content: space-between; align-items: center; font-size: 15px; padding: var(--sp-10) 0; border-bottom: 1px solid var(--ink-100); gap: var(--sp-16); }
-    .audit-row:last-child { border-bottom: none; }
-    .audit-row-label { color: var(--ink-700); line-height: 1.5; flex: 1; word-break: break-word; }
-    .audit-row-val { font-weight: 700; color: #16A34A; white-space: nowrap; flex-shrink: 0; }
-    .audit-feature-row { display: flex; gap: var(--sp-10); align-items: flex-start; font-size: 15px; padding: var(--sp-10) 0; border-bottom: 1px solid var(--ink-100); line-height: 1.55; color: var(--ink-700); }
-    .audit-feature-row:last-child { border-bottom: none; }
-    .audit-arrow { color: var(--accent); flex-shrink: 0; margin-top: 1px; }
+    .layer-num-col {
+      background: var(--accent); padding: var(--sp-40);
+      display: flex; flex-direction: column; justify-content: center; gap: var(--sp-16);
+    }
+    .layer-num {
+      font-family: var(--font-display); font-size: 64px; font-weight: 900;
+      color: rgba(255,255,255,.2); line-height: 1; letter-spacing: -.04em;
+    }
+    .layer-title { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: white; line-height: 1.3; letter-spacing: -.02em; }
+    .layer-subtitle { font-size: 13px; color: rgba(255,255,255,.7); line-height: 1.6; }
+    .layer-body { padding: var(--sp-40); display: flex; flex-direction: column; gap: var(--sp-16); justify-content: center; }
+    .layer-body p { font-size: 15px; line-height: 1.7; color: var(--ink-700); }
+    .layer-body ul { list-style: none; display: flex; flex-direction: column; gap: var(--sp-8); }
+    .layer-body li { font-size: 14px; line-height: 1.6; color: var(--ink-700); display: flex; gap: var(--sp-8); align-items: flex-start; }
+    .layer-body li::before { content: ''; color: var(--accent); flex-shrink: 0; }
 
-    /* ── REFLECTION CARDS ────────────────────────────────── */
+    /* TASK COMPLETION ROW */
+    .task-row {
+      display: grid; grid-template-columns: 80px 1fr; gap: var(--sp-16);
+      align-items: flex-start; padding: var(--sp-20) 0; border-bottom: 1px solid var(--ink-100);
+    }
+    .task-row:last-child { border-bottom: none; }
+    .task-pct {
+      font-family: var(--font-display); font-size: 22px; font-weight: 800;
+      letter-spacing: -.02em; line-height: 1;
+    }
+    .task-pct--high { color: #16A34A; }
+    .task-pct--mid  { color: #D97706; }
+    .task-pct--low  { color: #DC2626; }
+    .task-text { font-size: 15px; line-height: 1.65; color: var(--ink-700); padding-top: 3px; }
+    .task-text strong { font-weight: 600; color: var(--ink-900); }
+
+    /* REFLECTION */
     .reflection-stack { display: flex; flex-direction: column; gap: var(--sp-20); margin-top: var(--sp-48); }
-    .reflection-card {
-      background: var(--white); border: 1.5px solid var(--ink-100);
-      border-radius: var(--r-xl); padding: var(--sp-32);
-      box-shadow: var(--shadow-card); width: 100%;
-    }
-    .reflection-card.card--blue { background: var(--accent-muted); border-color: rgba(227,30,8,.18); }
-    .refl-pointer { display: flex; gap: var(--sp-8); font-size: 15px; color: var(--ink-700); line-height: 1.65; padding: var(--sp-10) 0; border-bottom: 1px solid var(--ink-100); flex-direction: column; }
+    .reflection-card { background: var(--white); border: 1.5px solid var(--ink-100); border-radius: var(--r-xl); padding: var(--sp-40); box-shadow: var(--shadow-card); width: 100%;    }
+    .reflection-card.card--blue { background: var(--accent-muted); border-color: rgba(27,79,216,.18); }
+    .refl-pointer { display: flex; gap: var(--sp-16); font-size: 15px; color: var(--ink-700); line-height: 1.65; padding: var(--sp-16) 0; border-bottom: 1px solid var(--ink-100); flex-direction: column; }
     .refl-pointer:last-child { border-bottom: none; }
     .refl-pointer-head { display: flex; gap: var(--sp-8); align-items: flex-start; }
     .refl-pointer-head strong { color: var(--ink-900); }
-    .refl-icon { color: var(--accent); flex-shrink: 0; }
+    .refl-icon { color: var(--accent); flex-shrink: 0; font-size: 16px; line-height: 1.65; }
+    .refl-icon--cross { color: #DC2626; }
+    .reflection-card .refl-pointer:last-of-type {  border-bottom: none;  padding-bottom: 0;}
 
-    /* ── FOOTER ──────────────────────────────────────────── */
-    footer {
-      background: var(--ink-900);
-      padding: var(--sp-40) 0;
+    /* FEATURE GRID */
+    .feature-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-12); margin-top: var(--sp-24);
     }
-    .footer-inner {
-      max-width: 1140px; margin: 0 auto;
-      padding: 0 var(--sp-40);
-      display: flex; align-items: center; justify-content: space-between;
-      gap: var(--sp-24); flex-wrap: wrap;
+    .feature-item {
+      padding: var(--sp-20); background: var(--white);
+      border: 1.5px solid var(--ink-100); border-radius: var(--r-lg);
+      display: flex; flex-direction: column; gap: var(--sp-8);
+      transition: border-color .2s, transform .2s, box-shadow .2s; cursor: default;
     }
-    .footer-left {
-      font-family: var(--font-display);
-      font-size: 13px; font-weight: 600;
-      color: rgba(255,255,255,.4);
-    }
-    .footer-links { display: flex; gap: var(--sp-24); }
-    .footer-links a {
-      font-family: var(--font-display);
-      font-size: 13px; font-weight: 600;
-      color: rgba(255,255,255,.4); text-decoration: none;
-      transition: color .2s;
-    }
-    .footer-links a:hover { color: white; }
+    .feature-item:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(27,79,216,.1); }
+    .feature-name { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--ink-900); }
+    .feature-desc { font-size: 12px; color: var(--ink-500); line-height: 1.6; }
 
-    /* ── SECTION DIVIDER ─────────────────────────────────── */
+    /* SECTION DIVIDER */
     .section-divider {
       display: flex; align-items: center; gap: var(--sp-20);
-      padding: var(--sp-48) var(--sp-20);
-      max-width: 900px; margin: 0 auto;
+      padding: var(--sp-48) var(--sp-20); max-width: 900px; margin: 0 auto;
     }
-    .section-divider-line {
-      flex: 1; height: 1px; background: var(--ink-100);
-    }
+    .section-divider-line { flex: 1; height: 1px; background: var(--ink-100); }
     .section-divider-label {
       font-family: var(--font-display); font-size: 11px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase; color: var(--ink-300);
-      white-space: nowrap;
+      letter-spacing: .12em; text-transform: uppercase; color: var(--ink-300); white-space: nowrap;
     }
 
-    /* ── APPEAR ANIMATIONS ────────────────────────────────── */
+    /* APPEAR */
     .appear {
       opacity: 0; transform: translateY(24px);
       transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
@@ -946,75 +691,187 @@
     .stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: 320ms; }
     .stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: 400ms; }
 
-    /* ── RESPONSIVE ──────────────────────────────────────── */
-    @media (max-width: 1100px) {
-      #side-stepper { right: 12px; }
+    /* FOOTER */
+    footer { background: var(--ink-900); padding: var(--sp-40) 0; }
+    .footer-inner {
+      max-width: 1140px; margin: 0 auto; padding: 0 var(--sp-40);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--sp-24); flex-wrap: wrap;
     }
-    @media (max-width: 1024px) {
-      :root { --sp-120: 80px; }
-      #side-stepper { display: none; }
-      #mobile-stepper { display: block; }
-      body { padding-bottom: 72px; }
+    .footer-left { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: rgba(255,255,255,.4); }
+    .footer-links { display: flex; gap: var(--sp-24); }
+    .footer-links a {
+      font-family: var(--font-display); font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,.4); text-decoration: none; transition: color .2s;
+    }
+    .footer-links a:hover { color: white; }
+
+      /* CASE NAV */
+    .case-nav { display:flex; gap:var(--sp-32); flex-wrap:wrap; }
+    .case-nav-btn--next { align-items:flex-end; text-align:right; }
+    .case-nav-btn--prev { align-items:flex-start; text-align:left; }
+    .case-nav-btn { flex:1 1 200px; display:flex; flex-direction:column; gap:var(--sp-6); text-decoration:none; cursor:pointer; transition:opacity .2s; justify-content:flex-end; }
+    .case-nav-label { font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); }
+    .case-nav-title { font-family:var(--font-display); font-size:17px; font-weight:800; color:var(--ink-900); line-height:1.3; margin-top:auto; }
+    .case-nav-btn:hover:not(.disabled) { opacity: .6; }
+    .case-nav-btn.disabled { opacity:.35; cursor:not-allowed; pointer-events:none; }
+    .case-nav { display:flex; gap:var(--sp-32); flex-wrap:wrap; }
+
+      /* DEEPER DIVE CTA */
+    .deeper-dive-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-32); flex-wrap: wrap; }
+    .deeper-dive-text { font-size: 16px; color: var(--ink-500); line-height: 1.65; max-width: 560px; margin: 0; }
+    .deeper-dive-btn { font-family: var(--font-display); font-size: 14px; font-weight: 700; background: var(--ink-900); color: white; padding: 14px 28px; border-radius: var(--r-md); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; transition: background .2s, transform .15s, box-shadow .2s; flex-shrink: 0;    }
+    .deeper-dive-btn:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,106,222,.35); }
+    @media (max-width: 600px) {
+      .deeper-dive-inner { flex-direction: column; align-items: flex-start; }
+      .deeper-dive-btn { align-self: center;}
+    }
+
+
+    /* JOURNEY MAP MAGNIFIER */
+    .jmap-wrap {
+      position: relative; border-radius: var(--r-lg); overflow: hidden;
+      border: 1.5px solid var(--ink-100); background: var(--ink-050);
+    }
+    .jmap-img { width: 100%; display: block; cursor: none; -webkit-user-select: none; user-select: none; touch-action: none; }
+    .jmap-glass {
+      position: absolute; display: none; pointer-events: none;
+      width: 170px; height: 170px; border-radius: 50%;
+      border: 3px solid var(--white);
+      box-shadow: 0 6px 24px rgba(0,0,0,.28), 0 0 0 1.5px var(--accent);
+      background-repeat: no-repeat; z-index: 5;
+    }
+    .jmap-wrap.active .jmap-glass { display: block; }
+    .jmap-expand-btn {
+      position: absolute; top: var(--sp-12); right: var(--sp-12); z-index: 6;
+      display: flex; align-items: center; gap: 7px;
+      font-family: var(--font-display); font-size: 12px; font-weight: 700;
+      color: var(--ink-900); background: rgba(255,255,255,.92);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      border: 1.5px solid var(--ink-100); padding: 8px 14px; border-radius: 100px;
+      cursor: pointer; box-shadow: var(--shadow-card);
+      transition: background .2s, border-color .2s, transform .15s;
+    }
+    .jmap-expand-btn:hover { background: var(--white); border-color: var(--accent); transform: translateY(-1px); }
+    .jmap-expand-btn i { font-size: 13px; }
+    .jmap-hint {
+      position: absolute; bottom: var(--sp-12); left: var(--sp-12); z-index: 6;
+      font-family: var(--font-display); font-size: 10px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      background: rgba(13,15,17,.62); color: white;
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      padding: 5px 10px; border-radius: 100px; pointer-events: none;
     }
     @media (max-width: 768px) {
-      .appear, .stagger > * {opacity: 1 !important; transform: none !important;}
-      #hero { padding: 100px var(--sp-20) var(--sp-64);}
-      #navbar-inner { padding: 0 var(--sp-16) !important; width: 100%; box-sizing: border-box;}
-      #navbar {padding: 0; width: 100%;}
-      .project-meta { grid-template-columns: 1fr 1fr; }
-      .meta-item:nth-child(2) { border-right: none; }
-      .meta-item:nth-child(odd) { border-right: 1px solid var(--ink-100); }
+      .jmap-glass { width: 130px; height: 130px; }
+      .jmap-hint { font-size: 9px; padding: 4px 9px; }
+    }
+
+    /* JOURNEY MAP EXPAND MODAL */
+    .jmap-modal {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(13,15,17,.94);
+      display: none; flex-direction: column;
+      opacity: 0; transition: opacity .25s ease;
+    }
+    .jmap-modal.open { display: flex; opacity: 1; }
+    .jmap-modal-bar {
+      flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
+      padding: var(--sp-16) var(--sp-24);
+    }
+    .jmap-modal-title { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: white; letter-spacing: -.01em; }
+    .jmap-modal-hint { font-family: var(--font-display); font-size: 11px; color: rgba(255,255,255,.5); margin-top: 2px; }
+    .jmap-modal-close {
+      width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(255,255,255,.1); border: 1.5px solid rgba(255,255,255,.2);
+      color: white; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background .2s, border-color .2s;
+    }
+    .jmap-modal-close:hover { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.4); }
+    .jmap-modal-scroll {
+      flex: 1; overflow: auto; -webkit-overflow-scrolling: touch;
+      padding: 0 var(--sp-24) var(--sp-24); cursor: grab;
+    }
+    .jmap-modal-scroll.grabbing { cursor: grabbing; }
+    .jmap-modal-img { display: block; width: 2200px; max-width: none; border-radius: var(--r-md); }
+    @media (max-width: 768px) {
+      .jmap-modal-img { width: 1500px; }
+      .jmap-modal-bar { padding: var(--sp-12) var(--sp-16); }
+      .jmap-modal-scroll { padding: 0 var(--sp-16) var(--sp-16); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) { #side-stepper { right: 12px; } }
+    @media (max-width: 1024px) { :root { --sp-120: 80px; } #side-stepper { display: none; } }
+    @media (max-width: 768px) {
       .nav-links, .nav-cta { display: none; }
       .nav-hamburger { display: flex; }
       #mobile-menu { display: block; }
-      #navbar-inner { padding: 0 var(--sp-20); }
-      .feature-grid { grid-template-columns: 1fr 1fr; }
+      #navbar-inner { padding: 0 var(--sp-20); border-radius: 0; }
       #navbar { padding: 0; }
-      #navbar-inner { border-radius: 0; }
-      .hero-headline { font-size: clamp(28px, 8vw, 44px); }
       .project-meta { grid-template-columns: 1fr 1fr; }
       .meta-item:nth-child(2) { border-right: none; }
       .two-col { grid-template-columns: 1fr; }
       .metrics-row { grid-template-columns: 1fr 1fr; }
-      .carousel-slide-inner { grid-template-columns: 1fr; min-height: unset; }
-      .carousel-img { min-height: 240px; }
-      .carousel-text { border-right: none; border-bottom: 1.5px solid var(--ink-100); padding: var(--sp-32) var(--sp-24); }
+    
+      .carousel-slide-inner {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 320px;
+        min-height: unset;
+      }
+      .carousel-text {
+        border-right: none;
+        border-bottom: 1.5px solid var(--ink-100);
+        padding: var(--sp-32) var(--sp-24);
+        height: auto;
+        overflow-y: visible;
+      }
+      .carousel-img {
+        height: 100%;
+        min-height: unset;
+        position: relative;
+        padding: 0;
+      }
+      .carousel-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        margin: 0;
+      }
       .persona-card { grid-template-columns: 1fr; }
       .persona-avatar { border-right: none; border-bottom: 1.5px solid var(--ink-100); min-height: 180px; }
       .persona-goals-pains { grid-template-columns: 1fr; }
       .quotes-grid { grid-template-columns: 1fr; }
       .sticky-notes-grid { grid-template-columns: 1fr 1fr; }
-      .sticky-note:hover { transform: none; }
-      .feature-grid { grid-template-columns: 1fr 1fr; }
       .decision-grid { grid-template-columns: 1fr; }
-      .iter-images { grid-template-columns: 1fr; }
-      .iter-img-cell:first-child { border-right: none; border-bottom: 1.5px solid var(--ink-100); }
+      .layer-card { grid-template-columns: 1fr; }
+      .layer-num-col { padding: var(--sp-32) var(--sp-32) var(--sp-24); }
+      .layer-num { font-size: 48px; }
       .emotion-arc { flex-wrap: wrap; }
       .emotion-stage { flex: 1 1 calc(33% - 8px); }
-      .compare-table { font-size: 12px; }
-      .compare-table th, .compare-table td { padding: var(--sp-12); }
-      .direction-item { grid-template-columns: 1fr; }
-      .direction-text { border-right: none; border-bottom: 1.5px solid var(--ink-100); }
-      .direction-img { flex-direction: row; min-height: 180px; gap: var(--sp-12); }
       #cursor, #cursor-ring { display: none; }
       body { cursor: auto; }
       .footer-inner { flex-direction: column; text-align: center; }
       .footer-links { justify-content: center; }
-      @media (max-width: 640px) {.audit-stack { grid-template-columns: 1fr; }}}
+      .feature-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width:540px) {
+      .case-nav { flex-direction:column; gap:var(--sp-24); }
+      .case-nav-btn { justify-content:flex-start; flex:unset; }
+      .case-nav-btn--next { align-items:flex-end; text-align:right; margin-left:auto; }
+      .case-nav-btn--prev { align-items:flex-start; text-align:left; }
+    }
+    
     @media (max-width: 480px) {
-      .feature-grid { grid-template-columns: 1fr; }
-      #hero { padding: 88px var(--sp-16) var(--sp-48);}
-      .project-meta { grid-template-columns: 1fr 1fr; }
-      .meta-item { border-right: none !important; border-bottom: 1px solid var(--ink-100); }
-      .meta-item:nth-child(odd) { border-right: 1px solid var(--ink-100) !important; }
-      .meta-item:last-child { border-bottom: none; }
       .card { padding: var(--sp-24) var(--sp-20); }
       .metrics-row { grid-template-columns: 1fr; }
-      .feature-grid { grid-template-columns: 1fr; }
       .project-meta { grid-template-columns: 1fr; }
-      @media (max-width: 540px) {.sticky-notes-grid { grid-template-columns: 1fr; }}
       .meta-item { border-right: none !important; border-bottom: 1px solid var(--ink-100); }
       .meta-item:last-child { border-bottom: none; }
+      .sticky-notes-grid { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
       .footer-inner { padding: 0 var(--sp-20); }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -1028,9 +885,7 @@
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 
-<!-- ══════════════════════════════════════════════════════════
-     TOP NAVBAR — from index.html
-══════════════════════════════════════════════════════════ -->
+<!-- NAVBAR -->
 <nav id="navbar" aria-label="Main navigation">
   <div id="navbar-inner">
     <a href="/" class="nav-logo">
@@ -1043,7 +898,7 @@
       <li><a href="/case-studies" class="active">Case Studies</a></li>
       <li><a href="/about">About Me</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">Let's Talk →</a>
+    <a href="#contact" class="nav-cta">Let's Talk </a>
     <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -1054,13 +909,11 @@
   <ul>
     <li><a href="/case-studies">Case Studies</a></li>
     <li><a href="/about">About Me</a></li>
-    <li><a href="#contact" style="color:var(--accent);">Let's Talk →</a></li>
+    <li><a href="#contact" style="color:var(--accent);">Let's Talk </a></li>
   </ul>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════
-     SIDE STEPPER — desktop
-══════════════════════════════════════════════════════════ -->
+<!-- SIDE STEPPER -->
 <nav id="side-stepper" aria-label="Section navigation">
   <div class="stepper-item active" data-section="hero">
     <span class="stepper-label">Overview</span>
@@ -1078,16 +931,16 @@
     <span class="stepper-label">Define</span>
     <div class="stepper-dot"></div>
   </div>
-  <div class="stepper-item" data-section="ideation">
-    <span class="stepper-label">Ideation</span>
+  <div class="stepper-item" data-section="hmw">
+    <span class="stepper-label">HMW</span>
     <div class="stepper-dot"></div>
   </div>
   <div class="stepper-item" data-section="design">
-    <span class="stepper-label">Design</span>
+    <span class="stepper-label">Solution</span>
     <div class="stepper-dot"></div>
   </div>
   <div class="stepper-item" data-section="testing">
-    <span class="stepper-label">Testing</span>
+    <span class="stepper-label">Evaluation</span>
     <div class="stepper-dot"></div>
   </div>
   <div class="stepper-item" data-section="reflection">
@@ -1096,482 +949,327 @@
   </div>
 </nav>
 
-<!-- ══════════════════════════════════════════════════════════
-     HERO
-══════════════════════════════════════════════════════════ -->
+<!-- HERO -->
 <section id="hero" aria-labelledby="hero-headline">
   <div class="hero-inner">
 
     <div class="hero-eyebrow stagger">
-      <span class="tag-pill">Culinarr</span>
+      <span class="tag-pill">DWP · UK Public Sector</span>
       <div class="hero-divider" aria-hidden="true"></div>
-      <span class="label">UX Design · Solo Project · 5 Weeks</span>
+      <span class="label">Service Design · Team of 4 · 5 Sprints</span>
+      <span class="tag-pill" style="background:#F0F2F5;color:var(--ink-500);border-color:var(--ink-300);">⏱ 4 min read</span>
     </div>
 
     <h1 class="hero-headline appear" id="hero-headline">
-      Solving the group dining problem<br>that food halls created but <em>nobody designed for</em>
+      Redesigning UK bereavement support - the system that <em>reaches you</em>, not the other way around
     </h1>
 
     <p class="hero-sub appear">
-      A QR-triggered web app where groups scan in, browse a unified menu across every vendor, 
-      order individually, and settle their own share — no app download, no account, no post-dinner payment chasing.
+      A three-layer service model that proactively reaches bereaved people with the right financial entitlements, at the right time - without requiring them to navigate four government departments in a state of acute grief.
     </p>
 
     <div class="project-meta appear stagger">
       <div class="meta-item">
         <div class="meta-key">Role</div>
-        <div class="meta-val">Product Designer (Solo)</div>
+        <div class="meta-val">Researcher · UX Designer</div>
       </div>
       <div class="meta-item">
-        <div class="meta-key">Duration</div>
-        <div class="meta-val">5 Weeks</div>
+        <div class="meta-key">Team</div>
+        <div class="meta-val">4 · 5 One-Week Sprints</div>
       </div>
       <div class="meta-item">
-        <div class="meta-key">Tools</div>
-        <div class="meta-val">Figma · FigJam · MoSCoW · Buy a Feature</div>
+        <div class="meta-key">Methods</div>
+        <div class="meta-val">Double Diamond · Thematic Analysis · Content Analysis · Journey Mapping</div>
       </div>
       <div class="meta-item">
-        <div class="meta-key">Output</div>
-        <div class="meta-val">13 screens · 4 flows · Usability tested</div>
+        <div class="meta-key">Domain</div>
+        <div class="meta-val">UK Public Sector · Service Design</div>
       </div>
     </div>
 
-    <div class="hero-image-block appear" role="img" aria-label="Insert: Culinarr hero mockup">
-      <span class="placeholder-icon">📱</span>
-      <span class="placeholder-label">Insert: Hero Mockup — Group Session + Menu Screens</span>
+    <div class="hero-image-block appear" role="img" aria-label="Bereavement service model hero visual">
+      <img src="/assets/img/dwp_bg.png" alt="Three-Layer Service Model Overview" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
 
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     LEAD OUTCOME BANNER
-══════════════════════════════════════════════════════════ -->
+<!-- LEAD OUTCOME BANNER -->
 <section id="problem-banner" aria-labelledby="outcome-heading">
   <div class="problem-inner appear">
-    <span class="label">Lead Outcome</span>
+    <span class="label">Core Problem</span>
     <h2 class="problem-headline" id="outcome-heading">
-      84% task completion rate and a SUS score of 79.5 ("Good") across 5 participants — with <em style="color:var(--accent);font-style:normal;">zero critical usability errors</em> and zero WCAG AA violations.
+      The Bereavement Support Payment carries a <em>strict 3-month application deadline</em> from the date of death - yet there is no proactive government communication about this deadline. Discovery is left entirely to the individual at the precise moment when cognitive and emotional capacity is lowest.
     </h2>
-    <div style="display:flex;gap:var(--sp-16);flex-wrap:wrap;justify-content:center;margin-top:var(--sp-8);">
-      <a href="https://tinyurl.com/culinarrprototype" target="_blank" rel="noopener" class="proto-btn" aria-label="View Culinarr prototype">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="1" width="10" height="14" rx="2"/><path d="M6 4h4M6 7h4M6 10h2"/></svg>
-        View Full Prototype
-      </a>
-    </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     PROBLEM
-══════════════════════════════════════════════════════════ -->
+<!-- PROBLEM -->
 <section class="section section--grey" id="problem" aria-labelledby="problem-heading">
   <div class="content-col">
 
     <div class="section-heading appear">
       <span class="label">The Problem</span>
-      <h2 id="problem-heading">Group dining in food halls is <strong>genuinely chaotic.</strong></h2>
-      <p>Split queues, food arriving in waves, one lump sum split eight ways equally — even when two people didn't drink and one person only had a salad.</p>
+      <h2 id="problem-heading">This is not a digital problem. It is a <strong>systemic coordination failure.</strong></h2>
+      <p>When someone in the UK loses a partner or family member, they become eligible for financial entitlements across DWP, HMRC, local councils, and the NHS. No single authoritative service tells them what they qualify for.</p>
     </div>
 
     <div class="prose appear">
-      <p>Picture this: your group of eight friends picks a food hall for dinner. Everyone's excited. Then reality kicks in. You're split across four different queues. The person who got the wood-fired pizza is still waiting 20 minutes later while everyone else's food is going cold. Then comes the bill — one lump sum, split eight ways equally.</p>
-      <p>Nobody says anything. But someone's frustrated, someone's quietly doing maths in their head, and the person who organised it all has already braced themselves for the inevitable "hey can you send me your details" messages that'll drag on until Wednesday.</p>
+      <p>The UK bereavement financial support landscape spans at least four government departments - each with separate eligibility criteria, separate application routes, and separate deadlines. The Tell Us Once infrastructure exists at death registration but goes underused. Registrars, GPs, and funeral directors are high-trust points of contact who currently lack the tools to signpost accurately.</p>
+      <p>Secondary research surfaced nine findings that directly shaped the problem statement. A large majority of users are unaware of available support before actively needing it. High satisfaction scores in existing data reflect only successful users - those who never accessed the service are entirely invisible in the data.</p>
     </div>
 
     <div class="highlight-quote appear">
-      <p>The product that should exist: a QR-triggered web app where one person opens a "Host" session, everyone joins on their own phone, browses a single unified menu across every vendor in the hall, places their order, and settles their own share in one go — <em>no app download, no account creation, no post-dinner payment chasing.</em></p>
-      <cite>That product didn't exist. So we designed it.</cite>
+      <p>Users switch between websites, helplines, and offline services with little continuity across channels. Vulnerable groups - digitally excluded, low-literacy, disabled - face the greatest barriers <em>at the worst possible moment.</em></p>
+      <cite>Secondary research synthesis - UK bereavement service landscape</cite>
     </div>
 
     <div class="metrics-row stagger appear">
       <div class="metric-card">
-        <div class="metric-num">84</div>
-        <div class="metric-label">UK food halls operational (Feb 2024), up from 76 in June 2023</div>
+        <div class="metric-num">4+</div>
+        <div class="metric-label">Government departments with separate eligibility criteria, routes, and deadlines</div>
       </div>
       <div class="metric-card">
-        <div class="metric-num">38%</div>
-        <div class="metric-label">Competitive socialising market growth over 5 years</div>
+        <div class="metric-num">90</div>
+        <div class="metric-label">Day BSP application deadline - communicated at zero formal touchpoints</div>
       </div>
       <div class="metric-card">
-        <div class="metric-num">78%</div>
-        <div class="metric-label">of diners prefer paying only for what they ordered</div>
+        <div class="metric-num">0</div>
+        <div class="metric-label">Single authoritative services telling bereaved people what they qualify for</div>
       </div>
       <div class="metric-card">
-        <div class="metric-num">3.2×</div>
-        <div class="metric-label">more likely to overpay to avoid conflict when splitting</div>
+        <div class="metric-num">9</div>
+        <div class="metric-label">Research findings shaping the problem statement from secondary research</div>
       </div>
     </div>
 
     <div class="appear" style="margin-top:var(--sp-48);">
-      <div class="sub-heading" style="margin-bottom:var(--sp-16);">Why existing solutions don't solve it</div>
-      <div class="compare-table-wrap">
-        <table class="compare-table" aria-label="Competitor comparison">
-          <thead>
-            <tr>
-              <th>Problem</th>
-              <th>me&amp;u</th>
-              <th>Uber Eats</th>
-              <th class="highlight">Culinarr</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Spontaneous group session (no pre-setup)</td>
-              <td><span class="partial">⬤</span> Partial</td>
-              <td><span class="cross">✕</span> Host must pre-plan</td>
-              <td class="highlight"><span class="check">✓</span></td>
-            </tr>
-            <tr>
-              <td>No account required</td>
-              <td><span class="cross">✕</span> App + account</td>
-              <td><span class="cross">✕</span> Account required</td>
-              <td class="highlight"><span class="check">✓</span> Guest checkout</td>
-            </tr>
-            <tr>
-              <td>Individual payment default</td>
-              <td><span class="check">✓</span> Post-meal</td>
-              <td><span class="cross">✕</span> Host pays all</td>
-              <td class="highlight"><span class="check">✓</span> At order time</td>
-            </tr>
-            <tr>
-              <td>Live order status to diner</td>
-              <td><span class="cross">✕</span> Not surfaced</td>
-              <td><span class="check">✓</span> Delivery only</td>
-              <td class="highlight"><span class="check">✓</span> Per vendor, per item</td>
-            </tr>
-            <tr>
-              <td>Cross-vendor dietary filtering</td>
-              <td><span class="cross">✕</span> Per-vendor only</td>
-              <td><span class="cross">✕</span> Single restaurant</td>
-              <td class="highlight"><span class="check">✓</span></td>
-            </tr>
-            <tr>
-              <td>Multi-vendor ordering</td>
-              <td><span class="check">✓</span></td>
-              <td><span class="cross">✕</span></td>
-              <td class="highlight"><span class="check">✓</span></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="sub-heading" style="margin-bottom:var(--sp-16);">The brief</div>
+      <div class="card">
+        <p style="font-size:17px;line-height:1.75;color:var(--ink-700);">Redesign the service so bereaved people receive the right information, at the right time, without having to navigate a fragmented system in a state of acute grief. The service should initiate contact rather than waiting for users to find it.</p>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     RESEARCH
-══════════════════════════════════════════════════════════ -->
+<!-- RESEARCH -->
 <section class="section section--white" id="research" aria-labelledby="research-heading">
   <div class="content-col">
 
     <div class="section-heading appear">
       <span class="label">Research &amp; Discovery</span>
-      <h2 id="research-heading">Five evidence areas. One structural gap.</h2>
-      <p>Secondary research structured across food hall culture, group dining behaviour, QR adoption, real-time tracking expectations, and payment splitting psychology.</p>
+      <h2 id="research-heading">An ethical pivot that produced <strong>15,631 coded sentences.</strong></h2>
+      <p>Recruiting recently bereaved participants within a 5-week window raised significant ethical concerns. Rather than proceed with methodologically compromised interviews, the team proposed a large-scale content analysis of Reddit bereavement communities.</p>
     </div>
 
-    <div class="carousel-wrap appear" id="res-carousel" role="region" aria-label="Research findings">
-      <div class="carousel-track" id="res-track">
-
-        <div class="carousel-slide" role="group" aria-label="Finding 1 of 5" aria-hidden="false">
-          <div class="carousel-slide-inner">
-            <div class="carousel-text">
-              <span class="carousel-number">Evidence Area 01</span>
-              <h3 class="carousel-slide-title">Food Hall Culture &amp; Growth</h3>
-              <div class="carousel-slide-body">
-                <p>UK food halls grew from 76 to 84 operational venues between June 2023 and February 2024 — a 15% increase in eight months — with an additional 18% increase in venues under development.</p>
-                <ul>
-                  <li>65 further venues in development nationally</li>
-                  <li>Average £5.6M annual revenue per site, 10%+ YoY growth</li>
-                  <li>76% of consumers seek venues combining dining + entertainment</li>
-                  <li><strong>Format is structurally a group dining proposition</strong> — yet technology hasn't caught up</li>
-                </ul>
-              </div>
-            </div>
-            <div class="carousel-img">
-              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Food hall growth chart">
-                <span class="ph-icon">🏢</span>
-                <span class="ph-text">Insert: UK Food Hall Growth Visual</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="carousel-slide" role="group" aria-label="Finding 2 of 5" aria-hidden="true">
-          <div class="carousel-slide-inner">
-            <div class="carousel-text">
-              <span class="carousel-number">Evidence Area 02</span>
-              <h3 class="carousel-slide-title">Group Dining Behaviour</h3>
-              <div class="carousel-slide-body">
-                <p>Behavioural economics research reveals the hidden cost of dining in groups.</p>
-                <ul>
-                  <li><strong>37% more spending</strong> when splitting equally (Gneezy, Haruvy &amp; Yafe, 2004)</li>
-                  <li>Sequential ordering creates conformity pressure — first orderer sets unspoken spending ceiling</li>
-                  <li>62% of diners report higher anxiety splitting bills with acquaintances than close friends</li>
-                  <li>78% prefer paying only for what they ordered — but social cost prevents it</li>
-                </ul>
-              </div>
-            </div>
-            <div class="carousel-img">
-              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Behavioural research visual">
-                <span class="ph-icon">🧠</span>
-                <span class="ph-text">Insert: Behavioural Research Visual</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="carousel-slide" role="group" aria-label="Finding 3 of 5" aria-hidden="true">
-          <div class="carousel-slide-inner">
-            <div class="carousel-text">
-              <span class="carousel-number">Evidence Area 03</span>
-              <h3 class="carousel-slide-title">QR Ordering Adoption</h3>
-              <div class="carousel-slide-body">
-                <p>QR ordering has moved from trend to standard across UK hospitality.</p>
-                <ul>
-                  <li>75% of restaurants globally use QR codes; scan volumes up 400% in two years</li>
-                  <li>58% of UK consumers scanned QR in bar/restaurant; 80% agree QR makes life easier</li>
-                  <li>92% of UK population owns a smartphone with native QR scanning — zero barrier to entry</li>
-                  <li><strong>QR systems reduced wait times 25%</strong> in a UK cafe chain (QRCode.co.uk, 2025)</li>
-                </ul>
-              </div>
-            </div>
-            <div class="carousel-img">
-              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: QR adoption stats visual">
-                <span class="ph-icon">📱</span>
-                <span class="ph-text">Insert: QR Adoption Visual</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="carousel-slide" role="group" aria-label="Finding 4 of 5" aria-hidden="true">
-          <div class="carousel-slide-inner">
-            <div class="carousel-text">
-              <span class="carousel-number">Evidence Area 04</span>
-              <h3 class="carousel-slide-title">Existing Food Hall QR Audit</h3>
-              <div class="carousel-slide-body">
-                <p>A review of 9 UK food halls found that only 4 had any QR ordering capability — and of those, <strong>none supported multi-vendor group sessions.</strong></p>
-                <ul>
-                  <li>Mackie Mayor + Altrincham Market House: me&amp;u (QR, multi-vendor)</li>
-                  <li>Boxpark: QR for drinks only</li>
-                  <li>Arcade Food Hall, Market Halls, STACK, Mercato Metropolitano: counter service only</li>
-                  <li>The gap is structural, not incidental</li>
-                </ul>
-              </div>
-            </div>
-            <div class="carousel-img">
-              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Food hall audit map">
-                <span class="ph-icon">🗺️</span>
-                <span class="ph-text">Insert: Food Hall Audit Visual</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="carousel-slide" role="group" aria-label="Finding 5 of 5" aria-hidden="true">
-          <div class="carousel-slide-inner">
-            <div class="carousel-text">
-              <span class="carousel-number">Evidence Area 05</span>
-              <h3 class="carousel-slide-title">Payment Splitting Psychology</h3>
-              <div class="carousel-slide-body">
-                <p>Money conversations at dinner carry more social risk than most people realise.</p>
-                <ul>
-                  <li>72% find discussing finances harder than death, religion, or politics (Splitty, 2025)</li>
-                  <li>Simultaneously managing mental arithmetic + social impression creates genuine stress</li>
-                  <li>3.2× more likely to overpay than risk perceived conflict</li>
-                  <li><strong>The desire for fairness exists — the social architecture for it doesn't</strong></li>
-                </ul>
-              </div>
-            </div>
-            <div class="carousel-img">
-              <div class="img-ph img-ph--sq" role="img" aria-label="Insert: Payment psychology visual">
-                <span class="ph-icon">💳</span>
-                <span class="ph-text">Insert: Payment Psychology Visual</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="carousel-controls">
-        <div class="carousel-dots" role="tablist" aria-label="Slide navigation">
-          <button class="carousel-dot active" data-idx="0" role="tab" aria-selected="true"  aria-label="Finding 1"></button>
-          <button class="carousel-dot"        data-idx="1" role="tab" aria-selected="false" aria-label="Finding 2"></button>
-          <button class="carousel-dot"        data-idx="2" role="tab" aria-selected="false" aria-label="Finding 3"></button>
-          <button class="carousel-dot"        data-idx="3" role="tab" aria-selected="false" aria-label="Finding 4"></button>
-          <button class="carousel-dot"        data-idx="4" role="tab" aria-selected="false" aria-label="Finding 5"></button>
-        </div>
-        <div class="carousel-arrows">
-          <button class="carousel-arrow" id="res-prev" aria-label="Previous finding">
-            <svg viewBox="0 0 16 16"><polyline points="10,3 5,8 10,13"/></svg>
-          </button>
-          <button class="carousel-arrow" id="res-next" aria-label="Next finding">
-            <svg viewBox="0 0 16 16"><polyline points="6,3 11,8 6,13"/></svg>
-          </button>
-        </div>
-      </div>
+    <div class="highlight-quote appear">
+      <p>636 unique posts · 3,362 total rows · 15,631 coded sentences · 41 unique codes · 8 themes. Thematic analysis followed <em>Braun &amp; Clarke's (2006) six-phase method.</em></p>
+      <cite>Communities: r/UKPersonalFinance, r/LegalAdviceUK, r/bereavement</cite>
     </div>
 
-    <div class="highlight-quote appear" style="margin-top:var(--sp-48);">
-      <p>Review mining across TripAdvisor, Google, Reddit, and Facebook surfaced real user language: <em>"sometimes wish you could order directly from your table"</em> and the consistent absence of acknowledgement, wait time visibility, and table coordination — "even when group features exist, they fail at discoverability."</p>
-      <cite>Content analysis: 20+ reviews across 9 UK food hall venues</cite>
+    <!-- The unique finding card -->
+    <div class="card card--blue appear" style="margin-bottom:var(--sp-48);">
+      <div class="label" style="margin-bottom:var(--sp-16);">The Unique Finding</div>
+      <p style="font-family:var(--font-display);font-size:22px;font-weight:700;line-height:1.45;color:var(--ink-900);letter-spacing:-.02em;">The dominant keyword across all communities was <span style="color:var(--accent);">"advice"</span> - not "information," not "forms," not "benefits."</p>
+      <p style="font-size:15px;line-height:1.7;color:var(--ink-700);margin-top:var(--sp-16);">Users were not seeking information passively. They were turning to peer communities because official sources had failed to provide direction. The system had information; it lacked guidance.</p>
     </div>
 
-    <!-- Quote cards — lola2 style -->
-    <div class="section-heading appear" style="margin-top:var(--sp-64);">
-      <span class="label">What People Are Saying</span>
-      <h2>Real words from real diners — unfiltered.</h2>
-    </div>
-    <div class="quotes-grid appear stagger">
-      <div class="quote-card">
-        <p class="quote-card-text">"I always end up being the one who pays for everyone and then has to <em>chase people for days</em> just to get my money back."</p>
-        <span class="quote-card-source">TripAdvisor review · Food hall diner</span>
-      </div>
-      <div class="quote-card">
-        <p class="quote-card-text">"The hardest part isn't the food — it's <em>coordinating six people</em> across four different queues while your food gets cold."</p>
-        <span class="quote-card-source">Reddit r/unitedkingdom · group dining thread</span>
-      </div>
-      <div class="quote-card">
-        <p class="quote-card-text">"I have dietary restrictions. I spend half the dinner <em>reading ingredient lists</em> off my phone because the boards don't list allergens clearly."</p>
-        <span class="quote-card-source">Google review · Altrincham Market House</span>
-      </div>
-      <div class="quote-card">
-        <p class="quote-card-text">"We ended up splitting equally which felt really unfair — someone ordered two mains and cocktails while I just had a salad."</p>
-        <span class="quote-card-source">Facebook group · Manchester Food Scene</span>
-      </div>
+    <!-- 8 themes table -->
+    <div class="section-heading appear">
+      <span class="label">8 Themes from Thematic Analysis</span>
+      <h2>Frequency is not always a proxy for significance.</h2>
+      <p>The smallest theme - Lack of Proactive Information - was the most strategically significant. Users had largely stopped expecting the system to reach out. They had already internalised the failure.</p>
     </div>
 
-    <!-- Competitive SWOT — sticky notes style -->
-    <div class="section-heading appear" style="margin-top:var(--sp-64);">
-      <span class="label">Competitive Landscape</span>
-      <h2>What competitors get right — and what they miss.</h2>
-      <p>Analysis across me&amp;u, Uber Eats, Just Eat, and Revel Systems to identify design opportunities.</p>
+    <div class="data-table-wrap appear">
+      <table class="data-table" aria-label="Thematic analysis findings">
+        <thead>
+          <tr>
+            <th>Theme</th>
+            <th class="highlight">Coded Sentences</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Estate Administration &amp; Uncertainty About Where To Start</td>
+            <td class="col-num col-highlight">9,026</td>
+          </tr>
+          <tr>
+            <td>Will and Estate &amp; Financial Hardship</td>
+            <td class="col-num col-highlight">4,108</td>
+          </tr>
+          <tr>
+            <td>Negative Service Experience &amp; Overwhelmed By Process</td>
+            <td class="col-num col-highlight">390</td>
+          </tr>
+          <tr>
+            <td>DWP Interaction &amp; Process Described As Nightmare</td>
+            <td class="col-num col-highlight">343</td>
+          </tr>
+          <tr>
+            <td>Information Hard To Find</td>
+            <td class="col-num col-highlight">111</td>
+          </tr>
+          <tr>
+            <td>Feeling Ignored &amp; Unable To Reach Services</td>
+            <td class="col-num col-highlight">109</td>
+          </tr>
+          <tr>
+            <td>Death Registration Process &amp; Coroner Involvement</td>
+            <td class="col-num col-highlight">47</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--ink-900);">Lack of Proactive Information <span style="font-weight:400;font-size:12px;color:var(--accent);">(smallest - most strategically significant)</span></td>
+            <td class="col-num col-highlight" style="color:var(--accent);">41</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="sticky-notes-grid appear stagger">
-      <div class="sticky-note sticky-note--yellow">
-        <div class="sticky-note-label">Strengths (Competitors)</div>
-        <ul>
-          <li>me&amp;u enables table ordering without a dedicated app download</li>
-          <li>Uber Eats has best-in-class live order tracking UX</li>
-          <li>Just Eat has well-tested dietary filter patterns</li>
-          <li>Existing QR ordering reduces perceived wait time by 25%</li>
-        </ul>
+
+    <!-- Research Methods -->
+    <div class="method-stack stagger" style="margin-top:var(--sp-48);">
+
+      <div class="method-card">
+        <div class="method-header">
+          <div class="method-num">01</div>
+          <div class="method-title">Ethical Pivot - Large-Scale Content Analysis</div>
+        </div>
+        <div class="method-body">
+          <p>Recruiting recently bereaved participants within a 5-week window raised significant ethical concerns. Rather than proceed with methodologically compromised interviews, I proposed and led an alternative: Reddit content analysis at scale.</p>
+          <ul>
+            <li>636 unique posts · r/UKPersonalFinance, r/LegalAdviceUK, r/bereavement</li>
+            <li>15,631 coded sentences · 41 unique codes · 8 themes</li>
+            <li>Thematic analysis: Braun &amp; Clarke (2006) six-phase method</li>
+            <li><strong>More data than interviews could have produced in five weeks - fewer ethical risks</strong></li>
+          </ul>
+        </div>
+        <div class="method-img">
+          <img src="/assets/img/dwp_m1.png" alt="Content analysis methodology visual" class="carousel-image">
+        </div>
       </div>
-      <div class="sticky-note sticky-note--orange">
-        <div class="sticky-note-label">Weaknesses (Competitors)</div>
-        <ul>
-          <li>No multi-vendor group session without pre-setup</li>
-          <li>Account creation required by all major platforms</li>
-          <li>Payment is always post-meal or host-led — never individual at order time</li>
-          <li>Dietary filtering is per-vendor, never cross-hall</li>
-        </ul>
+
+      <div class="method-card">
+        <div class="method-header">
+          <div class="method-num">02</div>
+          <div class="method-title">Contextual Mapping - The Clarifying Artefact</div>
+        </div>
+        <div class="method-body">
+          <p>Tracing every bereavement touchpoint before a user could reach BSP revealed no single "start here" point - and the 90-day BSP deadline communicated at zero formal touchpoints.</p>
+          <ul>
+            <li>Eligibility rules scattered across at least four agencies</li>
+            <li>BSP 90-day deadline surfaced at <strong>zero formal touchpoints</strong></li>
+            <li>Map made systemic failure visible on one surface for the first time</li>
+            <li>Directly generated the three-layer solution structure</li>
+          </ul>
+        </div>
+        <div class="method-img">
+          <img src="/assets/img/dwp_m2.png" alt="Contextual mapping artefact" class="carousel-image">
+        </div>
       </div>
-      <div class="sticky-note sticky-note--green">
-        <div class="sticky-note-label">Opportunities (Culinarr)</div>
-        <ul>
-          <li>Guest checkout — no account, no friction at entry point</li>
-          <li>Cross-vendor dietary filter at session level</li>
-          <li>Transparent itemised payment as the default, not toggle</li>
-          <li>Group session via QR scan — zero pre-planning by host</li>
-        </ul>
+
+      <div class="method-card">
+        <div class="method-header">
+          <div class="method-num">03</div>
+          <div class="method-title">Competitor Analysis + Analogous Inspiration</div>
+        </div>
+        <div class="method-body">
+          <p>Reviewed bereavement service models across four countries and six analogous services. One pattern was consistent across every high-performing service.</p>
+          <ul>
+            <li><strong>Macmillan Cancer Support</strong> - staging complexity into clear phases</li>
+            <li><strong>NHS Symptom Checker</strong> - question-based, personalised next steps</li>
+            <li><strong>e-Estonia</strong> - enter-once, no repeated context</li>
+            <li><strong>Common pattern:</strong> the service initiates contact - it doesn't wait to be found</li>
+          </ul>
+        </div>
+        <div class="method-img">
+          <img src="/assets/img/dwp_m3.png" alt="Competitor analysis visual" class="carousel-image">
+        </div>
       </div>
-      <div class="sticky-note sticky-note--red">
-        <div class="sticky-note-label">Risks &amp; Threats</div>
-        <ul>
-          <li>me&amp;u could add group session to existing product</li>
-          <li>Noisy food hall environment tests usability harder than lab</li>
-          <li>Low digital literacy in older diner segment not tested</li>
-          <li>Venue operators may be slow to adopt new ordering platform</li>
-        </ul>
-      </div>
+
     </div>
 
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     DEFINE
-══════════════════════════════════════════════════════════ -->
+<!-- DEFINE -->
 <section class="section section--grey" id="define" aria-labelledby="define-heading">
   <div class="content-col">
 
     <div class="section-heading appear">
-      <span class="label">Define — Synthesis</span>
-      <h2 id="define-heading">The emotional trough was deepest at <strong>ordering</strong>, not payment.</h2>
-      <p>Seven themes emerged from coded review data. The journey map changed the entire product priority order.</p>
+      <span class="label">Define - Synthesis</span>
+      <h2 id="define-heading">Sarah's journey map exposed the failure across <strong>three distinct phases.</strong></h2>
+      <p>Journey mapping with two primary personas - James and Sarah - surfaced specific system failure points that the thematic analysis had only hinted at.</p>
     </div>
 
     <div class="appear">
-      <div class="sub-heading">Host's Emotional Journey</div>
-      <div class="emotion-arc" role="img" aria-label="Emotional journey: Confident to Frustrated">
+      <div class="sub-heading">Sarah Clarke's Emotional Journey - Widowed, Two Children</div>
+      <div class="emotion-arc" role="img" aria-label="Emotional journey: Acute Shock through Slow Resolution">
         <div class="emotion-stage">
-          <div class="emotion-emoji">😊</div>
-          <div class="emotion-name">Planning</div>
-          <div class="emotion-feel emotion-feel--pos">Confident</div>
-        </div>
-        <div class="emotion-stage">
-          <div class="emotion-emoji">😟</div>
-          <div class="emotion-name">Ordering</div>
-          <div class="emotion-feel emotion-feel--neg">Anxious</div>
+          <div class="emotion-emoji">😶</div>
+          <div class="emotion-name">Acute Shock</div>
+          <div class="emotion-feel emotion-feel--neg">Numb</div>
         </div>
         <div class="emotion-stage">
           <div class="emotion-emoji">😰</div>
-          <div class="emotion-name">At the Table</div>
-          <div class="emotion-feel emotion-feel--neg">Stressed</div>
-        </div>
-        <div class="emotion-stage">
-          <div class="emotion-emoji">😔</div>
-          <div class="emotion-name">Payment</div>
-          <div class="emotion-feel emotion-feel--mid">Resigned</div>
+          <div class="emotion-name">Administration</div>
+          <div class="emotion-feel emotion-feel--neg">Overwhelmed</div>
         </div>
         <div class="emotion-stage">
           <div class="emotion-emoji">😤</div>
-          <div class="emotion-name">Aftermath</div>
+          <div class="emotion-name">DWP Contact</div>
           <div class="emotion-feel emotion-feel--neg">Frustrated</div>
         </div>
+        <div class="emotion-stage">
+          <div class="emotion-emoji">😔</div>
+          <div class="emotion-name">BSP Payment</div>
+          <div class="emotion-feel emotion-feel--mid">Resigned</div>
+        </div>
+        <div class="emotion-stage">
+          <div class="emotion-emoji">😞</div>
+          <div class="emotion-name">Slow Resolution</div>
+          <div class="emotion-feel emotion-feel--mid">Depleted</div>
+        </div>
       </div>
-      <p style="font-size:14px;color:var(--ink-500);margin-top:var(--sp-12);line-height:1.6;">The deepest trough is at the <strong style="color:var(--ink-900)">ordering stage</strong>, not payment — which changed the entire product priority order. Solving coordination first, payment second.</p>
+      <p style="font-size:14px;color:var(--ink-500);margin-top:var(--sp-12);line-height:1.6;">Key failure points: no proactive signposting at death registration, a 35-minute DWP hold requiring documents she didn't have to hand, BSP payment arriving with no notification, and discovering the council tax single occupancy discount three months late - <strong style="color:var(--ink-900);">missing the full backdating window.</strong></p>
     </div>
 
+    <!-- Personas -->
     <div style="margin-top:var(--sp-64);">
       <div class="section-heading appear">
         <span class="label">Personas</span>
-        <h2>Two people, one problem, different stakes.</h2>
+        <h2>Two people, one broken system, different stakes.</h2>
       </div>
 
       <div class="persona-card appear">
         <div class="persona-avatar">
-          <div class="img-ph img-ph--tall" style="border:none;border-radius:0;background:linear-gradient(145deg,#ffd6c8,#ffaa88);" role="img" aria-label="Insert: Sam persona photo">
-            <span class="ph-icon">👤</span>
-            <span class="ph-text">Sam's photo</span>
+          <div class="img-ph img-ph--tall" style="border:none;border-radius:0;background:linear-gradient(145deg,#c8d6ff,#8aa8ff);" role="img" aria-label="Insert: James persona photo">
+            <img src="/assets/img/one.png" alt="James persona photo" style="width:100%;height:100%;object-fit:cover;display:block;">
           </div>
         </div>
         <div class="persona-info">
           <div>
-            <div class="persona-name">Sam, 28</div>
-            <div class="persona-role">Marketing Manager · "The Organiser"</div>
+            <div class="persona-name">James Mitchell, 18</div>
+            <div class="persona-role">Orphaned first-year university student · Computer Science · Works part-time at Tesco</div>
           </div>
-          <div class="persona-quote">"I just want everyone to have a good time without me spending the whole night being the logistics manager."</div>
+          <div class="persona-quote">"I just want one place that tells me what to do step by step, not ten pages telling me everything at once."</div>
           <div class="persona-goals-pains">
             <div class="pgp-box">
               <h4>Goals</h4>
               <ul>
-                <li>Coordinate dinner without WhatsApp chaos</li>
-                <li>Everyone pays their own share</li>
-                <li>No post-dinner bank transfer chasing</li>
-                <li>Know when food is actually coming</li>
+                <li>A single step-by-step system</li>
+                <li>Plain-English explanations</li>
+                <li>Clear "do this now / do this later" prioritisation</li>
+                <li>Progress tracking he can return to</li>
               </ul>
             </div>
             <div class="pgp-box">
               <h4>Pain Points</h4>
               <ul>
-                <li>Guesses orders for people who haven't replied</li>
-                <li>Stuck as the designated payer</li>
-                <li>No live status on group's food</li>
-                <li>Equal split feels unfair but easier than arguing</li>
+                <li>Opens multiple GOV.UK pages - doesn't know what to do first</li>
+                <li>Avoids calling organisations - feels overwhelming</li>
+                <li>Alone, managing grief alongside urgent admin</li>
+                <li>No one to ask - no family safety net</li>
               </ul>
             </div>
           </div>
@@ -1580,34 +1278,33 @@
 
       <div class="persona-card appear" style="margin-top:var(--sp-24);">
         <div class="persona-avatar">
-          <div class="img-ph img-ph--tall" style="border:none;border-radius:0;background:linear-gradient(145deg,#c8d6ff,#8aa8ff);" role="img" aria-label="Insert: Zara persona photo">
-            <span class="ph-icon">👤</span>
-            <span class="ph-text">Zara's photo</span>
+          <div class="img-ph img-ph--tall" style="border:none;border-radius:0;background:linear-gradient(145deg,#ffd6c8,#ffaa88);" role="img" aria-label="Insert: Sarah persona photo">
+            <img src="/assets/img/one.png" alt="Sarah persona photo" style="width:100%;height:100%;object-fit:cover;display:block;">
           </div>
         </div>
         <div class="persona-info">
           <div>
-            <div class="persona-name">Zara, 24</div>
-            <div class="persona-role">Postgraduate Student · "The Anxious Diner"</div>
+            <div class="persona-name">Sarah Clarke, 35</div>
+            <div class="persona-role">Widowed mother of two young children · Outstanding mortgage · Household budget halved overnight</div>
           </div>
-          <div class="persona-quote">"I have dietary restrictions but I hate making a fuss — I just want to know what I can actually eat before I get to the counter."</div>
+          <div class="persona-quote">"I don't even know what I don't know. I just need someone to tell me what I'm supposed to do next."</div>
           <div class="persona-goals-pains">
             <div class="pgp-box">
               <h4>Goals</h4>
               <ul>
-                <li>Filter menu by dietary needs without asking staff</li>
-                <li>Pay exactly what she ordered — not more</li>
-                <li>Accessible readable interface (dyslexia)</li>
-                <li>Not feel like a burden to the group</li>
+                <li>A clear starting point - not ten options</li>
+                <li>Plain language, deadline reminders</li>
+                <li>Confirmation she's doing things right</li>
+                <li>Access without needing to be digitally expert</li>
               </ul>
             </div>
             <div class="pgp-box">
               <h4>Pain Points</h4>
               <ul>
-                <li>Dietary info buried or inconsistent across vendors</li>
-                <li>Equal split forces her to pay for food she couldn't eat</li>
-                <li>Dense menus hard to parse under social pressure</li>
-                <li>No privacy when asking for dietary workarounds</li>
+                <li>Screenshots pages, starts forms then stops - unsure of eligibility</li>
+                <li>Late-night searches during children's sleep</li>
+                <li>BSP payment arrived with no notification</li>
+                <li>Council tax discount discovered three months late</li>
               </ul>
             </div>
           </div>
@@ -1615,266 +1312,81 @@
       </div>
     </div>
 
-    <div style="margin-top:var(--sp-48);" class="appear">
-      <div class="sub-heading" style="margin-bottom:var(--sp-16);">Journey Map &amp; Affinity Diagram</div>
-      <div class="img-ph img-ph--wide" role="img" aria-label="Insert: Customer journey map with emotion arc">
-        <span class="ph-icon">🗺️</span>
-        <span class="ph-text">Insert: Customer Journey Map</span>
+       <div style="margin-top:var(--sp-48);" class="appear">
+        <div class="sub-heading" style="margin-bottom:var(--sp-16);">Journey Map</div>
+        <div class="jmap-wrap">
+          <img src="/assets/img/dwp_journeymap.png" alt="Customer journey map" class="jmap-img">
+          <div class="jmap-glass" aria-hidden="true"></div>
+          <button class="jmap-expand-btn" type="button" aria-label="Expand journey map to full screen">
+            <i class="bi bi-arrows-fullscreen" aria-hidden="true"></i>
+            <span>Expand</span>
+          </button>
+          <span class="jmap-hint">Hover to zoom · tap &amp; hold on mobile</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOURNEY MAP EXPAND MODAL -->
+    <div class="jmap-modal" id="jmapModal" role="dialog" aria-modal="true" aria-label="Journey map, zoomed view">
+      <div class="jmap-modal-bar">
+        <div>
+          <div class="jmap-modal-title">Journey Map</div>
+          <div class="jmap-modal-hint">Drag to pan · scroll to move around</div>
+        </div>
+        <button class="jmap-modal-close" id="jmapModalClose" type="button" aria-label="Close zoomed view">
+          <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="jmap-modal-scroll" id="jmapModalScroll">
+        <img src="" alt="" class="jmap-modal-img" id="jmapModalImg">
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     HMW BANNER
-══════════════════════════════════════════════════════════ -->
-<div style="padding: var(--sp-64) var(--sp-20);" class="section--white">
-  <div class="content-col">
-    <div class="hmw-banner appear" role="complementary" aria-label="How Might We statement">
-      <span class="hmw-label">How Might We</span>
-      <p class="hmw-text">How might we help groups coordinate orders, pay fairly, and enjoy the social experience — without any app, account, or designated payer?</p>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════════════════
-     IDEATION
-══════════════════════════════════════════════════════════ -->
-<section class="section section--grey" id="ideation" aria-labelledby="ideation-heading">
+<!-- HMW + IDEATION -->
+<section id="hmw" style="padding: var(--sp-64) var(--sp-20); background:var(--white);" aria-labelledby="hmw-heading">
   <div class="content-col">
 
     <div class="section-heading appear">
-      <span class="label">Ideation &amp; Exploration</span>
-      <h2 id="ideation-heading">Buy a Feature: letting real priorities <strong>challenge assumptions.</strong></h2>
-      <p>Three participants allocated £100 each against 20 features priced £3–£14. Total feature cost was £140 — a deliberate £40 shortfall to force genuine trade-offs.</p>
+      <span class="label">From Research to Direction</span>
+      <h2 id="hmw-heading">Five research methods. One conclusion: <strong>the system needs to reach people, not the other way around.</strong></h2>
+      <p>The contextual map - tracing every touchpoint before BSP - was the clarifying moment. The 90-day deadline appeared at zero formal touchpoints. That single finding generated the solution structure.</p>
     </div>
 
-    <div class="appear">
-      <div class="sub-heading" style="margin-bottom:var(--sp-8);">Top-scored features (3/3 unanimous)</div>
-      <div class="feature-grid">
-        <div class="feature-item">
-          <span class="feature-score feature-score--high">✓ 3/3</span>
-          <div class="feature-name">Scan QR to access full menu</div>
-          <div class="feature-price">£3 · Must Have</div>
-        </div>
-        <div class="feature-item">
-          <span class="feature-score feature-score--high">✓ 3/3</span>
-          <div class="feature-name">Photos, descriptions, prices</div>
-          <div class="feature-price">£4 · Must Have</div>
-        </div>
-        <div class="feature-item">
-          <span class="feature-score feature-score--high">✓ 3/3</span>
-          <div class="feature-name">Special instructions per item</div>
-          <div class="feature-price">£4 · Must Have</div>
-        </div>
-        <div class="feature-item">
-          <span class="feature-score feature-score--high">✓ 3/3</span>
-          <div class="feature-name">No app download required</div>
-          <div class="feature-price">£6 · Must Have</div>
-        </div>
-        <div class="feature-item">
-          <span class="feature-score feature-score--mid">⬤ 2/3</span>
-          <div class="feature-name">Live order status per item</div>
-          <div class="feature-price">£14 · Top differentiator</div>
-        </div>
-        <div class="feature-item">
-          <span class="feature-score feature-score--low">✕ 0/3</span>
-          <div class="feature-name">Join group session (independently)</div>
-          <div class="feature-price">£5 · Challenged — de-emphasised</div>
-        </div>
-      </div>
+    <div class="hmw-banner appear" role="complementary" aria-label="How Might We statement">
+      <span class="hmw-label">How Might We</span>
+      <p class="hmw-text">How might we ensure bereaved people receive the right information - without needing to search for it - communicated in a way understandable even under acute grief?</p>
     </div>
 
-    <div class="highlight-quote appear" style="margin-top:var(--sp-40);">
-      <p>Feature 9 (Join session) scored <em>0/3</em> — directly challenging its Must Have classification. Participants either assumed joining was implicit in Feature 8 (Start session), or genuinely don't value the join mechanics independently. This shaped how minimal the join flow became in the final design.</p>
-      <cite>Buy a Feature debrief insight</cite>
-    </div>
-
-    <div style="margin-top:var(--sp-64);" class="appear">
+    <!-- Key design decision -->
+    <div style="margin-top:var(--sp-48);" class="appear">
       <div class="section-heading">
         <span class="label">Key Design Decision</span>
-        <h2>The payment split conflict: four options, one right answer.</h2>
-        <p>Person A ordered generously across multiple vendors. Person B ordered only a bowl of ramen. This tension is not a niche edge case.</p>
+        <h2>One product vs. three layers.</h2>
+        <p>Bereaved people are not a homogeneous user group. No single solution serves the full population. The power of the model is in complementarity.</p>
       </div>
       <div class="decision-grid">
         <div class="decision-item">
-          <span class="decision-label decision-label--rejected">Rejected</span>
-          <div class="decision-title">Host-controlled split</div>
-          <div class="decision-body">Host sets split mode for everyone before ordering. Disproportionate power to host; latecomers have no say.</div>
+          <span class="decision-label decision-label--rejected">Considered  Insufficient</span>
+          <div class="decision-title">Single GOV.UK page redesign</div>
+          <div class="decision-body">Improves discoverability for confident users - misses those who never reach GOV.UK. Survivorship bias baked in.</div>
         </div>
         <div class="decision-item">
-          <span class="decision-label decision-label--rejected">Rejected</span>
-          <div class="decision-title">Democratic group vote</div>
-          <div class="decision-body">Majority choice applied to whole table. Adds friction before anyone has seen the menu.</div>
+          <span class="decision-label decision-label--rejected">Considered  Insufficient</span>
+          <div class="decision-title">Phone helpline improvement</div>
+          <div class="decision-body">High-trust channel but reactive. Still requires bereaved people to know to call. Doesn't address the zero-touchpoint problem.</div>
         </div>
         <div class="decision-item">
-          <span class="decision-label decision-label--rejected">Rejected</span>
-          <div class="decision-title">Hybrid split</div>
-          <div class="decision-body">Personal items individual; shared plates split among selected participants. Too complex to design and build within scope.</div>
+          <span class="decision-label decision-label--rejected">Considered  Insufficient</span>
+          <div class="decision-title">Intermediary-only tool</div>
+          <div class="decision-body">Force multiplier but incomplete - registrars see only one moment. Users between touchpoints still have no support.</div>
         </div>
-        <div class="decision-item" style="border-color:rgba(227,30,8,.3);background:var(--accent-muted);">
+        <div class="decision-item" style="border-color:rgba(27,79,216,.3);background:var(--accent-muted);">
           <span class="decision-label decision-label--selected">Selected</span>
-          <div class="decision-title">Transparent itemised default</div>
-          <div class="decision-body">Everyone defaults to paying their own items — the app already knows who ordered what. Equal split surfaced as a toggle, not the default.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Design principles / must-haves sticky notes -->
-    <div class="section-heading appear" style="margin-top:var(--sp-64);">
-      <span class="label">MoSCoW Priorities</span>
-      <h2>Mapping what must exist before anything else.</h2>
-    </div>
-    <div class="sticky-notes-grid appear stagger">
-      <div class="sticky-note sticky-note--green">
-        <div class="sticky-note-label">Must Have</div>
-        <ul>
-          <li>QR scan → group session, no account required</li>
-          <li>Unified menu with photos, descriptions, prices</li>
-          <li>Special instructions per item</li>
-          <li>Individual itemised payment at checkout</li>
-        </ul>
-      </div>
-      <div class="sticky-note sticky-note--blue">
-        <div class="sticky-note-label">Should Have</div>
-        <ul>
-          <li>Live order tracking per item per vendor</li>
-          <li>Dietary filter across all vendors simultaneously</li>
-          <li>Equal split toggle (not default) at payment</li>
-          <li>Apple Pay / Google Pay support</li>
-        </ul>
-      </div>
-      <div class="sticky-note sticky-note--yellow">
-        <div class="sticky-note-label">Could Have</div>
-        <ul>
-          <li>Late joiner via WhatsApp/link share</li>
-          <li>OpenDyslexic accessibility font mode</li>
-          <li>Session timer display for kitchen context</li>
-          <li>Reorder from previous sessions</li>
-        </ul>
-      </div>
-      <div class="sticky-note sticky-note--orange">
-        <div class="sticky-note-label">Won't Have (This Iteration)</div>
-        <ul>
-          <li>Multi-round ordering within same session</li>
-          <li>Social sharing / group review post-meal</li>
-          <li>Loyalty or rewards mechanic</li>
-          <li>Operator-facing dashboard or analytics</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Crazy 8s — carousel -->
-    <div style="margin-top:var(--sp-48);" class="appear">
-      <div class="sub-heading" style="margin-bottom:var(--sp-24);">Crazy 8s &amp; Early Sketches</div>
-      <div class="carousel-wrap" id="sketch-carousel" role="region" aria-label="Early sketches">
-        <div class="carousel-track" id="sketch-track">
-
-          <div class="carousel-slide" role="group" aria-label="Sketch 1 of 4" aria-hidden="false">
-            <div class="carousel-slide-inner">
-              <div class="carousel-text">
-                <span class="carousel-number">Sketch 01</span>
-                <h3 class="carousel-slide-title">Pop-up Join Flow — Option A</h3>
-                <div class="carousel-slide-body">
-                  <p>Modal overlay that surfaces join mechanics inline after host creates the session. Explored for speed — minimal taps from QR scan to being in the session.</p>
-                  <ul>
-                    <li>No dedicated join screen — reduces perceived complexity</li>
-                    <li>Risk: modal may be dismissed before reading</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="carousel-img">
-                <div class="img-ph img-ph--sq" style="border:none;border-radius:0;" role="img" aria-label="Insert: Crazy 8 sketch — pop-up join flow option A">
-                  <span class="ph-icon">✏️</span>
-                  <span class="ph-text">Insert: Sketch — Pop-up Join Flow (A)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="carousel-slide" role="group" aria-label="Sketch 2 of 4" aria-hidden="true">
-            <div class="carousel-slide-inner">
-              <div class="carousel-text">
-                <span class="carousel-number">Sketch 02</span>
-                <h3 class="carousel-slide-title">Independent Session Screen — Option B</h3>
-                <div class="carousel-slide-body">
-                  <p>Dedicated full-screen join flow with 4-digit code entry. Gives guests a moment to name themselves before entering the shared session.</p>
-                  <ul>
-                    <li>Clearer mental model for "joining" vs "hosting"</li>
-                    <li>Risk: extra screen may feel slow for walk-in groups</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="carousel-img">
-                <div class="img-ph img-ph--sq" style="border:none;border-radius:0;" role="img" aria-label="Insert: Crazy 8 sketch — independent session screen option B">
-                  <span class="ph-icon">✏️</span>
-                  <span class="ph-text">Insert: Sketch — Independent Session (B)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="carousel-slide" role="group" aria-label="Sketch 3 of 4" aria-hidden="true">
-            <div class="carousel-slide-inner">
-              <div class="carousel-text">
-                <span class="carousel-number">Sketch 03</span>
-                <h3 class="carousel-slide-title">Menu Browsing — Multi-vendor Layout</h3>
-                <div class="carousel-slide-body">
-                  <p>Early sketches of unified menu layout exploring tab navigation between vendors vs. a scrollable single list grouped by cuisine type.</p>
-                  <ul>
-                    <li>Tabs = faster vendor switching, harder dietary filtering</li>
-                    <li>Single scroll = better dietary UX, longer page</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="carousel-img">
-                <div class="img-ph img-ph--sq" style="border:none;border-radius:0;" role="img" aria-label="Insert: Crazy 8 sketch — menu layout exploration">
-                  <span class="ph-icon">✏️</span>
-                  <span class="ph-text">Insert: Sketch — Menu Layout Exploration</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="carousel-slide" role="group" aria-label="Sketch 4 of 4" aria-hidden="true">
-            <div class="carousel-slide-inner">
-              <div class="carousel-text">
-                <span class="carousel-number">Sketch 04</span>
-                <h3 class="carousel-slide-title">Payment Split — Interaction Concepts</h3>
-                <div class="carousel-slide-body">
-                  <p>Explored how to surface split options without creating decision fatigue. Three concepts: all-upfront chooser, per-item toggle, and post-order summary.</p>
-                  <ul>
-                    <li>Per-item toggle felt granular but slow</li>
-                    <li>Post-order summary chosen — least intrusive path</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="carousel-img">
-                <div class="img-ph img-ph--sq" style="border:none;border-radius:0;" role="img" aria-label="Insert: Crazy 8 sketch — payment split concepts">
-                  <span class="ph-icon">✏️</span>
-                  <span class="ph-text">Insert: Sketch — Payment Split Concepts</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <div class="carousel-controls">
-          <div class="carousel-dots" role="tablist" aria-label="Sketch navigation">
-            <button class="carousel-dot active" data-idx="0" role="tab" aria-selected="true"  aria-label="Sketch 1"></button>
-            <button class="carousel-dot"        data-idx="1" role="tab" aria-selected="false" aria-label="Sketch 2"></button>
-            <button class="carousel-dot"        data-idx="2" role="tab" aria-selected="false" aria-label="Sketch 3"></button>
-            <button class="carousel-dot"        data-idx="3" role="tab" aria-selected="false" aria-label="Sketch 4"></button>
-          </div>
-          <div class="carousel-arrows">
-            <button class="carousel-arrow" id="sketch-prev" aria-label="Previous sketch">
-              <svg viewBox="0 0 16 16"><polyline points="10,3 5,8 10,13"/></svg>
-            </button>
-            <button class="carousel-arrow" id="sketch-next" aria-label="Next sketch">
-              <svg viewBox="0 0 16 16"><polyline points="6,3 11,8 6,13"/></svg>
-            </button>
-          </div>
+          <div class="decision-title">Three-layer service model</div>
+          <div class="decision-body">Proactive letter + digital triage tool + intermediary dashboard. Complementary layers serve different users at different moments.</div>
         </div>
       </div>
     </div>
@@ -1882,493 +1394,202 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     DESIGN
-══════════════════════════════════════════════════════════ -->
+<!-- DESIGN -->
 <section class="section section--white" id="design" aria-labelledby="design-heading">
   <div class="content-col">
 
     <div class="section-heading appear">
-      <span class="label">Visual Architecture &amp; Design</span>
-      <h2 id="design-heading">One layout system. <strong>Every menu.</strong></h2>
-      <p>The most visually complex challenge was making a burger menu, a sushi menu, and a cocktail menu feel like they belong in the same product without looking like a generic aggregator.</p>
+      <span class="label">The Solution</span>
+      <h2 id="design-heading">A three-layer service model - because bereaved people are <strong>not one persona.</strong></h2>
+      <p>The solution architecture emerged from the contextual map, not from assumption. Resisting the urge to design one product was the right call.</p>
     </div>
 
-    <div class="appear">
-      <div class="sub-heading" style="margin-bottom:var(--sp-16);">The Dual User Journey</div>
+    <!-- Layer 1 -->
+    <div class="layer-card appear">
+      <div class="layer-num-col">
+        <div class="layer-num">01</div>
+        <div class="layer-title">Proactive Notification Letter</div>
+        <div class="layer-subtitle">Triggered at death registration via Tell Us Once integration. The system reaches out - you don't have to find it.</div>
+      </div>
+      <div class="layer-body">
+        <p>An automated, personalised letter (and SMS where a number is held) arrives within 5–10 working days of death registration. Lists 3–5 entitlements by name with pre-calculated deadlines and a single contact route per entitlement.</p>
+        <ul>
+          <li>No navigation required - the system delivers the information</li>
+          <li>Letter format passes a junk mail disambiguation test: immediately legible as official, personalised, and time-sensitive</li>
+          <li>Delivery options include BSL, translated, and large print formats</li>
+          <li>Built on existing Tell Us Once infrastructure - not new government infrastructure</li>
+          <li>Pre-calculated BSP 90-day deadline shown clearly in the letter</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Layer 2 -->
+    <div class="layer-card appear">
+      <div class="layer-num-col">
+        <div class="layer-num">02</div>
+        <div class="layer-title">Five-Question Digital Triage Tool</div>
+        <div class="layer-subtitle">Accessible from GOV.UK. No account required. Five questions. One personalised checklist with deadline countdown.</div>
+      </div>
+      <div class="layer-body">
+        <p>Five questions covering: relationship to deceased, NI contribution status, dependent children, current benefit status, and date of death (to auto-calculate deadlines). Output: a ranked personalised checklist with deadline countdown and one-click paths to begin each claim.</p>
+        <ul>
+          <li>Progressive disclosure - no information shown before it's needed</li>
+          <li>No dead ends - every path leads to an action or a human contact</li>
+          <li>Channel agnostic - printable, saveable, usable via phone relay</li>
+          <li>Auto-calculates BSP deadline from date of death field</li>
+          <li>Designed for use under acute cognitive and emotional distress</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Layer 3 -->
+    <div class="layer-card appear">
+      <div class="layer-num-col">
+        <div class="layer-num">03</div>
+        <div class="layer-title">Intermediary-First Dashboard</div>
+        <div class="layer-subtitle">For registrars, GPs, funeral directors, and Citizens Advice workers. One trained registrar serves everyone who registers a death in their office.</div>
+      </div>
+      <div class="layer-body">
+        <p>A lightweight dashboard for trusted professionals. Input: client type + date of death. Output: accurate entitlement matrix with deadline indicators, flagging when BSP deadline is within 30 days.</p>
+        <ul>
+          <li>Bereaved people have high-trust relationships with these professionals at the point of contact</li>
+          <li>Equipping intermediaries is a force multiplier</li>
+          <li>Flags when BSP 30-day deadline warning threshold is crossed</li>
+          <li>Accurate across all four government departments - not per-agency</li>
+          <li>Requires no new government infrastructure - a layer on existing professional touchpoints</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:var(--sp-48);" class="appear">
+      <div class="sub-heading" style="margin-bottom:var(--sp-16);">Service Architecture - Key Screens</div>
       <div class="two-col" style="gap:var(--sp-16);">
-        <div class="card">
-          <div class="label" style="margin-bottom:var(--sp-12);">Scenario A</div>
-          <div class="sub-heading">Everyone arrives together</div>
-          <div style="font-size:14px;color:var(--ink-500);line-height:1.7;margin-top:var(--sp-8);">
-            Host scans QR → creates session → app generates 4-digit code + QR → friends scan host's screen → shared session → each person browses and adds → host reviews group basket → submits → each person pays their own items.
-          </div>
-        </div>
-        <div class="card">
-          <div class="label" style="margin-bottom:var(--sp-12);">Scenario B</div>
-          <div class="sub-heading">Someone arrives late</div>
-          <div style="font-size:14px;color:var(--ink-500);line-height:1.7;margin-top:var(--sp-8);">
-            Host scans QR → creates session → shares link via WhatsApp/iMessage → late arrivals tap link → land directly in group session → add items before or after arriving → host submits when everyone is ready.
-          </div>
-        </div>
+        <img src="/assets/img/dwp_layer1.png" alt="Layer 1 notification letter mockup" style="width:100%;display:block;border-radius:var(--r-lg);">
+        <img src="/assets/img/dwp_layer2.png" alt="Layer 2 digital triage tool screen" style="width:100%;display:block;border-radius:var(--r-lg);">
+      </div>
+      <div style="margin-top:var(--sp-16);">
+        <img src="/assets/img/dwp_ia.png" alt="Layer 3 intermediary dashboard screen" style="width:100%;display:block;border-radius:var(--r-lg);">
       </div>
     </div>
 
     <div class="highlight-quote appear">
-      <p>Guests have full autonomy over what they order but <em>zero control over submission timing.</em> That stays with the host. This prevents accidental early submission while letting everyone browse and add at their own pace.</p>
-    </div>
-
-    <!-- UI Screens carousel -->
-    <div style="margin-top:var(--sp-48);">
-      <div class="sub-heading" style="margin-bottom:var(--sp-24);">Key Screens — 4 Core Flows</div>
-      <div class="carousel-wrap appear" id="sol-carousel" role="region" aria-label="Design screens">
-        <div class="carousel-track" id="sol-track">
-
-          <div class="carousel-slide" role="group" aria-label="Screen 1 of 4" aria-hidden="false">
-            <div class="carousel-slide-inner">
-              <div class="carousel-text">
-                <span class="carousel-number">Flow 01</span>
-                <h3 class="carousel-slide-title">Host: Create &amp; Share Group Session</h3>
-                <div class="carousel-slide-body">
-                  <p>One tap to create a session after QR scan. The host gets a 4-digit room code, a scannable QR, and a shareable link — whichever works for the group's situation.</p>
-                  <ul>
-                    <li><span><strong>No account creation</strong> — guest checkout from the start</span></li>
-                    <li>Auto table number detection from QR metadata</li>
-                    <li>Session closes when host submits — guests can't accidentally submit</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="carousel-img">
-                <div class="img-ph img-ph--screen" style="border:none;border-radius:0;" role="img" aria-label="Insert: Host session creation screen">
-                  <span class="ph-icon">📱</span>
-                  <span class="ph-text">Insert: Host Session Screen</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="carousel-slide" role="group" aria-label="Screen 2 of 4" aria-hidden="true">
-            <div class="carousel-slide-inner">
-              <div class="carousel-text">
-                <span class="carousel-number">Flow 02</span>
-                <h3 class="carousel-slide-title">Browse: Unified Multi-Vendor Menu</h3>
-                <div class="carousel-slide-body">
-                  <p>One component system across every vendor. Variety comes from photos and the vendor's colour header strip — the structure stays identical.</p>
-                  <ul>
-                    <li><span><strong>Cross-vendor dietary filter</strong> — not per-vendor silo</span></li>
-                    <li>Dietary tags include text labels alongside icons (WCAG 1.4.1)</li>
-                    <li>OpenDyslexic font mode for users with dyslexia (Zara persona)</li>
-                    <li>Estimated prep time shown before ordering</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="carousel-img">
-                <div class="img-ph img-ph--screen" style="border:none;border-radius:0;" role="img" aria-label="Insert: Unified menu screen">
-                  <span class="ph-icon">🍽️</span>
-                  <span class="ph-text">Insert: Unified Menu Screen</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="carousel-slide" role="group" aria-label="Screen 3 of 4" aria-hidden="true">
-            <div class="carousel-slide-inner">
-              <div class="carousel-text">
-                <span class="carousel-number">Flow 03</span>
-                <h3 class="carousel-slide-title">Payment: Transparent Itemised Split</h3>
-                <div class="carousel-slide-body">
-                  <p>The app defaults everyone to paying for their own items — it already knows who ordered what. Equal split is a toggle, not the default.</p>
-                  <ul>
-                    <li>Real-time "remaining table balance" shows how much of the group total has been settled</li>
-                    <li>Apple Pay / Google Pay supported</li>
-                    <li>One person's failed payment never affects another's confirmed order</li>
-                    <li><span><strong>"Need help?" button</strong> alerts venue staff — shifts responsibility from host to operator</span></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="carousel-img">
-                <div class="img-ph img-ph--screen" style="border:none;border-radius:0;" role="img" aria-label="Insert: Payment split screen">
-                  <span class="ph-icon">💳</span>
-                  <span class="ph-text">Insert: Payment Split Screen</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="carousel-slide" role="group" aria-label="Screen 4 of 4" aria-hidden="true">
-            <div class="carousel-slide-inner">
-              <div class="carousel-text">
-                <span class="carousel-number">Flow 04</span>
-                <h3 class="carousel-slide-title">Track: Live Order Status Per Vendor</h3>
-                <div class="carousel-slide-body">
-                  <p>Live order status per item, per vendor — the strongest differentiator and the most-regretted skip in the Buy a Feature session.</p>
-                  <ul>
-                    <li>Each item tracked: Received → Preparing → Ready</li>
-                    <li>Notification when all group items are ready</li>
-                    <li>Scored highest in Q5 (functions well integrated) on SUS</li>
-                    <li><span><strong>Absent from every existing competitor</strong> in this context</span></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="carousel-img">
-                <div class="img-ph img-ph--screen" style="border:none;border-radius:0;" role="img" aria-label="Insert: Live order tracking screen">
-                  <span class="ph-icon">⏱️</span>
-                  <span class="ph-text">Insert: Order Tracking Screen</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <div class="carousel-controls">
-          <div class="carousel-dots" role="tablist" aria-label="Screen navigation">
-            <button class="carousel-dot active" data-idx="0" role="tab" aria-selected="true"  aria-label="Screen 1"></button>
-            <button class="carousel-dot"        data-idx="1" role="tab" aria-selected="false" aria-label="Screen 2"></button>
-            <button class="carousel-dot"        data-idx="2" role="tab" aria-selected="false" aria-label="Screen 3"></button>
-            <button class="carousel-dot"        data-idx="3" role="tab" aria-selected="false" aria-label="Screen 4"></button>
-          </div>
-          <div class="carousel-arrows">
-            <button class="carousel-arrow" id="sol-prev" aria-label="Previous screen">
-              <svg viewBox="0 0 16 16"><polyline points="10,3 5,8 10,13"/></svg>
-            </button>
-            <button class="carousel-arrow" id="sol-next" aria-label="Next screen">
-              <svg viewBox="0 0 16 16"><polyline points="6,3 11,8 6,13"/></svg>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Directions explored — vertical stack with image placeholder -->
-    <div style="margin-top:var(--sp-48);" class="appear">
-      <div class="sub-heading" style="margin-bottom:var(--sp-8);">UI Directions Explored</div>
-
-      <div class="direction-item">
-        <div class="direction-text">
-          <span class="decision-label decision-label--rejected" style="width:fit-content;">Explored → Rejected</span>
-          <div class="decision-title" style="font-size:17px;">Neobrutalism</div>
-          <p style="font-size:14px;color:var(--ink-500);line-height:1.65;">High visual energy, bold contrast. Rejected: didn't match accessibility requirements. Heavy outlines made dietary tags harder to scan. Read as trendy rather than trustworthy — a problem for a product handling payment.</p>
-        </div>
-        <div class="direction-img">
-          <div class="img-ph" style="aspect-ratio:9/16;min-height:0;" role="img" aria-label="Insert: Neobrutalism direction screen 1">
-            <span class="ph-icon">📱</span>
-            <span class="ph-text">Screen 1</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="direction-item">
-        <div class="direction-text">
-          <span class="decision-label decision-label--selected" style="width:fit-content;">Explored → Retained (Modified)</span>
-          <div class="decision-title" style="font-size:17px;">Mesh Grid Background</div>
-          <p style="font-size:14px;color:var(--ink-500);line-height:1.65;">Explored as an onboarding background treatment. Retained in modified form after testing various solid and textured alternatives — provides depth without competing with content hierarchy.</p>
-        </div>
-        <div class="direction-img">
-          <div class="img-ph" style="aspect-ratio:9/16;min-height:0;" role="img" aria-label="Insert: Mesh grid direction screen 1">
-            <span class="ph-icon">📱</span>
-            <span class="ph-text">Screen 1</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div style="margin-top:var(--sp-48);" class="appear">
-      <div class="card" style="text-align:center;padding:var(--sp-40);">
-        <p class="sub-heading" style="margin-bottom:var(--sp-20);">Final Design — Hi-Fi Prototype</p>
-        <div class="img-ph img-ph--wide" style="margin-bottom:var(--sp-24);" role="img" aria-label="Insert: Final hi-fi prototype screens">
-          <span class="ph-icon">🎬</span>
-          <span class="ph-text">Insert: Final Prototype Walkthrough / Key Screens</span>
-        </div>
-        <a href="https://tinyurl.com/culinarrprototype" target="_blank" rel="noopener" class="proto-btn" style="margin:0 auto;" aria-label="View Culinarr prototype in Figma">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="1" width="10" height="14" rx="2"/><path d="M6 4h4M6 7h4M6 10h2"/></svg>
-          View Full Prototype
-        </a>
-      </div>
+      <p>The design principles were consistent across all three layers: the service initiates contact rather than waiting for users to find it. <em>No dead ends. No navigation without direction. No deadline without a clear path to act on it.</em></p>
     </div>
 
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     TESTING
-══════════════════════════════════════════════════════════ -->
+<!-- TESTING / EVALUATION -->
 <section class="section section--grey" id="testing" aria-labelledby="testing-heading">
   <div class="content-col">
 
     <div class="section-heading appear">
       <span class="label">Evaluation</span>
-      <h2 id="testing-heading">Pre-defined success criteria. <strong>All four met.</strong></h2>
-      <p>5 participants, in-person, controlled environment. Tasks covered all four core flows. SUS questionnaire post-task.</p>
+      <h2 id="testing-heading">The research base is solid. <strong>The prototype needs real-world testing.</strong></h2>
+      <p>What was validated - and what honestly wasn't.</p>
     </div>
 
-    <div class="metrics-row stagger appear">
-      <div class="metric-card">
-        <div class="metric-num">84%</div>
-        <div class="metric-label">Task completion rate (target: &gt;80%)</div>
+    <!-- What was validated - FIRST -->
+    <div class="card appear" style="margin-bottom:var(--sp-32);">
+      <div class="label" style="margin-bottom:var(--sp-16);">What the Research Validates</div>
+      <div class="task-row">
+        <div class="task-pct task-pct--high"><i class="bi bi-check-lg"></i></div>
+        <div class="task-text"><strong>Problem statement</strong> - grounded in 15,631 coded sentences across four communities. Eight themes, 41 codes, Braun &amp; Clarke six-phase method.</div>
       </div>
-      <div class="metric-card">
-        <div class="metric-num">79.5</div>
-        <div class="metric-label">SUS score — "Good" (target: &gt;75)</div>
+      <div class="task-row">
+        <div class="task-pct task-pct--high"><i class="bi bi-check-lg"></i></div>
+        <div class="task-text"><strong>Solution direction</strong> - competitor analysis across four countries and analogous inspiration from six sectors all converge on a proactive-reach model.</div>
       </div>
-      <div class="metric-card">
-        <div class="metric-num">0</div>
-        <div class="metric-label">Critical usability errors (target: 0)</div>
+      <div class="task-row">
+        <div class="task-pct task-pct--high"><i class="bi bi-check-lg"></i></div>
+        <div class="task-text"><strong>Tell Us Once integration feasibility</strong> - infrastructure exists and is underused. Layer 1 builds on what's already there, not new government infrastructure.</div>
       </div>
-      <div class="metric-card">
-        <div class="metric-num">0</div>
-        <div class="metric-label">WCAG AA violations (target: 0)</div>
-      </div>
-    </div>
-
-    <!-- Task completion — text-bold style like SUS -->
-    <div style="margin-top:var(--sp-48);">
-      <div class="section-heading appear">
-        <span class="label">Task Completion</span>
-        <h2>100% on the two highest-stakes flows.</h2>
-      </div>
-
-      <div class="card appear">
-        <div class="task-row">
-          <div class="task-pct task-pct--high">100%</div>
-          <div class="task-text"><strong>Scan QR to create/join group session</strong> — every participant completed without assistance. Zero-friction onboarding validated.</div>
-        </div>
-        <div class="task-row">
-          <div class="task-pct task-pct--high">80%</div>
-          <div class="task-text"><strong>Browse menu and place order</strong> — P5 failed; consistent menu structure worked for 4/5.</div>
-        </div>
-        <div class="task-row">
-          <div class="task-pct task-pct--low">60%</div>
-          <div class="task-text"><strong>Set dietary filters</strong> — P3 and P5 failed; dietary filter discoverability is the consistent failure point and the primary iteration target.</div>
-        </div>
-        <div class="task-row">
-          <div class="task-pct task-pct--high">100%</div>
-          <div class="task-text"><strong>Choose split method and pay (per-item)</strong> — every participant completed. Payment flow validated.</div>
-        </div>
-        <div class="task-row">
-          <div class="task-pct task-pct--mid">80%</div>
-          <div class="task-text"><strong>Track order status</strong> — P3 failed; overall tracking UI well-received across 4/5 participants.</div>
-        </div>
+      <div class="task-row">
+        <div class="task-pct task-pct--mid"><i class="bi bi-exclamation-circle"></i></div>
+        <div class="task-text"><strong>Live usability testing</strong> - not conducted. The two unknowns below remain open. Required before any deployment.</div>
       </div>
     </div>
 
-    <!-- SUS breakdown -->
-    <div style="margin-top:var(--sp-48);">
-      <div class="section-heading appear">
-        <span class="label">SUS Analysis</span>
-        <h2>Strong positive signals. Two honest targets for iteration.</h2>
-      </div>
+    <!-- Gaps - clearly named, after strengths -->
+    <div class="section-heading appear">
+      <span class="label">Honest Gaps</span>
+      <h2>Two things only real testing can answer.</h2>
+    </div>
 
-      <div class="card appear">
-        <div class="sus-row">
-          <span class="sus-label"><strong>Q4</strong> — Needed technical support to use</span>
-          <span class="sus-score" style="color:var(--accent-teal);">1.6</span>
-        </div>
-        <div class="sus-row">
-          <span class="sus-label"><strong>Q5</strong> — Functions well integrated (multi-vendor flows coherent)</span>
-          <span class="sus-score">4.6</span>
-        </div>
-        <div class="sus-row">
-          <span class="sus-label"><strong>Q1</strong> — Would use the system frequently</span>
-          <span class="sus-score">4.4</span>
-        </div>
-        <div class="sus-row">
-          <span class="sus-label"><strong>Q9</strong> — Felt confident using the system</span>
-          <span class="sus-score">4.4</span>
-        </div>
-        <div class="sus-row">
-          <span class="sus-label"><strong>Q8</strong> — Very cumbersome to use <em style="color:var(--ink-300);font-size:12px;">(ordering flow needs refinement)</em></span>
-          <span class="sus-score" style="color:var(--ink-300);">2.2</span>
-        </div>
-        <div class="sus-row" style="border-bottom:none;">
-          <span class="sus-label"><strong>Q10</strong> — Needed to learn a lot first <em style="color:var(--ink-300);font-size:12px;">(dietary flow needs iteration)</em></span>
-          <span class="sus-score" style="color:var(--ink-300);">2.2</span>
-        </div>
+    <div class="iter-card appear">
+      <div class="iter-header">
+        <div class="iter-num">01</div>
+        <div class="iter-title">Does the Layer 1 letter actually get read?</div>
       </div>
-
-      <div class="highlight-quote appear">
-        <p>Q4 at 1.6 is the best individual result: virtually nobody felt they'd need help to use it again — <em>critical for a product used in a noisy, time-pressured social setting.</em> Q5 at 4.6 means multi-vendor, multi-user flows were perceived as coherent, not fragmented.</p>
-      </div>
-
-      <!-- Testing participant quotes — lola2 style -->
-      <div class="section-heading appear" style="margin-top:var(--sp-64);">
-        <span class="label">Participant Voices</span>
-        <h2>What testers said in their own words.</h2>
-      </div>
-      <div class="quotes-grid appear stagger">
-        <div class="quote-card">
-          <p class="quote-card-text">"I'd use this every time I go to a food hall. The <em>only thing I needed help with</em> was the dietary filter — everything else was obvious."</p>
-          <span class="quote-card-source">P2 — Usability session debrief</span>
-        </div>
-        <div class="quote-card">
-          <p class="quote-card-text">"The payment screen was actually the <em>easiest part</em>. I just paid for my stuff and I was done. No awkward conversations."</p>
-          <span class="quote-card-source">P4 — Post-session interview</span>
-        </div>
-        <div class="quote-card">
-          <p class="quote-card-text">"I spent 40 seconds looking for the filter before I asked. Once I found it I <em>used it immediately</em> — it's just not where I expected it."</p>
-          <span class="quote-card-source">P3 — Dietary filter failure (key iteration driver)</span>
-        </div>
-        <div class="quote-card">
-          <p class="quote-card-text">"What if someone already paid but then we want to switch to equal split? That could get complicated."</p>
-          <span class="quote-card-source">P3 — <em style="font-style:normal;color:var(--accent);">Edge case that drove Iteration 02</em></span>
-        </div>
+      <div class="iter-body">
+        <ul>
+          <li>
+            <span class="iter-badge iter-badge--issue">Risk</span>
+            Older bereaved spouses - the most likely recipients - are least likely to recognise an unfamiliar DWP letter as relevant. Open rate is entirely unknown.
+          </li>
+          <li>
+            <span class="iter-badge iter-badge--insight">Next Step</span>
+            Service testing with participants aged 60+, low digital literacy, and those who were not primary account holders in their household.
+          </li>
+        </ul>
       </div>
     </div>
 
-    <!-- Design iteration -->
-    <div style="margin-top:var(--sp-48);">
-      <div class="section-heading appear">
-        <span class="label">Design Iteration</span>
-        <h2>What testing changed.</h2>
+    <div class="iter-card appear">
+      <div class="iter-header">
+        <div class="iter-num">02</div>
+        <div class="iter-title">Do five questions cover eligibility edge cases?</div>
       </div>
-
-      <div class="iter-card appear">
-        <div class="iter-header">
-          <div class="iter-num">01</div>
-          <div class="iter-title">Dietary filter discoverability — failure in 2 of 5 participants (P3, P5)</div>
-        </div>
-        <div class="iter-body">
-          <ul>
-            <li>
-              <span class="iter-badge iter-badge--issue">Issue</span>
-              Dietary filter icon was mistaken for a general settings control by both failing participants. P3 spent 40 seconds looking before asking.
-            </li>
-            <li>
-              <span class="iter-badge iter-badge--fix">Fix</span>
-              Filter relocated to a persistent top-bar position alongside search, with a text label "Filter by diet" replacing the icon-only treatment. Both align with WCAG 1.4.1.
-            </li>
-          </ul>
-        </div>
-        <div class="iter-images">
-          <div class="iter-img-cell">
-            <span class="iter-img-label iter-img-label--before">Before</span>
-            <div class="img-ph" role="img" aria-label="Insert: Before — icon-only dietary filter">
-              <span class="ph-icon">📷</span>
-              <span class="ph-text">Insert: Before — Icon-only Filter</span>
-            </div>
-          </div>
-          <div class="iter-img-cell">
-            <span class="iter-img-label iter-img-label--after">After</span>
-            <div class="img-ph" role="img" aria-label="Insert: After — labelled filter in top bar">
-              <span class="ph-icon">📷</span>
-              <span class="ph-text">Insert: After — Labelled Top-bar Filter</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="iter-card appear">
-        <div class="iter-header">
-          <div class="iter-num">02</div>
-          <div class="iter-title">P3's edge case: mixed split methods after someone has already paid</div>
-        </div>
-        <div class="iter-body">
-          <ul>
-            <li>
-              <span class="iter-badge iter-badge--insight">Insight</span>
-              P3 raised: "What if one person wants to pay only for what they ordered while the other three want to split the rest?" — not covered in the previous iteration.
-            </li>
-            <li>
-              <span class="iter-badge iter-badge--fix">Fix</span>
-              Allow split mode change even after someone has paid. Remaining amount adjusts automatically. Prevents the host from being locked into an early decision.
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- Accessibility audit — vertical stack, larger font -->
-    <div style="margin-top:var(--sp-48);" class="appear">
-      <div class="sub-heading" style="margin-bottom:var(--sp-20);">WCAG 1.4.1 Accessibility Audit</div>
-      <div class="audit-stack">
-        <div class="audit-card card--blue">
-          <span class="label">All Colour Contrast Ratios — Pass</span>
-          <div class="audit-row">
-            <span class="audit-row-label">#E31E08 (Primary red) vs white</span>
-            <span class="audit-row-val">4.71:1 ✓</span>
-          </div>
-          <div class="audit-row">
-            <span class="audit-row-label">#1B1B1B (Body text) vs white</span>
-            <span class="audit-row-val">17.22:1 ✓</span>
-          </div>
-          <div class="audit-row">
-            <span class="audit-row-label">#4A4A4A (Secondary text) vs white</span>
-            <span class="audit-row-val">8.86:1 ✓</span>
-          </div>
-          <div class="audit-row">
-            <span class="audit-row-label">#6B7280 (Muted text) vs white</span>
-            <span class="audit-row-val">4.83:1 ✓</span>
-          </div>
-        </div>
-        <div class="audit-card">
-          <span class="label">Accessibility Features Built</span>
-          <div class="audit-feature-row"><span class="audit-arrow">→</span>Dietary tags: text labels + icons (not icons alone)</div>
-          <div class="audit-feature-row"><span class="audit-arrow">→</span>OpenDyslexic font mode (Zara persona)</div>
-          <div class="audit-feature-row"><span class="audit-arrow">→</span>Text size adjustment in accessibility settings</div>
-          <div class="audit-feature-row"><span class="audit-arrow">→</span>Contrast adjustment toggle</div>
-        </div>
+      <div class="iter-body">
+        <ul>
+          <li>
+            <span class="iter-badge iter-badge--issue">Risk</span>
+            Cohabiting but unmarried partners, overseas deaths, and complex legacy benefit situations were not fully mapped through the question flow.
+          </li>
+          <li>
+            <span class="iter-badge iter-badge--insight">Next Step</span>
+            A dedicated sprint testing the triage tool specifically against non-standard relationship statuses and mixed legacy benefit profiles.
+          </li>
+        </ul>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     REFLECTION
-══════════════════════════════════════════════════════════ -->
+<!-- REFLECTION -->
 <section class="section section--white" id="reflection" aria-labelledby="refl-heading">
   <div class="content-col">
 
     <div class="section-heading appear">
       <span class="label">Reflection</span>
-      <h2 id="refl-heading">The journey map was where the <strong>real insight lived.</strong></h2>
+      <h2 id="refl-heading">What worked, what didn't.</h2>
     </div>
 
-    <div class="prose appear">
-      <p>
-        <strong>What I'd do differently:</strong> Recruit actual food hall users. All five participants were university peers with high digital literacy. The real audience includes older diners, people less confident with technology, non-English speakers ordering in unfamiliar cuisines, and people in genuinely noisy group settings. An in-situ pilot at Mackie Mayor or Altrincham Market House would have surfaced friction that a lab session can't.
-      </p>
-      <p>
-        <strong>What this taught me about process:</strong> I started the project assuming the payment friction was the core problem. The journey map showed the emotional trough was deepest at the ordering stage — when the host is guessing for six people in WhatsApp while four have responded and two haven't. Solving coordination first, payment second, changed the entire product priority order.
-      </p>
-      <p>
-        <strong>The Buy a Feature surprise:</strong> I expected Feature 14 (live order tracking) to dominate, and it did — but Feature 9 (join group session) scoring 0/3 was the result I hadn't anticipated. It forced a reassessment of an assumption I'd treated as settled and made the final join flow significantly more minimal.
-      </p>
-    </div>
-
-    <!-- Vertically stacked reflection cards, full width -->
     <div class="reflection-stack appear">
-      <div class="reflection-card">
-        <div class="label" style="margin-bottom:var(--sp-16);">Open Questions</div>
-        <div class="refl-pointer">
-          <div class="refl-pointer-head"><span class="refl-icon">?</span><span>Current prototype supports a single order round — second round of drinks mid-session is architecturally supported but out of scope for this iteration.</span></div>
-        </div>
-        <div class="refl-pointer">
-          <div class="refl-pointer-head"><span class="refl-icon">?</span><span>Accessibility testing not conducted with assistive technology users despite dyslexia being a primary design driver.</span></div>
-        </div>
-        <div class="refl-pointer">
-          <div class="refl-pointer-head"><span class="refl-icon">?</span><span>The experience under real food hall conditions — noise, poor signal, time pressure, group social dynamics — remains untested.</span></div>
-        </div>
-      </div>
-
       <div class="reflection-card card--blue">
-        <div class="label" style="margin-bottom:var(--sp-16);">Business Metrics (Post-Launch)</div>
+        <div class="label" style="margin-bottom:var(--sp-16);">What Worked</div>
         <div class="refl-pointer">
-          <div class="refl-pointer-head">
-            <span class="refl-icon">→</span>
-            <span><strong>Table turnover rate:</strong> Did groups spend less time ordering and paying? Benchmark: me&amp;u's 30% AOV increase.</span>
-          </div>
+          <div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>The ethical pivot.</strong> I proposed and led the Reddit content analysis strategy when interviews weren't feasible. It produced 15,631 coded sentences - more data than interviews would have in five weeks, with fewer ethical risks. The decision to pivot is the one I'm most proud of in this project.</span></div>
         </div>
         <div class="refl-pointer">
-          <div class="refl-pointer-head">
-            <span class="refl-icon">→</span>
-            <span><strong>Avg ticket size per head:</strong>  Deloitte's ~20% spending increase with digital tableside ordering sets the baseline expectation. </span>
-          </div>
+          <div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>Solution emerging from the map, not assumption.</strong> Before the contextual mapping exercise, I would have proposed a single GOV.UK page redesign. The map changed that - it made visible that the 90-day deadline existed at zero formal touchpoints, and that no one layer could serve the full population.</span></div>
         </div>
         <div class="refl-pointer">
-          <div class="refl-pointer-head">
-            <span class="refl-icon">→</span>
-            <span><strong>Cart abandonment rate:</strong> Tracking abandonment by screen and split method would reveal exactly what to fix next. </span>
-          </div>
+          <div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>Building on existing infrastructure.</strong> Using Tell Us Once as the trigger for Layer 1 meant the solution was viable inside real government constraints, not just conceptually interesting.</span></div>
+        </div>
+      </div>
+
+      <div class="reflection-card">
+        <div class="label" style="margin-bottom:var(--sp-16);">What Didn't / What's Unresolved</div>
+        <div class="refl-pointer">
+          <div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-x-lg"></i></span><span><strong>No live testing.</strong> The prototype was never put in front of a real bereaved person. That's the most significant gap in this project - and one that research extrapolation cannot resolve.</span></div>
+        </div>
+        <div class="refl-pointer">
+          <div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-x-lg"></i></span><span><strong>Frequency ≠ significance.</strong> The "Lack of Proactive Information" theme had just 41 coded sentences - the smallest. I almost missed it. Users had stopped asking for proactive information because they'd given up expecting it. That required interpretive work beyond a frequency count.</span></div>
+        </div>
+        <div class="refl-pointer">
+          <div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-question-lg"></i></span><span><strong>Eligibility edge cases.</strong> The five-question triage tool works for the standard BSP profile. Cohabiting but unmarried partners and overseas deaths remain unresolved. A known gap for a future sprint.</span></div>
         </div>
       </div>
     </div>
@@ -2376,65 +1597,58 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     WHAT THIS POINTS TO
-══════════════════════════════════════════════════════════ -->
-<section class="section section--grey" id="closing" aria-labelledby="closing-heading">
+<!-- END / CONTACT -->
+<section class="section section--white" id="end" style="padding-bottom:var(--sp-12); padding-top: var(--sp-12);">
+  <div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-label">End of Case Study</span><div class="section-divider-line"></div></div>
+</section>
+  
+  <!-- DEEPER DIVE CTA -->
+<section class="section section--grey deeper-dive-cta">
   <div class="content-col">
-    <div class="section-heading appear">
-      <span class="label">What This Points To</span>
-      <h2 id="closing-heading">Three things this design <strong>proves are possible.</strong></h2>
-    </div>
-
-    <div class="feature-grid appear">
-      <div class="feature-item" style="padding:var(--sp-32);">
-        <div style="font-size:28px;margin-bottom:var(--sp-12);">🔗</div>
-        <div class="feature-name" style="font-size:16px;margin-bottom:var(--sp-8);">Group session without friction</div>
-        <div class="feature-price" style="font-size:14px;line-height:1.6;color:var(--ink-500);">A group ordering session that works without an app, an account, or a single designated payer.</div>
+    <div class="deeper-dive-inner">
+      <div>
+        <span class="case-nav-title" style="display:block;margin-bottom:var(--sp-12);">Want to go deeper?</span>
+        <p class="deeper-dive-text">For a more detailed walkthrough of the research, process, or design decisions behind this case study — feel free to reach out directly.</p>
       </div>
-      <div class="feature-item" style="padding:var(--sp-32);">
-        <div style="font-size:28px;margin-bottom:var(--sp-12);">🍜</div>
-        <div class="feature-name" style="font-size:16px;margin-bottom:var(--sp-8);">Unified multi-vendor menu</div>
-        <div class="feature-price" style="font-size:14px;line-height:1.6;color:var(--ink-500);">A menu that stays coherent and accessible regardless of cuisine type, across every vendor in the hall.</div>
-      </div>
-      <div class="feature-item" style="padding:var(--sp-32);">
-        <div style="font-size:28px;margin-bottom:var(--sp-12);">💳</div>
-        <div class="feature-name" style="font-size:16px;margin-bottom:var(--sp-8);">Payment with genuine flexibility</div>
-        <div class="feature-price" style="font-size:14px;line-height:1.6;color:var(--ink-500);">A payment flow presented before anyone pays anything — not as a last-minute complication.</div>
-      </div>
+      <a href="mailto:work.piyushjadhav@gmail.com" class="deeper-dive-btn">Email Me</a>
     </div>
-
-    <div class="highlight-quote appear" style="margin-top:var(--sp-48);">
-      <p>UK food halls grew 31% in a single year. 65 more are in development. The format is inherently a group dining proposition. But every piece of technology deployed inside these venues was built for solo diners or single-restaurant contexts. <em>None of these are technically impossible. They just haven't been designed for this context before.</em></p>
-    </div>
-
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     CONTACT — from index.html style
-══════════════════════════════════════════════════════════ -->
+<section class="section section--white" style="padding-top:var(--sp-40); padding-bottom:var(--sp-40);">
+  <div class="content-col">
+    <div class="case-nav">
 
-<div class="section-divider">
-  <div class="section-divider-line"></div>
-  <span class="section-divider-label">End of Case Study</span>
-  <div class="section-divider-line"></div>
-</div>
+      <!-- PREVIOUS: set href="#" and remove disabled attr to enable -->
+    <a class="case-nav-btn case-nav-btn--prev" href="../culinarr/index.html">
+        <span class="case-nav-label">← Previous</span>
+        <span class="case-nav-title">Culinarr - Designing a Shared Dining Experience for Groups</span>
+      </a>
+
+      <!-- NEXT: set href="#" and remove disabled attr to enable -->
+      <a class="case-nav-btn case-nav-btn--next" href="../autodesk-case-study/index.html">
+        <span class="case-nav-label">Next</span>
+        <span class="case-nav-title">Autodesk Construction Cloud</span>
+      </a>
+
+    </div>
+  </div>
+</section>
 
 <section id="contact" style="background:var(--white);padding:var(--sp-80) var(--sp-20);" aria-labelledby="contact-title">
   <div class="content-col">
     <div class="appear" style="display:flex;align-items:center;justify-content:space-between;gap:var(--sp-40);flex-wrap:wrap;">
       <div>
-        <span class="label" style="display:block;margin-bottom:var(--sp-16);">Let's Connect</span>
-        <h2 style="font-family:var(--font-display);font-size:clamp(28px,4vw,42px);font-weight:900;letter-spacing:-.04em;color:var(--ink-900);line-height:1;margin-top:0;" id="contact-title">Got a project in mind?</h2>
-        <p style="font-size:16px;color:var(--ink-500);margin-top:var(--sp-12);line-height:1.65;">Whether it's a full product build or just a conversation — I'm always happy to chat design.</p>
+        <span class="label" style="display:block;margin-bottom:var(--sp-16);">Open to Opportunities</span>
+        <h2 style="font-family:var(--font-display);font-size:clamp(28px,4vw,42px);font-weight:900;letter-spacing:-.04em;color:var(--ink-900);line-height:1;margin-top:0;" id="contact-title">Let's talk design.</h2>
+        <p style="font-size:16px;color:var(--ink-500);margin-top:var(--sp-12);line-height:1.65;">Open to roles in service design, product design, and UX research - particularly in public sector, healthcare, and complex system domains.</p>
       </div>
       <div style="display:flex;gap:var(--sp-16);flex-wrap:wrap;">
         <a href="https://calendly.com/piyushjadhav" target="_blank" rel="noopener"
            style="font-family:var(--font-display);font-size:14px;font-weight:700;background:var(--ink-900);color:white;padding:14px 28px;border-radius:var(--r-md);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background .2s,transform .15s,box-shadow .2s;"
-           onmouseover="this.style.background='var(--accent)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(227,30,8,.35)';"
+           onmouseover="this.style.background='var(--accent)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(27,79,216,.35)';"
            onmouseout="this.style.background='var(--ink-900)';this.style.transform='';this.style.boxShadow='';">
-          Book a Meeting ↗
+          Book a Chat
         </a>
         <a href="assets/Resume.pdf" target="_blank" rel="noopener"
            style="font-family:var(--font-display);font-size:14px;font-weight:600;color:var(--ink-700);background:none;border:1.5px solid var(--ink-300);padding:14px 24px;border-radius:var(--r-md);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,color .2s,transform .15s;"
@@ -2447,28 +1661,22 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════════
-     FOOTER — from index.html
-══════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <span class="footer-left">© 2026 Piyush Jadhav. Designed &amp; built with ♥</span>
     <div class="footer-links">
       <a href="https://www.linkedin.com/in/piyushjadhavdesign/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://dribbble.com/piyushjadhav"    target="_blank" rel="noopener">Dribbble</a>
-      <a href="https://twitter.com/piyushjadhav"     target="_blank" rel="noopener">Twitter</a>
+      <a href="https://www.behance.net/piyusshh" target="_blank" rel="noopener">Behance</a>
     </div>
   </div>
 </footer>
 
-<!-- ══════════════════════════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════════════════════════ -->
 <script>
 (function() {
   'use strict';
 
-  /* ── Custom cursor ──────────────────────────────────── */
+  /* Custom cursor */
   var cur  = document.getElementById('cursor');
   var ring = document.getElementById('cursor-ring');
   var mx = -100, my = -100, rx = -100, ry = -100;
@@ -2476,23 +1684,23 @@
   function animCursor() {
     rx += (mx - rx) * .15;
     ry += (my - ry) * .15;
-    if (cur)  { cur.style.left  = mx + 'px'; cur.style.top  = my + 'px'; }
-    if (ring) { ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; }
+    if (cur)  cur.style.cssText  += 'left:' + mx + 'px;top:' + my + 'px;';
+    if (ring) ring.style.cssText += 'left:' + rx + 'px;top:' + ry + 'px;';
     requestAnimationFrame(animCursor);
   }
   animCursor();
-  document.querySelectorAll('a,button,.metric-card,.feature-item,.decision-item,.emotion-stage,.persona-card,.iter-card,.direction-item').forEach(function(el) {
+  document.querySelectorAll('a,button,.metric-card,.feature-item,.decision-item,.emotion-stage,.persona-card,.iter-card,.layer-card').forEach(function(el) {
     el.addEventListener('mouseenter', function() { document.body.classList.add('cursor-hover'); });
     el.addEventListener('mouseleave', function() { document.body.classList.remove('cursor-hover'); });
   });
 
-  /* ── Navbar scroll ─────────────────────────────────── */
+  /* Navbar scroll */
   var navbar = document.getElementById('navbar-inner');
   window.addEventListener('scroll', function() {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
   }, { passive: true });
 
-  /* ── Hamburger / mobile menu ────────────────────────── */
+  /* Hamburger */
   var hamburger  = document.getElementById('hamburger');
   var mobileMenu = document.getElementById('mobile-menu');
   hamburger.addEventListener('click', function() {
@@ -2512,45 +1720,33 @@
     });
   });
 
-  /* ── Intersection Observer — appear animations ──────── */
+  /* Intersection Observer */
   var io = new IntersectionObserver(function(entries) {
     entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        io.unobserve(entry.target);
-      }
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); io.unobserve(entry.target); }
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.appear, .stagger').forEach(function(el) { io.observe(el); });
 
-  /* ── Side stepper — section tracking ────────────────── */
-  var sections = ['hero','problem','research','define','ideation','design','testing','reflection'];
+  /* Side stepper */
+  var sections = ['hero','problem','research','define','hmw','design','testing','reflection'];
   var stepperItems = document.querySelectorAll('.stepper-item');
 
   function setActiveSection(id) {
-    var cappedId = (id === 'closing' || sections.indexOf(id) === -1) ? 'reflection' : id;
+    var cappedId = (sections.indexOf(id) === -1) ? 'reflection' : id;
     var activeIndex = sections.indexOf(cappedId);
     stepperItems.forEach(function(item, i) {
       var isActive = item.dataset.section === cappedId;
       var diff = Math.abs(i - activeIndex);
       item.classList.toggle('active', isActive);
       var dot = item.querySelector('.stepper-dot');
-      if (isActive) {
-        dot.style.transform = 'scale(1.25) translateX(3px)';
-        dot.style.opacity = '1';
-      } else if (diff === 1) {
-        dot.style.transform = 'scale(1.0) translateX(1.5px)';
-        dot.style.opacity = '0.6';
-      } else {
-        dot.style.transform = 'scale(0.85) translateX(0)';
-        dot.style.opacity = '0.35';
-      }
+      if (isActive) { dot.style.transform = 'scale(1.25) translateX(3px)'; dot.style.opacity = '1'; }
+      else if (diff === 1) { dot.style.transform = 'scale(1.0) translateX(1.5px)'; dot.style.opacity = '0.6'; }
+      else { dot.style.transform = 'scale(0.85) translateX(0)'; dot.style.opacity = '0.35'; }
     });
   }
 
-  var sectionEls = sections.map(function(id) {
-    return document.getElementById(id);
-  }).filter(Boolean);
+  var sectionEls = sections.map(function(id) { return document.getElementById(id); }).filter(Boolean);
 
   function getActiveSection() {
     var scrollY = window.scrollY;
@@ -2558,17 +1754,12 @@
     var current = sectionEls[0];
     sectionEls.forEach(function(el) {
       var elTop = el.getBoundingClientRect().top + scrollY;
-      if (scrollY + windowH * 0.4 >= elTop) {
-        current = el;
-      }
+      if (scrollY + windowH * 0.4 >= elTop) { current = el; }
     });
     return current ? current.id : sections[0];
   }
 
-  window.addEventListener('scroll', function() {
-    setActiveSection(getActiveSection());
-  }, { passive: true });
-
+  window.addEventListener('scroll', function() { setActiveSection(getActiveSection()); }, { passive: true });
   setActiveSection(getActiveSection());
 
   function stepperClick(item) {
@@ -2578,69 +1769,13 @@
     window.scrollTo({ top: top, behavior: 'smooth' });
   }
   stepperItems.forEach(function(item) {
-    item.addEventListener('click', function() {
-      stepperClick(item);
-      setActiveSection(item.dataset.section);
-    });
-    item.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stepperClick(item); }
-    });
+    item.addEventListener('click', function() { stepperClick(item); setActiveSection(item.dataset.section); });
+    item.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stepperClick(item); } });
     item.setAttribute('tabindex', '0');
     item.setAttribute('role', 'button');
   });
 
-  /* ── Carousel factory ───────────────────────────────── */
-  function initCarousel(trackId, prevId, nextId, dotSelector) {
-    var track   = document.getElementById(trackId);
-    var prevBtn = document.getElementById(prevId);
-    var nextBtn = document.getElementById(nextId);
-    if (!track || !prevBtn || !nextBtn) return;
-    var dots   = document.querySelectorAll(dotSelector);
-    var slides = track.querySelectorAll('.carousel-slide');
-    var total  = slides.length;
-    var current = 0;
-    var isAnim  = false;
-
-    function goTo(idx) {
-      if (isAnim) return;
-      isAnim = true;
-      current = (idx + total) % total;
-      track.style.transform = 'translateX(-' + (current * 100) + '%)';
-      dots.forEach(function(d, i) {
-        var active = i === current;
-        d.classList.toggle('active', active);
-        d.setAttribute('aria-selected', String(active));
-      });
-      slides.forEach(function(s, i) { s.setAttribute('aria-hidden', String(i !== current)); });
-      setTimeout(function() { isAnim = false; }, 520);
-    }
-
-    slides.forEach(function(s, i) { s.setAttribute('aria-hidden', String(i !== 0)); });
-    prevBtn.addEventListener('click', function() { goTo(current - 1); });
-    nextBtn.addEventListener('click', function() { goTo(current + 1); });
-    dots.forEach(function(dot) {
-      dot.addEventListener('click', function() { goTo(parseInt(dot.getAttribute('data-idx'), 10)); });
-    });
-    [prevBtn, nextBtn].concat(Array.from(dots)).forEach(function(el) {
-      el.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
-        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
-      });
-    });
-
-    var startX = 0;
-    track.parentElement.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
-    track.parentElement.addEventListener('touchend', function(e) {
-      var delta = e.changedTouches[0].clientX - startX;
-      if (Math.abs(delta) > 50) goTo(delta < 0 ? current + 1 : current - 1);
-    }, { passive: true });
-  }
-
-  initCarousel('res-track',    'res-prev',    'res-next',    '#res-carousel .carousel-dot');
-  initCarousel('sol-track',    'sol-prev',    'sol-next',    '#sol-carousel .carousel-dot');
-  initCarousel('sketch-track', 'sketch-prev', 'sketch-next', '#sketch-carousel .carousel-dot');
-
-  /* ── Smooth scroll for anchor links ─────────────────── */
+  /* Smooth scroll anchor links */
   document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
     anchor.addEventListener('click', function(e) {
       var target = document.querySelector(this.getAttribute('href'));
@@ -2651,20 +1786,157 @@
     });
   });
 
-  /* ── Hero stagger on load ────────────────────────────── */
-  function triggerVisible() {
-  document.querySelectorAll('.appear, .stagger').forEach(function(el) {
-    var rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight) {
-      el.classList.add('visible');
-    }
+  /* Hero stagger on load */
+  window.addEventListener('load', function() {
+    document.querySelectorAll('.appear, .stagger').forEach(function(el) {
+      if (el.getBoundingClientRect().top < window.innerHeight) { el.classList.add('visible'); }
+    });
   });
-}
 
-window.addEventListener('load', triggerVisible);
-document.addEventListener('DOMContentLoaded', triggerVisible);
-setTimeout(triggerVisible, 100);
-setTimeout(triggerVisible, 500);
+  /* ---------------------------------------------------------
+     MAGNIFIER GLASS - reusable across any number of images.
+     Wire up every ".jmap-wrap" block found on the page, each
+     with its own image and lens, fully independent of the others.
+     Desktop: hover the image to see a 3x zoomed lens.
+     Mobile/touch: press and hold, then drag to move the lens.
+  --------------------------------------------------------- */
+  (function initAllMagnifiers() {
+    var zoom = 3;  // 3x zoom level
+    var bw = 3;    // glass border width, matches CSS border
+
+    document.querySelectorAll('.jmap-wrap').forEach(function(wrap) {
+      var img = wrap.querySelector('.jmap-img');
+      var glass = wrap.querySelector('.jmap-glass');
+      if (!img || !glass) return;
+
+      var w, h;
+
+      function setup() {
+        w = glass.offsetWidth / 2;
+        h = glass.offsetHeight / 2;
+        glass.style.backgroundImage = "url('" + img.src + "')";
+        glass.style.backgroundRepeat = 'no-repeat';
+        glass.style.backgroundSize = (img.offsetWidth * zoom) + 'px ' + (img.offsetHeight * zoom) + 'px';
+      }
+
+      function getCursorPos(e) {
+        var rect = img.getBoundingClientRect();
+        var point = (e.touches && e.touches[0]) ? e.touches[0] : e;
+        return { x: point.clientX - rect.left, y: point.clientY - rect.top };
+      }
+
+      function moveMagnifier(e) {
+        var pos = getCursorPos(e);
+        var x = pos.x, y = pos.y;
+        var iw = img.offsetWidth, ih = img.offsetHeight;
+
+        // keep the lens from sliding past the edges of the image
+        if (x > iw - (w / zoom)) x = iw - (w / zoom);
+        if (x < w / zoom) x = w / zoom;
+        if (y > ih - (h / zoom)) y = ih - (h / zoom);
+        if (y < h / zoom) y = h / zoom;
+
+        glass.style.left = (x - w) + 'px';
+        glass.style.top = (y - h) + 'px';
+        glass.style.backgroundPosition = '-' + ((x * zoom) - w + bw) + 'px -' + ((y * zoom) - h + bw) + 'px';
+      }
+
+      /* Desktop: hover */
+      img.addEventListener('mouseenter', function() { setup(); wrap.classList.add('active'); });
+      img.addEventListener('mousemove', moveMagnifier);
+      img.addEventListener('mouseleave', function() { wrap.classList.remove('active'); });
+
+      /* Mobile: press and hold, then drag */
+      var pressTimer = null;
+      img.addEventListener('touchstart', function(e) {
+        pressTimer = setTimeout(function() {
+          setup();
+          wrap.classList.add('active');
+          moveMagnifier(e);
+        }, 250);
+      }, { passive: true });
+
+      img.addEventListener('touchmove', function(e) {
+        if (wrap.classList.contains('active')) {
+          e.preventDefault();
+          moveMagnifier(e);
+        }
+      }, { passive: false });
+
+      ['touchend', 'touchcancel'].forEach(function(evt) {
+        img.addEventListener(evt, function() {
+          clearTimeout(pressTimer);
+          wrap.classList.remove('active');
+        });
+      });
+    });
+  })();
+
+  /* ---------------------------------------------------------
+     SHARED EXPAND MODAL - one modal serves every image on the
+     page. Each ".jmap-expand-btn" just tells it which image's
+     src/alt to load before opening. Drag (desktop) or swipe
+     (mobile) to pan around the enlarged image.
+  --------------------------------------------------------- */
+  (function initSharedExpandModal() {
+    var modal = document.getElementById('jmapModal');
+    var modalImg = document.getElementById('jmapModalImg');
+    var closeBtn = document.getElementById('jmapModalClose');
+    var scrollArea = document.getElementById('jmapModalScroll');
+    if (!modal || !modalImg || !closeBtn || !scrollArea) return;
+
+    function openModal(src, alt) {
+      modalImg.src = src;
+      modalImg.alt = alt || 'Zoomed image';
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(function() {
+        scrollArea.scrollLeft = (scrollArea.scrollWidth - scrollArea.clientWidth) / 2;
+        scrollArea.scrollTop = 0;
+      });
+    }
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.jmap-expand-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var wrap = btn.closest('.jmap-wrap');
+        var img = wrap ? wrap.querySelector('.jmap-img') : null;
+        if (img) openModal(img.src, img.alt);
+      });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    });
+
+    /* Click-and-drag panning on desktop (touch already scrolls natively) */
+    var isDown = false, startX = 0, startY = 0, startLeft = 0, startTop = 0;
+    scrollArea.addEventListener('mousedown', function(e) {
+      isDown = true;
+      scrollArea.classList.add('grabbing');
+      startX = e.pageX; startY = e.pageY;
+      startLeft = scrollArea.scrollLeft; startTop = scrollArea.scrollTop;
+    });
+    window.addEventListener('mouseup', function() {
+      isDown = false;
+      scrollArea.classList.remove('grabbing');
+    });
+    scrollArea.addEventListener('mouseleave', function() {
+      isDown = false;
+      scrollArea.classList.remove('grabbing');
+    });
+    scrollArea.addEventListener('mousemove', function(e) {
+      if (!isDown) return;
+      e.preventDefault();
+      scrollArea.scrollLeft = startLeft - (e.pageX - startX);
+      scrollArea.scrollTop = startTop - (e.pageY - startY);
+    });
+  })();
 
 })();
 </script>
