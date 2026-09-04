@@ -349,7 +349,8 @@
       font-family: var(--font-display);
       font-size: 14px; font-weight: 700;
       background: var(--ink-900); color: white;
-      padding: 14px 28px; border-radius: var(--r-md);
+      height: var(--sp-48);
+      padding: 0 28px; border-radius: var(--r-md);
       text-decoration: none; border: none; cursor: pointer;
       display: inline-flex; align-items: center; gap: 8px;
       transition: background .2s, transform .15s, box-shadow .2s;
@@ -367,7 +368,8 @@
       font-size: 14px; font-weight: 600;
       color: var(--ink-700); background: none;
       border: 1.5px solid var(--ink-300);
-      padding: 14px 24px; border-radius: var(--r-md);
+      height: var(--sp-48);
+      padding: 0 24px; border-radius: var(--r-md);
       text-decoration: none; cursor: pointer;
       display: inline-flex; align-items: center; gap: 8px;
       transition: border-color .2s, color .2s, transform .15s;
@@ -625,7 +627,7 @@
     }
     .footer-top {
       position: relative; z-index: 1;
-      display: flex; align-items: flex-end; justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       gap: var(--sp-40); flex-wrap: wrap;
       padding-bottom: var(--sp-64);
       border-bottom: 1px solid rgba(255,255,255,.1);
@@ -988,6 +990,113 @@
 
   </div>
 </footer>
+
+<script>
+/* ── Hero background dot grid (self-contained — no external script) ── */
+(function () {
+  const container = document.getElementById('hero');
+  if (!container) return;
+
+  const opts = {
+    spacing: 28,
+    dotMin: 1.5,
+    dotMax: 5,
+    radiusEffect: 160,
+    baseAlpha: 0,
+    maxAlpha: 0.35,
+    color: '30,94,255',
+    smoothing: 0.12,
+    zIndex: 0,
+  };
+
+  const dpr = window.devicePixelRatio || 1;
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  canvas.style.position = 'absolute';
+  canvas.style.inset = '0';
+  canvas.style.width = '100%';
+  canvas.style.height = '100%';
+  canvas.style.pointerEvents = 'none';
+  canvas.style.zIndex = String(opts.zIndex);
+  canvas.style.display = 'block';
+  if (getComputedStyle(container).position === 'static') {
+    container.style.position = 'relative';
+  }
+  container.appendChild(canvas);
+
+  let dots = [];
+  let mouseX = -9999;
+  let mouseY = -9999;
+
+  function resize() {
+    const rect = container.getBoundingClientRect();
+    const w = rect.width, h = rect.height;
+    if (w <= 0 || h <= 0) return;
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const cols = Math.max(1, Math.floor(w / opts.spacing));
+    const rows = Math.max(1, Math.floor(h / opts.spacing));
+    const offsetX = (w - (cols - 1) * opts.spacing) / 2;
+    const offsetY = (h - (rows - 1) * opts.spacing) / 2;
+
+    dots = new Array(cols * rows);
+    let i = 0;
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        dots[i++] = { x: offsetX + c * opts.spacing, y: offsetY + r * opts.spacing, size: opts.dotMin, alpha: opts.baseAlpha };
+      }
+    }
+  }
+
+  function onMouseMove(e) {
+    const rect = container.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  }
+  function onMouseOut() { mouseX = -9999; mouseY = -9999; }
+
+  window.addEventListener('mousemove', onMouseMove, { passive: true });
+  window.addEventListener('mouseout', onMouseOut, { passive: true });
+  window.addEventListener('blur', onMouseOut);
+
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(resize).observe(container);
+  }
+  resize();
+
+  const sizeRange = opts.dotMax - opts.dotMin;
+  const alphaRange = opts.maxAlpha - opts.baseAlpha;
+
+  function tick() {
+    const rect = container.getBoundingClientRect();
+    ctx.clearRect(0, 0, rect.width, rect.height);
+
+    for (const dot of dots) {
+      const dx = dot.x - mouseX;
+      const dy = dot.y - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const falloff = Math.max(0, 1 - dist / opts.radiusEffect);
+      const x = falloff * falloff;
+
+      dot.size += (opts.dotMin + sizeRange * x - dot.size) * opts.smoothing;
+      dot.alpha += (opts.baseAlpha + alphaRange * x - dot.alpha) * opts.smoothing;
+
+      if (dot.alpha >= 0.001) {
+        ctx.beginPath();
+        ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${opts.color},${dot.alpha})`;
+        ctx.fill();
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
 
 <script>
 /* ── Custom cursor ── */
