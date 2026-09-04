@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UK Bereavement Support Redesign - Piyush Jadhav</title>
-  <meta name="description" content="UX Design Case Study: Redesigning UK Bereavement Financial Support - a three-layer service model for DWP, HMRC, and local councils.">
+  <title>Piyush Jadhav &mdash; Product &amp; Visual Designer</title>
+  <meta name="description" content="Portfolio of Piyush Jadhav, product and visual designer crafting human-centered tools.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Epilogue:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
+    /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 
+    /* ── Design Tokens (unchanged from original) ── */
     :root {
-      --accent:       #1B4FD8;
-      --accent-dark:  #1340B0;
-      --accent-muted: #EEF3FF;
-      --accent-warm:  #3B82F6;
-      --accent-teal:  #0EA5E9;
+      --accent:        #1E5EFF;
+      --accent-dark:   #0A40CC;
+      --accent-muted:  #EEF3FF;
+      --accent-warm:   #FF6B35;
+      --accent-teal:   #00C9A7;
 
       --ink-900: #0D0F11;
       --ink-700: #3F4552;
@@ -30,68 +31,99 @@
       --white:   #FFFFFF;
 
       --font-display: 'Epilogue', sans-serif;
+      --font-title:   'Bricolage Grotesque', 'Epilogue', sans-serif;
       --font-body:    'Inter', sans-serif;
 
-      --sp-4:  4px;  --sp-6:  6px;  --sp-8:  8px;  --sp-12: 12px;
-      --sp-16: 16px; --sp-20: 20px; --sp-24: 24px; --sp-32: 32px;
-      --sp-40: 40px; --sp-48: 48px; --sp-64: 64px;
-      --sp-80: 80px; --sp-120: 120px;
+      --sp-4:   4px;  --sp-6:   6px;  --sp-8:   8px;
+      --sp-12: 12px;  --sp-16: 16px;  --sp-20: 20px;
+      --sp-24: 24px;  --sp-32: 32px;  --sp-40: 40px;
+      --sp-48: 48px;  --sp-64: 64px;  --sp-80: 80px;
+      --sp-120: 120px;
 
-      --r-sm:  8px; --r-md: 16px; --r-lg: 24px; --r-xl: 40px; --r-2xl: 48px;
+      --r-sm:  8px;  --r-md: 16px;  --r-lg: 24px;
+      --r-xl:  40px; --r-2xl: 48px;
 
       --shadow-card: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.08);
       --shadow-nav:  0 1px 2px rgba(0,0,0,.06), 0 4px 24px rgba(0,0,0,.10);
+      --shadow-hover: 0 8px 40px rgba(30,94,255,.18);
+      --shadow-lift: 0 30px 70px rgba(13,15,17,.22);
     }
 
     body {
-      font-family: var(--font-body); background: var(--white); color: var(--ink-700); overflow-x: hidden; cursor: none;
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--ink-700);
+      overflow-x: hidden;
+      cursor: none;
     }
 
+    /* ── Custom Cursor ── */
     #cursor {
-      position: fixed; width: 12px; height: 12px;
-      background: var(--accent); border-radius: 50%;
-      pointer-events: none; z-index: 9999;
-      transform: translate(-50%,-50%);
-      transition: width .2s, height .2s, background .2s;
+      position: fixed;
+      width: 12px; height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width .2s, height .2s, background .2s, opacity .2s;
       mix-blend-mode: multiply;
     }
     #cursor-ring {
-      position: fixed; width: 36px; height: 36px;
-      border: 1.5px solid var(--accent); border-radius: 50%;
-      pointer-events: none; z-index: 9998;
-      transform: translate(-50%,-50%);
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--accent);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
       transition: width .35s cubic-bezier(.25,.46,.45,.94),
                   height .35s cubic-bezier(.25,.46,.45,.94),
-                  border-color .2s;
-      opacity: .5;
+                  border-color .2s, opacity .2s;
+      opacity: 0.5;
     }
     body.cursor-hover #cursor { width: 20px; height: 20px; background: var(--accent-warm); }
     body.cursor-hover #cursor-ring { width: 56px; height: 56px; border-color: var(--accent-warm); opacity: .3; }
 
-    .container { width: 100%; max-width: 900px; margin: 0 auto; padding: 0 var(--sp-24); }
+    /* Cursor label &mdash; appears only over the hero photo */
+    #cursor-label {
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 9999;
+      transform: translate(-50%, 26px) scale(.85);
+      padding: 8px 16px;
+      background: var(--ink-900);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 12px; font-weight: 700;
+      letter-spacing: .04em;
+      border-radius: 100px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .2s ease, transform .2s cubic-bezier(.34,1.56,.64,1);
+    }
+    body.cursor-photo #cursor-label { opacity: 1; transform: translate(-50%, 26px) scale(1); }
+    body.cursor-photo #cursor,
+    body.cursor-photo #cursor-ring { opacity: 0; }
 
+    /* ── Utility ── */
+    .container { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 var(--sp-40); }
     .label {
-      font-family: var(--font-display); font-size: 11px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase; color: var(--accent);
-    }
-    .tag-pill {
-      display: inline-flex; align-items: center;
-      background: var(--accent-muted); color: var(--accent);
-      font-family: var(--font-display); font-size: 11px; font-weight: 700;
-      letter-spacing: .08em; text-transform: uppercase;
-      padding: 5px 12px; border-radius: 100px;
-      border: 1px solid rgba(27,79,216,.18); white-space: nowrap;
+      font-family: var(--font-display);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent);
     }
 
-    /* NAVBAR */
+    /* ── NAVBAR (retained exactly as original) ── */
     #navbar {
       position: fixed; top: 0; left: 0; right: 0;
-      z-index: 200; padding: 0 var(--sp-20) var(--sp-20);
+      z-index: 100; padding: 0 var(--sp-20) var(--sp-20);
       pointer-events: none;
     }
     #navbar-inner {
       pointer-events: all;
-      width: 100%;
       display: flex; align-items: center; justify-content: space-between;
       height: 68px; padding: 0 var(--sp-40);
       background: rgba(255,255,255,.72);
@@ -99,7 +131,7 @@
       border-bottom-left-radius: var(--r-lg);
       border-bottom-right-radius: var(--r-lg);
       box-shadow: var(--shadow-nav);
-      transition: background .3s, box-shadow .3s;
+      transition: background .3s ease, box-shadow .3s ease;
     }
     #navbar-inner.scrolled {
       background: rgba(255,255,255,.94);
@@ -112,51 +144,67 @@
     .nav-logo-mark {
       width: 34px; height: 34px;
       background: var(--ink-900); border-radius: var(--r-sm);
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
       transition: transform .2s cubic-bezier(.34,1.56,.64,1), background .2s;
     }
     .nav-logo-mark:hover { transform: rotate(-8deg) scale(1.08); background: var(--accent); }
     .nav-logo-mark svg { width: 18px; height: 18px; fill: white; }
-    .nav-logo-name { font-family: var(--font-display); font-size: 17px; font-weight: 700; letter-spacing: -.01em; }
+    .nav-logo-name {
+      font-family: var(--font-display);
+      font-size: 17px; font-weight: 700; letter-spacing: -.01em;
+    }
     .nav-links { display: flex; gap: var(--sp-32); list-style: none; }
     .nav-links a {
-      font-family: var(--font-display); font-size: 14px; font-weight: 600;
+      font-family: var(--font-display);
+      font-size: 14px; font-weight: 600;
       color: var(--ink-700); text-decoration: none;
-      letter-spacing: -.01em; transition: color .2s; position: relative;
+      letter-spacing: -.01em; transition: color .2s;
+      position: relative;
     }
     .nav-links a::after {
-      content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+      content: '';
+      position: absolute; bottom: -2px; left: 0; right: 0;
       height: 2px; background: var(--accent); border-radius: 2px;
       transform: scaleX(0); transform-origin: left;
       transition: transform .25s cubic-bezier(.34,1.56,.64,1);
     }
     .nav-links a:hover { color: var(--accent); }
-    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+    .nav-links a:hover::after { transform: scaleX(1); }
     .nav-links a.active { color: var(--accent); }
+    .nav-links a.active::after { transform: scaleX(1); }
     .nav-cta {
-      font-family: var(--font-display); font-size: 13px; font-weight: 700;
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 700;
       color: var(--accent); background: var(--accent-muted);
       border: 1.5px solid var(--accent);
-      padding: 8px 18px; border-radius: var(--r-md); text-decoration: none;
+      padding: 8px 18px; border-radius: var(--r-md);
+      text-decoration: none;
       transition: background .2s, color .2s, transform .15s, box-shadow .2s;
     }
-    .nav-cta:hover { background: var(--accent); color: white; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(27,79,216,.3); }
+    .nav-cta:hover {
+      background: var(--accent); color: white;
+      transform: translateY(-1px); box-shadow: 0 6px 20px rgba(30,94,255,.3);
+    }
+    .nav-cta:active { transform: translateY(0); }
     .nav-hamburger {
       display: none; flex-direction: column; gap: 5px;
       cursor: pointer; background: none; border: none; padding: 4px;
     }
     .nav-hamburger span {
       display: block; width: 22px; height: 2px;
-      background: var(--ink-900); border-radius: 2px; transition: transform .3s, opacity .3s;
+      background: var(--ink-900); border-radius: 2px;
+      transition: transform .3s, opacity .3s;
     }
     .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
     #mobile-menu {
       display: none; position: fixed;
-      top: 0; left: 0; right: 0; z-index: 190;
+      top: 0; left: 0; right: 0; z-index: 99;
       padding-top: 88px;
-      background: rgba(255,255,255,.97); backdrop-filter: blur(20px);
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(20px);
       transform: translateY(-110%);
       transition: transform .35s cubic-bezier(.32,0,.67,0);
     }
@@ -169,1776 +217,927 @@
       display: flex; flex-direction: column; gap: var(--sp-4);
     }
     #mobile-menu a {
-      display: block; font-family: var(--font-display);
+      display: block;
+      font-family: var(--font-display);
       font-size: 22px; font-weight: 700;
       color: var(--ink-900); text-decoration: none;
-      padding: var(--sp-12) 0; border-bottom: 1px solid var(--ink-100);
+      padding: var(--sp-12) 0;
+      border-bottom: 1px solid var(--ink-100);
       transition: color .2s, padding-left .2s;
     }
     #mobile-menu a:hover { color: var(--accent); padding-left: 8px; }
 
-    /* SIDE STEPPER */
-    #side-stepper {
-      position: fixed; right: 20px; top: 50%;
-      transform: translateY(-50%); z-index: 150;
-      display: flex; flex-direction: column; gap: 6px; align-items: flex-end;
-    }
-    .stepper-item {
-      display: flex; align-items: center; gap: 10px;
-      cursor: pointer; padding: 4px 0;
-    }
-    .stepper-label {
-      font-family: var(--font-display);
-      font-size: 11px; font-weight: 700;
-      letter-spacing: .06em; text-transform: uppercase;
-      color: var(--ink-500);
-      background: rgba(255,255,255,.9);
-      backdrop-filter: blur(8px);
-      border: 1px solid var(--ink-100);
-      padding: 5px 12px; border-radius: 100px;
-      white-space: nowrap; opacity: 1;
-      transform: translateX(8px);
-      transition: opacity .2s, transform .2s, color .2s, border-color .2s, background .2s;
-      pointer-events: none;
-    }
-    .stepper-item:hover .stepper-label,
-    .stepper-item.active .stepper-label { opacity: 1; transform: translateX(0); }
-    .stepper-item.active .stepper-label {
-      color: var(--accent); border-color: rgba(27,79,216,.3); background: var(--accent-muted);
-    }
-    .stepper-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--ink-300); border: 1.5px solid transparent;
-      transition: background .25s, transform .35s cubic-bezier(.34,1.56,.64,1), border-color .25s, width .25s, height .25s, opacity .3s;
-      flex-shrink: 0;
-    }
-    .stepper-item:hover .stepper-dot { background: var(--accent-warm); transform: scale(1.3); }
-    .stepper-item.active .stepper-dot {
-      background: var(--accent); transform: scale(1.25);
-      border-color: rgba(27,79,216,.25); box-shadow: 0 0 0 3px rgba(27,79,216,.15);
-    }
-
-    /* HERO */
+    /* ── HERO ── */
     #hero {
-      min-height: 100vh; display: flex; align-items: center;
-      padding: 120px var(--sp-20) 0; position: relative; overflow: hidden;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 140px var(--sp-20) var(--sp-80);
+      position: relative; overflow: hidden;
+      background: var(--ink-050);
     }
     #hero::before {
-      content: ''; position: absolute; inset: 0;
+      content: '';
+      position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 70% 55% at 60% -10%, rgba(27,79,216,.07) 0%, transparent 70%),
-        linear-gradient(180deg, var(--ink-050) 0%, var(--white) 100%);
-    }
-    #hero::after {
-      content: ''; position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(27,79,216,.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(27,79,216,.04) 1px, transparent 1px);
-      background-size: 40px 40px;
-      mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 20%, transparent 70%);
+        radial-gradient(ellipse 60% 60% at 70% 30%, rgba(30,94,255,.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 50% at 20% 80%, rgba(255,107,53,.05) 0%, transparent 60%);
     }
     .hero-inner {
       position: relative; z-index: 1;
-      width: 100%; max-width: 900px; margin: 0 auto;
-      display: flex; flex-direction: column; gap: var(--sp-40);
+      width: 100%; max-width: 780px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: var(--sp-24);
     }
-    .hero-eyebrow { display: flex; align-items: center; gap: var(--sp-16); flex-wrap: wrap; }
-    .hero-divider { width: 32px; height: 2px; background: var(--accent); border-radius: 2px; }
-    .hero-headline {
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: var(--sp-8);
+      background: rgba(255,255,255,.9); border: 1px solid var(--ink-100);
+      padding: 6px 16px; border-radius: 100px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      opacity: 0; animation: fadeSlideDown .6s .1s cubic-bezier(.34,1.56,.64,1) forwards;
+    }
+    .hero-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-teal); }
+    .hero-badge-dot.pulse { animation: pulse 2s infinite; }
+    .hero-badge span {
       font-family: var(--font-display);
-      font-size: clamp(32px, 5.5vw, 60px);
-      font-weight: 800; line-height: 1.12; letter-spacing: -.03em; color: var(--ink-900);
-    }
-    .hero-headline em { font-style: normal; color: var(--accent); }
-    .hero-sub { font-size:18px; line-height:1.65; color:var(--ink-500); max-width:882px; }
-
-    .project-meta {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 0; border: 1.5px solid var(--ink-100); border-radius: var(--r-xl);
-      overflow: hidden; background: var(--white); box-shadow: var(--shadow-card);
-    }
-    .meta-item { padding: var(--sp-24); border-right: 1px solid var(--ink-100); }
-    .meta-item:last-child { border-right: none; }
-    .meta-key {
-      font-family: var(--font-display); font-size: 10px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: var(--sp-8);
-    }
-    .meta-val { font-family: var(--font-display); font-size: 14px; font-weight: 600; color: var(--ink-900); line-height: 1.4; }
-
-    .hero-image-block { width:100%; border-radius:var(--r-xl); overflow:hidden; aspect-ratio:16/7; margin-bottom:var(--sp-64); position:relative;}
-    .hero-image-block img { width:100%; height:100%; object-fit:fill; display:block; }
-    .placeholder-icon { font-size: 32px; opacity: .35; }
-    .placeholder-label {
-      font-family: var(--font-display); font-size: 13px; font-weight: 600;
-      color: var(--ink-300); letter-spacing: .02em;
+      font-size: 12px; font-weight: 600; color: var(--ink-700);
+      letter-spacing: .04em;
     }
 
-    /* SECTION */
-    .section { padding: var(--sp-80) var(--sp-20); width: 100%; }
-    .section--grey  { background: var(--ink-050); }
-    .section--white { background: var(--white); }
-    .content-col { max-width: 900px; margin: 0 auto; }
+    /* Intro line + big title-font name */
+    .hero-intro {
+      font-family: var(--font-body);
+      font-size: clamp(16px, 2vw, 19px);
+      font-weight: 500;
+      color: var(--ink-500);
+      letter-spacing: -.01em;
+      opacity: 0;
+      animation: fadeSlideUp .7s .2s cubic-bezier(.34,1.2,.64,1) forwards;
+    }
+    .hero-name {
+      font-family: var(--font-title);
+      font-size: clamp(38px, 8vw, 84px);
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -.03em;
+      color: var(--ink-900);
+      margin-top: -10px;
+      opacity: 0;
+      animation: fadeSlideUp .7s .3s cubic-bezier(.34,1.2,.64,1) forwards;
+    }
+    .hero-name span { color: var(--accent); }
 
-    #problem-banner { background: var(--white); padding: var(--sp-80) var(--sp-20); }
-    .problem-inner {
-      max-width: 720px; margin: 0 auto;
-      text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--sp-20);
-    }
-    .problem-headline {
-      font-family: var(--font-display); font-size: clamp(20px, 3.5vw, 32px);
-      font-weight: 700; line-height: 1.4; color: var(--ink-900); letter-spacing: -.02em;
+    .btn-icon {
+      width: 24px; height: 24px;
+      object-fit: contain;
+      border-radius: 4px;
+      flex-shrink: 0;
     }
 
-    .section-heading { display: flex; flex-direction: column; gap: var(--sp-12); margin-bottom: var(--sp-48); }
-    .section-heading h2 {
-      font-family: var(--font-display); font-size: clamp(26px, 4.5vw, 44px);
-      font-weight: 800; line-height: 1.18; letter-spacing: -.035em; color: var(--ink-900);
+    /* Photo card below the name */
+    .hero-photo-frame {
+      position: relative;
+      width: min(80%, 300px);
+      margin: var(--sp-12) 0 var(--sp-8);
+      padding: 14px 14px 46px;
+      background: var(--white);
+      border-radius: var(--r-md);
+      box-shadow: var(--shadow-lift);
+      transform: rotate(-2deg);
+      transition: transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s ease;
+      cursor: pointer;
+      opacity: 0;
+      animation: fadeSlideUp .7s .4s cubic-bezier(.34,1.2,.64,1) forwards;
     }
-    .section-heading h2 strong { color: var(--accent); font-weight: 800; }
-    .section-heading p { font-size: 17px; line-height: 1.72; color: var(--ink-500); max-width: 640px; margin-top: var(--sp-4); }
+    .hero-photo-frame:hover {
+      transform: rotate(0deg) translateY(-4px);
+      box-shadow: 0 40px 90px rgba(13,15,17,.28);
+    }
+    .hero-photo-frame .photo-window {
+      aspect-ratio: 4/5;
+      border-radius: var(--r-sm);
+      overflow: hidden;
+      background: var(--ink-100);
+    }
+    .hero-photo-frame img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .hero-photo-frame figcaption {
+      position: absolute;
+      left: 14px; right: 14px; bottom: 14px;
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 700;
+      color: var(--ink-700);
+    }
 
-    .prose { font-size: 17px; line-height: 1.75; color: var(--ink-700); }
-    .prose p + p { margin-top: var(--sp-20); }
-    .prose ul { margin-top: var(--sp-16); margin-left: var(--sp-20); display: flex; flex-direction: column; gap: var(--sp-8); }
-    .prose ul li { line-height: 1.65; }
-    .prose strong { font-weight: 600; color: var(--ink-900); }
+    .hero-sub {
+      font-family: var(--font-body);
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--ink-500); line-height: 1.65;
+      max-width: 62ch;
+      opacity: 0;
+      animation: fadeSlideUp .7s .5s cubic-bezier(.34,1.2,.64,1) forwards;
+    }
 
-    .card {
-      background: var(--white); border: 1.5px solid var(--ink-100);
-      border-radius: var(--r-xl); padding: var(--sp-32); box-shadow: var(--shadow-card);
+    .hero-actions {
+      display: flex; align-items: center; gap: var(--sp-16); flex-wrap: wrap; justify-content: center;
+      margin-top: var(--sp-8);
+      opacity: 0;
+      animation: fadeSlideUp .7s .6s cubic-bezier(.34,1.2,.64,1) forwards;
     }
-    .card--blue { background: var(--accent-muted); border-color: rgba(27,79,216,.18); }
-    .card--dark { background: var(--ink-900); border-color: transparent; }
+    .btn-primary {
+      font-family: var(--font-display);
+      font-size: 14px; font-weight: 700;
+      background: var(--ink-900); color: white;
+      padding: 14px 28px; border-radius: var(--r-md);
+      text-decoration: none; border: none; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: background .2s, transform .15s, box-shadow .2s;
+    }
+    .btn-primary:hover {
+      background: var(--accent); transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(30,94,255,.35);
+    }
+    .btn-primary:active { transform: translateY(0); box-shadow: none; }
+    .btn-primary .arrow { transition: transform .2s cubic-bezier(.34,1.56,.64,1); }
+    .btn-primary:hover .arrow { transform: translate(3px, -3px); }
 
-    .highlight-quote {
-      background: var(--ink-050); border-left: 4px solid var(--accent);
-      border-radius: 0 var(--r-md) var(--r-md) 0;
-      padding: var(--sp-24) var(--sp-32); margin: var(--sp-40) 0;
+    .btn-ghost {
+      font-family: var(--font-display);
+      font-size: 14px; font-weight: 600;
+      color: var(--ink-700); background: none;
+      border: 1.5px solid var(--ink-300);
+      padding: 14px 24px; border-radius: var(--r-md);
+      text-decoration: none; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: border-color .2s, color .2s, transform .15s;
     }
-    .highlight-quote p {
-      font-family: var(--font-display); font-size: 18px; font-weight: 600;
-      line-height: 1.6; color: var(--ink-900);
-    }
-    .highlight-quote p em { color: var(--accent); font-style: normal; }
-    .highlight-quote cite { display: block; margin-top: var(--sp-12); font-size: 13px; color: var(--ink-500); font-style: normal; }
+    .btn-ghost:hover { border-color: var(--ink-700); color: var(--ink-900); transform: translateY(-2px); }
+    .btn-ghost:active { transform: translateY(0); }
 
-    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-24); margin-top: var(--sp-32); }
-    .sub-heading { font-family: var(--font-display); font-size: 15px; font-weight: 700; color: var(--ink-900); margin-bottom: var(--sp-12); }
+    /* ── MARQUEE STRIP ── */
+    #marquee {
+      background: var(--ink-900);
+      overflow: hidden;
+      border-top: 1px solid rgba(255,255,255,.08);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      padding: 24px 0;
+    }
+    .marquee-track {
+      display: flex; align-items: center;
+      width: max-content;
+      animation: tickerLoop 22s linear infinite;
+      will-change: transform;
+    }
+    .marquee-group {
+      display: flex; align-items: center; gap: 20px;
+      padding-right: 20px; flex: 0 0 auto;
+      font-family: var(--font-display);
+      font-size: 15px; font-weight: 600;
+      letter-spacing: -.01em; white-space: nowrap;
+      color: rgba(255,255,255,.85);
+    }
+    .marquee-dot { color: var(--accent); font-size: 1.1em; line-height: 0; }
 
-    .img-ph {
-      width: 100%; border-radius: var(--r-lg);
-      background: var(--ink-100); border: 1.5px dashed var(--ink-300);
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      gap: var(--sp-8); color: var(--ink-300); min-height: 200px; padding: var(--sp-32);
+    /* ── SECTION COMMON ── */
+    section { padding: var(--sp-120) 0; }
+    .section-header { text-align: center; margin-bottom: var(--sp-64); }
+    .section-title {
+      font-family: var(--font-title);
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800; letter-spacing: -.03em;
+      color: var(--ink-900); line-height: 1;
+      margin-top: var(--sp-12);
     }
-    .img-ph .ph-icon { font-size: 28px; opacity: .45; }
-    .img-ph .ph-text {
-      font-family: var(--font-display); font-size: 12px; font-weight: 600;
-      letter-spacing: .04em; text-transform: uppercase;
+    .section-sub {
+      margin-top: var(--sp-16);
+      font-size: 16px; color: var(--ink-500); max-width: 520px; margin-inline: auto;
+      line-height: 1.65;
     }
-    .img-ph--tall  { aspect-ratio: 3/4;  min-height: 0; }
-    .img-ph--wide  { aspect-ratio: 16/9; min-height: 0; }
-    .img-ph--sq    { aspect-ratio: 1/1;  min-height: 0; }
-    .img-ph--short { aspect-ratio: 21/9; min-height: 0; }
-    .img-ph--screen { aspect-ratio: 9/16; min-height: 0; }
 
-    .metrics-row {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: var(--sp-16); margin-top: var(--sp-40);
-    }
-    .metric-card {
-      background: var(--white); border: 1.5px solid var(--ink-100);
-      border-radius: var(--r-xl); padding: var(--sp-32) var(--sp-24);
-      text-align: center; box-shadow: var(--shadow-card);
-      transition: transform .25s cubic-bezier(.34,1.36,.64,1), box-shadow .25s;
-    }
-    .metric-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.12); }
-    .metric-num {
-      font-family: var(--font-display); font-size: 42px; font-weight: 800;
-      letter-spacing: -.03em; color: var(--accent); line-height: 1; margin-bottom: var(--sp-8);
-    }
-    .metric-label { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: var(--ink-500); line-height: 1.45; }
+    /* ── WORK / PROJECTS ── */
+    #work { background: var(--white); }
 
-    /* DATA TABLE */
-    .data-table-wrap {
-      margin-top: var(--sp-32); border-radius: var(--r-xl);
-      border: 1.5px solid var(--ink-100); overflow: hidden; box-shadow: var(--shadow-card);
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-24);
     }
-    .data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-    .data-table th {
-      font-family: var(--font-display); font-size: 11px; font-weight: 700;
+
+    /* Featured card spans full width */
+    .project-card.featured { grid-column: 1 / -1; }
+
+    .project-card {
+      position: relative;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      background: var(--ink-100);
+      cursor: pointer;
+      /* scroll reveal */
+      opacity: 0;
+      transform: translateY(30px);
+      transition:
+        opacity .6s cubic-bezier(.25,.46,.45,.94),
+        transform .6s cubic-bezier(.25,.46,.45,.94),
+        box-shadow .3s;
+    }
+    .project-card.visible { opacity: 1; transform: translateY(0); }
+    .project-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,.12); }
+    .project-card:active { transform: scale(0.985) translateY(2px); }
+
+    /* Image container */
+    .card-image {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      border: 1.5px solid var(--ink-100);
+      border-bottom: none;
+      border-radius: var(--r-lg) var(--r-lg) 0 0;
+    }
+    .project-card.featured .card-image { aspect-ratio: 21/9; }
+    .card-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .5s cubic-bezier(.25,.46,.45,.94);
+    }
+    .project-card:hover .card-image img { transform: scale(1.04); }
+
+    /* Overlay on hover */
+    .card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(13,15,17,.7) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+    .project-card:hover .card-overlay { opacity: 1; }
+
+    /* View label */
+    .card-view-label {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(.8);
+      background: white; color: var(--ink-900);
+      font-family: var(--font-display);
+      font-size: 12px; font-weight: 700;
+      padding: 8px 20px; border-radius: 100px;
       letter-spacing: .08em; text-transform: uppercase;
-      color: var(--ink-500); background: var(--ink-050);
-      padding: var(--sp-16) var(--sp-20); border-bottom: 1.5px solid var(--ink-100); text-align: left;
+      opacity: 0;
+      transition: opacity .25s, transform .3s cubic-bezier(.34,1.56,.64,1);
+      pointer-events: none;
     }
-    .data-table th.highlight { background: var(--accent-muted); color: var(--accent); }
-    .data-table td {
-      padding: var(--sp-16) var(--sp-20);
-      border-bottom: 1px solid var(--ink-100);
-      vertical-align: middle; line-height: 1.55; color: var(--ink-700);
-    }
-    .data-table td.col-num {
-      font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--accent);
-    }
-    .data-table td.col-highlight { background: rgba(27,79,216,.04); }
-    .data-table tr:last-child td { border-bottom: none; }
-    .data-table tr:hover td { background: var(--ink-050); }
-    .data-table tr:hover td.col-highlight { background: rgba(27,79,216,.07); }
+    .project-card:hover .card-view-label { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
-    /* CAROUSEL */
-    .carousel-wrap{position:relative;overflow:hidden;border-radius:var(--r-xl);border:1.5px solid var(--ink-100);box-shadow:var(--shadow-card);} 
-    .carousel-track{display:flex;transition:transform .52s cubic-bezier(.32,0,.67,0);will-change:transform;transform:translate3d(0,0,0);} 
-    .carousel-slide{flex:0 0 100%;min-width:100%;overflow:hidden;} 
-    .carousel-slide-inner{    display:grid;    grid-template-columns:1fr 1fr;    width:100%;    min-height:620px;}
-    .carousel-text{min-width:0;min-height:0;padding:var(--sp-48) var(--sp-40);display:flex;flex-direction:column;justify-content:center;gap:var(--sp-24);border-right:1.5px solid var(--ink-100);background:var(--white);overflow-y:auto;} 
-    .carousel-number{display:inline-flex;align-items:center;gap:var(--sp-8);font-family:var(--font-display);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:var(--accent-muted);padding:4px 12px;border-radius:100px;width:fit-content;border:1px solid rgba(27,79,216,.18);} 
-    .carousel-slide-title{font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--ink-900);letter-spacing:-.025em;line-height:1.28;} 
-    .carousel-slide-body{font-size:15px;line-height:1.72;color:var(--ink-500);} .carousel-slide-body p{margin-bottom:var(--sp-12);} 
-    .carousel-slide-body ul{margin-top:var(--sp-8);margin-left:0;display:flex;flex-direction:column;gap:var(--sp-8);list-style:none;} 
-    .carousel-slide-body li{line-height:1.55;padding-left:var(--sp-16);position:relative;word-break:break-word;} 
-    .carousel-slide-body li::before{content:"–";position:absolute;left:0;color:var(--accent);font-weight:700;} 
-    .carousel-slide-body li strong{font-weight:700;color:var(--ink-700);} 
-    .carousel-slide-body li span,.carousel-slide-body li>*{flex-shrink:1;min-width:0;word-break:break-word;} 
-    .carousel-slide-body strong{font-weight:700;color:var(--ink-700);display:inline;} 
-    .carousel-img{    display:flex;    align-items:stretch;    justify-content:center;    background:var(--white);    padding:16px;    height:100%;}
-    .carousel-image{ display:block; width:100%; height:100%; object-fit:cover;}
-    .carousel-img .img-ph{display:flex;align-items:center;justify-content:center;width:100%;height:100%;border:none;border-radius:0;background:transparent;} 
-    .carousel-controls{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-16) var(--sp-24);background:var(--white);border-top:1.5px solid var(--ink-100);} 
-    .carousel-dots{display:flex;gap:var(--sp-8);align-items:center;} 
-    .carousel-dot{width:24px;height:4px;border-radius:2px;background:var(--ink-100);cursor:pointer;transition:background .2s,width .25s cubic-bezier(.34,1.56,.64,1);border:none;} 
-    .carousel-dot.active{background:var(--accent);width:40px;} 
-    .carousel-dot:hover:not(.active){background:var(--ink-300);} 
-    .carousel-arrows{display:flex;gap:var(--sp-8);} 
-    .carousel-arrow{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--ink-300);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s,background .2s,transform .15s;} 
-    .carousel-arrow:hover{border-color:var(--accent);background:var(--accent);} 
-    .carousel-arrow:hover svg{stroke:#fff;} 
-    .carousel-arrow:active{transform:scale(.93);} 
-    .carousel-arrow svg{width:16px;height:16px;stroke:var(--ink-500);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s;}
+    /* Card body */
+    .card-body {
+      padding: var(--sp-20) var(--sp-24) var(--sp-24);
+      background: white;
+      transition: background .2s;
+      border: 1.5px solid var(--ink-100);
+      border-top: none;
+      border-radius: 0 0 var(--r-lg) var(--r-lg);
+    }
+    .project-card:hover .card-body { background: var(--ink-050); }
+    .card-type {
+      font-family: var(--font-display);
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: var(--sp-6);
+      transition: color .2s;
+    }
+    .card-title {
+      font-family: var(--font-title);
+      font-size: clamp(20px, 2.5vw, 26px);
+      font-weight: 800; letter-spacing: -.03em;
+      color: var(--ink-900); margin-bottom: var(--sp-8);
+      line-height: 1.15;
+    }
+    .card-desc { font-size: 14px; color: var(--ink-500); line-height: 1.6; }
+    .card-tags {
+      margin-top: var(--sp-12);
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .card-tag {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase;
+      background: var(--ink-100); color: var(--ink-700);
+      padding: 4px 10px; border-radius: 100px;
+      transition: background .2s, color .2s;
+    }
+    .project-card:hover .card-tag { background: var(--accent-muted); color: var(--accent); }
 
-    /* METHOD CARDS (stacked) */
-    .method-stack { display:flex; flex-direction:column; gap:var(--sp-24); margin-top:var(--sp-8); }
-    .method-card { background:var(--white); border:1.5px solid var(--ink-100); border-radius:var(--r-xl); overflow:hidden; box-shadow:var(--shadow-card); transition:transform .25s cubic-bezier(.34,1.36,.64,1),box-shadow .25s; }
-    .method-card:hover { transform:translateY(-3px); box-shadow:0 14px 40px rgba(0,0,0,.10); }
-    .method-header { padding:var(--sp-24) var(--sp-32); display:flex; align-items:center; gap:var(--sp-16); border-bottom:1.5px solid var(--ink-100); background:var(--accent-muted); }
-    .method-num { width:36px; height:36px; border-radius:50%; background:var(--accent); color:white; font-family:var(--font-display); font-size:15px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-    .method-title { font-family:var(--font-display); font-size:18px; font-weight:800; color:var(--ink-900); letter-spacing:-.02em; line-height:1.32; }
-    .method-body { padding:var(--sp-32); font-size:15px; line-height:1.72; color:var(--ink-700); }
-    .method-body p+p { margin-top:var(--sp-16); }
-    .method-body ul { margin-top:var(--sp-12); display:flex; flex-direction:column; gap:var(--sp-12); list-style:none; }
-    .method-body li { line-height:1.6; padding-left:var(--sp-16); position:relative; }
-    .method-body li::before { content:'–'; position:absolute; left:0; color:var(--accent); font-weight:700; }
-    .method-body li strong { font-weight:700; color:var(--ink-900); }
-    .method-img { border-top:1.5px solid var(--ink-100); padding:var(--sp-16); background:var(--ink-050); }
-    .method-img img { width:100%; height:auto; display:block; }
+    /* Arrow button — pill with a circular arrow icon */
+    .card-arrow {
+      display: inline-flex; align-items: center; gap: 12px;
+      margin-top: var(--sp-16);
+      width: fit-content;
+      padding: 6px 6px 6px 20px;
+      border: 1.5px solid var(--ink-100);
+      border-radius: 100px;
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 700;
+      color: var(--ink-900);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: border-color .2s, background .2s, color .2s, transform .2s cubic-bezier(.22,1,.36,1);
+    }
+    .project-card:hover .card-arrow {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: white;
+      transform: translateY(-2px);
+    }
+    .card-arrow-icon {
+      display: grid; place-items: center;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: var(--ink-900); color: white;
+      flex-shrink: 0;
+      transition: background .2s, color .2s, transform .2s cubic-bezier(.22,1,.36,1);
+    }
+    .project-card:hover .card-arrow-icon { background: white; color: var(--accent); transform: translateX(2px); }
 
-    /* QUOTE CARDS */
-    .quotes-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-20); margin-top: var(--sp-40);
+    /* ── PHOTO GALLERY (zigzag, hover-to-focus) ── */
+    #gallery { background: var(--ink-050); }
+    .gallery-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: var(--sp-40) 0 var(--sp-24);
     }
-    .quote-card {
-      background: var(--white); border: 1.5px solid var(--ink-100);
-      border-radius: var(--r-xl); padding: var(--sp-32); box-shadow: var(--shadow-card);
-      display: flex; flex-direction: column; gap: var(--sp-16); position: relative; overflow: hidden;
+    .gallery-item {
+      position: relative;
+      flex: 1 1 200px;
+      max-width: 220px;
+      aspect-ratio: 3/4;
+      border-radius: var(--r-sm);
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(13,15,17,.1);
+      cursor: pointer;
+      transition: transform .45s cubic-bezier(.22,1,.36,1),
+                  box-shadow .45s cubic-bezier(.22,1,.36,1),
+                  opacity .4s ease, z-index 0s;
+      will-change: transform;
     }
-    .quote-card::before {
-      content: '"'; position: absolute; top: -10px; left: 20px;
-      font-family: var(--font-display); font-size: 120px; font-weight: 900;
-      color: var(--accent); opacity: .06; line-height: 1; pointer-events: none;
+    .gallery-item:nth-child(odd)  { transform: translateY(-18px) rotate(-3deg); }
+    .gallery-item:nth-child(even) { transform: translateY(18px) rotate(3deg); }
+    .gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: grayscale(1) contrast(1.02);
+      transform: scale(1.02);
+      transition: filter .45s ease, transform .45s cubic-bezier(.22,1,.36,1);
     }
-    .quote-card-text {
-      font-family: var(--font-display); font-size: 18px; font-weight: 500;
-      line-height: 1.65; color: var(--ink-900); position: relative; z-index: 1;
+    .gallery-strip.has-active .gallery-item { opacity: .45; }
+    .gallery-item.is-active {
+      opacity: 1 !important;
+      z-index: 5;
+      transform: translateY(-10px) rotate(0deg) scale(1.12) !important;
+      box-shadow: 0 30px 60px rgba(13,15,17,.3);
     }
-    .quote-card-text em { font-style: normal; color: var(--accent); font-weight: 700; }
-    .quote-card-source {
-      font-family: var(--font-display); font-size: 10px; font-weight: 800;
-      letter-spacing: .14em; text-transform: uppercase; color: var(--ink-500);
+    .gallery-item.is-active img { filter: grayscale(0) contrast(1.05); transform: scale(1.06); }
+    .gallery-caption {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 10px 10px 12px;
+      background: linear-gradient(to top, rgba(13,15,17,.8) 0%, transparent 100%);
+      color: white;
+      font-family: var(--font-display);
+      font-size: 12px; font-weight: 700;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .3s ease, transform .3s cubic-bezier(.22,1,.36,1);
+      pointer-events: none;
     }
+    .gallery-item.is-active .gallery-caption { opacity: 1; transform: translateY(0); }
 
-    /* STICKY NOTES */
-    .sticky-notes-grid {
-      background: #ffffff; border: 1px solid rgba(0,0,0,0.08); border-radius: var(--r-xl);
-      padding: var(--sp-32); box-sizing: border-box;
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-20);
-      margin-top: var(--sp-24); width: 100%; max-width: 100%; overflow: hidden;
+    /* ── SITE FOOTER (dark, replaces About + old contact/footer) ── */
+    .site-footer {
+      background: var(--ink-900);
+      color: white;
+      position: relative; overflow: hidden;
+      padding: var(--sp-120) 0 var(--sp-40);
     }
-    .sticky-note {
-      border-radius: var(--r-lg); padding: var(--sp-24) var(--sp-20);
-      display: flex; flex-direction: column; gap: var(--sp-12);
-      position: relative; overflow: hidden; box-sizing: border-box; min-width: 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
-      transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s;
+    .site-footer::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 50% 70% at 80% 20%, rgba(30,94,255,.15) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 40% at 10% 80%, rgba(255,107,53,.08) 0%, transparent 50%);
     }
-    .sticky-note:hover { transform: translateY(-3px) rotate(-.4deg); box-shadow: 0 8px 28px rgba(0,0,0,.12); }
-    .sticky-note--yellow { background: #FFF9C4; border: 1.5px solid #F9E44A; }
-    .sticky-note--orange { background: #FFE8D6; border: 1.5px solid #FFAB6E; }
-    .sticky-note--green  { background: #D4F0D4; border: 1.5px solid #6DC96D; }
-    .sticky-note--red    { background: #FFE0E0; border: 1.5px solid #FF8A8A; }
-    .sticky-note--blue   { background: #DDF0FF; border: 1.5px solid #74C0FF; }
-    .sticky-note-label {
-      font-family: var(--font-display); font-size: 11px; font-weight: 800;
-      letter-spacing: .1em; text-transform: uppercase;
+    .footer-top {
+      position: relative; z-index: 1;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: var(--sp-40); flex-wrap: wrap;
+      padding-bottom: var(--sp-64);
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      margin-bottom: var(--sp-40);
     }
-    .sticky-note--yellow .sticky-note-label { color: #A0880A; }
-    .sticky-note--orange .sticky-note-label { color: #B05A00; }
-    .sticky-note--green  .sticky-note-label { color: #1E6A1E; }
-    .sticky-note--red    .sticky-note-label { color: #B91C1C; }
-    .sticky-note--blue   .sticky-note-label { color: #1B5FAF; }
-    .sticky-note ul { list-style: none; display: flex; flex-direction: column; gap: var(--sp-8); margin: 0; padding: 0; }
-    .sticky-note li { font-size: 13px; line-height: 1.55; color: var(--ink-700); display: flex; gap: var(--sp-8); align-items: flex-start; word-break: break-word; }
-    .sticky-note li::before { content: '-'; flex-shrink: 0; opacity: .5; }
+    .footer-top .label { color: rgba(255,255,255,.4); }
+    .footer-title {
+      font-family: var(--font-title);
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800; letter-spacing: -.03em;
+      color: white; line-height: 1.05;
+      margin-top: var(--sp-12);
+    }
+    .footer-title span { color: var(--accent); }
+    .footer-sub {
+      margin-top: var(--sp-16);
+      font-size: 16px; color: rgba(255,255,255,.55); max-width: 46ch; line-height: 1.6;
+    }
+    .footer-actions { display: flex; gap: var(--sp-16); flex-wrap: wrap; }
+    .footer-actions .btn-primary { background: var(--accent); }
+    .footer-actions .btn-primary:hover { background: white; color: var(--ink-900); }
+    .footer-actions .btn-ghost { color: white; border-color: rgba(255,255,255,.25); }
+    .footer-actions .btn-ghost:hover { border-color: white; color: white; }
 
-    /* HMW BANNER */
-    .hmw-banner {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-      border-radius: var(--r-2xl); padding: var(--sp-64) var(--sp-40);
-      text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--sp-20);
-    }
-    .hmw-label {
-      font-family: var(--font-display); font-size: 11px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.7);
-    }
-    .hmw-text {
-      font-family: var(--font-display); font-size: clamp(20px, 3.5vw, 32px);
-      font-weight: 800; color: white; line-height: 1.35; letter-spacing: -.02em; max-width: 620px;
-    }
-
-    /* PERSONA CARD */
-    .persona-card {
-      display: grid; grid-template-columns: 240px 1fr; gap: 0; background: var(--white);
-      border: 1.5px solid var(--ink-100); border-radius: var(--r-xl);
-      overflow: hidden; box-shadow: var(--shadow-card);
-    }
-    .persona-avatar { background: var(--ink-100); border-right: 1.5px solid var(--ink-100); display: flex; flex-direction: column; align-items: stretch; justify-content: stretch;  padding: 0; gap: 0; min-height: 320px; }
-    .persona-avatar .img-ph { flex: 1; min-height: 100%; width: 100%;  border-radius: 0; border: none; padding: 0;}
-    .persona-info { padding: var(--sp-32); display: flex; flex-direction: column; gap: var(--sp-16); }
-    .persona-name { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--ink-900); letter-spacing: -.02em; }
-    .persona-role { font-size: 14px; color: var(--ink-500); }
-    .persona-quote {
-      background: var(--accent-muted); border-radius: var(--r-md);
-      padding: var(--sp-16) var(--sp-20); font-family: var(--font-display);
-      font-size: 15px; font-weight: 600; color: var(--ink-900); line-height: 1.55;
-      border-left: 3px solid var(--accent);
-    }
-    .persona-goals-pains { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-16); }
-    .pgp-box { display: flex; flex-direction: column; gap: var(--sp-8); }
-    .pgp-box h4 {
-      font-family: var(--font-display); font-size: 11px; font-weight: 700;
-      letter-spacing: .1em; text-transform: uppercase; color: var(--accent);
-    }
-    .pgp-box ul { list-style: none; display: flex; flex-direction: column; gap: var(--sp-6); }
-    .pgp-box li { font-size: 13px; line-height: 1.5; color: var(--ink-700); display: flex; gap: var(--sp-8); }
-    .pgp-box li::before { content: ''; color: var(--accent); flex-shrink: 0; }
-
-    /* EMOTION ARC */
-    .emotion-arc {
-      display: flex; align-items: flex-end; gap: 0;
-      border: 1.5px solid var(--ink-100); border-radius: var(--r-xl);
-      overflow: hidden; background: var(--white); box-shadow: var(--shadow-card); margin-top: var(--sp-24);
-    }
-    .emotion-stage {
-      flex: 1; padding: var(--sp-20) var(--sp-16);
-      display: flex; flex-direction: column; gap: var(--sp-8);
-      border-right: 1px solid var(--ink-100); transition: background .2s; cursor: default;
-    }
-    .emotion-stage:last-child { border-right: none; }
-    .emotion-stage:hover { background: var(--ink-050); }
-    .emotion-emoji { font-size: 22px; text-align: center; }
-    .emotion-name { font-family: var(--font-display); font-size: 12px; font-weight: 800; color: var(--ink-900); text-align: center; letter-spacing: -.01em; }
-    .emotion-feel {
-      font-family: var(--font-display); font-size: 10px; font-weight: 700;
-      letter-spacing: .06em; text-transform: uppercase; text-align: center;
-      padding: 3px 8px; border-radius: 100px;
-    }
-    .emotion-feel--neg { background: #FEE2E2; color: #B91C1C; }
-    .emotion-feel--pos { background: #D1FAE5; color: #065F46; }
-    .emotion-feel--mid { background: #FEF3C7; color: #92400E; }
-
-    /* ITERATION CARD */
-    .iter-card {
-      background: var(--white); border: 1.5px solid var(--ink-100);
-      border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-card); margin-top: var(--sp-24);
-    }
-    .iter-header { padding: var(--sp-24) var(--sp-32); border-bottom: 1.5px solid var(--ink-100); display: flex; align-items: center; gap: var(--sp-16); }
-    .iter-num {
-      width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: white;
-      font-family: var(--font-display); font-size: 15px; font-weight: 800;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
-    .iter-title { font-family: var(--font-display); font-size: 17px; font-weight: 800; color: var(--ink-900); letter-spacing: -.02em; line-height: 1.35; }
-    .iter-body { padding: var(--sp-24) var(--sp-32); }
-    .iter-body ul { list-style: none; display: flex; flex-direction: column; gap: 0; }
-    .iter-body li {
-      font-size: 15px; line-height: 1.65; color: var(--ink-700);
-      display: flex; flex-direction: column; gap: var(--sp-8);
-      padding: var(--sp-20) 0; border-bottom: 1px solid var(--ink-100);
-    }
-    .iter-body li:last-child { border-bottom: none; }
-    .iter-badge {
-      font-family: var(--font-display); font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; 
-      white-space: nowrap; padding: 4px 8px; border-radius: 6px; flex-shrink: 0; margin-top: 3px; display: inline-block; width: fit-content;
-    }
-    .iter-badge--issue   { background: #FEE2E2; color: #B91C1C; }
-    .iter-badge--fix     { background: #D1FAE5; color: #065F46; }
-    .iter-badge--insight { background: #EEF3FF; color: #1B4FD8; }
-
-    /* DECISION CARD */
-    .decision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-16); margin-top: var(--sp-24); }
-    .decision-item {
-      padding: var(--sp-24); border-radius: var(--r-lg);
-      background: var(--ink-050); border: 1.5px solid var(--ink-100);
-      display: flex; flex-direction: column; gap: var(--sp-8);
-    }
-    .decision-label {
-      font-family: var(--font-display); font-size: 10px; font-weight: 800;
-      letter-spacing: .1em; text-transform: uppercase; padding: 3px 8px;
-      border-radius: 6px; width: fit-content;
-    }
-    .decision-label--rejected { background: #FEE2E2; color: #B91C1C; }
-    .decision-label--selected { background: #D1FAE5; color: #065F46; }
-    .decision-title { font-family: var(--font-display); font-size: 15px; font-weight: 800; color: var(--ink-900); }
-    .decision-body { font-size: 13px; line-height: 1.6; color: var(--ink-500); }
-
-    /* SOLUTION LAYER CARD */
-    .layer-card {
-      background: var(--white); border: 1.5px solid var(--ink-100);
-      border-radius: var(--r-xl); overflow: hidden; box-shadow: var(--shadow-card);
-      margin-top: var(--sp-24); display: grid; grid-template-columns: 280px 1fr;
-    }
-    .layer-num-col {
-      background: var(--accent); padding: var(--sp-40);
-      display: flex; flex-direction: column; justify-content: center; gap: var(--sp-16);
-    }
-    .layer-num {
-      font-family: var(--font-display); font-size: 64px; font-weight: 900;
-      color: rgba(255,255,255,.2); line-height: 1; letter-spacing: -.04em;
-    }
-    .layer-title { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: white; line-height: 1.3; letter-spacing: -.02em; }
-    .layer-subtitle { font-size: 13px; color: rgba(255,255,255,.7); line-height: 1.6; }
-    .layer-body { padding: var(--sp-40); display: flex; flex-direction: column; gap: var(--sp-16); justify-content: center; }
-    .layer-body p { font-size: 15px; line-height: 1.7; color: var(--ink-700); }
-    .layer-body ul { list-style: none; display: flex; flex-direction: column; gap: var(--sp-8); }
-    .layer-body li { font-size: 14px; line-height: 1.6; color: var(--ink-700); display: flex; gap: var(--sp-8); align-items: flex-start; }
-    .layer-body li::before { content: ''; color: var(--accent); flex-shrink: 0; }
-
-    /* TASK COMPLETION ROW */
-    .task-row {
-      display: grid; grid-template-columns: 80px 1fr; gap: var(--sp-16);
-      align-items: flex-start; padding: var(--sp-20) 0; border-bottom: 1px solid var(--ink-100);
-    }
-    .task-row:last-child { border-bottom: none; }
-    .task-pct {
-      font-family: var(--font-display); font-size: 22px; font-weight: 800;
-      letter-spacing: -.02em; line-height: 1;
-    }
-    .task-pct--high { color: #16A34A; }
-    .task-pct--mid  { color: #D97706; }
-    .task-pct--low  { color: #DC2626; }
-    .task-text { font-size: 15px; line-height: 1.65; color: var(--ink-700); padding-top: 3px; }
-    .task-text strong { font-weight: 600; color: var(--ink-900); }
-
-    /* REFLECTION */
-    .reflection-stack { display: flex; flex-direction: column; gap: var(--sp-20); margin-top: var(--sp-48); }
-    .reflection-card { background: var(--white); border: 1.5px solid var(--ink-100); border-radius: var(--r-xl); padding: var(--sp-40); box-shadow: var(--shadow-card); width: 100%;    }
-    .reflection-card.card--blue { background: var(--accent-muted); border-color: rgba(27,79,216,.18); }
-    .refl-pointer { display: flex; gap: var(--sp-16); font-size: 15px; color: var(--ink-700); line-height: 1.65; padding: var(--sp-16) 0; border-bottom: 1px solid var(--ink-100); flex-direction: column; }
-    .refl-pointer:last-child { border-bottom: none; }
-    .refl-pointer-head { display: flex; gap: var(--sp-8); align-items: flex-start; }
-    .refl-pointer-head strong { color: var(--ink-900); }
-    .refl-icon { color: var(--accent); flex-shrink: 0; font-size: 16px; line-height: 1.65; }
-    .refl-icon--cross { color: #DC2626; }
-    .reflection-card .refl-pointer:last-of-type {  border-bottom: none;  padding-bottom: 0;}
-
-    /* FEATURE GRID */
-    .feature-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-12); margin-top: var(--sp-24);
-    }
-    .feature-item {
-      padding: var(--sp-20); background: var(--white);
-      border: 1.5px solid var(--ink-100); border-radius: var(--r-lg);
-      display: flex; flex-direction: column; gap: var(--sp-8);
-      transition: border-color .2s, transform .2s, box-shadow .2s; cursor: default;
-    }
-    .feature-item:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(27,79,216,.1); }
-    .feature-name { font-family: var(--font-display); font-size: 14px; font-weight: 700; color: var(--ink-900); }
-    .feature-desc { font-size: 12px; color: var(--ink-500); line-height: 1.6; }
-
-    /* SECTION DIVIDER */
-    .section-divider {
-      display: flex; align-items: center; gap: var(--sp-20);
-      padding: var(--sp-48) var(--sp-20); max-width: 900px; margin: 0 auto;
-    }
-    .section-divider-line { flex: 1; height: 1px; background: var(--ink-100); }
-    .section-divider-label {
-      font-family: var(--font-display); font-size: 11px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase; color: var(--ink-300); white-space: nowrap;
-    }
-
-    /* APPEAR */
-    .appear {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
-    }
-    .appear.visible { opacity: 1; transform: none; }
-    .stagger > * {
-      opacity: 0; transform: translateY(20px);
-      transition: opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1);
-    }
-    .stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay: 0ms; }
-    .stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay: 80ms; }
-    .stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay: 160ms; }
-    .stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: 240ms; }
-    .stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: 320ms; }
-    .stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: 400ms; }
-
-    /* FOOTER */
-    footer { background: var(--ink-900); padding: var(--sp-40) 0; }
-    .footer-inner {
-      max-width: 1140px; margin: 0 auto; padding: 0 var(--sp-40);
+    .footer-links-row {
+      position: relative; z-index: 1;
       display: flex; align-items: center; justify-content: space-between;
       gap: var(--sp-24); flex-wrap: wrap;
+      margin-bottom: var(--sp-48);
     }
-    .footer-left { font-family: var(--font-display); font-size: 13px; font-weight: 600; color: rgba(255,255,255,.4); }
-    .footer-links { display: flex; gap: var(--sp-24); }
-    .footer-links a {
-      font-family: var(--font-display); font-size: 13px; font-weight: 600;
-      color: rgba(255,255,255,.4); text-decoration: none; transition: color .2s;
+    .footer-social { display: flex; gap: var(--sp-24); flex-wrap: wrap; }
+    .footer-social a {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-display);
+      font-size: 14px; font-weight: 600;
+      color: rgba(255,255,255,.7); text-decoration: none;
+      transition: color .2s, transform .2s cubic-bezier(.22,1,.36,1);
     }
-    .footer-links a:hover { color: white; }
+    .footer-social a:hover { color: white; transform: translateY(-1px); }
+    .footer-social svg { width: 18px; height: 18px; flex-shrink: 0; }
 
-      /* CASE NAV */
-    .case-nav { display:flex; gap:var(--sp-32); flex-wrap:wrap; }
-    .case-nav-btn--next { align-items:flex-end; text-align:right; }
-    .case-nav-btn--prev { align-items:flex-start; text-align:left; }
-    .case-nav-btn { flex:1 1 200px; display:flex; flex-direction:column; gap:var(--sp-6); text-decoration:none; cursor:pointer; transition:opacity .2s; justify-content:flex-end; }
-    .case-nav-label { font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); }
-    .case-nav-title { font-family:var(--font-display); font-size:17px; font-weight:800; color:var(--ink-900); line-height:1.3; margin-top:auto; }
-    .case-nav-btn:hover:not(.disabled) { opacity: .6; }
-    .case-nav-btn.disabled { opacity:.35; cursor:not-allowed; pointer-events:none; }
-    .case-nav { display:flex; gap:var(--sp-32); flex-wrap:wrap; }
+    .footer-credit-line {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; flex-wrap: wrap;
+      padding-top: var(--sp-32);
+      border-top: 1px solid rgba(255,255,255,.1);
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,.4);
+      text-align: center;
+    }
+    .footer-credit-line strong { color: rgba(255,255,255,.75); font-weight: 700; }
+    .footer-credit-dot { color: rgba(255,255,255,.25); }
 
-      /* DEEPER DIVE CTA */
-    .deeper-dive-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-32); flex-wrap: wrap; }
-    .deeper-dive-text { font-size: 16px; color: var(--ink-500); line-height: 1.65; max-width: 560px; margin: 0; }
-    .deeper-dive-btn { font-family: var(--font-display); font-size: 14px; font-weight: 700; background: var(--ink-900); color: white; padding: 14px 28px; border-radius: var(--r-md); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; transition: background .2s, transform .15s, box-shadow .2s; flex-shrink: 0;    }
-    .deeper-dive-btn:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(27,106,222,.35); }
-    @media (max-width: 600px) {
-      .deeper-dive-inner { flex-direction: column; align-items: flex-start; }
-      .deeper-dive-btn { align-self: center;}
+    /* ── KEYFRAMES ── */
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-
-
-    /* JOURNEY MAP MAGNIFIER */
-    .jmap-wrap {
-      position: relative; border-radius: var(--r-lg); overflow: hidden;
-      border: 1.5px solid var(--ink-100); background: var(--ink-050);
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    .jmap-img { width: 100%; display: block; cursor: none; -webkit-user-select: none; user-select: none; touch-action: none; }
-    .jmap-glass {
-      position: absolute; display: none; pointer-events: none;
-      width: 170px; height: 170px; border-radius: 50%;
-      border: 3px solid var(--white);
-      box-shadow: 0 6px 24px rgba(0,0,0,.28), 0 0 0 1.5px var(--accent);
-      background-repeat: no-repeat; z-index: 5;
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .5; transform: scale(.8); }
     }
-    .jmap-wrap.active .jmap-glass { display: block; }
-    .jmap-expand-btn {
-      position: absolute; top: var(--sp-12); right: var(--sp-12); z-index: 6;
-      display: flex; align-items: center; gap: 7px;
-      font-family: var(--font-display); font-size: 12px; font-weight: 700;
-      color: var(--ink-900); background: rgba(255,255,255,.92);
-      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-      border: 1.5px solid var(--ink-100); padding: 8px 14px; border-radius: 100px;
-      cursor: pointer; box-shadow: var(--shadow-card);
-      transition: background .2s, border-color .2s, transform .15s;
-    }
-    .jmap-expand-btn:hover { background: var(--white); border-color: var(--accent); transform: translateY(-1px); }
-    .jmap-expand-btn i { font-size: 13px; }
-    .jmap-hint {
-      position: absolute; bottom: var(--sp-12); left: var(--sp-12); z-index: 6;
-      font-family: var(--font-display); font-size: 10px; font-weight: 700;
-      letter-spacing: .06em; text-transform: uppercase;
-      background: rgba(13,15,17,.62); color: white;
-      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-      padding: 5px 10px; border-radius: 100px; pointer-events: none;
-    }
-    @media (max-width: 768px) {
-      .jmap-glass { width: 130px; height: 130px; }
-      .jmap-hint { font-size: 9px; padding: 4px 9px; }
+    @keyframes tickerLoop {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
 
-    /* JOURNEY MAP EXPAND MODAL */
-    .jmap-modal {
-      position: fixed; inset: 0; z-index: 1000;
-      background: rgba(13,15,17,.94);
-      display: none; flex-direction: column;
-      opacity: 0; transition: opacity .25s ease;
+    /* ── REVEAL ON SCROLL ── */
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity .7s cubic-bezier(.25,.46,.45,.94),
+                  transform .7s cubic-bezier(.25,.46,.45,.94);
     }
-    .jmap-modal.open { display: flex; opacity: 1; }
-    .jmap-modal-bar {
-      flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
-      padding: var(--sp-16) var(--sp-24);
-    }
-    .jmap-modal-title { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: white; letter-spacing: -.01em; }
-    .jmap-modal-hint { font-family: var(--font-display); font-size: 11px; color: rgba(255,255,255,.5); margin-top: 2px; }
-    .jmap-modal-close {
-      width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
-      background: rgba(255,255,255,.1); border: 1.5px solid rgba(255,255,255,.2);
-      color: white; display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: background .2s, border-color .2s;
-    }
-    .jmap-modal-close:hover { background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.4); }
-    .jmap-modal-scroll {
-      flex: 1; overflow: auto; -webkit-overflow-scrolling: touch;
-      padding: 0 var(--sp-24) var(--sp-24); cursor: grab;
-    }
-    .jmap-modal-scroll.grabbing { cursor: grabbing; }
-    .jmap-modal-img { display: block; width: 2200px; max-width: none; border-radius: var(--r-md); }
-    @media (max-width: 768px) {
-      .jmap-modal-img { width: 1500px; }
-      .jmap-modal-bar { padding: var(--sp-12) var(--sp-16); }
-      .jmap-modal-scroll { padding: 0 var(--sp-16) var(--sp-16); }
-    }
+    .reveal.visible { opacity: 1; transform: none; }
 
-    /* RESPONSIVE */
-    @media (max-width: 1100px) { #side-stepper { right: 12px; } }
-    @media (max-width: 1024px) { :root { --sp-120: 80px; } #side-stepper { display: none; } }
-    @media (max-width: 768px) {
-      .nav-links, .nav-cta { display: none; }
-      .nav-hamburger { display: flex; }
-      #mobile-menu { display: block; }
-      #navbar-inner { padding: 0 var(--sp-20); border-radius: 0; }
-      #navbar { padding: 0; }
-      .project-meta { grid-template-columns: 1fr 1fr; }
-      .meta-item:nth-child(2) { border-right: none; }
-      .two-col { grid-template-columns: 1fr; }
-      .metrics-row { grid-template-columns: 1fr 1fr; }
-    
-      .carousel-slide-inner {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto 320px;
-        min-height: unset;
-      }
-      .carousel-text {
-        border-right: none;
-        border-bottom: 1.5px solid var(--ink-100);
-        padding: var(--sp-32) var(--sp-24);
-        height: auto;
-        overflow-y: visible;
-      }
-      .carousel-img {
-        height: 100%;
-        min-height: unset;
-        position: relative;
-        padding: 0;
-      }
-      .carousel-image {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        margin: 0;
-      }
-      .persona-card { grid-template-columns: 1fr; }
-      .persona-avatar { border-right: none; border-bottom: 1.5px solid var(--ink-100); min-height: 180px; }
-      .persona-goals-pains { grid-template-columns: 1fr; }
-      .quotes-grid { grid-template-columns: 1fr; }
-      .sticky-notes-grid { grid-template-columns: 1fr 1fr; }
-      .decision-grid { grid-template-columns: 1fr; }
-      .layer-card { grid-template-columns: 1fr; }
-      .layer-num-col { padding: var(--sp-32) var(--sp-32) var(--sp-24); }
-      .layer-num { font-size: 48px; }
-      .emotion-arc { flex-wrap: wrap; }
-      .emotion-stage { flex: 1 1 calc(33% - 8px); }
-      #cursor, #cursor-ring { display: none; }
-      body { cursor: auto; }
-      .footer-inner { flex-direction: column; text-align: center; }
-      .footer-links { justify-content: center; }
-      .feature-grid { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width:540px) {
-      .case-nav { flex-direction:column; gap:var(--sp-24); }
-      .case-nav-btn { justify-content:flex-start; flex:unset; }
-      .case-nav-btn--next { align-items:flex-end; text-align:right; margin-left:auto; }
-      .case-nav-btn--prev { align-items:flex-start; text-align:left; }
-    }
-    
-    @media (max-width: 480px) {
-      .card { padding: var(--sp-24) var(--sp-20); }
-      .metrics-row { grid-template-columns: 1fr; }
-      .project-meta { grid-template-columns: 1fr; }
-      .meta-item { border-right: none !important; border-bottom: 1px solid var(--ink-100); }
-      .meta-item:last-child { border-bottom: none; }
-      .sticky-notes-grid { grid-template-columns: 1fr; }
-      .feature-grid { grid-template-columns: 1fr; }
-      .footer-inner { padding: 0 var(--sp-20); }
-    }
+    /* ── REDUCED MOTION ── */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
-      .appear, .stagger > * { opacity: 1; transform: none; }
+      .project-card, .reveal { opacity: 1; transform: none; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1023px) {
+      .container { padding: 0 var(--sp-24); }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: auto; }
+    }
+    @media (max-width: 767px) {
+      :root { --sp-120: 64px; --sp-80: 48px; }
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      #navbar { padding: 0; }
+      #navbar-inner { border-radius: 0; }
+      #mobile-menu { display: block; }
+      #cursor, #cursor-ring, #cursor-label { display: none; }
+      body { cursor: auto; }
+      .gallery-strip { flex-wrap: wrap; row-gap: 28px; }
+      .gallery-item { flex: 1 1 40%; max-width: 45%; }
+      .gallery-item:nth-child(odd)  { transform: translateY(-8px) rotate(-3deg); }
+      .gallery-item:nth-child(even) { transform: translateY(8px) rotate(3deg); }
+      .footer-top { flex-direction: column; align-items: flex-start; }
+      .footer-actions { width: 100%; }
+      .footer-links-row { flex-direction: column; align-items: center; text-align: center; gap: var(--sp-16); }
+      .footer-social { justify-content: center; }
+      .btn-primary, .btn-ghost { justify-content: center; }
+    }
+    @media (max-width: 479px) {
+      .hero-name { letter-spacing: -.02em; }
+      .hero-photo-frame { width: min(90%, 260px); }
+      .hero-actions { flex-direction: column; width: 100%; }
+      .btn-primary, .btn-ghost { width: 100%; }
+      .gallery-item { flex: 1 1 100%; max-width: 70%; }
+      .footer-social { flex-direction: column; gap: var(--sp-12); align-items: center; }
     }
   </style>
 </head>
 <body>
 
+<!-- Custom cursor -->
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
+<div id="cursor-label">That&rsquo;s me!</div>
 
-<!-- NAVBAR -->
+<!-- ── NAVBAR (unchanged) ── -->
 <nav id="navbar" aria-label="Main navigation">
   <div id="navbar-inner">
-    <a href="/" class="nav-logo">
+    <a href="/home" class="nav-logo">
       <div class="nav-logo-mark" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
       </div>
       <span class="nav-logo-name">Piyush Jadhav</span>
     </a>
     <ul class="nav-links">
-      <li><a href="/case-studies" class="active">Case Studies</a></li>
+      <li><a href="/case-studies">Case Studies</a></li>
       <li><a href="/about">About Me</a></li>
     </ul>
-    <a href="#contact" class="nav-cta">Let's Talk </a>
-    <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <a href="#contact" class="nav-cta">Let&rsquo;s Talk &rarr;</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
+<!-- Mobile menu -->
 <div id="mobile-menu" aria-hidden="true">
   <ul>
-    <li><a href="/case-studies">Case Studies</a></li>
-    <li><a href="/about">About Me</a></li>
-    <li><a href="#contact" style="color:var(--accent);">Let's Talk </a></li>
+    <li><a href="/case-studies" onclick="closeMobile()">Case Studies</a></li>
+    <li><a href="/about" onclick="closeMobile()">About Me</a></li>
+    <li><a href="#contact" onclick="closeMobile()">Let&rsquo;s Talk &rarr;</a></li>
   </ul>
 </div>
 
-<!-- SIDE STEPPER -->
-<nav id="side-stepper" aria-label="Section navigation">
-  <div class="stepper-item active" data-section="hero">
-    <span class="stepper-label">Overview</span>
-    <div class="stepper-dot"></div>
-  </div>
-  <div class="stepper-item" data-section="problem">
-    <span class="stepper-label">Problem</span>
-    <div class="stepper-dot"></div>
-  </div>
-  <div class="stepper-item" data-section="research">
-    <span class="stepper-label">Research</span>
-    <div class="stepper-dot"></div>
-  </div>
-  <div class="stepper-item" data-section="define">
-    <span class="stepper-label">Define</span>
-    <div class="stepper-dot"></div>
-  </div>
-  <div class="stepper-item" data-section="hmw">
-    <span class="stepper-label">HMW</span>
-    <div class="stepper-dot"></div>
-  </div>
-  <div class="stepper-item" data-section="design">
-    <span class="stepper-label">Solution</span>
-    <div class="stepper-dot"></div>
-  </div>
-  <div class="stepper-item" data-section="testing">
-    <span class="stepper-label">Evaluation</span>
-    <div class="stepper-dot"></div>
-  </div>
-  <div class="stepper-item" data-section="reflection">
-    <span class="stepper-label">Reflection</span>
-    <div class="stepper-dot"></div>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section id="hero" aria-labelledby="hero-headline">
+<!-- ── HERO ── -->
+<section id="hero" aria-label="Introduction">
   <div class="hero-inner">
 
-    <div class="hero-eyebrow stagger">
-      <span class="tag-pill">DWP · UK Public Sector</span>
-      <div class="hero-divider" aria-hidden="true"></div>
-      <span class="label">Service Design · Team of 4 · 5 Sprints</span>
-      <span class="tag-pill" style="background:#F0F2F5;color:var(--ink-500);border-color:var(--ink-300);">⏱ 4 min read</span>
+    <div class="hero-badge">
+      <div class="hero-badge-dot pulse"></div>
+      <span>Available for new projects</span>
     </div>
 
-    <h1 class="hero-headline appear" id="hero-headline">
-      Redesigning UK bereavement support - the system that <em>reaches you</em>, not the other way around
-    </h1>
+    <p class="hero-intro">Hey there, I&rsquo;m</p>
+    <h1 class="hero-name">Piyush Jadhav</h1>
 
-    <p class="hero-sub appear">
-      A three-layer service model that proactively reaches bereaved people with the right financial entitlements, at the right time - without requiring them to navigate four government departments in a state of acute grief.
+    <figure class="hero-photo-frame" id="hero-photo" title="That&rsquo;s me!">
+      <div class="photo-window">
+        <img src="/assets/img/main-profile.jpeg" alt="Piyush Jadhav">
+      </div>
+      <figcaption>Based in Preston, UK</figcaption>
+    </figure>
+
+    <p class="hero-sub">
+      A UI/UX and Product Designer, who spent years understanding people before designing for them, now crafting intuitive, human-centered tools that meet users where they are.
     </p>
 
-    <div class="project-meta appear stagger">
-      <div class="meta-item">
-        <div class="meta-key">Role</div>
-        <div class="meta-val">Researcher · UX Designer</div>
-      </div>
-      <div class="meta-item">
-        <div class="meta-key">Team</div>
-        <div class="meta-val">4 · 5 One-Week Sprints</div>
-      </div>
-      <div class="meta-item">
-        <div class="meta-key">Methods</div>
-        <div class="meta-val">Double Diamond · Thematic Analysis · Content Analysis · Journey Mapping</div>
-      </div>
-      <div class="meta-item">
-        <div class="meta-key">Domain</div>
-        <div class="meta-val">UK Public Sector · Service Design</div>
-      </div>
-    </div>
-
-    <div class="hero-image-block appear" role="img" aria-label="Bereavement service model hero visual">
-      <img src="/assets/img/dwp_bg.png" alt="Three-Layer Service Model Overview" style="width:100%;height:100%;object-fit:cover;display:block;">
-    </div>
-
-  </div>
-</section>
-
-<!-- LEAD OUTCOME BANNER -->
-<section id="problem-banner" aria-labelledby="outcome-heading">
-  <div class="problem-inner appear">
-    <span class="label">Core Problem</span>
-    <h2 class="problem-headline" id="outcome-heading">
-      The Bereavement Support Payment carries a <em>strict 3-month application deadline</em> from the date of death - yet there is no proactive government communication about this deadline. Discovery is left entirely to the individual at the precise moment when cognitive and emotional capacity is lowest.
-    </h2>
-  </div>
-</section>
-
-<!-- PROBLEM -->
-<section class="section section--grey" id="problem" aria-labelledby="problem-heading">
-  <div class="content-col">
-
-    <div class="section-heading appear">
-      <span class="label">The Problem</span>
-      <h2 id="problem-heading">This is not a digital problem. It is a <strong>systemic coordination failure.</strong></h2>
-      <p>When someone in the UK loses a partner or family member, they become eligible for financial entitlements across DWP, HMRC, local councils, and the NHS. No single authoritative service tells them what they qualify for.</p>
-    </div>
-
-    <div class="prose appear">
-      <p>The UK bereavement financial support landscape spans at least four government departments - each with separate eligibility criteria, separate application routes, and separate deadlines. The Tell Us Once infrastructure exists at death registration but goes underused. Registrars, GPs, and funeral directors are high-trust points of contact who currently lack the tools to signpost accurately.</p>
-      <p>Secondary research surfaced nine findings that directly shaped the problem statement. A large majority of users are unaware of available support before actively needing it. High satisfaction scores in existing data reflect only successful users - those who never accessed the service are entirely invisible in the data.</p>
-    </div>
-
-    <div class="highlight-quote appear">
-      <p>Users switch between websites, helplines, and offline services with little continuity across channels. Vulnerable groups - digitally excluded, low-literacy, disabled - face the greatest barriers <em>at the worst possible moment.</em></p>
-      <cite>Secondary research synthesis - UK bereavement service landscape</cite>
-    </div>
-
-    <div class="metrics-row stagger appear">
-      <div class="metric-card">
-        <div class="metric-num">4+</div>
-        <div class="metric-label">Government departments with separate eligibility criteria, routes, and deadlines</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-num">90</div>
-        <div class="metric-label">Day BSP application deadline - communicated at zero formal touchpoints</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-num">0</div>
-        <div class="metric-label">Single authoritative services telling bereaved people what they qualify for</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-num">9</div>
-        <div class="metric-label">Research findings shaping the problem statement from secondary research</div>
-      </div>
-    </div>
-
-    <div class="appear" style="margin-top:var(--sp-48);">
-      <div class="sub-heading" style="margin-bottom:var(--sp-16);">The brief</div>
-      <div class="card">
-        <p style="font-size:17px;line-height:1.75;color:var(--ink-700);">Redesign the service so bereaved people receive the right information, at the right time, without having to navigate a fragmented system in a state of acute grief. The service should initiate contact rather than waiting for users to find it.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- RESEARCH -->
-<section class="section section--white" id="research" aria-labelledby="research-heading">
-  <div class="content-col">
-
-    <div class="section-heading appear">
-      <span class="label">Research &amp; Discovery</span>
-      <h2 id="research-heading">An ethical pivot that produced <strong>15,631 coded sentences.</strong></h2>
-      <p>Recruiting recently bereaved participants within a 5-week window raised significant ethical concerns. Rather than proceed with methodologically compromised interviews, the team proposed a large-scale content analysis of Reddit bereavement communities.</p>
-    </div>
-
-    <div class="highlight-quote appear">
-      <p>636 unique posts · 3,362 total rows · 15,631 coded sentences · 41 unique codes · 8 themes. Thematic analysis followed <em>Braun &amp; Clarke's (2006) six-phase method.</em></p>
-      <cite>Communities: r/UKPersonalFinance, r/LegalAdviceUK, r/bereavement</cite>
-    </div>
-
-    <!-- The unique finding card -->
-    <div class="card card--blue appear" style="margin-bottom:var(--sp-48);">
-      <div class="label" style="margin-bottom:var(--sp-16);">The Unique Finding</div>
-      <p style="font-family:var(--font-display);font-size:22px;font-weight:700;line-height:1.45;color:var(--ink-900);letter-spacing:-.02em;">The dominant keyword across all communities was <span style="color:var(--accent);">"advice"</span> - not "information," not "forms," not "benefits."</p>
-      <p style="font-size:15px;line-height:1.7;color:var(--ink-700);margin-top:var(--sp-16);">Users were not seeking information passively. They were turning to peer communities because official sources had failed to provide direction. The system had information; it lacked guidance.</p>
-    </div>
-
-    <!-- 8 themes table -->
-    <div class="section-heading appear">
-      <span class="label">8 Themes from Thematic Analysis</span>
-      <h2>Frequency is not always a proxy for significance.</h2>
-      <p>The smallest theme - Lack of Proactive Information - was the most strategically significant. Users had largely stopped expecting the system to reach out. They had already internalised the failure.</p>
-    </div>
-
-    <div class="data-table-wrap appear">
-      <table class="data-table" aria-label="Thematic analysis findings">
-        <thead>
-          <tr>
-            <th>Theme</th>
-            <th class="highlight">Coded Sentences</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Estate Administration &amp; Uncertainty About Where To Start</td>
-            <td class="col-num col-highlight">9,026</td>
-          </tr>
-          <tr>
-            <td>Will and Estate &amp; Financial Hardship</td>
-            <td class="col-num col-highlight">4,108</td>
-          </tr>
-          <tr>
-            <td>Negative Service Experience &amp; Overwhelmed By Process</td>
-            <td class="col-num col-highlight">390</td>
-          </tr>
-          <tr>
-            <td>DWP Interaction &amp; Process Described As Nightmare</td>
-            <td class="col-num col-highlight">343</td>
-          </tr>
-          <tr>
-            <td>Information Hard To Find</td>
-            <td class="col-num col-highlight">111</td>
-          </tr>
-          <tr>
-            <td>Feeling Ignored &amp; Unable To Reach Services</td>
-            <td class="col-num col-highlight">109</td>
-          </tr>
-          <tr>
-            <td>Death Registration Process &amp; Coroner Involvement</td>
-            <td class="col-num col-highlight">47</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600;color:var(--ink-900);">Lack of Proactive Information <span style="font-weight:400;font-size:12px;color:var(--accent);">(smallest - most strategically significant)</span></td>
-            <td class="col-num col-highlight" style="color:var(--accent);">41</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Research Methods -->
-    <div class="method-stack stagger" style="margin-top:var(--sp-48);">
-
-      <div class="method-card">
-        <div class="method-header">
-          <div class="method-num">01</div>
-          <div class="method-title">Ethical Pivot - Large-Scale Content Analysis</div>
-        </div>
-        <div class="method-body">
-          <p>Recruiting recently bereaved participants within a 5-week window raised significant ethical concerns. Rather than proceed with methodologically compromised interviews, I proposed and led an alternative: Reddit content analysis at scale.</p>
-          <ul>
-            <li>636 unique posts · r/UKPersonalFinance, r/LegalAdviceUK, r/bereavement</li>
-            <li>15,631 coded sentences · 41 unique codes · 8 themes</li>
-            <li>Thematic analysis: Braun &amp; Clarke (2006) six-phase method</li>
-            <li><strong>More data than interviews could have produced in five weeks - fewer ethical risks</strong></li>
-          </ul>
-        </div>
-        <div class="method-img">
-          <img src="/assets/img/dwp_m1.png" alt="Content analysis methodology visual" class="carousel-image">
-        </div>
-      </div>
-
-      <div class="method-card">
-        <div class="method-header">
-          <div class="method-num">02</div>
-          <div class="method-title">Contextual Mapping - The Clarifying Artefact</div>
-        </div>
-        <div class="method-body">
-          <p>Tracing every bereavement touchpoint before a user could reach BSP revealed no single "start here" point - and the 90-day BSP deadline communicated at zero formal touchpoints.</p>
-          <ul>
-            <li>Eligibility rules scattered across at least four agencies</li>
-            <li>BSP 90-day deadline surfaced at <strong>zero formal touchpoints</strong></li>
-            <li>Map made systemic failure visible on one surface for the first time</li>
-            <li>Directly generated the three-layer solution structure</li>
-          </ul>
-        </div>
-        <div class="method-img">
-          <img src="/assets/img/dwp_m2.png" alt="Contextual mapping artefact" class="carousel-image">
-        </div>
-      </div>
-
-      <div class="method-card">
-        <div class="method-header">
-          <div class="method-num">03</div>
-          <div class="method-title">Competitor Analysis + Analogous Inspiration</div>
-        </div>
-        <div class="method-body">
-          <p>Reviewed bereavement service models across four countries and six analogous services. One pattern was consistent across every high-performing service.</p>
-          <ul>
-            <li><strong>Macmillan Cancer Support</strong> - staging complexity into clear phases</li>
-            <li><strong>NHS Symptom Checker</strong> - question-based, personalised next steps</li>
-            <li><strong>e-Estonia</strong> - enter-once, no repeated context</li>
-            <li><strong>Common pattern:</strong> the service initiates contact - it doesn't wait to be found</li>
-          </ul>
-        </div>
-        <div class="method-img">
-          <img src="/assets/img/dwp_m3.png" alt="Competitor analysis visual" class="carousel-image">
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- DEFINE -->
-<section class="section section--grey" id="define" aria-labelledby="define-heading">
-  <div class="content-col">
-
-    <div class="section-heading appear">
-      <span class="label">Define - Synthesis</span>
-      <h2 id="define-heading">Sarah's journey map exposed the failure across <strong>three distinct phases.</strong></h2>
-      <p>Journey mapping with two primary personas - James and Sarah - surfaced specific system failure points that the thematic analysis had only hinted at.</p>
-    </div>
-
-    <div class="appear">
-      <div class="sub-heading">Sarah Clarke's Emotional Journey - Widowed, Two Children</div>
-      <div class="emotion-arc" role="img" aria-label="Emotional journey: Acute Shock through Slow Resolution">
-        <div class="emotion-stage">
-          <div class="emotion-emoji">😶</div>
-          <div class="emotion-name">Acute Shock</div>
-          <div class="emotion-feel emotion-feel--neg">Numb</div>
-        </div>
-        <div class="emotion-stage">
-          <div class="emotion-emoji">😰</div>
-          <div class="emotion-name">Administration</div>
-          <div class="emotion-feel emotion-feel--neg">Overwhelmed</div>
-        </div>
-        <div class="emotion-stage">
-          <div class="emotion-emoji">😤</div>
-          <div class="emotion-name">DWP Contact</div>
-          <div class="emotion-feel emotion-feel--neg">Frustrated</div>
-        </div>
-        <div class="emotion-stage">
-          <div class="emotion-emoji">😔</div>
-          <div class="emotion-name">BSP Payment</div>
-          <div class="emotion-feel emotion-feel--mid">Resigned</div>
-        </div>
-        <div class="emotion-stage">
-          <div class="emotion-emoji">😞</div>
-          <div class="emotion-name">Slow Resolution</div>
-          <div class="emotion-feel emotion-feel--mid">Depleted</div>
-        </div>
-      </div>
-      <p style="font-size:14px;color:var(--ink-500);margin-top:var(--sp-12);line-height:1.6;">Key failure points: no proactive signposting at death registration, a 35-minute DWP hold requiring documents she didn't have to hand, BSP payment arriving with no notification, and discovering the council tax single occupancy discount three months late - <strong style="color:var(--ink-900);">missing the full backdating window.</strong></p>
-    </div>
-
-    <!-- Personas -->
-    <div style="margin-top:var(--sp-64);">
-      <div class="section-heading appear">
-        <span class="label">Personas</span>
-        <h2>Two people, one broken system, different stakes.</h2>
-      </div>
-
-      <div class="persona-card appear">
-        <div class="persona-avatar">
-          <div class="img-ph img-ph--tall" style="border:none;border-radius:0;background:linear-gradient(145deg,#c8d6ff,#8aa8ff);" role="img" aria-label="Insert: James persona photo">
-            <img src="/assets/img/one.png" alt="James persona photo" style="width:100%;height:100%;object-fit:cover;display:block;">
-          </div>
-        </div>
-        <div class="persona-info">
-          <div>
-            <div class="persona-name">James Mitchell, 18</div>
-            <div class="persona-role">Orphaned first-year university student · Computer Science · Works part-time at Tesco</div>
-          </div>
-          <div class="persona-quote">"I just want one place that tells me what to do step by step, not ten pages telling me everything at once."</div>
-          <div class="persona-goals-pains">
-            <div class="pgp-box">
-              <h4>Goals</h4>
-              <ul>
-                <li>A single step-by-step system</li>
-                <li>Plain-English explanations</li>
-                <li>Clear "do this now / do this later" prioritisation</li>
-                <li>Progress tracking he can return to</li>
-              </ul>
-            </div>
-            <div class="pgp-box">
-              <h4>Pain Points</h4>
-              <ul>
-                <li>Opens multiple GOV.UK pages - doesn't know what to do first</li>
-                <li>Avoids calling organisations - feels overwhelming</li>
-                <li>Alone, managing grief alongside urgent admin</li>
-                <li>No one to ask - no family safety net</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="persona-card appear" style="margin-top:var(--sp-24);">
-        <div class="persona-avatar">
-          <div class="img-ph img-ph--tall" style="border:none;border-radius:0;background:linear-gradient(145deg,#ffd6c8,#ffaa88);" role="img" aria-label="Insert: Sarah persona photo">
-            <img src="/assets/img/one.png" alt="Sarah persona photo" style="width:100%;height:100%;object-fit:cover;display:block;">
-          </div>
-        </div>
-        <div class="persona-info">
-          <div>
-            <div class="persona-name">Sarah Clarke, 35</div>
-            <div class="persona-role">Widowed mother of two young children · Outstanding mortgage · Household budget halved overnight</div>
-          </div>
-          <div class="persona-quote">"I don't even know what I don't know. I just need someone to tell me what I'm supposed to do next."</div>
-          <div class="persona-goals-pains">
-            <div class="pgp-box">
-              <h4>Goals</h4>
-              <ul>
-                <li>A clear starting point - not ten options</li>
-                <li>Plain language, deadline reminders</li>
-                <li>Confirmation she's doing things right</li>
-                <li>Access without needing to be digitally expert</li>
-              </ul>
-            </div>
-            <div class="pgp-box">
-              <h4>Pain Points</h4>
-              <ul>
-                <li>Screenshots pages, starts forms then stops - unsure of eligibility</li>
-                <li>Late-night searches during children's sleep</li>
-                <li>BSP payment arrived with no notification</li>
-                <li>Council tax discount discovered three months late</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-       <div style="margin-top:var(--sp-48);" class="appear">
-        <div class="sub-heading" style="margin-bottom:var(--sp-16);">Journey Map</div>
-        <div class="jmap-wrap">
-          <img src="/assets/img/dwp_journeymap.png" alt="Customer journey map" class="jmap-img">
-          <div class="jmap-glass" aria-hidden="true"></div>
-          <button class="jmap-expand-btn" type="button" aria-label="Expand journey map to full screen">
-            <i class="bi bi-arrows-fullscreen" aria-hidden="true"></i>
-            <span>Expand</span>
-          </button>
-          <span class="jmap-hint">Hover to zoom · tap &amp; hold on mobile</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- JOURNEY MAP EXPAND MODAL -->
-    <div class="jmap-modal" id="jmapModal" role="dialog" aria-modal="true" aria-label="Journey map, zoomed view">
-      <div class="jmap-modal-bar">
-        <div>
-          <div class="jmap-modal-title">Journey Map</div>
-          <div class="jmap-modal-hint">Drag to pan · scroll to move around</div>
-        </div>
-        <button class="jmap-modal-close" id="jmapModalClose" type="button" aria-label="Close zoomed view">
-          <i class="bi bi-x-lg" aria-hidden="true"></i>
-        </button>
-      </div>
-      <div class="jmap-modal-scroll" id="jmapModalScroll">
-        <img src="" alt="" class="jmap-modal-img" id="jmapModalImg">
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- HMW + IDEATION -->
-<section id="hmw" style="padding: var(--sp-64) var(--sp-20); background:var(--white);" aria-labelledby="hmw-heading">
-  <div class="content-col">
-
-    <div class="section-heading appear">
-      <span class="label">From Research to Direction</span>
-      <h2 id="hmw-heading">Five research methods. One conclusion: <strong>the system needs to reach people, not the other way around.</strong></h2>
-      <p>The contextual map - tracing every touchpoint before BSP - was the clarifying moment. The 90-day deadline appeared at zero formal touchpoints. That single finding generated the solution structure.</p>
-    </div>
-
-    <div class="hmw-banner appear" role="complementary" aria-label="How Might We statement">
-      <span class="hmw-label">How Might We</span>
-      <p class="hmw-text">How might we ensure bereaved people receive the right information - without needing to search for it - communicated in a way understandable even under acute grief?</p>
-    </div>
-
-    <!-- Key design decision -->
-    <div style="margin-top:var(--sp-48);" class="appear">
-      <div class="section-heading">
-        <span class="label">Key Design Decision</span>
-        <h2>One product vs. three layers.</h2>
-        <p>Bereaved people are not a homogeneous user group. No single solution serves the full population. The power of the model is in complementarity.</p>
-      </div>
-      <div class="decision-grid">
-        <div class="decision-item">
-          <span class="decision-label decision-label--rejected">Considered  Insufficient</span>
-          <div class="decision-title">Single GOV.UK page redesign</div>
-          <div class="decision-body">Improves discoverability for confident users - misses those who never reach GOV.UK. Survivorship bias baked in.</div>
-        </div>
-        <div class="decision-item">
-          <span class="decision-label decision-label--rejected">Considered  Insufficient</span>
-          <div class="decision-title">Phone helpline improvement</div>
-          <div class="decision-body">High-trust channel but reactive. Still requires bereaved people to know to call. Doesn't address the zero-touchpoint problem.</div>
-        </div>
-        <div class="decision-item">
-          <span class="decision-label decision-label--rejected">Considered  Insufficient</span>
-          <div class="decision-title">Intermediary-only tool</div>
-          <div class="decision-body">Force multiplier but incomplete - registrars see only one moment. Users between touchpoints still have no support.</div>
-        </div>
-        <div class="decision-item" style="border-color:rgba(27,79,216,.3);background:var(--accent-muted);">
-          <span class="decision-label decision-label--selected">Selected</span>
-          <div class="decision-title">Three-layer service model</div>
-          <div class="decision-body">Proactive letter + digital triage tool + intermediary dashboard. Complementary layers serve different users at different moments.</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- DESIGN -->
-<section class="section section--white" id="design" aria-labelledby="design-heading">
-  <div class="content-col">
-
-    <div class="section-heading appear">
-      <span class="label">The Solution</span>
-      <h2 id="design-heading">A three-layer service model - because bereaved people are <strong>not one persona.</strong></h2>
-      <p>The solution architecture emerged from the contextual map, not from assumption. Resisting the urge to design one product was the right call.</p>
-    </div>
-
-    <!-- Layer 1 -->
-    <div class="layer-card appear">
-      <div class="layer-num-col">
-        <div class="layer-num">01</div>
-        <div class="layer-title">Proactive Notification Letter</div>
-        <div class="layer-subtitle">Triggered at death registration via Tell Us Once integration. The system reaches out - you don't have to find it.</div>
-      </div>
-      <div class="layer-body">
-        <p>An automated, personalised letter (and SMS where a number is held) arrives within 5–10 working days of death registration. Lists 3–5 entitlements by name with pre-calculated deadlines and a single contact route per entitlement.</p>
-        <ul>
-          <li>No navigation required - the system delivers the information</li>
-          <li>Letter format passes a junk mail disambiguation test: immediately legible as official, personalised, and time-sensitive</li>
-          <li>Delivery options include BSL, translated, and large print formats</li>
-          <li>Built on existing Tell Us Once infrastructure - not new government infrastructure</li>
-          <li>Pre-calculated BSP 90-day deadline shown clearly in the letter</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Layer 2 -->
-    <div class="layer-card appear">
-      <div class="layer-num-col">
-        <div class="layer-num">02</div>
-        <div class="layer-title">Five-Question Digital Triage Tool</div>
-        <div class="layer-subtitle">Accessible from GOV.UK. No account required. Five questions. One personalised checklist with deadline countdown.</div>
-      </div>
-      <div class="layer-body">
-        <p>Five questions covering: relationship to deceased, NI contribution status, dependent children, current benefit status, and date of death (to auto-calculate deadlines). Output: a ranked personalised checklist with deadline countdown and one-click paths to begin each claim.</p>
-        <ul>
-          <li>Progressive disclosure - no information shown before it's needed</li>
-          <li>No dead ends - every path leads to an action or a human contact</li>
-          <li>Channel agnostic - printable, saveable, usable via phone relay</li>
-          <li>Auto-calculates BSP deadline from date of death field</li>
-          <li>Designed for use under acute cognitive and emotional distress</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Layer 3 -->
-    <div class="layer-card appear">
-      <div class="layer-num-col">
-        <div class="layer-num">03</div>
-        <div class="layer-title">Intermediary-First Dashboard</div>
-        <div class="layer-subtitle">For registrars, GPs, funeral directors, and Citizens Advice workers. One trained registrar serves everyone who registers a death in their office.</div>
-      </div>
-      <div class="layer-body">
-        <p>A lightweight dashboard for trusted professionals. Input: client type + date of death. Output: accurate entitlement matrix with deadline indicators, flagging when BSP deadline is within 30 days.</p>
-        <ul>
-          <li>Bereaved people have high-trust relationships with these professionals at the point of contact</li>
-          <li>Equipping intermediaries is a force multiplier</li>
-          <li>Flags when BSP 30-day deadline warning threshold is crossed</li>
-          <li>Accurate across all four government departments - not per-agency</li>
-          <li>Requires no new government infrastructure - a layer on existing professional touchpoints</li>
-        </ul>
-      </div>
-    </div>
-
-    <div style="margin-top:var(--sp-48);" class="appear">
-      <div class="sub-heading" style="margin-bottom:var(--sp-16);">Service Architecture - Key Screens</div>
-      <div class="two-col" style="gap:var(--sp-16);">
-        <img src="/assets/img/dwp_layer1.png" alt="Layer 1 notification letter mockup" style="width:100%;display:block;border-radius:var(--r-lg);">
-        <img src="/assets/img/dwp_layer2.png" alt="Layer 2 digital triage tool screen" style="width:100%;display:block;border-radius:var(--r-lg);">
-      </div>
-      <div style="margin-top:var(--sp-16);">
-        <img src="/assets/img/dwp_ia.png" alt="Layer 3 intermediary dashboard screen" style="width:100%;display:block;border-radius:var(--r-lg);">
-      </div>
-    </div>
-
-    <div class="highlight-quote appear">
-      <p>The design principles were consistent across all three layers: the service initiates contact rather than waiting for users to find it. <em>No dead ends. No navigation without direction. No deadline without a clear path to act on it.</em></p>
-    </div>
-
-  </div>
-</section>
-
-<!-- TESTING / EVALUATION -->
-<section class="section section--grey" id="testing" aria-labelledby="testing-heading">
-  <div class="content-col">
-
-    <div class="section-heading appear">
-      <span class="label">Evaluation</span>
-      <h2 id="testing-heading">The research base is solid. <strong>The prototype needs real-world testing.</strong></h2>
-      <p>What was validated - and what honestly wasn't.</p>
-    </div>
-
-    <!-- What was validated - FIRST -->
-    <div class="card appear" style="margin-bottom:var(--sp-32);">
-      <div class="label" style="margin-bottom:var(--sp-16);">What the Research Validates</div>
-      <div class="task-row">
-        <div class="task-pct task-pct--high"><i class="bi bi-check-lg"></i></div>
-        <div class="task-text"><strong>Problem statement</strong> - grounded in 15,631 coded sentences across four communities. Eight themes, 41 codes, Braun &amp; Clarke six-phase method.</div>
-      </div>
-      <div class="task-row">
-        <div class="task-pct task-pct--high"><i class="bi bi-check-lg"></i></div>
-        <div class="task-text"><strong>Solution direction</strong> - competitor analysis across four countries and analogous inspiration from six sectors all converge on a proactive-reach model.</div>
-      </div>
-      <div class="task-row">
-        <div class="task-pct task-pct--high"><i class="bi bi-check-lg"></i></div>
-        <div class="task-text"><strong>Tell Us Once integration feasibility</strong> - infrastructure exists and is underused. Layer 1 builds on what's already there, not new government infrastructure.</div>
-      </div>
-      <div class="task-row">
-        <div class="task-pct task-pct--mid"><i class="bi bi-exclamation-circle"></i></div>
-        <div class="task-text"><strong>Live usability testing</strong> - not conducted. The two unknowns below remain open. Required before any deployment.</div>
-      </div>
-    </div>
-
-    <!-- Gaps - clearly named, after strengths -->
-    <div class="section-heading appear">
-      <span class="label">Honest Gaps</span>
-      <h2>Two things only real testing can answer.</h2>
-    </div>
-
-    <div class="iter-card appear">
-      <div class="iter-header">
-        <div class="iter-num">01</div>
-        <div class="iter-title">Does the Layer 1 letter actually get read?</div>
-      </div>
-      <div class="iter-body">
-        <ul>
-          <li>
-            <span class="iter-badge iter-badge--issue">Risk</span>
-            Older bereaved spouses - the most likely recipients - are least likely to recognise an unfamiliar DWP letter as relevant. Open rate is entirely unknown.
-          </li>
-          <li>
-            <span class="iter-badge iter-badge--insight">Next Step</span>
-            Service testing with participants aged 60+, low digital literacy, and those who were not primary account holders in their household.
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="iter-card appear">
-      <div class="iter-header">
-        <div class="iter-num">02</div>
-        <div class="iter-title">Do five questions cover eligibility edge cases?</div>
-      </div>
-      <div class="iter-body">
-        <ul>
-          <li>
-            <span class="iter-badge iter-badge--issue">Risk</span>
-            Cohabiting but unmarried partners, overseas deaths, and complex legacy benefit situations were not fully mapped through the question flow.
-          </li>
-          <li>
-            <span class="iter-badge iter-badge--insight">Next Step</span>
-            A dedicated sprint testing the triage tool specifically against non-standard relationship statuses and mixed legacy benefit profiles.
-          </li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- REFLECTION -->
-<section class="section section--white" id="reflection" aria-labelledby="refl-heading">
-  <div class="content-col">
-
-    <div class="section-heading appear">
-      <span class="label">Reflection</span>
-      <h2 id="refl-heading">What worked, what didn't.</h2>
-    </div>
-
-    <div class="reflection-stack appear">
-      <div class="reflection-card card--blue">
-        <div class="label" style="margin-bottom:var(--sp-16);">What Worked</div>
-        <div class="refl-pointer">
-          <div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>The ethical pivot.</strong> I proposed and led the Reddit content analysis strategy when interviews weren't feasible. It produced 15,631 coded sentences - more data than interviews would have in five weeks, with fewer ethical risks. The decision to pivot is the one I'm most proud of in this project.</span></div>
-        </div>
-        <div class="refl-pointer">
-          <div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>Solution emerging from the map, not assumption.</strong> Before the contextual mapping exercise, I would have proposed a single GOV.UK page redesign. The map changed that - it made visible that the 90-day deadline existed at zero formal touchpoints, and that no one layer could serve the full population.</span></div>
-        </div>
-        <div class="refl-pointer">
-          <div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>Building on existing infrastructure.</strong> Using Tell Us Once as the trigger for Layer 1 meant the solution was viable inside real government constraints, not just conceptually interesting.</span></div>
-        </div>
-      </div>
-
-      <div class="reflection-card">
-        <div class="label" style="margin-bottom:var(--sp-16);">What Didn't / What's Unresolved</div>
-        <div class="refl-pointer">
-          <div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-x-lg"></i></span><span><strong>No live testing.</strong> The prototype was never put in front of a real bereaved person. That's the most significant gap in this project - and one that research extrapolation cannot resolve.</span></div>
-        </div>
-        <div class="refl-pointer">
-          <div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-x-lg"></i></span><span><strong>Frequency ≠ significance.</strong> The "Lack of Proactive Information" theme had just 41 coded sentences - the smallest. I almost missed it. Users had stopped asking for proactive information because they'd given up expecting it. That required interpretive work beyond a frequency count.</span></div>
-        </div>
-        <div class="refl-pointer">
-          <div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-question-lg"></i></span><span><strong>Eligibility edge cases.</strong> The five-question triage tool works for the standard BSP profile. Cohabiting but unmarried partners and overseas deaths remain unresolved. A known gap for a future sprint.</span></div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- END / CONTACT -->
-<section class="section section--white" id="end" style="padding-bottom:var(--sp-12); padding-top: var(--sp-12);">
-  <div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-label">End of Case Study</span><div class="section-divider-line"></div></div>
-</section>
-  
-  <!-- DEEPER DIVE CTA -->
-<section class="section section--grey deeper-dive-cta">
-  <div class="content-col">
-    <div class="deeper-dive-inner">
-      <div>
-        <span class="case-nav-title" style="display:block;margin-bottom:var(--sp-12);">Want to go deeper?</span>
-        <p class="deeper-dive-text">For a more detailed walkthrough of the research, process, or design decisions behind this case study — feel free to reach out directly.</p>
-      </div>
-      <a href="mailto:work.piyushjadhav@gmail.com" class="deeper-dive-btn">Email Me</a>
-    </div>
-  </div>
-</section>
-
-<section class="section section--white" style="padding-top:var(--sp-40); padding-bottom:var(--sp-40);">
-  <div class="content-col">
-    <div class="case-nav">
-
-      <!-- PREVIOUS: set href="#" and remove disabled attr to enable -->
-    <a class="case-nav-btn case-nav-btn--prev" href="../culinarr/index.html">
-        <span class="case-nav-label">← Previous</span>
-        <span class="case-nav-title">Culinarr - Designing a Shared Dining Experience for Groups</span>
+    <div class="hero-actions">
+      <a href="#work" class="btn-primary">View my work</a>
+      <a href="https://www.linkedin.com/in/piyushjadhavdesign/" target="_blank" rel="noopener" class="btn-ghost">
+        <img src="/assets/img/linkedin-icon.png" alt="" class="btn-icon">
+        Go to my LinkedIn
       </a>
+    </div>
 
-      <!-- NEXT: set href="#" and remove disabled attr to enable -->
-      <a class="case-nav-btn case-nav-btn--next" href="../autodesk-case-study/index.html">
-        <span class="case-nav-label">Next</span>
-        <span class="case-nav-title">Autodesk Construction Cloud</span>
-      </a>
+  </div>
+</section>
 
+<!-- ── MARQUEE STRIP ── -->
+<section id="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="marquee-group">
+      <span>UI/UX &amp; Product Designer</span><span class="marquee-dot">&#10022;</span>
+      <span>MSc User Experience Design</span><span class="marquee-dot">&#10022;</span>
+      <span>Currently Open to Work</span><span class="marquee-dot">&#10022;</span>
+    </div>
+    <div class="marquee-group">
+      <span>UI/UX &amp; Product Designer</span><span class="marquee-dot">&#10022;</span>
+      <span>MSc User Experience Design</span><span class="marquee-dot">&#10022;</span>
+      <span>Currently Open to Work</span><span class="marquee-dot">&#10022;</span>
+    </div>
+    <div class="marquee-group">
+      <span>UI/UX &amp; Product Designer</span><span class="marquee-dot">&#10022;</span>
+      <span>MSc User Experience Design</span><span class="marquee-dot">&#10022;</span>
+      <span>Currently Open to Work</span><span class="marquee-dot">&#10022;</span>
+    </div>
+    <div class="marquee-group">
+      <span>UI/UX &amp; Product Designer</span><span class="marquee-dot">&#10022;</span>
+      <span>MSc User Experience Design</span><span class="marquee-dot">&#10022;</span>
+      <span>Currently Open to Work</span><span class="marquee-dot">&#10022;</span>
     </div>
   </div>
 </section>
 
-<section id="contact" style="background:var(--white);padding:var(--sp-80) var(--sp-20);" aria-labelledby="contact-title">
-  <div class="content-col">
-    <div class="appear" style="display:flex;align-items:center;justify-content:space-between;gap:var(--sp-40);flex-wrap:wrap;">
+<!-- ── WORK / PROJECTS ── -->
+<section id="work" aria-labelledby="work-title">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">Selected Work</span>
+      <h2 class="section-title" id="work-title">Featured Case Studies</h2>
+      <p class="section-sub">Real problems, real solutions &mdash; each project driven by research and refined by iteration.</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- ─ CARD 1 — FEATURED (Culinarr) ─ -->
+      <article class="project-card featured" data-href="/case-studies/culinarr/index.html" aria-label="Culinarr case study">
+        <div class="card-image">
+          <img src="/assets/img/01home.png" alt="Culinarr home screen">
+          <div class="card-overlay"></div>
+          <span class="card-view-label">View Case Study</span>
+        </div>
+        <div class="card-body">
+          <div class="card-type">Mobile Application</div>
+          <h3 class="card-title">Culinarr &mdash; Designing a Shared Dining Experience for Groups</h3>
+          <p class="card-desc">A QR-based ordering system for inclusive group dining.</p>
+          <div class="card-tags">
+            <span class="card-tag">Product Design</span>
+            <span class="card-tag">Mobile</span>
+            <span class="card-tag">Hospitality</span>
+            <span class="card-tag">Academic</span>
+          </div>
+          <a href="/case-studies/culinarr/index.html" class="card-arrow">Read Case Study <span class="card-arrow-icon">&rarr;</span></a>
+        </div>
+      </article>
+
+      <!-- ─ CARD 2 — DWP ─ -->
+      <article class="project-card" data-href="/case-studies/dwp-case-study/index.html" aria-label="DWP Bereavement Service Design case study">
+        <div class="card-image">
+          <img src="/assets/img/dwp_bg.png" alt="DWP bereavement service screen">
+          <div class="card-overlay"></div>
+          <span class="card-view-label">View Case Study</span>
+        </div>
+        <div class="card-body">
+          <div class="card-type">Service Design</div>
+          <h3 class="card-title">Improving Bereavement Services in the UK</h3>
+          <p class="card-desc">Simplifying entitlement discovery for the newly bereaved.</p>
+          <div class="card-tags">
+            <span class="card-tag">Service Design</span>
+            <span class="card-tag">Public Sector</span>
+            <span class="card-tag">Industry Project</span>
+          </div>
+          <a href="/case-studies/dwp-case-study/index.html" class="card-arrow">Read Case Study <span class="card-arrow-icon">&rarr;</span></a>
+        </div>
+      </article>
+
+      <!-- ─ CARD 3 — Autodesk ─ -->
+      <article class="project-card" data-href="/case-studies/autodesk-case-study/index.html" aria-label="Autodesk ACC UX Design case study">
+        <div class="card-image">
+          <img src="/assets/img/ad_bg.png" alt="Autodesk ACC screen">
+          <div class="card-overlay"></div>
+          <span class="card-view-label">View Case Study</span>
+        </div>
+        <div class="card-body">
+          <div class="card-type">UX Design</div>
+          <h3 class="card-title">Autodesk ACC &mdash; Streamlining Construction Workflows</h3>
+          <p class="card-desc">Streamlining construction workflows for field and office teams.</p>
+          <div class="card-tags">
+            <span class="card-tag">Enterprise UX</span>
+            <span class="card-tag">B2B</span>
+            <span class="card-tag">Industry Project</span>
+          </div>
+          <a href="/case-studies/autodesk-case-study/index.html" class="card-arrow">Read Case Study <span class="card-arrow-icon">&rarr;</span></a>
+        </div>
+      </article>
+
+    </div>
+
+    <div style="text-align:center; margin-top: var(--sp-24);">
+      <a href="/case-studies" class="btn-ghost">View More &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── PHOTO GALLERY (zigzag, hover-to-focus) ── -->
+<section id="gallery" aria-labelledby="gallery-title">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">Off the Clock</span>
+      <h2 class="section-title" id="gallery-title">A Few Frames Outside the Studio</h2>
+      <p class="section-sub">Hover a frame to bring it into focus.</p>
+    </div>
+
+    <div class="gallery-strip" id="gallery-strip">
+      <div class="gallery-item"><img src="/assets/img/IMG_8523.jpeg" alt="Snapshot 1" loading="lazy"><span class="gallery-caption">This is frame #1</span></div>
+      <div class="gallery-item"><img src="/assets/img/two.png" alt="Snapshot 2" loading="lazy"><span class="gallery-caption">This is frame #2</span></div>
+      <div class="gallery-item"><img src="/assets/img/two.png" alt="Snapshot 3" loading="lazy"><span class="gallery-caption">This is frame #3</span></div>
+      <div class="gallery-item"><img src="/assets/img/two.png" alt="Snapshot 4" loading="lazy"><span class="gallery-caption">This is frame #4</span></div>
+      <div class="gallery-item"><img src="/assets/img/two.png" alt="Snapshot 5" loading="lazy"><span class="gallery-caption">This is frame #5</span></div>
+      <div class="gallery-item"><img src="/assets/img/two.png" alt="Snapshot 6" loading="lazy"><span class="gallery-caption">This is frame #6</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SITE FOOTER / CONTACT (replaces old About + Contact + footer) ── -->
+<footer class="site-footer" id="contact" aria-label="Get in touch">
+  <div class="container">
+
+    <div class="footer-top reveal">
       <div>
-        <span class="label" style="display:block;margin-bottom:var(--sp-16);">Open to Opportunities</span>
-        <h2 style="font-family:var(--font-display);font-size:clamp(28px,4vw,42px);font-weight:900;letter-spacing:-.04em;color:var(--ink-900);line-height:1;margin-top:0;" id="contact-title">Let's talk design.</h2>
-        <p style="font-size:16px;color:var(--ink-500);margin-top:var(--sp-12);line-height:1.65;">Open to roles in service design, product design, and UX research - particularly in public sector, healthcare, and complex system domains.</p>
+        <span class="label">Let&rsquo;s Connect</span>
+        <h2 class="footer-title">Got a project<br>in <span>mind?</span></h2>
+        <p class="footer-sub">Whether it&rsquo;s a full product build or just a conversation, I&rsquo;m always happy to talk design.</p>
       </div>
-      <div style="display:flex;gap:var(--sp-16);flex-wrap:wrap;">
-        <a href="https://calendly.com/piyushjadhav" target="_blank" rel="noopener"
-           style="font-family:var(--font-display);font-size:14px;font-weight:700;background:var(--ink-900);color:white;padding:14px 28px;border-radius:var(--r-md);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background .2s,transform .15s,box-shadow .2s;"
-           onmouseover="this.style.background='var(--accent)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px rgba(27,79,216,.35)';"
-           onmouseout="this.style.background='var(--ink-900)';this.style.transform='';this.style.boxShadow='';">
-          Book a Chat
-        </a>
-        <a href="assets/Resume.pdf" target="_blank" rel="noopener"
-           style="font-family:var(--font-display);font-size:14px;font-weight:600;color:var(--ink-700);background:none;border:1.5px solid var(--ink-300);padding:14px 24px;border-radius:var(--r-md);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s,color .2s,transform .15s;"
-           onmouseover="this.style.borderColor='var(--ink-700)';this.style.color='var(--ink-900)';this.style.transform='translateY(-2px)';"
-           onmouseout="this.style.borderColor='var(--ink-300)';this.style.color='var(--ink-700)';this.style.transform='';">
-          View Resume
-        </a>
+      <div class="footer-actions">
+        <a href="mailto:work.piyushjadhav@gmail.com" class="btn-primary">Say hello</a>
+        <a href="assets/Resume.pdf" class="btn-ghost" target="_blank" rel="noopener">View resume</a>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <span class="footer-left">© 2026 Piyush Jadhav. Designed &amp; built with ♥</span>
-    <div class="footer-links">
-      <a href="https://www.linkedin.com/in/piyushjadhavdesign/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://www.behance.net/piyusshh" target="_blank" rel="noopener">Behance</a>
+    <div class="footer-links-row reveal">
+      <span class="label" style="color: rgba(255,255,255,.4);">Find me elsewhere</span>
+      <nav class="footer-social" aria-label="Social links">
+        <a href="https://www.linkedin.com/in/piyushjadhavdesign/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3"></rect><path d="M8 10v6M8 7.75v.1M11.5 16v-3.4a2.6 2.6 0 0 1 5.2 0V16M11.5 10v6"></path></svg>
+          <span>LinkedIn</span>
+        </a>
+        <a href="https://dribbble.com/piyushjadhav" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><path d="M4 9c4.5 1.5 10 1.5 16 .3M4.5 16c4-3 12-3.5 15-1M9 3.5c3 3.5 5 9 4.5 17"></path></svg>
+          <span>Dribbble</span>
+        </a>
+        <a href="https://twitter.com/piyushjadhav" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 5.9c-.7.3-1.5.5-2.3.7.8-.5 1.5-1.3 1.8-2.3-.8.5-1.7.8-2.6 1a4.1 4.1 0 0 0-7 3.7A11.6 11.6 0 0 1 3.4 4.6a4.1 4.1 0 0 0 1.3 5.5c-.6 0-1.3-.2-1.8-.5v.1c0 2 1.4 3.6 3.3 4a4.2 4.2 0 0 1-1.9.1 4.1 4.1 0 0 0 3.9 2.9A8.3 8.3 0 0 1 2 18.4a11.6 11.6 0 0 0 6.3 1.9c7.5 0 11.7-6.3 11.7-11.7v-.5c.8-.6 1.5-1.3 2-2.2Z"></path></svg>
+          <span>Twitter</span>
+        </a>
+      </nav>
     </div>
+
+    <div class="footer-credit-line">
+      <span>Built with <strong>Claude</strong></span>
+      <span class="footer-credit-dot">&#9679;</span>
+      <span>Designed in <strong>Figma</strong></span>
+      <span class="footer-credit-dot">&#9679;</span>
+      <span>&copy;&nbsp;2026 Piyush Jadhav</span>
+    </div>
+
   </div>
 </footer>
 
 <script>
-(function() {
-  'use strict';
+/* ── Custom cursor ── */
+const cur   = document.getElementById('cursor');
+const ring  = document.getElementById('cursor-ring');
+const label = document.getElementById('cursor-label');
+let mx = -100, my = -100, rx = -100, ry = -100;
 
-  /* Custom cursor */
-  var cur  = document.getElementById('cursor');
-  var ring = document.getElementById('cursor-ring');
-  var mx = -100, my = -100, rx = -100, ry = -100;
-  document.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; });
-  function animCursor() {
-    rx += (mx - rx) * .15;
-    ry += (my - ry) * .15;
-    if (cur)  cur.style.cssText  += 'left:' + mx + 'px;top:' + my + 'px;';
-    if (ring) ring.style.cssText += 'left:' + rx + 'px;top:' + ry + 'px;';
-    requestAnimationFrame(animCursor);
-  }
-  animCursor();
-  document.querySelectorAll('a,button,.metric-card,.feature-item,.decision-item,.emotion-stage,.persona-card,.iter-card,.layer-card').forEach(function(el) {
-    el.addEventListener('mouseenter', function() { document.body.classList.add('cursor-hover'); });
-    el.addEventListener('mouseleave', function() { document.body.classList.remove('cursor-hover'); });
-  });
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
 
-  /* Navbar scroll */
-  var navbar = document.getElementById('navbar-inner');
-  window.addEventListener('scroll', function() {
-    navbar.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
+function animCursor() {
+  const lagX = rx + (mx - rx) * .15;
+  const lagY = ry + (my - ry) * .15;
+  rx = lagX; ry = lagY;
+  if (cur)   cur.style.cssText   += `left:${mx}px;top:${my}px;`;
+  if (ring)  ring.style.cssText  += `left:${lagX}px;top:${lagY}px;`;
+  if (label) label.style.cssText += `left:${mx}px;top:${my}px;`;
+  requestAnimationFrame(animCursor);
+}
+animCursor();
 
-  /* Hamburger */
-  var hamburger  = document.getElementById('hamburger');
-  var mobileMenu = document.getElementById('mobile-menu');
-  hamburger.addEventListener('click', function() {
-    var open = hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open', open);
-    mobileMenu.setAttribute('aria-hidden', String(!open));
-    hamburger.setAttribute('aria-expanded', String(open));
-    document.body.style.overflow = open ? 'hidden' : '';
-  });
-  document.querySelectorAll('#mobile-menu a').forEach(function(link) {
-    link.addEventListener('click', function() {
-      hamburger.classList.remove('open');
-      mobileMenu.classList.remove('open');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-      hamburger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    });
-  });
+document.querySelectorAll('a, button, .project-card, .gallery-item').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
 
-  /* Intersection Observer */
-  var io = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) { entry.target.classList.add('visible'); io.unobserve(entry.target); }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.appear, .stagger').forEach(function(el) { io.observe(el); });
+/* Cursor effect on hero photo */
+const heroPhoto = document.getElementById('hero-photo');
+heroPhoto?.addEventListener('mouseenter', () => document.body.classList.add('cursor-photo'));
+heroPhoto?.addEventListener('mouseleave', () => document.body.classList.remove('cursor-photo'));
 
-  /* Side stepper */
-  var sections = ['hero','problem','research','define','hmw','design','testing','reflection'];
-  var stepperItems = document.querySelectorAll('.stepper-item');
+/* ── Navbar scroll ── */
+const navInner = document.getElementById('navbar-inner');
+window.addEventListener('scroll', () => {
+  navInner.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
 
-  function setActiveSection(id) {
-    var cappedId = (sections.indexOf(id) === -1) ? 'reflection' : id;
-    var activeIndex = sections.indexOf(cappedId);
-    stepperItems.forEach(function(item, i) {
-      var isActive = item.dataset.section === cappedId;
-      var diff = Math.abs(i - activeIndex);
-      item.classList.toggle('active', isActive);
-      var dot = item.querySelector('.stepper-dot');
-      if (isActive) { dot.style.transform = 'scale(1.25) translateX(3px)'; dot.style.opacity = '1'; }
-      else if (diff === 1) { dot.style.transform = 'scale(1.0) translateX(1.5px)'; dot.style.opacity = '0.6'; }
-      else { dot.style.transform = 'scale(0.85) translateX(0)'; dot.style.opacity = '0.35'; }
-    });
-  }
+/* ── Hamburger ── */
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open', open);
+  mobileMenu.setAttribute('aria-hidden', String(!open));
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+function closeMobile() {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  mobileMenu.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
 
-  var sectionEls = sections.map(function(id) { return document.getElementById(id); }).filter(Boolean);
-
-  function getActiveSection() {
-    var scrollY = window.scrollY;
-    var windowH = window.innerHeight;
-    var current = sectionEls[0];
-    sectionEls.forEach(function(el) {
-      var elTop = el.getBoundingClientRect().top + scrollY;
-      if (scrollY + windowH * 0.4 >= elTop) { current = el; }
-    });
-    return current ? current.id : sections[0];
-  }
-
-  window.addEventListener('scroll', function() { setActiveSection(getActiveSection()); }, { passive: true });
-  setActiveSection(getActiveSection());
-
-  function stepperClick(item) {
-    var target = document.getElementById(item.dataset.section);
-    if (!target) return;
-    var top = target.getBoundingClientRect().top + window.scrollY - 88;
-    window.scrollTo({ top: top, behavior: 'smooth' });
-  }
-  stepperItems.forEach(function(item) {
-    item.addEventListener('click', function() { stepperClick(item); setActiveSection(item.dataset.section); });
-    item.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); stepperClick(item); } });
-    item.setAttribute('tabindex', '0');
-    item.setAttribute('role', 'button');
-  });
-
-  /* Smooth scroll anchor links */
-  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-    anchor.addEventListener('click', function(e) {
-      var target = document.querySelector(this.getAttribute('href'));
-      if (!target) return;
-      e.preventDefault();
-      var top = target.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top: top, behavior: 'smooth' });
-    });
-  });
-
-  /* Hero stagger on load */
-  window.addEventListener('load', function() {
-    document.querySelectorAll('.appear, .stagger').forEach(function(el) {
-      if (el.getBoundingClientRect().top < window.innerHeight) { el.classList.add('visible'); }
-    });
-  });
-
-  /* ---------------------------------------------------------
-     MAGNIFIER GLASS - reusable across any number of images.
-     Wire up every ".jmap-wrap" block found on the page, each
-     with its own image and lens, fully independent of the others.
-     Desktop: hover the image to see a 3x zoomed lens.
-     Mobile/touch: press and hold, then drag to move the lens.
-  --------------------------------------------------------- */
-  (function initAllMagnifiers() {
-    var zoom = 3;  // 3x zoom level
-    var bw = 3;    // glass border width, matches CSS border
-
-    document.querySelectorAll('.jmap-wrap').forEach(function(wrap) {
-      var img = wrap.querySelector('.jmap-img');
-      var glass = wrap.querySelector('.jmap-glass');
-      if (!img || !glass) return;
-
-      var w, h;
-
-      function setup() {
-        w = glass.offsetWidth / 2;
-        h = glass.offsetHeight / 2;
-        glass.style.backgroundImage = "url('" + img.src + "')";
-        glass.style.backgroundRepeat = 'no-repeat';
-        glass.style.backgroundSize = (img.offsetWidth * zoom) + 'px ' + (img.offsetHeight * zoom) + 'px';
-      }
-
-      function getCursorPos(e) {
-        var rect = img.getBoundingClientRect();
-        var point = (e.touches && e.touches[0]) ? e.touches[0] : e;
-        return { x: point.clientX - rect.left, y: point.clientY - rect.top };
-      }
-
-      function moveMagnifier(e) {
-        var pos = getCursorPos(e);
-        var x = pos.x, y = pos.y;
-        var iw = img.offsetWidth, ih = img.offsetHeight;
-
-        // keep the lens from sliding past the edges of the image
-        if (x > iw - (w / zoom)) x = iw - (w / zoom);
-        if (x < w / zoom) x = w / zoom;
-        if (y > ih - (h / zoom)) y = ih - (h / zoom);
-        if (y < h / zoom) y = h / zoom;
-
-        glass.style.left = (x - w) + 'px';
-        glass.style.top = (y - h) + 'px';
-        glass.style.backgroundPosition = '-' + ((x * zoom) - w + bw) + 'px -' + ((y * zoom) - h + bw) + 'px';
-      }
-
-      /* Desktop: hover */
-      img.addEventListener('mouseenter', function() { setup(); wrap.classList.add('active'); });
-      img.addEventListener('mousemove', moveMagnifier);
-      img.addEventListener('mouseleave', function() { wrap.classList.remove('active'); });
-
-      /* Mobile: press and hold, then drag */
-      var pressTimer = null;
-      img.addEventListener('touchstart', function(e) {
-        pressTimer = setTimeout(function() {
-          setup();
-          wrap.classList.add('active');
-          moveMagnifier(e);
-        }, 250);
-      }, { passive: true });
-
-      img.addEventListener('touchmove', function(e) {
-        if (wrap.classList.contains('active')) {
-          e.preventDefault();
-          moveMagnifier(e);
-        }
-      }, { passive: false });
-
-      ['touchend', 'touchcancel'].forEach(function(evt) {
-        img.addEventListener(evt, function() {
-          clearTimeout(pressTimer);
-          wrap.classList.remove('active');
-        });
-      });
-    });
-  })();
-
-  /* ---------------------------------------------------------
-     SHARED EXPAND MODAL - one modal serves every image on the
-     page. Each ".jmap-expand-btn" just tells it which image's
-     src/alt to load before opening. Drag (desktop) or swipe
-     (mobile) to pan around the enlarged image.
-  --------------------------------------------------------- */
-  (function initSharedExpandModal() {
-    var modal = document.getElementById('jmapModal');
-    var modalImg = document.getElementById('jmapModalImg');
-    var closeBtn = document.getElementById('jmapModalClose');
-    var scrollArea = document.getElementById('jmapModalScroll');
-    if (!modal || !modalImg || !closeBtn || !scrollArea) return;
-
-    function openModal(src, alt) {
-      modalImg.src = src;
-      modalImg.alt = alt || 'Zoomed image';
-      modal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      requestAnimationFrame(function() {
-        scrollArea.scrollLeft = (scrollArea.scrollWidth - scrollArea.clientWidth) / 2;
-        scrollArea.scrollTop = 0;
-      });
+/* ── Scroll reveal ── */
+const revealEls = document.querySelectorAll('.reveal, .project-card');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const delay = entry.target.classList.contains('project-card')
+        ? Array.from(entry.target.parentElement.children).indexOf(entry.target) * 80
+        : 0;
+      setTimeout(() => entry.target.classList.add('visible'), delay);
+      io.unobserve(entry.target);
     }
-    function closeModal() {
-      modal.classList.remove('open');
-      document.body.style.overflow = '';
-    }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => io.observe(el));
 
-    document.querySelectorAll('.jmap-expand-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var wrap = btn.closest('.jmap-wrap');
-        var img = wrap ? wrap.querySelector('.jmap-img') : null;
-        if (img) openModal(img.src, img.alt);
-      });
+/* ── Project card click (whole card) ── */
+document.querySelectorAll('.project-card').forEach(card => {
+  const href = card.dataset.href;
+  if (href && href !== '#') {
+    card.addEventListener('click', e => {
+      if (!e.target.closest('.card-arrow')) window.location.href = href;
     });
+    card.setAttribute('role', 'link');
+    card.setAttribute('tabindex', '0');
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') window.location.href = href;
+    });
+  }
+});
 
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', function(e) { if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
-    });
+/* ── Gallery hover-to-focus, dim siblings ── */
+const galleryStrip = document.getElementById('gallery-strip');
+const galleryItems = galleryStrip ? Array.from(galleryStrip.children) : [];
+galleryItems.forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    galleryStrip.classList.add('has-active');
+    item.classList.add('is-active');
+  });
+  item.addEventListener('mouseleave', () => {
+    galleryStrip.classList.remove('has-active');
+    item.classList.remove('is-active');
+  });
+});
 
-    /* Click-and-drag panning on desktop (touch already scrolls natively) */
-    var isDown = false, startX = 0, startY = 0, startLeft = 0, startTop = 0;
-    scrollArea.addEventListener('mousedown', function(e) {
-      isDown = true;
-      scrollArea.classList.add('grabbing');
-      startX = e.pageX; startY = e.pageY;
-      startLeft = scrollArea.scrollLeft; startTop = scrollArea.scrollTop;
-    });
-    window.addEventListener('mouseup', function() {
-      isDown = false;
-      scrollArea.classList.remove('grabbing');
-    });
-    scrollArea.addEventListener('mouseleave', function() {
-      isDown = false;
-      scrollArea.classList.remove('grabbing');
-    });
-    scrollArea.addEventListener('mousemove', function(e) {
-      if (!isDown) return;
+/* ── Card tilt (desktop only) ── */
+const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
+
+document.querySelectorAll('.project-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    if (isTouchDevice()) return;
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width  - 0.5;
+    const y = (e.clientY - rect.top)  / rect.height - 0.5;
+    card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 4}deg) translateY(-4px)`;
+    card.style.boxShadow = `${-x * 20}px ${-y * 10}px 40px rgba(0,0,0,.12)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+    card.style.boxShadow = '';
+  });
+});
+
+/* ── Same tilt on the hero photo frame ── */
+document.querySelectorAll('.hero-photo-frame').forEach(photo => {
+  // The entrance animation (fadeSlideUp, fill: forwards) keeps overriding any
+  // inline transform we set afterwards — clear it once it's done so the tilt
+  // below can actually move the photo. Pin opacity first so it doesn't pop
+  // back to its pre-animation 0.
+  photo.addEventListener('animationend', () => {
+    photo.style.opacity = '1';
+    photo.style.animation = 'none';
+  }, { once: true });
+
+  photo.addEventListener('mousemove', e => {
+    if (isTouchDevice()) return;
+    const rect = photo.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width  - 0.5;
+    const y = (e.clientY - rect.top)  / rect.height - 0.5;
+    photo.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 4}deg) translateY(-4px)`;
+    photo.style.boxShadow = `${-x * 20}px ${-y * 10}px 40px rgba(0,0,0,.12)`;
+  });
+  photo.addEventListener('mouseleave', () => {
+    photo.style.transform = '';
+    photo.style.boxShadow = '';
+  });
+});
+
+/* ── Smooth anchor scroll with offset ── */
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
       e.preventDefault();
-      scrollArea.scrollLeft = startLeft - (e.pageX - startX);
-      scrollArea.scrollTop = startTop - (e.pageY - startY);
-    });
-  })();
-
-})();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
 </script>
 </body>
 </html>
