@@ -760,6 +760,38 @@
     }
     .footer-links a:hover { color: white; }
 
+    .footer-links-row {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--sp-24); flex-wrap: wrap;
+      margin-bottom: var(--sp-48);
+    }
+    .footer-social { display: flex; gap: var(--sp-24); flex-wrap: wrap; }
+    .footer-social a {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-display);
+      font-size: 14px; font-weight: 600;
+      color: rgba(255,255,255,.7); text-decoration: none;
+      transition: color .2s, transform .2s cubic-bezier(.22,1,.36,1);
+    }
+    .footer-social a:hover { color: white; transform: translateY(-1px); }
+    .footer-social svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+    .footer-credit-line {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; justify-content: center;
+      gap: 14px; flex-wrap: wrap;
+      padding-top: var(--sp-32);
+      border-top: 1px solid rgba(255,255,255,.1);
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,.4);
+      text-align: center;
+    }
+    .footer-credit-line strong { color: rgba(255,255,255,.75); font-weight: 700; }
+    .footer-credit-dot { color: rgba(255,255,255,.25); }
+
+
     /* ── KEYFRAMES ── */
     @keyframes fadeSlideUp {
       from { opacity: 0; transform: translateY(24px); }
@@ -825,12 +857,15 @@
       #cursor, #cursor-ring { display: none; }
       body { cursor: auto; }
       .hero-scroll-hint { display: none; }
+      .footer-links-row { flex-direction: column; align-items: center; text-align: center; gap: var(--sp-16); }
+      .footer-social { justify-content: center; }
     }
     @media (max-width: 479px) {
       .hero-headline { letter-spacing: -.03em; }
       .hero-actions { flex-direction: column; width: 100%; }
       .btn-primary, .btn-ghost { justify-content: center; width: 100%; }
       .footer-inner { flex-direction: column; text-align: center; }
+      .footer-social { flex-direction: column; gap: var(--sp-12); align-items: center; }
     }
   </style>
 </head>
@@ -1076,15 +1111,26 @@
 <!-- ── FOOTER ── -->
 <footer>
   <div class="container">
-    <div class="footer-inner">
-      <span class="footer-left">© 2026 Piyush Jadhav. Designed & built with ♥</span>
-      <div class="footer-links">
-        <!-- Edit hrefs to your actual social profiles -->
-        <a href="https://www.linkedin.com/in/piyushjadhavdesign/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://dribbble.com/piyushjadhav"    target="_blank" rel="noopener">Dribbble</a>
-        <a href="https://twitter.com/piyushjadhav"     target="_blank" rel="noopener">Twitter</a>
-      </div>
+    <div class="footer-links-row reveal">
+      <span class="label" style="color: rgba(255,255,255,.4);">Find me elsewhere</span>
+      <nav class="footer-social" aria-label="Social links">
+        <a href="https://www.linkedin.com/in/piyushjadhavdesign/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="3"></rect><path d="M8 10v6M8 7.75v.1M11.5 16v-3.4a2.6 2.6 0 0 1 5.2 0V16M11.5 10v6"></path></svg>
+          <span>LinkedIn</span>
+        </a>
+        <a href="https://www.behance.net/piyusshh" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-behance" viewBox="0 0 16 16"> <path d="M4.654 3c.461 0 .887.035 1.278.14.39.07.711.216.996.391s.497.426.641.747c.14.32.216.711.216 1.137 0 .496-.106.922-.356 1.242-.215.32-.566.606-.997.817.606.176 1.067.496 1.348.922s.461.957.461 1.563c0 .496-.105.922-.285 1.278a2.3 2.3 0 0 1-.782.887c-.32.215-.711.39-1.137.496a5.3 5.3 0 0 1-1.278.176L0 12.803V3zm-.285 3.978c.39 0 .71-.105.957-.285.246-.18.355-.497.355-.887 0-.216-.035-.426-.105-.567a1 1 0 0 0-.32-.355 1.8 1.8 0 0 0-.461-.176c-.176-.035-.356-.035-.567-.035H2.17v2.31c0-.005 2.2-.005 2.2-.005zm.105 4.193c.215 0 .426-.035.606-.07.176-.035.356-.106.496-.216s.25-.215.356-.39c.07-.176.14-.391.14-.641 0-.496-.14-.852-.426-1.102-.285-.215-.676-.32-1.137-.32H2.17v2.734h2.305zm6.858-.035q.428.427 1.278.426c.39 0 .746-.106 1.032-.286q.426-.32.53-.64h1.74c-.286.851-.712 1.457-1.278 1.848-.566.355-1.243.566-2.06.566a4.1 4.1 0 0 1-1.527-.285 2.8 2.8 0 0 1-1.137-.782 2.85 2.85 0 0 1-.712-1.172c-.175-.461-.25-.957-.25-1.528 0-.531.07-1.032.25-1.493.18-.46.426-.852.747-1.207.32-.32.711-.606 1.137-.782a4 4 0 0 1 1.493-.285c.606 0 1.137.105 1.598.355.46.25.817.532 1.102.958.285.39.496.851.641 1.348.07.496.105.996.07 1.563h-5.15c0 .58.21 1.11.496 1.396m2.24-3.732c-.25-.25-.642-.391-1.103-.391-.32 0-.566.07-.781.176s-.356.25-.496.39a.96.96 0 0 0-.25.497c-.036.175-.07.32-.07.46h3.196c-.07-.526-.25-.882-.497-1.132zm-3.127-3.728h3.978v.957h-3.978z"/></svg>   
+          <span>Behance</span>
+        </a>
+      </nav>
     </div>
+
+    <div class="footer-credit-line">
+      <span>Built with <strong>Claude</strong></span>
+      <span class="footer-credit-dot">&#9679;</span>
+      <span>&copy;&nbsp;2026 Piyush Jadhav</span>
+    </div>
+
   </div>
 </footer>
 
