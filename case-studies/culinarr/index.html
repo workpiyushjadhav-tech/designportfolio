@@ -444,7 +444,7 @@
       <span class="tag-pill">Culinarr</span>
       <div class="hero-divider" aria-hidden="true"></div>
       <span class="label">UX Design · Solo Project · 5 Weeks</span>
-      <span class="tag-pill" style="background:#F0F2F5;color:var(--ink-500);border-color:var(--ink-300);">⏱ 4 min read</span>
+      <span class="tag-pill" style="background:#F0F2F5;color:var(--ink-500);border-color:var(--ink-300);">⏱ 7 min read</span>
     </div>
     <h1 class="hero-headline appear" id="hero-headline">
       Solving the group dining problem<br>that food halls created but <em>nobody designed for</em>
@@ -466,7 +466,7 @@
 <section id="problem-banner" aria-labelledby="outcome-heading">
   <div class="problem-inner appear">
     <span class="label">Lead Outcome</span>
-    <h2 class="problem-headline" id="outcome-heading">84% task completion rate · SUS 79.5 ("Good") · <em style="color:var(--accent);font-style:normal;">zero critical usability errors</em> · zero WCAG AA violations.</h2>
+    <h2 class="problem-headline" id="outcome-heading">84% avg. task completion · SUS 79.5 ("Good") · zero WCAG AA colour-contrast violations · <em style="color:var(--accent);font-style:normal;">one flow iterated after testing.</em></h2>
     <div style="display:flex;gap:var(--sp-16);flex-wrap:wrap;justify-content:center;margin-top:var(--sp-8);">
       <a href="https://tinyurl.com/culinarrprototype" target="_blank" rel="noopener" class="proto-btn">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="1" width="10" height="14" rx="2"/><path d="M6 4h4M6 7h4M6 10h2"/></svg>
@@ -496,6 +496,7 @@
       <div class="metric-card"><div class="metric-num">78%</div><div class="metric-label">of diners prefer paying only for what they ordered</div></div>
       <div class="metric-card"><div class="metric-num">3.2×</div><div class="metric-label">more likely to overpay than risk social conflict</div></div>
     </div>
+    <p style="font-size:12px;color:var(--ink-500);margin-top:var(--sp-8);">Sources: UK food hall trade press; Gneezy, Haruvy &amp; Yafe (2004); Splitty (2025) survey; own 9-hall competitive audit.</p>
 
     <div class="appear" style="margin-top:var(--sp-48);">
       <div class="sub-heading" style="margin-bottom:var(--sp-16);">Why existing solutions don't solve it</div>
@@ -539,7 +540,7 @@
               <div class="carousel-slide-body">
                 <p>Behavioural economics reveals a hidden cost to dining in groups that the current technology does nothing to address.</p>
                 <ul>
-                  <li><strong>37% more spending</strong> when splitting equally (Gneezy, Haruvy &amp; Yafe, 2004)</li>
+                  <li><strong>37% more spending</strong> when splitting equally</li>
                   <li>Sequential ordering creates conformity pressure - first orderer sets unspoken spending ceiling</li>
                   <li>62% report higher anxiety splitting with acquaintances vs close friends</li>
                   <li>78% prefer paying only for what they ordered - but social cost prevents asking</li>
@@ -560,10 +561,9 @@
               <div class="carousel-slide-body">
                 <p>A review of 9 UK food halls found only 4 had any QR ordering capability. Of those, <strong>none supported multi-vendor group sessions.</strong></p>
                 <ul>
-                  <li>Mackie Mayor + Altrincham Market House: me&amp;u (single-vendor group)</li>
-                  <li>Boxpark: QR for drinks only</li>
-                  <li>Arcade Food Hall, Market Halls, STACK: counter service only</li>
-                  <li>The gap is structural, not incidental - no product exists for this context</li>
+                  <li>The 4 with QR ordering covered one vendor or drinks only - never the whole hall</li>
+                  <li>The other 5 were counter service, no QR at all</li>
+                  <li><strong>The gap is structural, not incidental</strong> - no product exists for this context</li>
                 </ul>
               </div>
             </div>
@@ -581,7 +581,7 @@
               <div class="carousel-slide-body">
                 <p>The money conversation at dinner carries more social risk than most people realise - and more than most products account for.</p>
                 <ul>
-                  <li>72% find discussing finances harder than death, religion, or politics (Splitty, 2025)</li>
+                  <li>72% find discussing finances harder than death, religion, or politics</li>
                   <li>3.2× more likely to overpay than risk perceived conflict</li>
                   <li>Simultaneously managing mental arithmetic + social impression creates genuine stress</li>
                   <li><strong>The desire for fairness exists - the social architecture for it doesn't</strong></li>
@@ -678,9 +678,9 @@
   <div class="content-col">
     
     <div class="section-heading appear">
-      <span class="label">From Research to Direction</span>
-      <h2 id="hmw-heading">Research showed coordination was the real problem. <strong>Payment was the symptom.</strong></h2>
-      <p>The journey map emotion arc made this visible - anxiety peaks at ordering, not checkout. That changed where the product needed to focus.</p>
+      <span class="label">From Insight to Brief</span>
+      <h2 id="hmw-heading">One design question. <strong>Everything else follows.</strong></h2>
+      <p>With ordering identified as the real anxiety point, the brief became: solve coordination first, payment second.</p>
     </div>
 
     <div class="hmw-banner appear" role="complementary" aria-label="How Might We statement">
@@ -692,7 +692,7 @@
       <div class="section-heading">
         <span class="label">Key Design Decision</span>
         <h2>The payment split: four options, one right answer.</h2>
-        <p>Buy a Feature (3 participants, £100 each, £140 total feature cost) validated priorities - and challenged one assumption. Feature 9 (Join session) scored <strong>0/3</strong>, directly contradicting its Must Have classification. The join flow became significantly more minimal as a result.</p>
+        <p>Buy a Feature (n=3 - small sample, directional rather than conclusive) surfaced one real surprise: Feature 9 (Join session) scored <strong>0/3</strong>, contradicting its "Must Have" classification. The join flow became significantly more minimal as a result.</p>
       </div>
       <div class="decision-grid">
         <div class="decision-item"><span class="decision-label decision-label--rejected">Rejected</span><div class="decision-title">Host-controlled split</div><div class="decision-body">Host sets split mode for everyone before ordering. Disproportionate power; latecomers have no say.</div></div>
@@ -776,7 +776,7 @@
                   <ul>
                     <li><strong>Cross-vendor dietary filter</strong></li>
                     <li>Dietary tags include text labels alongside icons (WCAG 1.4.1)</li>
-                    <li>Support for accessibility needs for neurodivergent users</li>
+                    <li>Dyslexia-friendly font toggle available</li>
                   </ul>
                 </div>
               </div>
@@ -796,7 +796,7 @@
                   <ul>
                     <li>Real-time "remaining table balance" shows group total settled</li>
                     <li>Apple Pay / Google Pay supported</li>
-                    <li>One person's failed payment never affects another's confirmed order</li>
+                    <li>Designed so one failed payment doesn't block others' confirmed orders (not yet tested against a real failure)</li>
                   </ul>
                 </div>
               </div>
@@ -873,19 +873,19 @@
   <div class="content-col">
     <div class="section-heading appear">
       <span class="label">Evaluation</span>
-      <h2 id="testing-heading">Pre-defined success criteria. <strong>All four met.</strong></h2>
-      <p>5 participants · in-person · all four core flows tested · SUS post-task.</p>
+      <h2 id="testing-heading">Three criteria cleared cleanly. <strong>One flow needed real work.</strong></h2>
+      <p>5 participants · in-person · all four core flows tested · SUS post-task. The dietary filter task fell short of target - see the breakdown below.</p>
     </div>
 
     <div class="metrics-row stagger appear">
-      <div class="metric-card"><div class="metric-num">84%</div><div class="metric-label">Task completion (target: &gt;80%)</div></div>
-      <div class="metric-card"><div class="metric-num">79.5</div><div class="metric-label">SUS - "Good" (target: &gt;75)</div></div>
-      <div class="metric-card"><div class="metric-num">0</div><div class="metric-label">Critical usability errors</div></div>
-      <div class="metric-card"><div class="metric-num">0</div><div class="metric-label">WCAG AA violations</div></div>
+      <div class="metric-card"><div class="metric-num">84%</div><div class="metric-label">Avg. task completion (target: &gt;80%; range 60-100%)</div></div>
+      <div class="metric-card"><div class="metric-num">79.5</div><div class="metric-label">SUS - "Good" (target: &gt;75, n=5)</div></div>
+      <div class="metric-card"><div class="metric-num">1</div><div class="metric-label">Flow flagged &amp; fixed - dietary filter (60%)</div></div>
+      <div class="metric-card"><div class="metric-num">0</div><div class="metric-label">WCAG AA colour-contrast violations</div></div>
     </div>
 
     <div style="margin-top:var(--sp-48);">
-      <div class="section-heading appear"><span class="label">Task Completion</span><h2>100% on the two highest-stakes flows.</h2></div>
+      <div class="section-heading appear"><span class="label">Task Completion</span><h2>Four flows landed well. <strong>One didn't.</strong></h2>
       <div class="card appear">
         <div class="task-row"><div class="task-pct task-pct--high">100%</div><div class="task-text"><strong>Create / join group session</strong> - zero-friction onboarding validated across all participants.</div></div>
         <div class="task-row"><div class="task-pct task-pct--high">80%</div><div class="task-text"><strong>Browse menu and place order</strong> - consistent structure worked for 4/5. P5 failed.</div></div>
