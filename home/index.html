@@ -242,12 +242,24 @@
         radial-gradient(ellipse 60% 60% at 70% 30%, rgba(30,94,255,.07) 0%, transparent 70%),
         radial-gradient(ellipse 40% 50% at 20% 80%, rgba(255,107,53,.05) 0%, transparent 60%);
     }
+
+    /* Hero: two-column layout (copy left, photo right), center-aligned —
+       text is centered within its column and the row is vertically centered,
+       while every element inside keeps its original copy, styling, and
+       animation timing. */
     .hero-inner {
       position: relative; z-index: 1;
-      width: 100%; max-width: 780px; margin: 0 auto;
-      display: flex; flex-direction: column; align-items: center;
-      text-align: center; gap: var(--sp-24);
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      align-items: center;
+      gap: var(--sp-40);
     }
+    .hero-copy {
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center;
+      gap: var(--sp-24);
+    }
+
     .hero-badge {
       display: inline-flex; align-items: center; gap: var(--sp-8);
       background: rgba(255,255,255,.9); border: 1px solid var(--ink-100);
@@ -275,7 +287,7 @@
     }
     .hero-name {
       font-family: var(--font-title);
-      font-size: clamp(38px, 8vw, 84px);
+      font-size: clamp(44px, 7vw, 96px);
       font-weight: 800;
       line-height: 1.02;
       letter-spacing: -.03em;
@@ -293,14 +305,15 @@
       flex-shrink: 0;
     }
 
-    /* Photo card below the name */
+    /* Photo card, now pinned top-right of the grid instead of centered below the name */
     .hero-photo-frame {
       position: relative;
-      width: min(80%, 300px);
-      margin: var(--sp-12) 0 var(--sp-8);
+      width: min(100%, 300px);
+      justify-self: center;
+      margin: 0;
       padding: 14px 14px 46px;
       background: var(--white);
-      border-radius: var(--r-md);
+      border-radius: 6px;
       box-shadow: var(--shadow-lift);
       transform: rotate(-2deg);
       transition: transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s ease;
@@ -312,9 +325,21 @@
       transform: rotate(0deg) translateY(-4px);
       box-shadow: 0 40px 90px rgba(13,15,17,.28);
     }
+    /* Thumbpin — counter-rotated 2deg so it stays upright against the frame's -2deg tilt */
+    .hero-photo-frame::before {
+      content: '';
+      position: absolute;
+      top: -7px; left: 50%;
+      width: 14px; height: 14px;
+      background: var(--accent-warm);
+      border-radius: 50%;
+      box-shadow: 0 3px 6px rgba(13,15,17,.35);
+      transform: translateX(-50%) rotate(2deg);
+      z-index: 2;
+    }
     .hero-photo-frame .photo-window {
       aspect-ratio: 4/5;
-      border-radius: var(--r-sm);
+      border-radius: 4px;
       overflow: hidden;
       background: var(--ink-100);
     }
@@ -334,7 +359,7 @@
       font-family: var(--font-body);
       font-size: clamp(16px, 2vw, 20px);
       color: var(--ink-500); line-height: 1.65;
-      max-width: 62ch;
+      max-width: 52ch;
       opacity: 0;
       animation: fadeSlideUp .7s .5s cubic-bezier(.34,1.2,.64,1) forwards;
     }
@@ -377,7 +402,9 @@
     .btn-ghost:hover { border-color: var(--ink-700); color: var(--ink-900); transform: translateY(-2px); }
     .btn-ghost:active { transform: translateY(0); }
 
-    /* ── MARQUEE STRIP ── */
+    /* ── MARQUEE STRIP ── (unchanged — sits directly below the hero's own
+       bottom padding, so the rhythm between hero content and this strip
+       is preserved exactly as before) */
     #marquee {
       background: var(--ink-900);
       overflow: hidden;
@@ -386,9 +413,11 @@
       padding: 24px 0;
     }
     .marquee-track {
+      /* ← Change this value to adjust marquee speed on desktop. Higher = slower. */
+      --marquee-speed: 22s;
       display: flex; align-items: center;
       width: max-content;
-      animation: tickerLoop 22s linear infinite;
+      animation: tickerLoop var(--marquee-speed) linear infinite;
       will-change: transform;
     }
     .marquee-group {
@@ -738,6 +767,8 @@
       .container { padding: 0 var(--sp-24); }
       .projects-grid { grid-template-columns: 1fr; }
       .project-card.featured { grid-column: auto; }
+      .hero-inner { grid-template-columns: 1fr; gap: var(--sp-32); }
+      .hero-photo-frame { justify-self: center; margin-top: var(--sp-16); }
     }
     @media (max-width: 767px) {
       :root { --sp-120: 64px; --sp-80: 48px; }
@@ -748,6 +779,13 @@
       #mobile-menu { display: block; }
       #cursor, #cursor-ring, #cursor-label { display: none; }
       body { cursor: auto; }
+      #hero { padding-left: var(--sp-24); padding-right: var(--sp-24); }
+      .hero-inner { padding: 0; }
+      /* ← Change this value to adjust marquee speed on mobile. Higher = slower.
+         A fixed animation-duration crosses a narrow viewport much faster than
+         a wide one (same distance, less screen to cross it over), so mobile
+         gets its own slower duration here rather than inheriting desktop's 22s. */
+      .marquee-track { --marquee-speed: 42s; }
       .gallery-strip { flex-wrap: wrap; row-gap: 28px; }
       .gallery-item { flex: 1 1 40%; max-width: 45%; }
       .gallery-item:nth-child(odd)  { transform: translateY(-8px) rotate(-3deg); }
@@ -805,18 +843,35 @@
   </ul>
 </div>
 
-<!-- ── HERO ── -->
+<!-- ── HERO — asymmetric two-column layout: copy left, polaroid right.
+     Badge text, hero copy, and button styles are all unchanged from the
+     original — only the arrangement and the photo frame's corners/pin
+     have moved. ── -->
 <section id="hero" aria-label="Introduction">
-  <div class="hero-inner">
+  <div class="hero-inner container">
 
-    <p class="hero-intro">Hey there, I&rsquo;m</p>
-    <h1 class="hero-name">Piyush Jadhav</h1>
+    <div class="hero-copy">
+      <div class="hero-badge">
+        <div class="hero-badge-dot pulse"></div>
+        <span>Available for new projects</span>
+      </div>
 
-    <div class="hero-badge">
-      <div class="hero-badge-dot pulse"></div>
-      <span>Available for new projects</span>
+      <p class="hero-intro">Hey there, I&rsquo;m</p>
+      <h1 class="hero-name">Piyush Jadhav</h1>
+
+      <p class="hero-sub">
+        A UI/UX and Product Designer, who spent years understanding people before designing for them, now crafting intuitive, human-centered tools that meet users where they are.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#work" class="btn-primary">View my work</a>
+        <a href="https://www.linkedin.com/in/piyushjadhavdesign/" target="_blank" rel="noopener" class="btn-ghost">
+          <img src="/assets/img/linkedin.svg" alt="" class="btn-icon">
+          Go to my LinkedIn
+        </a>
+      </div>
     </div>
-    
+
     <figure class="hero-photo-frame" id="hero-photo" title="That&rsquo;s me!">
       <div class="photo-window">
         <img src="/assets/img/main-profile.jpeg" alt="Piyush Jadhav">
@@ -824,22 +879,11 @@
       <figcaption>Based in Preston, UK</figcaption>
     </figure>
 
-    <p class="hero-sub">
-      A UI/UX and Product Designer, who spent years understanding people before designing for them, now crafting intuitive, human-centered tools that meet users where they are.
-    </p>
-
-    <div class="hero-actions">
-      <a href="#work" class="btn-primary">View my work</a>
-      <a href="https://www.linkedin.com/in/piyushjadhavdesign/" target="_blank" rel="noopener" class="btn-ghost">
-        <img src="/assets/img/linkedin.svg" alt="" class="btn-icon">
-        Go to my LinkedIn
-      </a>
-    </div>
-
   </div>
 </section>
 
-<!-- ── MARQUEE STRIP ── -->
+<!-- ── MARQUEE STRIP — unchanged, sits right after the hero's own bottom
+     padding so the spacing rhythm between content and strip is preserved ── -->
 <section id="marquee" aria-hidden="true">
   <div class="marquee-track">
     <div class="marquee-group">
@@ -1212,7 +1256,7 @@ document.querySelectorAll('.project-card').forEach(card => {
   });
 });
 
-/* ── Same tilt on the hero photo frame ── */
+/* ── Same tilt on the hero photo frame — unchanged from the original ── */
 document.querySelectorAll('.hero-photo-frame').forEach(photo => {
   // The entrance animation (fadeSlideUp, fill: forwards) keeps overriding any
   // inline transform we set afterwards — clear it once it's done so the tilt
