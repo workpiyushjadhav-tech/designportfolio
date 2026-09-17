@@ -229,9 +229,9 @@
 
     /* ── HERO ── */
     #hero {
-      min-height: 100vh;
+      min-height: auto;
       display: flex; align-items: center;
-      padding: 140px var(--sp-20) var(--sp-80);
+      padding: 96px var(--sp-20) 32px;
       position: relative; overflow: hidden;
       background: var(--ink-050);
     }
@@ -257,7 +257,7 @@
     .hero-copy {
       display: flex; flex-direction: column; align-items: center;
       text-align: center;
-      gap: var(--sp-24);
+      gap: var(--sp-16);
     }
 
     .hero-badge {
@@ -308,10 +308,10 @@
     /* Photo card, now pinned top-right of the grid instead of centered below the name */
     .hero-photo-frame {
       position: relative;
-      width: min(100%, 300px);
+      width: min(100%, 240px);
       justify-self: center;
       margin: 0;
-      padding: 14px 14px 46px;
+      padding: 12px 12px 38px;
       background: var(--white);
       border-radius: 6px;
       box-shadow: var(--shadow-lift);
@@ -410,7 +410,7 @@
       overflow: hidden;
       border-top: 1px solid rgba(255,255,255,.08);
       border-bottom: 1px solid rgba(255,255,255,.08);
-      padding: 24px 0;
+      padding: 16px 0;
     }
     .marquee-track {
       /* ← Change this value to adjust marquee speed on desktop. Higher = slower. */
@@ -1019,7 +1019,7 @@
       #mobile-menu { display: block; }
       #cursor, #cursor-ring, #cursor-label { display: none; }
       body { cursor: auto; }
-      #hero { padding-left: var(--sp-24); padding-right: var(--sp-24); }
+      #hero { padding-top: var(--sp-64); padding-bottom: var(--sp-24); padding-left: var(--sp-24); padding-right: var(--sp-24); }
       .hero-inner { padding: 0; }
       /* ← Change this value to adjust marquee speed on mobile. Higher = slower.
          A fixed animation-duration crosses a narrow viewport much faster than
