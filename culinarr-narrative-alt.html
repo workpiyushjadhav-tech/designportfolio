@@ -64,14 +64,13 @@
     #mobile-menu a:hover { color:var(--accent); padding-left:8px; }
 
     /* ============================================================
-       SIDE STEPPER — reused from the original file (item 15), now with
-       a translucent panel fill and a right-edge hover trigger zone:
-       hidden by default, reveals on hovering the trigger strip (or
-       the nav itself, or via keyboard focus)
+       SIDE STEPPER — reused from the original file (item 15). Always
+       visible, styled as a stroke-outline box (no fill) rather than the
+       original's solid pill/label look. Its vertical position is still
+       bounded to the "problem" → "end-of-case-study" range — see
+       updateStepperBounds() in the script.
        ============================================================ */
-    .side-nav-trigger { position:fixed; top:0; right:0; width:40px; height:100vh; z-index:149; background:transparent; }
-    #side-stepper { position:fixed; right:20px; top:50%; --stepper-tx:8px; --stepper-ty:-50%; transform:translateY(var(--stepper-ty)) translateX(var(--stepper-tx)); z-index:150; display:flex; flex-direction:column; gap:6px; align-items:flex-end; padding:var(--sp-16) var(--sp-12); border-radius:var(--r-xl); background:rgba(255,255,255,.45); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,.5); box-shadow:0 8px 32px rgba(0,0,0,.08); opacity:0; pointer-events:none; transition:opacity .3s ease,transform .3s cubic-bezier(.22,1,.36,1); }
-    #side-stepper.nav-open { opacity:1; pointer-events:all; --stepper-tx:0; }
+    #side-stepper { position:fixed; right:20px; top:50%; --stepper-ty:-50%; transform:translateY(var(--stepper-ty)); z-index:150; display:flex; flex-direction:column; gap:6px; align-items:flex-end; padding:var(--sp-16) var(--sp-12); border-radius:var(--r-xl); background:transparent; border:1.5px solid var(--ink-100); }
     .stepper-item { display:flex; align-items:center; gap:10px; cursor:pointer; padding:4px 0; }
     .stepper-label { font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-500); background:rgba(255,255,255,.9); backdrop-filter:blur(8px); border:1px solid var(--ink-100); padding:5px 12px; border-radius:100px; white-space:nowrap; opacity:1; transform:translateX(8px); transition:opacity .2s,transform .2s,color .2s,border-color .2s,background .2s; pointer-events:none; }
     .stepper-item:hover .stepper-label,.stepper-item.active .stepper-label { opacity:1; transform:translateX(0); }
@@ -502,9 +501,7 @@
 </div>
 
 <!-- SIDE STEPPER (item 15 — reused as-is, retargeted to this page's section ids).
-     Hidden by default; hovering the right-edge trigger zone (or the nav
-     itself, or focusing into it) reveals it. -->
-<div class="side-nav-trigger" id="side-nav-trigger" aria-hidden="true"></div>
+     Always visible, styled as a stroke-outline box. -->
 <nav id="side-stepper" aria-label="Section navigation">
   <div class="stepper-item active" data-section="hero"><span class="stepper-label">Overview</span><div class="stepper-dot"></div></div>
   <div class="stepper-item" data-section="problem"><span class="stepper-label">Problem</span><div class="stepper-dot"></div></div>
@@ -1172,20 +1169,9 @@
     item.setAttribute('tabindex','0'); item.setAttribute('role','button');
   });
 
-  /* side stepper — hover-to-reveal (right-edge trigger zone) */
+  /* side stepper — always visible; only its vertical position is managed
+     (see updateStepperBounds below) */
   var stepperNav=document.getElementById('side-stepper');
-  var stepperTrigger=document.getElementById('side-nav-trigger');
-  var navCloseTimer=null;
-  function openStepperNav(){ clearTimeout(navCloseTimer); stepperNav.classList.add('nav-open'); }
-  function scheduleCloseStepperNav(){ clearTimeout(navCloseTimer); navCloseTimer=setTimeout(function(){ stepperNav.classList.remove('nav-open'); },300); }
-  if(stepperTrigger&&stepperNav){
-    stepperTrigger.addEventListener('mouseenter',openStepperNav);
-    stepperTrigger.addEventListener('mouseleave',scheduleCloseStepperNav);
-    stepperNav.addEventListener('mouseenter',openStepperNav);
-    stepperNav.addEventListener('mouseleave',scheduleCloseStepperNav);
-    stepperNav.addEventListener('focusin',openStepperNav);
-    stepperNav.addEventListener('focusout',scheduleCloseStepperNav);
-  }
 
   /* side stepper — bounded "sticky" range: fixed + centred while between
      the "What is a food hall, exactly?" section and the "End of Case
