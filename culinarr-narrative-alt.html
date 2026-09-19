@@ -64,9 +64,14 @@
     #mobile-menu a:hover { color:var(--accent); padding-left:8px; }
 
     /* ============================================================
-       SIDE STEPPER — reused verbatim from the original file (item 15)
+       SIDE STEPPER — reused from the original file (item 15), now with
+       a translucent panel fill and a right-edge hover trigger zone:
+       hidden by default, reveals on hovering the trigger strip (or
+       the nav itself, or via keyboard focus)
        ============================================================ */
-    #side-stepper { position:fixed; right:20px; top:50%; transform:translateY(-50%); z-index:150; display:flex; flex-direction:column; gap:6px; align-items:flex-end; }
+    .side-nav-trigger { position:fixed; top:0; right:0; width:40px; height:100vh; z-index:149; background:transparent; }
+    #side-stepper { position:fixed; right:20px; top:50%; --stepper-tx:8px; --stepper-ty:-50%; transform:translateY(var(--stepper-ty)) translateX(var(--stepper-tx)); z-index:150; display:flex; flex-direction:column; gap:6px; align-items:flex-end; padding:var(--sp-16) var(--sp-12); border-radius:var(--r-xl); background:rgba(255,255,255,.45); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,.5); box-shadow:0 8px 32px rgba(0,0,0,.08); opacity:0; pointer-events:none; transition:opacity .3s ease,transform .3s cubic-bezier(.22,1,.36,1); }
+    #side-stepper.nav-open { opacity:1; pointer-events:all; --stepper-tx:0; }
     .stepper-item { display:flex; align-items:center; gap:10px; cursor:pointer; padding:4px 0; }
     .stepper-label { font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-500); background:rgba(255,255,255,.9); backdrop-filter:blur(8px); border:1px solid var(--ink-100); padding:5px 12px; border-radius:100px; white-space:nowrap; opacity:1; transform:translateX(8px); transition:opacity .2s,transform .2s,color .2s,border-color .2s,background .2s; pointer-events:none; }
     .stepper-item:hover .stepper-label,.stepper-item.active .stepper-label { opacity:1; transform:translateX(0); }
@@ -137,7 +142,7 @@
        CHARACTER REVEAL
        ============================================================ */
     .cast-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--sp-16); margin-top:var(--sp-48); }
-    .cast-card { position:relative; border-radius:var(--r-xl); overflow:hidden; aspect-ratio:3/4; background:var(--ink-050); border:1.5px solid var(--ink-100); }
+    .cast-card { position:relative; min-height:220px; border-radius:var(--r-xl); overflow:hidden; aspect-ratio:3/4; background:var(--ink-050); border:1.5px solid var(--ink-100); }
     .cast-card img { width:100%; height:100%; object-fit:cover; display:block; }
     .cast-name-overlay { position:absolute; inset:auto 0 0 0; padding:var(--sp-16); background:linear-gradient(0deg,rgba(13,15,17,.85) 0%,transparent 100%); }
     .cast-name-overlay .n { font-family:var(--font-display); color:white; font-weight:800; font-size:18px; letter-spacing:-.02em; }
@@ -176,8 +181,11 @@
        FOOD HALL EXPLAINER
        ============================================================ */
     .fh-explainer { display:grid; grid-template-columns:1fr 1.1fr; gap:var(--sp-40); align-items:center; margin-top:var(--sp-40); }
-    .fh-image { width:100%; aspect-ratio:4/3; border-radius:var(--r-xl); overflow:hidden; background:var(--ink-050); border:1.5px solid var(--ink-100); }
+    .fh-image { width:100%; min-height:220px; aspect-ratio:4/3; border-radius:var(--r-xl); overflow:hidden; background:var(--ink-050); border:1.5px solid var(--ink-100); }
     .fh-image img { width:100%; height:100%; object-fit:cover; display:block; }
+    .beat-media { width:100%; min-height:220px; }
+    .beat-media.wide-16-9 { aspect-ratio:16/9; }
+    .beat-media img { width:100%; height:100%; object-fit:cover; display:block; }
 
     /* ============================================================
        COMPARE TABLE
@@ -241,12 +249,19 @@
        SPLIT-DECISION BLOCK
        ============================================================ */
     .decision-grid { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-16); margin-top:var(--sp-32); }
-    .decision-item { padding:var(--sp-24); border-radius:var(--r-lg); background:var(--ink-050); border:1.5px solid var(--ink-100); display:flex; flex-direction:column; gap:var(--sp-8); }
+    /* rejected cards start faded against the dark backdrop, go solid on hover;
+       the selected card is always solid, with a green (not orange) tint */
+    .decision-item { padding:var(--sp-24); border-radius:var(--r-lg); background:rgba(255,255,255,.03); border:1.5px solid rgba(255,255,255,.08); display:flex; flex-direction:column; gap:var(--sp-8); opacity:.65; transition:opacity .25s ease,background .25s ease,border-color .25s ease; }
+    .decision-item:hover { opacity:1; background:rgba(255,255,255,.07); border-color:rgba(255,255,255,.2); }
+    .decision-item--selected { opacity:1; background:rgba(34,197,94,.14); border-color:rgba(34,197,94,.4); }
+    .decision-item--selected:hover { background:rgba(34,197,94,.2); border-color:rgba(34,197,94,.55); }
     .decision-label { font-family:var(--font-display); font-size:10px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; padding:3px 8px; border-radius:6px; width:fit-content; }
     .decision-label--rejected { background:#FEE2E2; color:#B91C1C; }
     .decision-label--selected { background:#D1FAE5; color:#065F46; }
-    .decision-title { font-family:var(--font-display); font-size:15px; font-weight:800; color:var(--ink-900); }
-    .decision-body { font-size:13px; line-height:1.6; color:var(--ink-500); }
+    .decision-title { font-family:var(--font-display); font-size:15px; font-weight:800; color:white; }
+    .decision-item--selected .decision-title { color:#D1FAE5; }
+    .decision-body { font-size:13px; line-height:1.6; color:rgba(255,255,255,.55); }
+    .decision-item--selected .decision-body { color:rgba(255,255,255,.75); }
 
     /* ============================================================
        TASK ROWS — adapted with a distinct title line (item 9); the
@@ -290,7 +305,7 @@
     .iter-images { display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1.5px solid var(--ink-100); }
     .iter-img-cell { padding:var(--sp-16); display:flex; flex-direction:column; gap:var(--sp-8); }
     .iter-img-cell:first-child { border-right:1.5px solid var(--ink-100); }
-    .iter-img-cell img { width:100%; border-radius:var(--r-md); object-fit:cover; }
+    .iter-img-cell img { width:100%; min-height:180px; aspect-ratio:4/3; border-radius:var(--r-md); object-fit:cover; }
     .iter-img-label { font-family:var(--font-display); font-size:10px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; text-align:center; display:inline-block; padding:4px 10px; border-radius:6px; align-self:center; }
     .iter-img-label--before { color:#92400E; background:#FEF3C7; }
     .iter-img-label--after { color:#065F46; background:#D1FAE5; }
@@ -422,6 +437,7 @@
       .iter-images { grid-template-columns:1fr; }
       .iter-img-cell:first-child { border-right:none; border-bottom:1.5px solid var(--ink-100); }
       .audit-stack { grid-template-columns:1fr; }
+      footer { padding:var(--sp-24) 0; }
       .footer-inner { flex-direction:column; text-align:center; }
       .footer-links { justify-content:center; }
       #sol-carousel .carousel-slide-inner { grid-template-rows:auto auto; }
@@ -447,6 +463,7 @@
       .story-avatar { width:40px; height:40px; }
       .story-bubble { max-width:calc(100% - 60px); }
       .task-row { grid-template-columns:40px 1fr; }
+      footer { padding:var(--sp-20) 0; }
     }
     @media (prefers-reduced-motion:reduce) {
       *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
@@ -484,7 +501,10 @@
   </ul>
 </div>
 
-<!-- SIDE STEPPER (item 15 — reused as-is, retargeted to this page's section ids) -->
+<!-- SIDE STEPPER (item 15 — reused as-is, retargeted to this page's section ids).
+     Hidden by default; hovering the right-edge trigger zone (or the nav
+     itself, or focusing into it) reveals it. -->
+<div class="side-nav-trigger" id="side-nav-trigger" aria-hidden="true"></div>
 <nav id="side-stepper" aria-label="Section navigation">
   <div class="stepper-item active" data-section="hero"><span class="stepper-label">Overview</span><div class="stepper-dot"></div></div>
   <div class="stepper-item" data-section="problem"><span class="stepper-label">Problem</span><div class="stepper-dot"></div></div>
@@ -509,7 +529,7 @@
     <h1 class="hero-headline appear" id="hero-headline">
       Solving the group dining problem<br>that food halls created but <em>nobody designed for</em>
     </h1>
-    <p class="hero-sub appear">A QR-triggered web app where groups scan in, browse a unified menu across every vendor, order individually, and settle their own share - no app download, no account, no post-dinner payment chasing.</p>
+    <p class="hero-sub appear">A QR-triggered web app where groups scan in, browse a unified menu across every vendor, order individually, and settle their own share — no app download, no account, no post-dinner payment chasing.</p>
     <div class="project-meta appear">
       <div class="meta-item"><div class="meta-key">Role</div><div class="meta-val">Product Designer (Solo)</div></div>
       <div class="meta-item"><div class="meta-key">Duration</div><div class="meta-val">5 Weeks</div></div>
@@ -517,21 +537,21 @@
       <div class="meta-item"><div class="meta-key">Output</div><div class="meta-val">13 screens · 4 flows · Usability tested</div></div>
     </div>
     <div class="hero-image-block appear" role="img" aria-label="Home Page">
-      <img src="/assets/img/01home.png" alt="Home page">
+      <img src="assets/img/01home.png" alt="Home page">
     </div>
   </div>
 </section>
 
 <!-- WHAT IS A FOOD HALL (id="problem" — stepper anchor) -->
 <section class="beat" id="problem">
-  <div class="narrow appear">
+  <div class="wide appear">
     <span class="label narrative-eyebrow">First, a definition</span>
     <h2 class="narrative-h" style="font-size:clamp(26px,4vw,38px);">What is a food hall, exactly?</h2>
     <p class="narrative-p">Not a restaurant, and not quite a food court either. A food hall is a shared room where several independent kitchens — a burger stall, a ramen counter, a cocktail bar — each run their own menu and their own till, but everyone at the table eats together, at shared, unassigned seating.</p>
     <p class="narrative-p">That single detail is where the whole story starts: <strong>one table, one group, one bill in everyone's head — but as many separate ordering systems as there are stalls.</strong></p>
     <div class="fh-explainer">
       <div class="fh-image">
-        <img src="/assets/img/food-hall-concept.png" alt="Illustration of a food hall layout: shared seating surrounded by independent food vendor stalls">
+        <img src="assets/img/food-hall-concept.png" alt="Illustration of a food hall layout: shared seating surrounded by independent food vendor stalls">
       </div>
       <div>
         <p class="narrative-p" style="margin-top:0;">Picture the room: four or five stalls around the edge, one shared floor of tables in the middle. Nobody owns the whole experience — so nobody designed for the whole experience either.</p>
@@ -548,19 +568,19 @@
     <p class="narrative-p">Sam booked the table. Zara's the one everyone checks the menu with first. Leo always ends up tapping his card. And Priya's doing the maths nobody asked her to do. None of them know it yet, but this is the night that becomes the brief.</p>
     <div class="cast-grid">
       <div class="cast-card">
-        <img src="/assets/img/one.png" alt="Sam">
+        <img src="assets/img/one.png" alt="Sam">
         <div class="cast-name-overlay"><div class="n">Sam, 28</div><div class="r">The Organiser</div></div>
       </div>
       <div class="cast-card">
-        <img src="/assets/img/two.png" alt="Zara">
+        <img src="assets/img/two.png" alt="Zara">
         <div class="cast-name-overlay"><div class="n">Zara, 24</div><div class="r">The Anxious Diner</div></div>
       </div>
       <div class="cast-card">
-        <img src="/assets/img/three.png" alt="Leo">
+        <img src="assets/img/three.png" alt="Leo">
         <div class="cast-name-overlay"><div class="n">Leo, 27</div><div class="r">The One Who Pays First</div></div>
       </div>
       <div class="cast-card">
-        <img src="/assets/img/four.png" alt="Priya">
+        <img src="assets/img/four.png" alt="Priya">
         <div class="cast-name-overlay"><div class="n">Priya, 25</div><div class="r">The One Doing the Maths</div></div>
       </div>
     </div>
@@ -575,7 +595,7 @@
     <p class="narrative-p">Four different frustrations, at the exact same table, in the same twenty minutes.</p>
     <div class="storyboard">
       <div class="story-msg story-msg--left">
-        <div class="story-avatar"><img src="/assets/img/one.png" alt="Sam"></div>
+        <div class="story-avatar"><img src="assets/img/one.png" alt="Sam"></div>
         <div class="story-bubble">
           <div class="story-name">Sam <span class="story-role">The Organiser</span></div>
           <p>"I've got six different orders across three WhatsApp threads and someone still hasn't replied to 'what do you want.'"</p>
@@ -583,7 +603,7 @@
         </div>
       </div>
       <div class="story-msg story-msg--right">
-        <div class="story-avatar"><img src="/assets/img/two.png" alt="Zara"></div>
+        <div class="story-avatar"><img src="assets/img/two.png" alt="Zara"></div>
         <div class="story-bubble">
           <div class="story-name">Zara <span class="story-role">The Anxious Diner</span></div>
           <p>"Four vendors, four menus, and I still can't tell which curry doesn't have nuts in it before I'm stood at the counter."</p>
@@ -591,7 +611,7 @@
         </div>
       </div>
       <div class="story-msg story-msg--left">
-        <div class="story-avatar"><img src="/assets/img/three.png" alt="Leo"></div>
+        <div class="story-avatar"><img src="assets/img/three.png" alt="Leo"></div>
         <div class="story-bubble">
           <div class="story-name">Leo <span class="story-role">The One Who Pays First</span></div>
           <p>"I always end up tapping my card first because someone has to — and somehow that turns into it being 'my treat.'"</p>
@@ -599,7 +619,7 @@
         </div>
       </div>
       <div class="story-msg story-msg--right">
-        <div class="story-avatar"><img src="/assets/img/four.png" alt="Priya"></div>
+        <div class="story-avatar"><img src="assets/img/four.png" alt="Priya"></div>
         <div class="story-bubble">
           <div class="story-name">Priya <span class="story-role">The One Doing the Maths</span></div>
           <p>"We do the sums on someone's phone calculator and it's always split evenly — even though I only had a side salad."</p>
@@ -612,7 +632,7 @@
 
 <!-- STAT PAYOFF -->
 <section class="beat beat--muted">
-  <div class="narrow appear">
+  <div class="wide appear">
     <span class="label narrative-eyebrow">But is this only their problem?</span>
     <h2 class="narrative-h" style="font-size:clamp(26px,4vw,38px);">Every one of these moments has a number behind it.</h2>
     <p class="narrative-p">Behavioural economics, a competitive audit of 9 UK food halls, and review mining across TripAdvisor, Reddit, Google, and Facebook turned four gripes into a pattern.</p>
@@ -668,14 +688,14 @@
                 <p>Behavioural economics reveals a hidden cost to dining in groups that the current technology does nothing to address.</p>
                 <ul>
                   <li><strong>37% more spending</strong> when splitting equally</li>
-                  <li>Sequential ordering creates conformity pressure - first orderer sets unspoken spending ceiling</li>
+                  <li>Sequential ordering creates conformity pressure — first orderer sets unspoken spending ceiling</li>
                   <li>62% report higher anxiety splitting with acquaintances vs close friends</li>
-                  <li>78% prefer paying only for what they ordered - but social cost prevents asking</li>
+                  <li>78% prefer paying only for what they ordered — but social cost prevents asking</li>
                 </ul>
               </div>
             </div>
             <div class="carousel-img">
-              <img src="/assets/img/e_1.png" alt="Behavioural research visual" style="width:100%;height:100%;object-fit:cover;">
+              <img src="assets/img/e_1.png" alt="Behavioural research visual" style="width:100%;height:100%;object-fit:cover;">
             </div>
           </div>
         </div>
@@ -684,18 +704,18 @@
           <div class="carousel-slide-inner">
             <div class="carousel-text">
               <span class="carousel-number">Evidence 02</span>
-              <h3 class="carousel-slide-title">UK Food Hall QR Audit - The Gap</h3>
+              <h3 class="carousel-slide-title">UK Food Hall QR Audit — The Gap</h3>
               <div class="carousel-slide-body">
                 <p>A review of 9 UK food halls found only 4 had any QR ordering capability. Of those, <strong>none supported multi-vendor group sessions.</strong></p>
                 <ul>
-                  <li>The 4 with QR ordering covered one vendor or drinks only - never the whole hall</li>
+                  <li>The 4 with QR ordering covered one vendor or drinks only — never the whole hall</li>
                   <li>The other 5 were counter service, no QR at all</li>
-                  <li><strong>The gap is structural, not incidental</strong> - no product exists for this context</li>
+                  <li><strong>The gap is structural, not incidental</strong> — no product exists for this context</li>
                 </ul>
               </div>
             </div>
             <div class="carousel-img">
-              <img src="/assets/img/e_2.png" alt="Food hall audit visual" style="width:100%;height:100%;object-fit:cover;">
+              <img src="assets/img/e_2.png" alt="Food hall audit visual" style="width:100%;height:100%;object-fit:cover;">
             </div>
           </div>
         </div>
@@ -706,17 +726,17 @@
               <span class="carousel-number">Evidence 03</span>
               <h3 class="carousel-slide-title">Payment Splitting Psychology</h3>
               <div class="carousel-slide-body">
-                <p>The money conversation at dinner carries more social risk than most people realise - and more than most products account for.</p>
+                <p>The money conversation at dinner carries more social risk than most people realise — and more than most products account for.</p>
                 <ul>
                   <li>72% find discussing finances harder than death, religion, or politics</li>
                   <li>3.2× more likely to overpay than risk perceived conflict</li>
                   <li>Simultaneously managing mental arithmetic + social impression creates genuine stress</li>
-                  <li><strong>The desire for fairness exists - the social architecture for it doesn't</strong></li>
+                  <li><strong>The desire for fairness exists — the social architecture for it doesn't</strong></li>
                 </ul>
               </div>
             </div>
             <div class="carousel-img">
-              <img src="/assets/img/e_3.png" alt="Payment psychology visual" style="width:100%;height:100%;object-fit:cover;">
+              <img src="assets/img/e_3.png" alt="Payment psychology visual" style="width:100%;height:100%;object-fit:cover;">
             </div>
           </div>
         </div>
@@ -739,7 +759,7 @@
 
 <!-- #1 THE TROUGH ISN'T WHERE YOU'D EXPECT (watermark treatment — item 3) -->
 <section class="beat beat--dark">
-  <div class="narrow appear beat-body">
+  <div class="wide appear beat-body">
     <span class="beat-watermark" aria-hidden="true">1</span>
     <!-- original small chip, commented out for easy rollback:
     <div class="beat-number"><span class="num">#1</span></div>
@@ -748,20 +768,20 @@
     <p class="narrative-p">I started this project assuming payment was the pain point. Mapping Sam's emotional journey said otherwise: the deepest drop is at <strong>ordering</strong> — the exact moment shown above, guessing for six people in WhatsApp while four have replied and two haven't.</p>
     <p class="narrative-p">Planning (confident) → Ordering (anxious) → At the Table (stressed) → Payment (resigned) → Aftermath (frustrated). That single insight reset the whole brief: solve coordination first, payment second.</p>
     <div class="beat-media wide-16-9" style="margin-top:var(--sp-32);border-radius:var(--r-xl);overflow:hidden;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);">
-      <img src="/assets/img/emotion-journey.png" alt="Sam's emotional journey across the five stages of a food hall visit" style="width:100%;height:auto;display:block;">
+      <img src="assets/img/emotion-journey.png" alt="Sam's emotional journey across the five stages of a food hall visit" style="width:100%;height:100%;object-fit:cover;display:block;">
     </div>
   </div>
 </section>
 
 <!-- HMW (id="hmw" — stepper anchor; item 4 — banner reused as-is from the original file) -->
 <section class="beat" id="hmw">
-  <div class="narrow appear">
+  <div class="wide appear">
     <span class="label narrative-eyebrow">From Insight to Brief</span>
     <h2 class="narrative-h" style="font-size:clamp(26px,4.5vw,42px);">One design question. <strong style="color:var(--accent);">Everything else follows.</strong></h2>
     <p class="narrative-p">With ordering identified as the real anxiety point, the brief became: solve coordination first, payment second.</p>
     <div class="hmw-banner" role="complementary" aria-label="How Might We statement">
       <span class="hmw-label">How Might We</span>
-      <p class="hmw-text">How might we help groups coordinate orders, pay fairly, and enjoy the social experience - without any app, account, or designated payer?</p>
+      <p class="hmw-text">How might we help groups coordinate orders, pay fairly, and enjoy the social experience — without any app, account, or designated payer?</p>
     </div>
   </div>
 </section>
@@ -779,7 +799,7 @@
       <div class="decision-item"><span class="decision-label decision-label--rejected">Rejected</span><div class="decision-title">Host-controlled split</div><div class="decision-body">Host sets the split for everyone up front. Disproportionate power; latecomers get no say.</div></div>
       <div class="decision-item"><span class="decision-label decision-label--rejected">Rejected</span><div class="decision-title">Democratic group vote</div><div class="decision-body">Majority choice applied to the whole table. Adds friction before anyone's even seen the menu.</div></div>
       <div class="decision-item"><span class="decision-label decision-label--rejected">Rejected</span><div class="decision-title">Hybrid split</div><div class="decision-body">Personal items individual, shared plates split among selected people. Too complex for the scope.</div></div>
-      <div class="decision-item" style="border-color:rgba(227,30,8,.3);background:var(--accent-muted);"><span class="decision-label decision-label--selected">Selected</span><div class="decision-title" style="color:var(--ink-900);">Transparent itemised default</div><div class="decision-body">Everyone pays their own items by default — the app already knows who ordered what. Equal split becomes a toggle, not the default.</div></div>
+      <div class="decision-item decision-item--selected"><span class="decision-label decision-label--selected">Selected</span><div class="decision-title">Transparent itemised default</div><div class="decision-body">Everyone pays their own items by default — the app already knows who ordered what. Equal split becomes a toggle, not the default.</div></div>
     </div>
   </div>
 </section>
@@ -790,7 +810,7 @@
     <span class="label narrative-eyebrow">From decision to sketch</span>
     <h2 class="narrative-h" style="font-size:clamp(24px,3.5vw,32px);">Wireframes and Ideation</h2>
     <div class="card" style="text-align:center;padding:var(--sp-40);margin-top:var(--sp-24);">
-      <img src="/assets/img/cul_wireframe.png" alt="Wireframe" style="width:100%;border-radius:var(--r-lg);aspect-ratio:16/9;object-fit:cover;">
+      <img src="assets/img/cul_wireframe.png" alt="Wireframe" style="width:100%;border-radius:var(--r-lg);aspect-ratio:16/9;object-fit:cover;">
     </div>
   </div>
 </section>
@@ -803,7 +823,7 @@
     <p class="narrative-p">The hardest visual problem: make a burger stall, a ramen counter, and a cocktail bar feel like one coherent product, not a generic aggregator. Variety comes from photography and vendor colour headers; the underlying card structure never changes. Four core flows carry that system end to end — from creating the session through to tracking the food.</p>
 
     <div style="margin-top:var(--sp-48);">
-      <div class="sub-heading" style="margin-bottom:var(--sp-16);">Key Screens - 4 Core Flows</div>
+      <div class="sub-heading" style="margin-bottom:var(--sp-16);">Key Screens — 4 Core Flows</div>
       <div class="carousel-wrap" id="sol-carousel" role="region" aria-label="Design screens">
         <div class="carousel-track" id="sol-track">
 
@@ -813,16 +833,16 @@
                 <span class="carousel-number">Flow 01</span>
                 <h3 class="carousel-slide-title">Host: Create &amp; Share Group Session</h3>
                 <div class="carousel-slide-body">
-                  <p>One tap to create a session after QR scan. 4-digit code, scannable QR, and shareable link - whichever works for the group.</p>
+                  <p>One tap to create a session after QR scan. 4-digit code, scannable QR, and shareable link — whichever works for the group.</p>
                   <ul>
-                    <li><strong>No account creation</strong> - guest checkout from the start</li>
+                    <li><strong>No account creation</strong> — guest checkout from the start</li>
                     <li>Auto table number detection from QR metadata</li>
-                    <li>Session closes when host submits - guests can't accidentally submit</li>
+                    <li>Session closes when host submits — guests can't accidentally submit</li>
                   </ul>
                 </div>
               </div>
               <div class="carousel-img">
-                <img src="/assets/img/ks-one.gif" alt="Host session creation screen" style="width:100%;height:100%;object-fit:cover;">
+                <img src="assets/img/ks-one.gif" alt="Host session creation screen" style="width:100%;height:100%;object-fit:cover;">
               </div>
             </div>
           </div>
@@ -833,7 +853,7 @@
                 <span class="carousel-number">Flow 02</span>
                 <h3 class="carousel-slide-title">Browse Accessible and Unified Multi-Vendor Menu</h3>
                 <div class="carousel-slide-body">
-                  <p>One component system across every vendor. Variety comes from photos and vendor colour headers - structure stays identical.</p>
+                  <p>One component system across every vendor. Variety comes from photos and vendor colour headers — structure stays identical.</p>
                   <ul>
                     <li><strong>Cross-vendor dietary filter</strong></li>
                     <li>Dietary tags include text labels alongside icons (WCAG 1.4.1)</li>
@@ -842,7 +862,7 @@
                 </div>
               </div>
               <div class="carousel-img">
-                <img src="/assets/img/ks-flow2.gif" alt="Unified menu screen" style="width:100%;height:100%;object-fit:cover;">
+                <img src="assets/img/ks-flow2.gif" alt="Unified menu screen" style="width:100%;height:100%;object-fit:cover;">
               </div>
             </div>
           </div>
@@ -862,7 +882,7 @@
                 </div>
               </div>
               <div class="carousel-img">
-                <img src="/assets/img/ks-flow1.gif" alt="Payment split screen" style="width:100%;height:100%;object-fit:cover;">
+                <img src="assets/img/ks-flow1.gif" alt="Payment split screen" style="width:100%;height:100%;object-fit:cover;">
               </div>
             </div>
           </div>
@@ -875,14 +895,14 @@
                 <div class="carousel-slide-body">
                   <p>Live tracking per item, per vendor. Absent from every existing competitor in this context.</p>
                   <ul>
-                    <li>Each item tracked: Received - Preparing - Ready</li>
+                    <li>Each item tracked: Received — Preparing — Ready</li>
                     <li>Notification when all group items are ready</li>
                     <li>Scored highest in Q5 (functions well integrated) on SUS</li>
                   </ul>
                 </div>
               </div>
               <div class="carousel-img">
-                <img src="/assets/img/ks-flow4.gif" alt="Order tracking screen" style="width:100%;height:100%;object-fit:cover;">
+                <img src="assets/img/ks-flow4.gif" alt="Order tracking screen" style="width:100%;height:100%;object-fit:cover;">
               </div>
             </div>
           </div>
@@ -905,8 +925,8 @@
 
     <!-- FINAL DESIGN PROTOTYPE (item 8 — reused as-is from the original file) -->
     <div class="card" style="text-align:center;padding:var(--sp-40);margin-top:var(--sp-48);">
-      <p class="sub-heading" style="margin-bottom:var(--sp-20);">Final Design - Hi-Fi Prototype</p>
-      <img src="/assets/img/cul_prototype.png" alt="Final prototype screens" style="width:100%;border-radius:var(--r-lg);aspect-ratio:16/9;object-fit:cover;margin-bottom:var(--sp-24);">
+      <p class="sub-heading" style="margin-bottom:var(--sp-20);">Final Design — Hi-Fi Prototype</p>
+      <img src="assets/img/cul_prototype.png" alt="Final prototype screens" style="width:100%;border-radius:var(--r-lg);aspect-ratio:16/9;object-fit:cover;margin-bottom:var(--sp-24);">
       <a href="https://tinyurl.com/culinarrprototype" target="_blank" rel="noopener" class="proto-btn" style="margin:0 auto;">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="1" width="10" height="14" rx="2"/><path d="M6 4h4M6 7h4M6 10h2"/></svg>
         View Full Prototype
@@ -955,8 +975,8 @@
     <h3 class="narrative-h" style="font-size:20px;margin-top:var(--sp-64);">What Testers Said</h3>
     <div class="quotes-grid">
       <div class="quote-card">
-        <p class="quote-card-text">"I spent 40 seconds looking for the filter before I asked. Once I found it I <em>used it immediately</em> - it's just not where I expected it."</p>
-        <span class="quote-card-source">P3 · Dietary filter failure - primary iteration driver</span>
+        <p class="quote-card-text">"I spent 40 seconds looking for the filter before I asked. Once I found it I <em>used it immediately</em> — it's just not where I expected it."</p>
+        <span class="quote-card-source">P3 · Dietary filter failure — primary iteration driver</span>
       </div>
       <div class="quote-card">
         <p class="quote-card-text">"The payment screen was actually the <em>easiest part</em>. I just paid for my stuff and I was done. No awkward conversations."</p>
@@ -966,23 +986,23 @@
 
     <h3 class="narrative-h" style="font-size:20px;margin-top:var(--sp-64);">Design Iteration</h3>
     <div class="iter-card">
-      <div class="iter-header"><div class="iter-num">01</div><div class="iter-title">Dietary filter discoverability - failed for P3 and P5</div></div>
+      <div class="iter-header"><div class="iter-num">01</div><div class="iter-title">Dietary filter discoverability — failed for P3 and P5</div></div>
       <div class="iter-body">
         <ul>
           <li><span class="iter-badge iter-badge--issue">Issue</span>Filter icon mistaken for general settings by both participants. P3 spent 40 seconds searching.</li>
-          <li><span class="iter-badge iter-badge--fix">Fix</span>Relocated to persistent top-bar position with text label "Filter by diet" - not icon-only. Aligned with WCAG 1.4.1.</li>
+          <li><span class="iter-badge iter-badge--fix">Fix</span>Relocated to persistent top-bar position with text label "Filter by diet" — not icon-only. Aligned with WCAG 1.4.1.</li>
         </ul>
       </div>
       <div class="iter-images">
-        <div class="iter-img-cell"><span class="iter-img-label iter-img-label--before">Before</span><img src="/assets/img/c_1.png" alt="Before - icon-only dietary filter"></div>
-        <div class="iter-img-cell"><span class="iter-img-label iter-img-label--after">After</span><img src="/assets/img/c_2.png" alt="After - labelled top-bar filter"></div>
+        <div class="iter-img-cell"><span class="iter-img-label iter-img-label--before">Before</span><img src="assets/img/c_1.png" alt="Before — icon-only dietary filter"></div>
+        <div class="iter-img-cell"><span class="iter-img-label iter-img-label--after">After</span><img src="assets/img/c_2.png" alt="After — labelled top-bar filter"></div>
       </div>
     </div>
     <div class="iter-card">
       <div class="iter-header"><div class="iter-num">02</div><div class="iter-title">P3's edge case: mixed split after someone has already paid</div></div>
       <div class="iter-body">
         <ul>
-          <li><span class="iter-badge iter-badge--insight">Insight</span>P3: "What if one person wants individual while the other three split the rest?" - not covered in the original design.</li>
+          <li><span class="iter-badge iter-badge--insight">Insight</span>P3: "What if one person wants individual while the other three split the rest?" — not covered in the original design.</li>
           <li><span class="iter-badge iter-badge--fix">Fix</span>Allow split mode change even after someone has paid. Remaining amount adjusts automatically.</li>
         </ul>
       </div>
@@ -991,7 +1011,7 @@
     <h3 class="narrative-h" style="font-size:20px;margin-top:var(--sp-64);">WCAG Accessibility Audit</h3>
     <div class="audit-stack">
       <div class="audit-card card--blue">
-        <span class="label">Colour Contrast - All Pass</span>
+        <span class="label">Colour Contrast — All Pass</span>
         <div class="audit-row"><span class="audit-row-label">#E31E08 (Primary) vs white</span><span class="audit-row-val">4.71:1 <i class="bi bi-check-lg"></i></span></div>
         <div class="audit-row"><span class="audit-row-label">#1B1B1B (Body text) vs white</span><span class="audit-row-val">17.22:1 <i class="bi bi-check-lg"></i></span></div>
         <div class="audit-row"><span class="audit-row-label">#6B7280 (Muted) vs white</span><span class="audit-row-val">4.83:1 <i class="bi bi-check-lg"></i></span></div>
@@ -1008,7 +1028,7 @@
 
 <!-- REFLECTION (id="reflection" — stepper anchor; item 12 — dark styling kept, split into tinted worked/didn't blocks) -->
 <section class="beat beat--dark" id="reflection">
-  <div class="narrow appear">
+  <div class="wide appear">
     <span class="label narrative-eyebrow" style="color:var(--accent-warm);">The honest part</span>
     <h2 class="narrative-h">What held up, and what I'd still want to test.</h2>
     <div class="refl-groups">
@@ -1028,8 +1048,10 @@
   </div>
 </section>
 
-<!-- END OF CASE STUDY + DEEPER DIVE (item 13 — reused as-is, heading text swapped) -->
-<section class="beat--tight" style="padding-bottom:var(--sp-12);padding-top:var(--sp-12);">
+<!-- END OF CASE STUDY + DEEPER DIVE (item 13 — reused as-is, heading text swapped).
+     id="end-of-case-study" is the lower boundary the side nav stays
+     within — see updateStepperBounds() in the script below. -->
+<section class="beat--tight" id="end-of-case-study" style="padding-bottom:var(--sp-12);padding-top:var(--sp-12);">
   <div class="section-divider"><div class="section-divider-line"></div><span class="section-divider-label">End of Case Study</span><div class="section-divider-line"></div></div>
 </section>
 
@@ -1063,7 +1085,7 @@
     <div>
       <span class="label" style="display:block;margin-bottom:var(--sp-16);">Open to Opportunities</span>
       <h2 class="contact-h">Let's talk design.</h2>
-      <p class="contact-p">Open to roles in product design, service design, and UX - consumer, hospitality, and complex multi-user products.</p>
+      <p class="contact-p">Open to roles in product design, service design, and UX — consumer, hospitality, and complex multi-user products.</p>
     </div>
     <div class="contact-actions">
       <a href="https://calendly.com/piyushjadhav" target="_blank" rel="noopener" class="contact-btn-primary">Book a Chat</a>
@@ -1143,14 +1165,61 @@
     sectionEls.forEach(function(el){var elTop=el.getBoundingClientRect().top+scrollY;if(scrollY+windowH*0.4>=elTop){current=el;}});
     return current?current.id:sections[0];
   }
-  window.addEventListener('scroll',function(){setActiveSection(getActiveSection());},{passive:true});
-  setActiveSection(getActiveSection());
   function stepperClick(item){var target=document.getElementById(item.dataset.section);if(!target)return;var top=target.getBoundingClientRect().top+window.scrollY-88;window.scrollTo({top:top,behavior:'smooth'});}
   stepperItems.forEach(function(item){
     item.addEventListener('click',function(){stepperClick(item);setActiveSection(item.dataset.section);});
     item.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();stepperClick(item);}});
     item.setAttribute('tabindex','0'); item.setAttribute('role','button');
   });
+
+  /* side stepper — hover-to-reveal (right-edge trigger zone) */
+  var stepperNav=document.getElementById('side-stepper');
+  var stepperTrigger=document.getElementById('side-nav-trigger');
+  var navCloseTimer=null;
+  function openStepperNav(){ clearTimeout(navCloseTimer); stepperNav.classList.add('nav-open'); }
+  function scheduleCloseStepperNav(){ clearTimeout(navCloseTimer); navCloseTimer=setTimeout(function(){ stepperNav.classList.remove('nav-open'); },300); }
+  if(stepperTrigger&&stepperNav){
+    stepperTrigger.addEventListener('mouseenter',openStepperNav);
+    stepperTrigger.addEventListener('mouseleave',scheduleCloseStepperNav);
+    stepperNav.addEventListener('mouseenter',openStepperNav);
+    stepperNav.addEventListener('mouseleave',scheduleCloseStepperNav);
+    stepperNav.addEventListener('focusin',openStepperNav);
+    stepperNav.addEventListener('focusout',scheduleCloseStepperNav);
+  }
+
+  /* side stepper — bounded "sticky" range: fixed + centred while between
+     the "What is a food hall, exactly?" section and the "End of Case
+     Study" divider; pinned at those edges (and scrolling with the page)
+     everywhere above or below that range (item: restrict side nav scroll) */
+  var stepperBoundStart=document.getElementById('problem');
+  var stepperBoundEnd=document.getElementById('end-of-case-study');
+  function updateStepperBounds(){
+    if(!stepperNav||!stepperBoundStart||!stepperBoundEnd)return;
+    if(window.innerWidth<=1024)return; /* nav is display:none below this width anyway */
+    var stepperH=stepperNav.offsetHeight||1;
+    var startTop=stepperBoundStart.getBoundingClientRect().top+window.scrollY;
+    var endBottom=stepperBoundEnd.getBoundingClientRect().top+window.scrollY+stepperBoundEnd.offsetHeight;
+    var viewportCenter=window.scrollY+window.innerHeight/2;
+    var minCenter=startTop+stepperH/2;
+    var maxCenter=endBottom-stepperH/2;
+    if(viewportCenter<minCenter){
+      stepperNav.style.position='absolute';
+      stepperNav.style.top=startTop+'px';
+      stepperNav.style.setProperty('--stepper-ty','0');
+    }else if(viewportCenter>maxCenter){
+      stepperNav.style.position='absolute';
+      stepperNav.style.top=(endBottom-stepperH)+'px';
+      stepperNav.style.setProperty('--stepper-ty','0');
+    }else{
+      stepperNav.style.position='fixed';
+      stepperNav.style.top='50%';
+      stepperNav.style.setProperty('--stepper-ty','-50%');
+    }
+  }
+  window.addEventListener('scroll',function(){setActiveSection(getActiveSection());updateStepperBounds();},{passive:true});
+  window.addEventListener('resize',updateStepperBounds);
+  setActiveSection(getActiveSection());
+  updateStepperBounds();
 
   /* carousels */
   function initCarousel(trackId,prevId,nextId,dotSelector){
