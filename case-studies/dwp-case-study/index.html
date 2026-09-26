@@ -44,8 +44,9 @@
     }
 
     body {
-      font-family: var(--font-body); background: var(--white); color: var(--ink-700); overflow-x: hidden; cursor: none;
+      font-family: var(--font-body); background: var(--white); color: var(--ink-700); overflow-x: hidden; cursor: auto;
     }
+    body.custom-cursor-on { cursor: none; }
 
     #cursor {
       position: fixed; width: 12px; height: 12px;
@@ -79,7 +80,7 @@
     .tag-pill {
       display: inline-flex; align-items: center;
       background: var(--accent-muted);
-      color: var(--accent);
+      color: var(--accent-dark);
       font-family: var(--font-display);
       font-size: 11px; font-weight: 700;
       letter-spacing: .08em; text-transform: uppercase;
@@ -993,7 +994,7 @@
     <div class="section-heading appear">
       <span class="label">Research &amp; Discovery</span>
       <h2 id="research-heading">An ethical pivot that produced <strong>15,631 coded sentences.</strong></h2>
-      <p>Recruiting recently bereaved participants within a 5-week window raised significant ethical concerns. Rather than proceed with methodologically compromised interviews, the team proposed a large-scale content analysis of Reddit bereavement communities.</p>
+      <p>Recruiting recently bereaved participants within a 5-week window raised significant ethical concerns. Rather than proceed with methodologically compromised interviews, I proposed a large-scale content analysis of Reddit bereavement communities, which the team then ran together.</p>
     </div>
 
     <div class="highlight-quote appear">
@@ -1589,6 +1590,9 @@
   var cur  = document.getElementById('cursor');
   var ring = document.getElementById('cursor-ring');
   var mx = -100, my = -100, rx = -100, ry = -100;
+  var hasFinePointer = !window.matchMedia || !window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  if (hasFinePointer) { document.body.classList.add('custom-cursor-on'); }
+  else { if (cur) cur.style.display = 'none'; if (ring) ring.style.display = 'none'; }
   document.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; });
   function animCursor() {
     rx += (mx - rx) * .15;
@@ -1706,3 +1710,4 @@
 </script>
 </body>
 </html>
+
