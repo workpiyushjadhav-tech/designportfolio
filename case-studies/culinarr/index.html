@@ -25,14 +25,15 @@
       --shadow-card:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.08);
       --shadow-nav:0 1px 2px rgba(0,0,0,.06),0 4px 24px rgba(0,0,0,.10);
     }
-    body { font-family:var(--font-body); background:var(--white); color:var(--ink-700); overflow-x:hidden; cursor:none; }
+    body { font-family:var(--font-body); background:var(--white); color:var(--ink-700); overflow-x:hidden; cursor:auto; }
+    body.custom-cursor-on { cursor:none; }
     #cursor { position:fixed; width:12px; height:12px; background:var(--accent); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .2s,height .2s,background .2s; mix-blend-mode:multiply; }
     #cursor-ring { position:fixed; width:36px; height:36px; border:1.5px solid var(--accent); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .35s cubic-bezier(.25,.46,.45,.94),height .35s cubic-bezier(.25,.46,.45,.94),border-color .2s; opacity:.5; }
     body.cursor-hover #cursor { width:20px; height:20px; background:var(--accent-warm); }
     body.cursor-hover #cursor-ring { width:56px; height:56px; border-color:var(--accent-warm); opacity:.3; }
     .container { width:100%; max-width:900px; margin:0 auto; padding:0 var(--sp-24); }
     .label { font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
-    .tag-pill { display:inline-flex; align-items:center; background:var(--accent-muted); color:var(--accent); font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:5px 12px; border-radius:100px; border:1px solid rgba(227,30,8,.18); white-space:nowrap; }
+    .tag-pill { display:inline-flex; align-items:center; background:var(--accent-muted); color:var(--accent-dark); font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:5px 12px; border-radius:100px; border:1px solid rgba(227,30,8,.18); white-space:nowrap; }
 
     /* NAVBAR */
     #navbar { position:fixed; top:0; left:0; right:0; z-index:200; padding:0 var(--sp-20) var(--sp-20); pointer-events:none; }
@@ -944,7 +945,7 @@
         <div class="audit-card card--blue">
           <span class="label">Colour Contrast - All Pass</span>
           <div class="audit-row"><span class="audit-row-label">#E31E08 (Primary) vs white</span><span class="audit-row-val">4.71:1 <i class="bi bi-check-lg"></i></span></div>
-          <div class="audit-row"><span class="audit-row-label">#1B1B1B (Body text) vs white</span><span class="audit-row-val">17.22:1 <i class="bi bi-check-lg"></i></span></div>
+          <div class="audit-row"><span class="audit-row-label">#3F4552 (Body text) vs white</span><span class="audit-row-val">9.61:1 <i class="bi bi-check-lg"></i></span></div>
           <div class="audit-row"><span class="audit-row-label">#6B7280 (Muted) vs white</span><span class="audit-row-val">4.83:1 <i class="bi bi-check-lg"></i></span></div>
         </div>
         <div class="audit-card">
@@ -1064,6 +1065,9 @@
   'use strict';
   var cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
   var mx=-100,my=-100,rx=-100,ry=-100;
+  var hasFinePointer=!window.matchMedia||!window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  if(hasFinePointer){document.body.classList.add('custom-cursor-on');}
+  else{if(cur)cur.style.display='none';if(ring)ring.style.display='none';}
   document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;});
   function animCursor(){
     rx+=(mx-rx)*.15; ry+=(my-ry)*.15;
@@ -1168,3 +1172,4 @@
 </script>
 </body>
 </html>
+
