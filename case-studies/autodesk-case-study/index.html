@@ -34,13 +34,14 @@
       --shadow-card: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.08);
       --shadow-nav:  0 1px 2px rgba(0,0,0,.06), 0 4px 24px rgba(0,0,0,.10);
     }
-    body { font-family:var(--font-body); background:var(--white); color:var(--ink-700); overflow-x:hidden; cursor:none; }
+    body { font-family:var(--font-body); background:var(--white); color:var(--ink-700); overflow-x:hidden; cursor:auto; }
+    body.custom-cursor-on { cursor:none; }
     #cursor { position:fixed; width:12px; height:12px; background:var(--accent); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .2s,height .2s,background .2s; mix-blend-mode:multiply; }
     #cursor-ring { position:fixed; width:36px; height:36px; border:1.5px solid var(--accent); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .35s cubic-bezier(.25,.46,.45,.94),height .35s cubic-bezier(.25,.46,.45,.94),border-color .2s; opacity:.5; }
     body.cursor-hover #cursor { width:20px; height:20px; background:var(--accent-warm); }
     body.cursor-hover #cursor-ring { width:56px; height:56px; border-color:var(--accent-warm); opacity:.3; }
     .label { font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
-    .tag-pill { display:inline-flex; align-items:center; background:var(--accent-muted); color:var(--accent); font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:5px 12px; border-radius:100px; border:1px solid rgba(27,106,222,.18); white-space:nowrap; }
+    .tag-pill { display:inline-flex; align-items:center; background:var(--accent-muted); color:var(--accent-dark); font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:5px 12px; border-radius:100px; border:1px solid rgba(27,106,222,.18); white-space:nowrap; }
 
     /* NDA BANNER */
     .nda-banner { background: #FFF7ED; border: 1.5px solid #FED7AA; border-radius: var(--r-lg); padding: var(--sp-16) var(--sp-24); display: flex; align-items: flex-start; gap: var(--sp-12); margin-bottom: var(--sp-32); }
@@ -710,9 +711,9 @@
     <div class="reflection-stack appear">
       <div class="reflection-card card--blue">
         <div class="label" style="margin-bottom:var(--sp-16);">What Worked</div>
-        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>AI-assisted filtering at scale.</strong> Processing 25,000+ comments manually would have taken weeks. Using AI to filter into 160 actionable insights before human thematic coding handled a data volume no small team could manage line by line in 6 weeks, while keeping all codes and themes human-defined.</span></div></div>
-        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>Predictive forecasting going beyond the brief.</strong> The original challenge asked how to integrate two existing views. Predictive forecasting moved the answer from better integration to a fundamentally different mental model — proactive rather than reactive. The research supported the ambition.</span></div></div>
-        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>Benchmark as a design anchor.</strong> Rather than designing a resolution tracking system from scratch, identifying that a market-leading competitor already used a tested status model gave us a concrete gap to articulate and a pattern to build from.</span></div></div>
+        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>Choosing AI-assisted filtering, deliberately.</strong> As team lead I made the call to filter with AI before human coding — processing 25,000+ comments by hand wasn't feasible in a 6-week sprint. That got us to 160 actionable insights while I kept every code and theme human-defined, not machine-decided.</span></div></div>
+        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>Pushing past the brief.</strong> The brief asked how to integrate two existing views. I pushed the team toward a different mental model instead — proactive rather than reactive — because the research supported going further than the brief technically required.</span></div></div>
+        <div class="refl-pointer"><div class="refl-pointer-head"><span class="refl-icon"><i class="bi bi-check-lg"></i></span><span><strong>Anchoring in a benchmark, not a blank page.</strong> Rather than have the team design a resolution-tracking system from scratch, I directed us to a market-leading competitor's tested status model first — giving us a concrete gap to articulate and a pattern to build from.</span></div></div>
       </div>
 
       <div class="reflection-card">
@@ -803,6 +804,9 @@
   'use strict';
   var cur=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
   var mx=-100,my=-100,rx=-100,ry=-100;
+  var hasFinePointer=!window.matchMedia||!window.matchMedia('(hover: none), (pointer: coarse)').matches;
+  if(hasFinePointer){document.body.classList.add('custom-cursor-on');}
+  else{if(cur)cur.style.display='none';if(ring)ring.style.display='none';}
   document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;});
   function animCursor(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;if(cur)cur.style.cssText+='left:'+mx+'px;top:'+my+'px;';if(ring)ring.style.cssText+='left:'+rx+'px;top:'+ry+'px;';requestAnimationFrame(animCursor);}
   animCursor();
@@ -887,4 +891,3 @@
 })();
 </script>
 </body>
-</html>
